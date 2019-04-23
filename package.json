@@ -3,9 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "gh-pages": "^2.0.1",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.0",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4",
+    "react-testing-library": "^6.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
