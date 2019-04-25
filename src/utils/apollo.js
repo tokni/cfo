@@ -1,4 +1,3 @@
-import React from "react";
 import { ApolloProvider } from "react-apollo-hooks";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
@@ -9,22 +8,26 @@ import { SubscriptionClient } from "subscriptions-transport-ws";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const http = new HttpLink({
-  uri: "https://halflife.herokuapp.com/v1alpha1/graphql",
+  uri: "https://cfo-foeroyar.herokuapp.com/v1alpha1/graphql",
   headers: {
-    "x-hasura-role": "user",
-    "x-hasura-user-id": 1
+    "x-hasura-admin-secret": "******",
+    "x-hasura-role": "User",
+    "x-hasura-user-id": "******"
   },
   fetch
 });
 
 const wsClient = new SubscriptionClient(
-  "wss://halflife.herokuapp.com/v1alpha1/graphql",
+  "wss://cfo-foeroyar.herokuapp.com/v1alpha1/graphql",
   {
     reconnect: true,
-    headers: {
-      "x-hasura-role": "user",
-      "x-hasura-user-id": 1
-    }
+    connectionParams: () => ({
+      headers: {
+        "x-hasura-admin-secret": "******",
+        "x-hasura-role": "User",
+        "x-hasura-user-id": "******"
+      }
+    })
   }
 );
 
