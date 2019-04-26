@@ -32,3 +32,15 @@ const GET_COMPANY = gql`
 //   })
 
 export { GET_COMPANY };
+
+
+const GET_DAY_BOOK = gql`
+{
+  day_book{
+    account_id
+    name
+    balance
+  }
+}
+`;
+export {GET_DAY_BOOK};

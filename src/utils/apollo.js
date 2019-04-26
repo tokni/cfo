@@ -10,9 +10,9 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 const http = new HttpLink({
   uri: "https://cfo-foeroyar.herokuapp.com/v1alpha1/graphql",
   headers: {
-    "x-hasura-admin-secret": "******",
+    "x-hasura-admin-secret": "skopun",
     "x-hasura-role": "User",
-    "x-hasura-user-id": "******"
+    "x-hasura-user-id": "31e49a3b-95d4-446c-b200-1bc733fcf3b9"
   },
   fetch
 });
