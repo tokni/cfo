@@ -1,9 +1,9 @@
-import { useQuery } from "react-apollo-hooks";
-import { GET_COMPANY } from "../../utils/query";
+import { useQuery, useSubscription } from "react-apollo-hooks";
+import { GET_COMPANY, GET_SUBSCRIP_COMPANY } from "../../utils/query";
 import React from "react";
 
 const Company = () => {
-  const { data, error, loading } = useQuery(GET_COMPANY, {
+  const { data, error, loading } = useSubscription(GET_SUBSCRIP_COMPANY, {
     suspend: false
   });
 

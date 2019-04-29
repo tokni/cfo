@@ -10,6 +10,7 @@
     "apollo-link-http": "^1.5.14",
     "apollo-link-ws": "^1.0.17",
     "apollo-utilities": "^1.2.1",
+    "auth0-js": "^9.10.2",
     "bootstrap": "^4.3.1",
     "gh-pages": "^2.0.1",
     "graphql": "^14.1.1",
@@ -18,6 +19,7 @@
     "react-apollo-hooks": "^0.4.5",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
     "subscriptions-transport-ws": "^0.9.16",
     "ws": "^6.2.1"
