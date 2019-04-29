@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { ApolloProvider } from "react-apollo-hooks";
-import { client } from "./utils/apollo";
-import Company from "./components/company/getCompany";
-import DayBook from "./components/Day Book/getDayBook";
+// import { ApolloProvider } from "react-apollo-hooks";
+// import { client } from "./utils/apollo";
+// import Company from "./components/company/getCompany";
+// import DayBook from "./components/Day Book/getDayBook";
 import Auth from "./Auth/Auth";
 import "./App.css";
 import Callback from "./Callback";
 import Db from "./components/db/db";
+import Home from "./components/Home/home";
 
 class App extends React.Component {
   constructor(props) {
@@ -24,17 +25,18 @@ class App extends React.Component {
     if (this.auth.isLoggedIn() === false) {
       console.log("inni í login");
       this.auth.login();
-      let test33 = this.auth.handleAuthentication;
-
-      this.setState({
-        token: test33
-      });
-    } else {
-      //  this.auth.handleAuthentication();
 
       this.setState({
         token: { name: "james" }
       });
+      console.log("inni í login:: ", this.auth.getTokens());
+    } else {
+      //  this.auth.handleAuthentication();
+      console.log("inni i else:: ", this.auth.getTokens());
+      this.setState({
+        token: { name: "james" }
+      });
+      console.log("inni í lsdfdsfsfsd:: ", this.auth.getTokens());
     }
   };
 
@@ -54,6 +56,11 @@ class App extends React.Component {
           <Router>
             <ul>
               <li>
+                <Link className="btn btn-primary" to="/home">
+                  Home
+                </Link>
+              </li>
+              <li>
                 <Link className="btn btn-primary" to="/callback">
                   Add User
                 </Link>
@@ -64,6 +71,7 @@ class App extends React.Component {
                 </Link>
               </li>
             </ul>
+            <Route path="/home" component={Home} />
             <Route path="/callback" component={Callback} />
             <Route path="/db" component={Db} />
           </Router>
