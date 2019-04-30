@@ -1,5 +1,5 @@
 import Auth0 from "auth0-js";
-import JWT from "jsonwebtoken";
+// import JWT from "jsonwebtoken";
 
 class Auth {
   auth = new Auth0.WebAuth({
@@ -32,15 +32,7 @@ class Auth {
   };
 
   setSession = authResult => {
-    // const res1 = JWT.decode(authResult.idToken);
-    const res1 = JWT.decode(authResult.idToken);
-
-    JWT.verify(authResult.idToken, "secret", (err, authdata) => {
-      console.log("auth data: ", authdata);
-    });
     localStorage.setItem("accessToken", authResult.accessToken);
-    console.log("res is: ", JSON.stringify(res1, null, 2));
-
     localStorage.setItem("sub", authResult.idTokenPayload.sub);
     localStorage.setItem("idToken", authResult.idToken);
   };
@@ -54,29 +46,9 @@ class Auth {
         console.log(err);
       }
       if (authResult && authResult.idToken && authResult.accessToken) {
-        console.log(JSON.stringify(authResult, null, 2));
-
         this.setSession(authResult);
       }
     });
   };
-
-  // handleAuthentication = () => {
-  //   this.auth.parseHash(this.setSession);
-  // };
-
-  // setSession = (err, authResult) => {
-  //   if (err) {
-  //     if (err.error === "login_required") {
-  //       this.login();
-  //     }
-  //     console.log(err);
-  //   }
-  //   if (authResult && authResult.accessToken && authResult.idToken) {
-  //     localStorage.setItem("accessToken", authResult.accessToken);
-  //     localStorage.setItem("idToken", authResult.idToken);
-  //   }
-  // };
 }
-
 export default Auth;

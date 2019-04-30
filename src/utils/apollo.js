@@ -11,9 +11,8 @@ const http = new HttpLink({
   uri: "https://cfo-foeroyar.herokuapp.com/v1alpha1/graphql",
   headers: {
     "x-hasura-admin-secret": process.env.REACT_APP_X_HASURA_ADMIN_KEY,
-    "x-hasura-role": "user",
+    "x-hasura-role": process.env.REACT_APP_X_HASURA_ROLE,
     "x-hasura-user-id": localStorage.getItem("sub")
-    // "x-hasura-user-id": process.env.REACT_APP_X_HASURA_USER_ID
   },
   fetch
 });
@@ -26,9 +25,8 @@ const wsClient = new SubscriptionClient(
     connectionParams: () => ({
       headers: {
         "x-hasura-admin-secret": process.env.REACT_APP_X_HASURA_ADMIN_KEY,
-        "x-hasura-role": "user",
+        "x-hasura-role": process.env.REACT_APP_X_HASURA_ROLE,
         "x-hasura-user-id": localStorage.getItem("sub")
-        // "x-hasura-user-id": process.env.REACT_APP_X_HASURA_USER_ID
       }
     }),
     wsForNode

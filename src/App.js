@@ -1,9 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { ApolloProvider } from "react-apollo-hooks";
-// import { client } from "./utils/apollo";
-// import Company from "./components/company/getCompany";
-// import DayBook from "./components/Day Book/getDayBook";
 import Auth from "./Auth/Auth";
 import "./App.css";
 import Callback from "./Callback";
@@ -20,12 +16,12 @@ class App extends React.Component {
     if (this.auth.isAuthenticated() === false) {
       this.auth.login();
     } else {
+      console.log("try again");
       //  this.auth.handleAuthentication();
     }
   };
 
   handleLogout = () => {
-    console.log("inni í logout");
     this.auth.logout();
   };
 

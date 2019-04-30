@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import Context from "../../Context/Context";
+import React from "react";
 
 const Home = () => {
-  const [state, dispatch] = useContext(Context);
-
   return (
     <header>
       <div>
