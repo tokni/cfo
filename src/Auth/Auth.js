@@ -1,81 +1,82 @@
-import auth0 from "auth0-js";
+import Auth0 from "auth0-js";
+import JWT from "jsonwebtoken";
 
-// let tokens = {
-//   idToken: null,
-//   accessToken: null,
-//   all: null
-// };
-export default class Auth {
-  constructor() {
-    this.tokens = {
-      idToken: null,
-      accessToken: null,
-      all: null
-    };
-  }
-  auth0 = new auth0.WebAuth({
+class Auth {
+  auth = new Auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
+    audience: `https://${process.env.REACT_APP_AUTH_DOMAIN}/userinfo`,
     redirectUri: "http://localhost:3000/callback",
     responseType: "token id_token",
     scope: "openid"
   });
 
-  login() {
-    this.auth0.authorize();
-    // this.handleAuthentication();
+  login = () => {
+    this.auth.authorize();
     this.handleAuthentication();
-    console.log("from login token: ", this.tokens.accessToken);
-  }
+  };
 
-  logout() {
-    this.tokens.idToken = null;
-    this.tokens.accessToken = null;
-    this.auth0.logout();
-  }
+  isAuthenticated = () => {
+    return localStorage.getItem("idToken") ? true : false;
+  };
+
+  logout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("idToken");
+    localStorage.removeItem("sub");
+    this.auth.logout();
+  };
 
   checkSession = () => {
-    this.auth0.checkSession({}, this.setSession);
+    this.auth.checkSession({}, this.setSession);
   };
 
-  getTokens() {
-    console.log("get tokens ===> ", this.tokens);
-    return this.tokens.accessToken;
-  }
+  setSession = authResult => {
+    // const res1 = JWT.decode(authResult.idToken);
+    const res1 = JWT.decode(authResult.idToken);
 
-  isLoggedIn() {
-    console.log("token: ", this.tokens);
-    return this.tokens.accessToken ? true : false;
-  }
+    JWT.verify(authResult.idToken, "secret", (err, authdata) => {
+      console.log("auth data: ", authdata);
+    });
+    localStorage.setItem("accessToken", authResult.accessToken);
+    console.log("res is: ", JSON.stringify(res1, null, 2));
 
-  // setSession = authResult => {
-  //   this.tokens.idToken = authResult.idToken;
-  //   this.tokens.accessToken = authResult.accessToken;
-  //   this.tokens.all = authResult;
-  // };
+    localStorage.setItem("sub", authResult.idTokenPayload.sub);
+    localStorage.setItem("idToken", authResult.idToken);
+  };
 
   handleAuthentication = () => {
-    this.auth0.parseHash(this.setSession);
+    this.auth.parseHash((err, authResult) => {
+      if (err) {
+        if (err.error === "login_required") {
+          this.login();
+        }
+        console.log(err);
+      }
+      if (authResult && authResult.idToken && authResult.accessToken) {
+        console.log(JSON.stringify(authResult, null, 2));
+
+        this.setSession(authResult);
+      }
+    });
   };
 
-  setSession = (err, authResult) => {
-    if (err) {
-      if (err.error === "login_required") {
-        this.login();
-      }
-      console.log(err);
-    }
-    console.log("auth result => ", authResult);
-    if (authResult) {
-      console.log("set session");
-      this.tokens.idToken = authResult.idToken;
-      this.tokens.accessToken = authResult.accessToken;
-      this.tokens.all = authResult;
-    }
-    if (authResult && authResult.accessToken && authResult.idToken) {
-      this.tokens.idToken = authResult.idToken;
-      this.tokens.accessToken = authResult.accessToken;
-      this.tokens.all = authResult;
-    }
-  };
+  // handleAuthentication = () => {
+  //   this.auth.parseHash(this.setSession);
+  // };
+
+  // setSession = (err, authResult) => {
+  //   if (err) {
+  //     if (err.error === "login_required") {
+  //       this.login();
+  //     }
+  //     console.log(err);
+  //   }
+  //   if (authResult && authResult.accessToken && authResult.idToken) {
+  //     localStorage.setItem("accessToken", authResult.accessToken);
+  //     localStorage.setItem("idToken", authResult.idToken);
+  //   }
+  // };
 }
+
+export default Auth;

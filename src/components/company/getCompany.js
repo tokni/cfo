@@ -23,7 +23,6 @@ const Company = () => {
       </tr>
     );
   }
-  console.log("data er : ", data.Company);
   return data.Company.map((item, key) => {
     return (
       <tr key={key}>
