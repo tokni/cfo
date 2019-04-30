@@ -3,7 +3,8 @@ import { ApolloProvider } from "react-apollo-hooks";
 import { client } from "../../utils/apollo";
 import Company from "../company/getCompany";
 import DayBook from "../Day Book/getDayBook";
-
+import Accounts from "../Account/getAccounts"
+import CreateAccounts from "../Account/createAccounts"
 class Db extends React.Component {
   render() {
     return (
@@ -28,9 +29,24 @@ class Db extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <DayBook />
+           <DayBook />
           </tbody>
         </table>
+        <table className="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">name</th>
+              <th scope="col">balance</th>
+              <th scope="col">debit</th>
+              <th scope="col">Account Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <Accounts />
+          </tbody>
+        </table>
+        <CreateAccounts/>
       </ApolloProvider>
     );
   }
