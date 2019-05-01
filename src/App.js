@@ -1,9 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { ApolloProvider } from "react-apollo-hooks";
-// import { client } from "./utils/apollo";
-// import Company from "./components/company/getCompany";
-// import DayBook from "./components/Day Book/getDayBook";
 import Auth from "./Auth/Auth";
 import "./App.css";
 import Callback from "./Callback";
@@ -13,43 +9,23 @@ import Home from "./components/Home/home";
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      name: "",
-      token: {}
-    };
     this.auth = new Auth();
   }
 
   handleAuth = () => {
-    if (this.auth.isLoggedIn() === false) {
-      console.log("inni í login");
+    if (this.auth.isAuthenticated() === false) {
       this.auth.login();
-
-      this.setState({
-        token: { name: "james" }
-      });
-      console.log("inni í login:: ", this.auth.getTokens());
     } else {
+      console.log("try again");
       //  this.auth.handleAuthentication();
-      console.log("inni i else:: ", this.auth.getTokens());
-      this.setState({
-        token: { name: "james" }
-      });
-      console.log("inni í lsdfdsfsfsd:: ", this.auth.getTokens());
     }
   };
 
   handleLogout = () => {
-    console.log("inni í logout");
     this.auth.logout();
-    this.setState({
-      token: {}
-    });
   };
 
   render() {
-    console.log("state: ", this.state.token);
     return (
       <div className="App">
         <nav>
