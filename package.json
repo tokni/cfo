@@ -15,7 +15,6 @@
     "gh-pages": "^2.0.1",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.0",
-    "jsonwebtoken": "^8.5.1",
     "react": "^16.8.6",
     "react-apollo-hooks": "^0.4.5",
     "react-bootstrap": "^1.0.0-beta.8",
@@ -50,5 +49,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "es5",
+    "endOfLine": "lf"
   }
 }

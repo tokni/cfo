@@ -1,27 +1,27 @@
-import { useSubscription } from "react-apollo-hooks";
-import { GET_SUBSCRIP_COMPANY } from "../../utils/query";
-import React from "react";
+import { useSubscription } from 'react-apollo-hooks'
+import { GET_SUBSCRIP_COMPANY } from '../../utils/query'
+import React from 'react'
 
 const Company = () => {
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_COMPANY, {
-    suspend: false
-  });
+    suspend: false,
+  })
 
   if (loading) {
-    console.log("Loading...");
+    console.log('Loading...')
     return (
       <tr>
         <td>-</td>
       </tr>
-    );
+    )
   }
   if (error) {
-    console.log("Error: ", error.message);
+    console.log('Error: ', error.message)
     return (
       <tr>
         <td>-</td>
       </tr>
-    );
+    )
   }
   return data.Company.map((item, key) => {
     return (
@@ -30,8 +30,8 @@ const Company = () => {
 
         <td>{item.name}</td>
       </tr>
-    );
-  });
-};
+    )
+  })
+}
 
-export default Company;
+export default Company
