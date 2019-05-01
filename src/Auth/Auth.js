@@ -1,54 +1,53 @@
-import Auth0 from "auth0-js";
-// import JWT from "jsonwebtoken";
+import Auth0 from 'auth0-js'
 
 class Auth {
   auth = new Auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
     audience: `https://${process.env.REACT_APP_AUTH_DOMAIN}/userinfo`,
-    redirectUri: "http://localhost:3000/callback",
-    responseType: "token id_token",
-    scope: "openid"
-  });
+    redirectUri: 'http://localhost:3000/callback',
+    responseType: 'token id_token',
+    scope: 'openid',
+  })
 
   login = () => {
-    this.auth.authorize();
-    this.handleAuthentication();
-  };
+    this.auth.authorize()
+    this.handleAuthentication()
+  }
 
   isAuthenticated = () => {
-    return localStorage.getItem("idToken") ? true : false;
-  };
+    return localStorage.getItem('idToken') ? true : false
+  }
 
   logout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("idToken");
-    localStorage.removeItem("sub");
-    this.auth.logout();
-  };
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('idToken')
+    localStorage.removeItem('sub')
+    this.auth.logout()
+  }
 
   checkSession = () => {
-    this.auth.checkSession({}, this.setSession);
-  };
+    this.auth.checkSession({}, this.setSession)
+  }
 
   setSession = authResult => {
-    localStorage.setItem("accessToken", authResult.accessToken);
-    localStorage.setItem("sub", authResult.idTokenPayload.sub);
-    localStorage.setItem("idToken", authResult.idToken);
-  };
+    localStorage.setItem('accessToken', authResult.accessToken)
+    localStorage.setItem('sub', authResult.idTokenPayload.sub)
+    localStorage.setItem('idToken', authResult.idToken)
+  }
 
   handleAuthentication = () => {
     this.auth.parseHash((err, authResult) => {
       if (err) {
-        if (err.error === "login_required") {
-          this.login();
+        if (err.error === 'login_required') {
+          this.login()
         }
-        console.log(err);
+        console.log(err)
       }
       if (authResult && authResult.idToken && authResult.accessToken) {
-        this.setSession(authResult);
+        this.setSession(authResult)
       }
-    });
-  };
+    })
+  }
 }
-export default Auth;
+export default Auth

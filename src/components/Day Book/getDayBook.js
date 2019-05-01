@@ -1,29 +1,29 @@
-import { useQuery } from "react-apollo-hooks";
-import { GET_DAY_BOOK } from "../../utils/query";
-import React from "react";
+import { useQuery } from 'react-apollo-hooks'
+import { GET_DAY_BOOK } from '../../utils/query'
+import React from 'react'
 
 const DayBook = () => {
   const { data, error, loading } = useQuery(GET_DAY_BOOK, {
-    suspend: false
-  });
+    suspend: false,
+  })
 
   if (loading) {
-    console.log("Loading...");
+    console.log('Loading...')
     return (
       <tr>
-        <td></td>
+        <td />
       </tr>
-    );
+    )
   }
   if (error) {
-    console.log("Error Daybook: ", error.message);
+    console.log('Error Daybook: ', error.message)
     return (
       <tr>
         <td>-</td>
       </tr>
-    );
+    )
   }
-  console.log("DayBook er : ", data.day_book);
+  console.log('DayBook er : ', data.day_book)
   return data.day_book.map((item, key) => {
     return (
       <tr key={key}>
@@ -33,8 +33,8 @@ const DayBook = () => {
         <td>{item.balance}</td>
         <td>{item.debit}</td>
       </tr>
-    );
-  });
-};
+    )
+  })
+}
 
-export default DayBook;
+export default DayBook
