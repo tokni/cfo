@@ -30,8 +30,10 @@ const Accounts = () => {
         <th>{item.id}</th>
         <td>{item.name}</td>
         <td>{item.balance}</td>
-        <td>{item.debit}</td>
-        {/* <td>{item.Company.name}</td> */}
+        <td>{item.debit ? 'debit' : 'credit'}</td>
+        
+        
+        <td>{item.Company.name}</td>
       </tr>
     );
   });
