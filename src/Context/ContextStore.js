@@ -28,9 +28,6 @@ const reducer = createReducer(initialState, {
     ...state,
     name: action.name,
   }),
-  change_company: (state, action) => ({
-
-  })
 })
 
 export default ContextStore
