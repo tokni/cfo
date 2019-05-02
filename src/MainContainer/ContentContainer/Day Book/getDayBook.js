@@ -1,5 +1,5 @@
 import { useQuery } from 'react-apollo-hooks'
-import { GET_DAY_BOOK } from '../../utils/query'
+import { GET_DAY_BOOK } from '../../../utils/query'
 import React from 'react'
 
 const DayBook = () => {
