@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createAccount, GET_COMPANY } from '../../utils/query'
+import { createAccount, GET_COMPANY } from '../../../utils/query'
 import { useMutation, useQuery } from 'react-apollo-hooks'
 
 const CreateAccounts = () => {
@@ -31,8 +31,8 @@ const CreateAccounts = () => {
         <div>
           <label>Type</label>
           <select onChange={e => setDebit(e.target.value)}>
-            <option value='false'>Credit</option>
-            <option value='true'>Debit</option>
+            <option value="false">Credit</option>
+            <option value="true">Debit</option>
           </select>
         </div>
         <div>

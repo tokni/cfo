@@ -1,10 +1,10 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo-hooks'
 import { client } from '../../../utils/apollo'
-import Company from '../../company/getCompany'
-import DayBook from '../../Day Book/getDayBook'
-import Accounts from '../../Account/getAccounts'
-import CreateAccounts from '../../Account/createAccounts'
+import Company from '../company/getCompany'
+import DayBook from '../Day Book/getDayBook'
+import Accounts from '../Account/getAccounts'
+import CreateAccounts from '../Account/createAccounts'
 class Db extends React.Component {
   render() {
     return (
