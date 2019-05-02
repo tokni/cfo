@@ -26,7 +26,7 @@ const Home = () => {
   const companyHandler = () => {
     dispatch({
       type: 'set_company',
-      index: 0,
+      index: 1,
     })
   }
 
