@@ -92,14 +92,16 @@ const CreateAccount = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    createAccountMutation({
-      variables: {
-        name,
-        balance,
-        debit,
-        company_id: state.company.id,
-      },
-    })
+    if (name !== '') {
+      createAccountMutation({
+        variables: {
+          name,
+          balance,
+          debit,
+          company_id: state.company.id,
+        },
+      })
+    }
     handleClose()
   }
 
@@ -152,7 +154,6 @@ const CreateAccount = props => {
             margin="dense"
             id="debit"
             label="Debit / Credit"
-            // type="text"
             fullWidth
             value={debit}
             onChange={e => {
@@ -170,7 +171,6 @@ const CreateAccount = props => {
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
-            {console.log('name is: ', name)}
           </Button>
           <Button onClick={onSubmit} color="primary">
             Add
