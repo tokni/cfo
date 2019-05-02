@@ -8,6 +8,8 @@ const Language = {
     products: 'Vørur',
     accounts: 'Kontur',
     sales: 'Sølur',
+    login: 'Rita inn',
+    logout: 'Rita út',
   },
   en: {
     overview: 'Overview',
@@ -18,6 +20,8 @@ const Language = {
     products: 'Products',
     accounts: 'Accounts',
     sales: 'Sales',
+    login: 'Login',
+    logout: 'Logout',
   },
   de: {
     overview: 'Übersicht',
@@ -28,6 +32,8 @@ const Language = {
     products: 'Produkte',
     accounts: 'Konten',
     sales: 'Verkauf',
+    login: 'Anmeldung',
+    logout: 'Ausloggen',
   },
 }
 
