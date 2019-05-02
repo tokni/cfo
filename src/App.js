@@ -1,65 +1,42 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Auth from "./Auth/Auth";
-import "./App.css";
-import Callback from "./Callback";
-import Db from "./components/db/db";
-import Home from "./components/Home/home";
+import React, { Fragment } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import Auth from './Auth/Auth'
+import './App.css'
+import Callback from './Callback'
+import Db from './MainContainer/db/db'
+import Home from './MainContainer/ContentContainer/Home/home'
+import SideDrawer from './MainContainer/Drawers/Drawer'
+import { MainContainer } from './MainContainer/MainContainer'
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.auth = new Auth();
+    super(props)
+    this.auth = new Auth()
   }
 
   handleAuth = () => {
     if (this.auth.isAuthenticated() === false) {
-      this.auth.login();
+      this.auth.login()
     } else {
-      console.log("try again");
+      console.log('try again')
       //  this.auth.handleAuthentication();
     }
-  };
+  }
 
   handleLogout = () => {
-    this.auth.logout();
-  };
+    this.auth.logout()
+  }
 
   render() {
     return (
-      <div className="App">
-        <nav>
-          <Router>
-            <ul>
-              <li>
-                <Link className="btn btn-primary" to="/home">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link className="btn btn-primary" to="/callback">
-                  Add User
-                </Link>
-              </li>
-              <li>
-                <Link className="btn btn-primary" to="/db">
-                  Database
-                </Link>
-              </li>
-            </ul>
-            <Route path="/home" component={Home} />
-            <Route path="/callback" component={Callback} />
-            <Route path="/db" component={Db} />
-          </Router>
-        </nav>
-        <button onClick={this.handleAuth.bind(this)}>Log in</button>
-        <button onClick={this.handleLogout.bind(this)}>Log out</button>
-      </div>
-    );
+      <Fragment>
+        <MainContainer />
+      </Fragment>
+    )
   }
 }
 
-export default App;
+export default App
 
 // import React from "react";
 // import { ApolloProvider } from "react-apollo-hooks";
