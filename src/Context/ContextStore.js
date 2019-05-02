@@ -2,7 +2,6 @@ import React, { useReducer } from 'react'
 import PropTypes from 'prop-types'
 import Context from './Context'
 import createReducer from './createReducer'
-import { GET_COMPANY } from '../utils/query'
 
 const ContextStore = props => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -19,15 +18,20 @@ ContextStore.propTypes = {
 
 const initialState = {
   currentIndex: 0,
-  companies: GET_COMPANY,
+  companies: null,
+  company: null,
 }
+
 
 const reducer = createReducer(initialState, {
   reset: () => initialState,
   change_company: (state, action) => ({
     ...state,
-    name: action.name,
-  }),
+    companies: action.companies
+  }), set_company: (state, action) =>({
+    ...state,
+    company: state.companies[action.index]
+  })
 })
 
 export default ContextStore

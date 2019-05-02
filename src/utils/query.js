@@ -1,11 +1,14 @@
 import gql from "graphql-tag";
 const GET_COMPANY = gql`
-  {
-    Company {
-      user_id
-      name
-    }
+query getCompanies
+{
+  Company {
+    id
+    mother_id
+    name
+    user_id
   }
+}
 `;
 
 const GET_SUBSCRIP_COMPANY = gql`
