@@ -5,8 +5,9 @@ import './App.css'
 import Callback from './Callback'
 import Db from './MainContainer/ContentContainer/db/db'
 import Home from './MainContainer/ContentContainer/Home/home'
-import SideDrawer from './MainContainer/Drawers/Drawer'
 import { MainContainer } from './MainContainer/MainContainer'
+import { ApolloProvider } from 'react-apollo-hooks';
+import {client} from '../src/utils/apollo'
 
 class App extends React.Component {
   constructor(props) {
@@ -30,7 +31,11 @@ class App extends React.Component {
   render() {
     return (
       <Fragment>
+        <ApolloProvider client={client}>
         <MainContainer />
+        
+        </ApolloProvider>
+        
       </Fragment>
     )
   }
