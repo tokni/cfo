@@ -9,6 +9,7 @@ class Db extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
+      
         <table className="table table-dark">
           <thead>
             <tr>
