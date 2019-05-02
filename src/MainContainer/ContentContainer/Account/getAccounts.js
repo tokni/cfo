@@ -15,7 +15,7 @@ const Accounts = () => {
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
     suspend: false,
     variables: {
-      company_id: state.company.id,
+      company_id: state.company ? state.company.id : null,
     },
   })
 
