@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { CREATE_COMPANY } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
+import Context from '../../../Context/Context'
 
 const CreateCompany = () => {
   let [name, setName] = useState('')
   let [mother_id, setMother_id] = useState('')
 
   const createCompanyMutation = useMutation(CREATE_COMPANY)
+  const [state] = useContext(Context)
+
   return (
     <div>
       <form
@@ -16,12 +19,11 @@ const CreateCompany = () => {
             variables: {
               name,
               mother_id,
-              user_id: localStorage.getItem("sub")
+              user_id: state.user.id
             },
           })
         }}
       >
-        {console.log('AccountMutate', createCompanyMutation)}
         <div>
           <label>Name</label>
           <input onChange={e => setName(e.target.value)} />

@@ -55,7 +55,7 @@ const GET_USER = gql`
 `
 
 const CREATE_COMPANY = gql`
-mutation createCompany($name: String!, $mother_id: uuid!, $user_id: uuid!) {
+mutation createCompany($name: String!, $mother_id: uuid, $user_id: uuid!) {
   insert_Company(objects: {name: $name, mother_id: $mother_id, user_id: $user_id}) {
       affected_rows     
     }     

@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name : ""}</h1>
+      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name: ""}</h1>
       <p>Bergur & Kristmund</p>
       <p>
         current company:{' '}
