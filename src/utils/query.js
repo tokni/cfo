@@ -60,7 +60,7 @@ subscription {
 //   }
 // }
 
-const CREATe_ACCOUNT = gql`
+const CREATE_ACCOUNT = gql`
 mutation createAccount($name: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
   insert_Account(objects: {name: $name, balance: $balance, debit: $debit, company_id: $company_id}) {
       affected_rows     
@@ -77,4 +77,4 @@ const GET_DAY_BOOK = gql`
   }
 `;
 
-export { GET_COMPANY, GET_DAY_BOOK, GET_SUBSCRIP_COMPANY, GET_ACCOUNTS, GET_SUBSCRIP_ACCOUNTS, CREATe_ACCOUNT };
+export { GET_COMPANY, GET_DAY_BOOK, GET_SUBSCRIP_COMPANY, GET_ACCOUNTS, GET_SUBSCRIP_ACCOUNTS, CREATE_ACCOUNT };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CREATE_ACCOUNT, GET_COMPANY } from '../../utils/query'
+import { CREATE_ACCOUNT, GET_COMPANY } from '../../../utils/query'
 import { useMutation, useQuery } from 'react-apollo-hooks'
 
 const CreateAccounts = () => {
