@@ -61,9 +61,6 @@ import Button from '@material-ui/core/Button'
 import { createAccount, GET_COMPANY } from '../../../utils/query'
 import { useMutation, useQuery } from 'react-apollo-hooks'
 import Context from '../../../Context/Context'
-import Snackbar from '@material-ui/core/Snackbar'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
 
 const styles = theme => ({
   fab: {
@@ -77,7 +74,6 @@ const styles = theme => ({
 
 const CreateAccount = props => {
   const [open, setOpen] = useState(false)
-  const [openSnack, setOpenSnack] = useState(false)
   const [name, setName] = useState('')
   const [debit, setDebit] = useState(true)
   const [balance, setBalance] = useState(0)

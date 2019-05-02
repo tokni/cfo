@@ -29,7 +29,7 @@ const GET_ACCOUNTS = gql`
 `
 
 const GET_SUBSCRIP_ACCOUNTS = gql`
-  query($company_id: uuid!) {
+  subscription($company_id: uuid!) {
     Account(where: { company_id: { _eq: $company_id } }) {
       id
       name
