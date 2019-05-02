@@ -17,26 +17,27 @@ ContextStore.propTypes = {
 }
 
 const initialState = {
+  currentIndex: 0,
+  locals: 'de',
   companies: null,
   company: null,
   user: null
 }
 
-
 const reducer = createReducer(initialState, {
   reset: () => initialState,
   change_company: (state, action) => ({
     ...state,
-    companies: action.companies
-  
-  }), set_company: (state, action) =>({
+    companies: action.companies,
+  }),
+  set_company: (state, action) => ({
     ...state,
-    company: state.companies[action.index]
-  
-  }), load_user: (state, action) =>({
+    company: state.companies[action.index],
+  }),
+  set_locals: (state, action) => ({
     ...state,
-    user: action.user ? action.user[0] : null
-  })
+    locals: action.locals,
+  }),
 })
 
 export default ContextStore

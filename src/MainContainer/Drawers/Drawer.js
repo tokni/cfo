@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -11,7 +11,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
 import Dashboard from '@material-ui/icons/Dashboard'
+import Language from '../../utils/language'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Context from '../../Context/Context'
+
 const styles = {
   list: {
     width: 250,
@@ -21,110 +24,79 @@ const styles = {
   },
 }
 
-class SideDrawer extends React.Component {
-  constructor(props) {
-    super(props)
+const SideDrawer = props => {
+  const [state, dispatch] = useContext(Context)
+  const [left, setLeft] = useState(true)
 
-    this.state = {
-      left: true,
-    }
+  const toggleDrawer = (side, open) => () => {
+    setLeft(open)
   }
 
-  toggleDrawer = (side, open) => () => {
-    this.setState({
-      [side]: open,
-    })
+  const handleOnClick = () => {
+    // this.forceUpdate()
   }
 
-  handleOnClick = () => {
-    this.forceUpdate()
-  }
+  const { classes } = props
 
-  render() {
-    const { classes } = this.props
-    // this.toggleDrawer('left', true)
-    const sideList = (
-      <div className={classes.list}>
-        {/* <Router> */}
-        <List>
-          {['Overview', 'Invoice', 'Bills', 'Transactions', 'Accounts'].map(
-            (text, index) => (
-              // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-              <Link to={`/${text}`}>
-                <ListItem
-                  button
-                  key={text}
-                  onClick={this.handleOnClick.bind(this)}
-                >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            )
-          )}
-        </List>
-        {/* </Router> */}
-        <Divider />
-        <List>
-          {['Sales', 'Customers', 'Products'].map((text, index) => (
-            <ListItem button key={text}>
+  const sideList = (
+    <div className={classes.list}>
+      {/* <Router> */}
+      <List>
+        {[
+          Language['en'].overview,
+          Language['en'].invoice,
+          Language['en'].bills,
+          Language['en'].transactions,
+          Language['en'].accounts,
+        ].map((text, index) => (
+          // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
+          <Link to={`/${text}`}>
+            {console.log('lang: ', text)}
+            <ListItem button key={text} onClick={handleOnClick}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText
+                primary={Language[state.locals][text.toLowerCase()]}
+              />
             </ListItem>
-          ))}
-        </List>
-      </div>
-    )
+          </Link>
+        ))}
+      </List>
+      {/* </Router> */}
+      <Divider />
+      <List>
+        {[
+          Language[state.locals].sales,
+          Language[state.locals].customers,
+          Language[state.locals].products,
+        ].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  )
 
-    // const fullList = (
-    //   <div className={classes.fullList}>
-    //     <List>
-    //       {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-    //         <ListItem button key={text}>
-    //           <ListItemIcon>
-    //             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-    //           </ListItemIcon>
-    //           <ListItemText primary={text} />
-    //         </ListItem>
-    //       ))}
-    //     </List>
-    //     <Divider />
-    //     <List>
-    //       {['All mail', 'Trash', 'Spam'].map((text, index) => (
-    //         <ListItem button key={text}>
-    //           <ListItemIcon>
-    //             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-    //           </ListItemIcon>
-    //           <ListItemText primary={text} />
-    //         </ListItem>
-    //       ))}
-    //     </List>
-    //   </div>
-    // )
-
-    return (
-      <div>
-        <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
-        <Drawer
-          open={this.state.left}
-          onClose={this.toggleDrawer('left', false)}
+  return (
+    <div>
+      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
+      <Drawer open={left} onClose={toggleDrawer('left', false)}>
+        <div
+          tabIndex={0}
+          role="button"
+          onClick={toggleDrawer('left', false)}
+          onKeyDown={toggleDrawer('left', false)}
         >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
-          >
-            {sideList}
-          </div>
-        </Drawer>
-      </div>
-    )
-  }
+          {sideList}
+        </div>
+      </Drawer>
+    </div>
+  )
 }
 
 SideDrawer.propTypes = {
