@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createAccount, GET_COMPANY } from '../../utils/query'
+import { CREATe_ACCOUNT, GET_COMPANY } from '../../utils/query'
 import { useMutation, useQuery } from 'react-apollo-hooks'
 
 const CreateAccounts = () => {
@@ -7,7 +7,7 @@ const CreateAccounts = () => {
   let [debit, setDebit] = useState('')
   let [balance, setBalance] = useState('')
 
-  const createAccountMutation = useMutation(createAccount)
+  const createAccountMutation = useMutation(CREATe_ACCOUNT)
   return (
     <div>
       <form
