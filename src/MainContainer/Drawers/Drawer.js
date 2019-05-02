@@ -49,7 +49,8 @@ class SideDrawer extends React.Component {
         <List>
           {['Overview', 'Invoice', 'Bills', 'Transactions', 'Accounts'].map(
             (text, index) => (
-              <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
+              // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
+              <Link to={`/${text}`}>
                 <ListItem
                   button
                   key={text}

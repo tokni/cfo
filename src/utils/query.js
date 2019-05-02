@@ -1,15 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 const GET_COMPANY = gql`
-query getCompanies
-{
-  Company {
-    id
-    mother_id
-    name
-    user_id
+  query getCompanies {
+    Company {
+      id
+      mother_id
+      name
+      user_id
+    }
   }
-}
-`;
+`
 
 const GET_SUBSCRIP_COMPANY = gql`
   subscription {
@@ -18,7 +17,7 @@ const GET_SUBSCRIP_COMPANY = gql`
       name
     }
   }
-`;
+`
 
 const GET_ACCOUNTS = gql`
   {
@@ -27,22 +26,22 @@ const GET_ACCOUNTS = gql`
       name
     }
   }
-`;
+`
 
 const GET_SUBSCRIP_ACCOUNTS = gql`
-subscription {
-  Account {
-    id
-    name
-    debit
-    balance
-    company_id
-    Company{
-      user_id
+  subscription {
+    Account {
+      id
       name
+      debit
+      balance
+      company_id
+      Company {
+        user_id
+        name
+      }
     }
   }
-}
 `
 // mutation createAccount($name: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
 //   createAccount(name: $name, balance: $balance, debit: $debit, company_id: $company_id) {
@@ -61,11 +60,23 @@ subscription {
 // }
 
 const createAccount = gql`
-mutation createAccount($name: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
-  insert_Account(objects: {name: $name, balance: $balance, debit: $debit, company_id: $company_id}) {
-      affected_rows     
-    }     
-}
+  mutation createAccount(
+    $name: String!
+    $balance: numeric!
+    $debit: Boolean!
+    $company_id: uuid!
+  ) {
+    insert_Account(
+      objects: {
+        name: $name
+        balance: $balance
+        debit: $debit
+        company_id: $company_id
+      }
+    ) {
+      affected_rows
+    }
+  }
 `
 const GET_DAY_BOOK = gql`
   {
@@ -75,6 +86,13 @@ const GET_DAY_BOOK = gql`
       balance
     }
   }
-`;
+`
 
-export { GET_COMPANY, GET_DAY_BOOK, GET_SUBSCRIP_COMPANY, GET_ACCOUNTS, GET_SUBSCRIP_ACCOUNTS, createAccount };
+export {
+  GET_COMPANY,
+  GET_DAY_BOOK,
+  GET_SUBSCRIP_COMPANY,
+  GET_ACCOUNTS,
+  GET_SUBSCRIP_ACCOUNTS,
+  createAccount,
+}

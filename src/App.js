@@ -1,13 +1,9 @@
 import React, { Fragment } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Auth from './Auth/Auth'
 import './App.css'
-import Callback from './Callback'
-import Db from './MainContainer/ContentContainer/db/db'
-import Home from './MainContainer/ContentContainer/Home/home'
 import { MainContainer } from './MainContainer/MainContainer'
-import { ApolloProvider } from 'react-apollo-hooks';
-import {client} from '../src/utils/apollo'
+import { ApolloProvider } from 'react-apollo-hooks'
+import { client } from '../src/utils/apollo'
 
 class App extends React.Component {
   constructor(props) {
@@ -32,10 +28,8 @@ class App extends React.Component {
     return (
       <Fragment>
         <ApolloProvider client={client}>
-        <MainContainer />
-        
+          <MainContainer />
         </ApolloProvider>
-        
       </Fragment>
     )
   }
