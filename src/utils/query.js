@@ -1,15 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 const GET_COMPANY = gql`
-query getCompanies
-{
-  Company {
-    id
-    mother_id
-    name
-    user_id
+  query getCompanies {
+    Company {
+      id
+      mother_id
+      name
+      user_id
+    }
   }
-}
-`;
+`
 
 const GET_SUBSCRIP_COMPANY = gql`
   subscription {
@@ -18,7 +17,7 @@ const GET_SUBSCRIP_COMPANY = gql`
       name
     }
   }
-`;
+`
 
 const GET_ACCOUNTS = gql`
   {
@@ -27,22 +26,22 @@ const GET_ACCOUNTS = gql`
       name
     }
   }
-`;
+`
 
 const GET_SUBSCRIP_ACCOUNTS = gql`
-subscription {
-  Account {
-    id
-    name
-    debit
-    balance
-    company_id
-    Company{
-      user_id
+  subscription($company_id: uuid!) {
+    Account(where: { company_id: { _eq: $company_id } }) {
+      id
       name
+      debit
+      balance
+      company_id
+      Company {
+        user_id
+        name
+      }
     }
   }
-}
 `
 
 const GET_USER = gql`
@@ -78,6 +77,15 @@ const GET_DAY_BOOK = gql`
       balance
     }
   }
-`;
+`
 
-export { GET_COMPANY, GET_DAY_BOOK, GET_SUBSCRIP_COMPANY, GET_ACCOUNTS, GET_SUBSCRIP_ACCOUNTS, CREATE_ACCOUNT, CREATE_COMPANY, GET_USER };
+export {
+  GET_COMPANY,
+  GET_DAY_BOOK,
+  GET_SUBSCRIP_COMPANY,
+  GET_ACCOUNTS,
+  GET_SUBSCRIP_ACCOUNTS,
+  CREATE_ACCOUNT,
+  CREATE_COMPANY,
+   GET_USER 
+}
