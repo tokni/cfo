@@ -1,5 +1,5 @@
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_COMPANY } from '../../utils/query'
+import { GET_SUBSCRIP_COMPANY } from '../../../utils/query'
 import React from 'react'
 
 const Company = () => {
