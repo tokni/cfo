@@ -82,10 +82,12 @@ const CreateAccount = props => {
   const [state, dispatch] = useContext(Context)
 
   const handleClose = () => {
-    setOpen(!open)
     setName('')
     setBalance(0)
     setDebit(true)
+    if (state.company !== null) {
+      setOpen(!open)
+    }
   }
 
   const onSubmit = e => {
