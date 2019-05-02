@@ -1,10 +1,11 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo-hooks'
 import { client } from '../../../utils/apollo'
-import Company from '../company/getCompany'
+import Company from '../Company/getCompany'
 import DayBook from '../Day Book/getDayBook'
 import Accounts from '../Account/getAccounts'
 import CreateAccounts from '../Account/createAccounts'
+import CreateCompany from '../Company/createCompany'
 class Db extends React.Component {
   render() {
     return (
@@ -34,6 +35,7 @@ class Db extends React.Component {
         </table> */}
         <Accounts />
         <CreateAccounts />
+        <CreateCompany/>
       </ApolloProvider>
     )
   }

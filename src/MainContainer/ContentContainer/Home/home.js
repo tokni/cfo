@@ -32,11 +32,15 @@ const Home = () => {
 
   return (
     <Fragment>
-      <h1>Hello mr.{state.name}</h1>
+      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name : ""}</h1>
       <p>Bergur & Kristmund</p>
       <p>
         current company:{' '}
-        {state.company ? state.company.name : console.log('error')}
+      </p>
+
+
+      <p>
+        {state.user ? state.user.name : console.log('err"3efdfor')}
       </p>
 
       <button onClick={companiesLoader}>load companies</button>
