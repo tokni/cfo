@@ -1,47 +1,37 @@
-import React, { useState } from 'react'
-import { CREATE_ACCOUNT} from '../../../utils/query'
-import { useMutation } from 'react-apollo-hooks'
+import { useSubscription } from 'react-apollo-hooks'
+import { GET_SUBSCRIP_COMPANY } from '../../../utils/query'
+import React from 'react'
 
-const CreateAccounts = () => {
-  let [name, setName] = useState('')
-  let [debit, setDebit] = useState('')
-  let [balance, setBalance] = useState('')
+const Company = () => {
+  const { data, error, loading } = useSubscription(GET_SUBSCRIP_COMPANY, {
+    suspend: false,
+  })
 
-  const createAccountMutation = useMutation(CREATE_ACCOUNT)
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          createAccountMutation({
-            variables: {
-              name,
-              balance,
-              debit,
-              company_id: 'fd20c139-c5c9-4922-bb7b-5f0fdeba9f03',
-            },
-          })
-        }}
-      >
-        {console.log('AccountMutate', createAccountMutation)}
-        <div>
-          <label>Name</label>
-          <input onChange={e => setName(e.target.value)} />
-        </div>
-        <div>
-          <label>Type</label>
-          <select onChange={e => setDebit(e.target.value)}>
-            <option value="false">Credit</option>
-            <option value="true">Debit</option>
-          </select>
-        </div>
-        <div>
-          <label>Balance</label>
-          <input onChange={e => setBalance(e.target.value)} />
-        </div>
-        <button type="submit">Add Account</button>
-      </form>
-    </div>
-  )
+  if (loading) {
+    console.log('Loading...')
+    return (
+      <tr>
+        <td>-</td>
+      </tr>
+    )
+  }
+  if (error) {
+    console.log('Error slayer: ', error.message)
+    return (
+      <tr>
+        <td>-</td>
+      </tr>
+    )
+  }
+  return data.Company.map((item, key) => {
+    return (
+      <tr key={key}>
+        <th>{item.user_id}</th>
+
+        <td>{item.name}</td>
+      </tr>
+    )
+  })
 }
-export default CreateAccounts
+
+export default Company

@@ -21,11 +21,12 @@ const initialState = {
   locals: 'de',
   companies: null,
   company: null,
-  user: null
+  user: null,
 }
 
 const reducer = createReducer(initialState, {
   reset: () => initialState,
+
   change_company: (state, action) => ({
     ...state,
     companies: action.companies,
@@ -37,6 +38,10 @@ const reducer = createReducer(initialState, {
   set_locals: (state, action) => ({
     ...state,
     locals: action.locals,
+  }),
+  load_user: (state, action) => ({
+    ...state,
+    user: action.user ? action.user[0] : null,
   }),
 })
 
