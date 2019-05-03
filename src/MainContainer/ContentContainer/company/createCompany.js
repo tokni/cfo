@@ -19,7 +19,7 @@ const CreateCompany = () => {
             variables: {
               name,
               mother_id,
-              user_id: state.user.id
+              user_id: state.user.id,
             },
           })
         }}
@@ -30,7 +30,11 @@ const CreateCompany = () => {
         </div>
         <div>
           <label>mother_id</label>
-          <input onChange={e => {setMother_id(e.target.value)}}/>
+          <input
+            onChange={e => {
+              setMother_id(e.target.value)
+            }}
+          />
         </div>
         <button type="submit">Add Company</button>
       </form>

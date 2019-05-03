@@ -10,6 +10,6 @@ export const ContentContainer = () => (
     <Route path="/Overview" component={Home} />
     <Route path="/callback" component={Callback} />
     <Route path="/Accounts" component={Account} />
-    <Route path="/AddCompany" component={CreateCompany}/>
+    <Route path="/AddCompany" component={CreateCompany} />
   </Switch>
 )

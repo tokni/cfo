@@ -18,10 +18,10 @@ ContextStore.propTypes = {
 
 const initialState = {
   currentIndex: 0,
-  locals: 'de',
+  locals: 'fo',
   companies: null,
   company: null,
-  user: null
+  user: null,
 }
 
 const reducer = createReducer(initialState, {
@@ -37,6 +37,10 @@ const reducer = createReducer(initialState, {
   set_locals: (state, action) => ({
     ...state,
     locals: action.locals,
+  }),
+  load_user: (state, action) => ({
+    ...state,
+    user: action.user ? action.user[0] : null,
   }),
 })
 

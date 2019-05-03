@@ -48,17 +48,23 @@ const SideDrawer = props => {
           Language['en'].bills,
           Language['en'].transactions,
           Language['en'].accounts,
-          Language['en'].addcompany
+          Language['en'].addcompany,
         ].map((text, index) => (
           // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-          <Link to={`/${text}`}>
-            {console.log('lang: ', text)}
+          <Link to={`/${text.split(' ').join('')}`}>
             <ListItem button key={text} onClick={handleOnClick}>
               <ListItemIcon>
                 {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText
-                primary={Language[state.locals][text.toLowerCase()]}
+                primary={
+                  Language[state.locals][
+                    text
+                      .toLowerCase()
+                      .split(' ')
+                      .join('')
+                  ]
+                }
               />
             </ListItem>
           </Link>

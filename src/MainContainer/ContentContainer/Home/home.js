@@ -32,16 +32,14 @@ const Home = () => {
 
   return (
     <Fragment>
-      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name: ""}</h1>
+      <h1>
+        Hello mr.
+        {state.user ? state.user.first_name + ' ' + state.user.last_name : ''}
+      </h1>
       <p>Bergur & Kristmund</p>
-      <p>
-        current company:{' '}
-      </p>
+      <p>current company:{state.company ? state.company.name : ''}</p>
 
-
-      <p>
-        {state.user ? state.user.name : console.log('err"3efdfor')}
-      </p>
+      <p>{state.user ? state.user.name : console.log('err"3efdfor')}</p>
 
       <button onClick={companiesLoader}>load companies</button>
       <button onClick={companyHandler}>get company</button>
@@ -72,9 +70,7 @@ const Home = () => {
             <TableRow>
               <TableCell>Id</TableCell>
               <TableCell align="right">mother_id</TableCell>
-              <TableCell align="right">user id</TableCell>
               <TableCell align="right">name</TableCell>
-              <TableCell align="right">id</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,10 +79,9 @@ const Home = () => {
                   return (
                     <TableRow>
                       <TableCell component="th" scope="row">
-                        {item.user_id}
+                        {item.id}
                       </TableCell>
                       <TableCell align="right">{item.mother_id}</TableCell>
-                      <TableCell align="right">{item.id}</TableCell>
                       <TableCell align="right">{item.name}</TableCell>
                     </TableRow>
                   )
