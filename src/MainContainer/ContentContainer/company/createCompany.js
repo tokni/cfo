@@ -35,7 +35,7 @@ const CreateCompany = props => {
   const handleClose = () => {
     setName('')
     setMother_id(null)
-    if (state.company !== null) {
+    if (state.user !== null) {
       setOpen(!open)
     }
   }
