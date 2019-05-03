@@ -7,9 +7,9 @@ import CreateCompany from './Company/createCompany'
 
 export const ContentContainer = () => (
   <Switch>
-    <Route path="/Overview" component={Home} />
+    <Route path="/overview" component={Home} />
     <Route path="/callback" component={Callback} />
-    <Route path="/Accounts" component={Account} />
-    <Route path="/AddCompany" component={CreateCompany} />
+    <Route path="/accounts" component={Account} />
+    <Route path="/addcompany" component={CreateCompany} />
   </Switch>
 )

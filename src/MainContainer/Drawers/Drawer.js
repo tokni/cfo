@@ -49,7 +49,7 @@ const SideDrawer = props => {
           Language['en'].addcompany,
         ].map((text, index) => (
           // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-          <Link key={index} to={`/${text.split(' ').join('')}`}>
+          <Link key={index} to={`/${text.split(' ').join('').toLowerCase()}`}>
             <ListItem button key={index} onClick={handleOnClick}>
               <ListItemIcon>
                 {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
