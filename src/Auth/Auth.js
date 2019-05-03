@@ -5,7 +5,7 @@ class Auth {
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
     audience: `https://${process.env.REACT_APP_AUTH_DOMAIN}/userinfo`,
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: process.env.REACT_APP_REDIRECT_URI,
     responseType: 'token id_token',
     scope: 'openid',
   })
