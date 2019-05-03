@@ -21,6 +21,7 @@ const initialState = {
   locals: 'de',
   companies: null,
   company: null,
+  user: null
 }
 
 const reducer = createReducer(initialState, {

@@ -58,8 +58,8 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { createAccount, GET_COMPANY } from '../../../utils/query'
-import { useMutation, useQuery } from 'react-apollo-hooks'
+import { CREATE_ACCOUNT} from '../../../utils/query'
+import { useMutation} from 'react-apollo-hooks'
 import Context from '../../../Context/Context'
 
 const styles = theme => ({
@@ -78,7 +78,7 @@ const CreateAccount = props => {
   const [debit, setDebit] = useState(true)
   const [balance, setBalance] = useState(0)
   const { classes } = props
-  const createAccountMutation = useMutation(createAccount)
+  const createAccountMutation = useMutation(CREATE_ACCOUNT)
   const [state, dispatch] = useContext(Context)
 
   const handleClose = () => {

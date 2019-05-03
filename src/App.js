@@ -1,9 +1,30 @@
-import React, { Fragment } from 'react'
+import React, { useContext, Fragment, useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Auth from './Auth/Auth'
 import './App.css'
 import { MainContainer } from './MainContainer/MainContainer'
-import { ApolloProvider } from 'react-apollo-hooks'
+import { ApolloProvider, useQuery } from 'react-apollo-hooks'
 import { client } from '../src/utils/apollo'
+import Context from '../src/Context/Context'
+import { GET_USER } from '../src/utils/query'
+
+const StoreUser = () => {
+  const { data, loading, error } = useQuery(GET_USER, {
+    variables: {
+      token: localStorage.getItem('sub'),
+    },
+  })
+
+  const [state, dispatch] = useContext(Context)
+
+  useEffect(() => {
+    dispatch({
+      type: 'load_user',
+      user: data.User,
+    })
+  })
+  return (null)
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +49,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <ApolloProvider client={client}>
+          <StoreUser />
           <MainContainer />
         </ApolloProvider>
       </Fragment>

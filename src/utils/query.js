@@ -43,40 +43,31 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
     }
   }
 `
-// mutation createAccount($name: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
-//   createAccount(name: $name, balance: $balance, debit: $debit, company_id: $company_id) {
-//     id
-//     name
-//     balance
-//     debit
-//     account_owner
-//   }
-//   affected_rows
-// }
-// mutation insert_Account($name: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
-//   insert_Account(objects: {balance:$balance, debit: $debit, name: $name, company_id: $company_id}) {
-//     name
-//   }
-// }
 
-const createAccount = gql`
-  mutation createAccount(
-    $name: String!
-    $balance: numeric!
-    $debit: Boolean!
-    $company_id: uuid!
-  ) {
-    insert_Account(
-      objects: {
-        name: $name
-        balance: $balance
-        debit: $debit
-        company_id: $company_id
-      }
-    ) {
-      affected_rows
+const GET_USER = gql`
+  query($token: String!){
+    User(where: {token: {_like: $token}}) {
+      first_name
+      last_name
+      id
     }
   }
+`
+
+const CREATE_COMPANY = gql`
+mutation createCompany($name: String!, $mother_id: uuid, $user_id: uuid!) {
+  insert_Company(objects: {name: $name, mother_id: $mother_id, user_id: $user_id}) {
+      affected_rows     
+    }     
+}
+`
+
+const CREATE_ACCOUNT = gql`
+mutation createAccount($id: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
+  insert_Account(objects: {name: $name, balance: $balance, debit: $debit, company_id: $company_id}) {
+      affected_rows     
+    }     
+}
 `
 const GET_DAY_BOOK = gql`
   {
@@ -94,5 +85,7 @@ export {
   GET_SUBSCRIP_COMPANY,
   GET_ACCOUNTS,
   GET_SUBSCRIP_ACCOUNTS,
-  createAccount,
+  CREATE_ACCOUNT,
+  CREATE_COMPANY,
+   GET_USER 
 }

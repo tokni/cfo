@@ -10,6 +10,7 @@ const Language = {
     sales: 'Sølur',
     login: 'Rita inn',
     logout: 'Rita út',
+    addcompany: 'Stovna Fyritøku'
   },
   en: {
     overview: 'Overview',
@@ -22,6 +23,7 @@ const Language = {
     sales: 'Sales',
     login: 'Login',
     logout: 'Logout',
+    addcompany: 'AddCompany'
   },
   de: {
     overview: 'Übersicht',
@@ -34,6 +36,7 @@ const Language = {
     sales: 'Verkauf',
     login: 'Anmeldung',
     logout: 'Ausloggen',
+    addcompany: 'Firma Hinzufügen'
   },
 }
 
