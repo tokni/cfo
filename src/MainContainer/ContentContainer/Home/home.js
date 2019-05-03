@@ -35,7 +35,7 @@ const Home = () => {
       <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name: ""}</h1>
       <p>Bergur & Kristmund</p>
       <p>
-        current company:{' '}
+        current company:{state.company ? state.company.name: "Nan"}
       </p>
 
 
