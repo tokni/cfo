@@ -69,8 +69,9 @@ const Home = () => {
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
-              <TableCell align="right">mother_id</TableCell>
-              <TableCell align="right">name</TableCell>
+              <TableCell align="right">Mother Id</TableCell>
+              <TableCell align="right">User Id</TableCell>
+              <TableCell align="right">Name</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -35,6 +35,9 @@ const CreateCompany = props => {
   const handleClose = () => {
     setName('')
     setMother_id(null)
+    if (state.user !== null) {
+      setOpen(!open)
+    }
   }
 
   const onSubmit = e => {
@@ -44,6 +47,7 @@ const CreateCompany = props => {
         variables: {
           name,
           mother_id,
+          user_id: state.user.id,
         },
       })
     }
@@ -67,9 +71,7 @@ const CreateCompany = props => {
       >
         <DialogTitle id="form-dialog-title">Add Company</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Fill this form to add company. Mother ID is optional
-          </DialogContentText>
+          <DialogContentText>Fill this form to add a company</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -86,8 +88,7 @@ const CreateCompany = props => {
             margin="dense"
             id="mother_id"
             label="Mother ID"
-            value={mother_id}
-            type="number"
+            type="text"
             fullWidth
             onChange={e => {
               setMother_id(e.target.value)
