@@ -1,6 +1,6 @@
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
 
 const Accounts = () => {
-  const [state, dispatch] = useContext(Context)
+  const [state] = useContext(Context)
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
     suspend: false,
     variables: {

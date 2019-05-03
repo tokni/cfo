@@ -2,17 +2,15 @@ import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Context from '../../Context/Context'
 
 const styles = {
@@ -25,7 +23,7 @@ const styles = {
 }
 
 const SideDrawer = props => {
-  const [state, dispatch] = useContext(Context)
+  const [state] = useContext(Context)
   const [left, setLeft] = useState(true)
 
   const toggleDrawer = (side, open) => () => {

@@ -1,5 +1,4 @@
 import React, { useContext, Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Auth from './Auth/Auth'
 import './App.css'
 import { MainContainer } from './MainContainer/MainContainer'
@@ -9,12 +8,13 @@ import Context from '../src/Context/Context'
 import { GET_USER } from '../src/utils/query'
 
 const StoreUser = () => {
-  const { data, loading, error } = useQuery(GET_USER, {
+  const { data } = useQuery(GET_USER, {
     variables: {
       token: localStorage.getItem('sub'),
     },
   })
 
+  // eslint-disable-next-line
   const [state, dispatch] = useContext(Context)
 
   useEffect(() => {

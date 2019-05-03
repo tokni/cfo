@@ -32,7 +32,7 @@ const CreateAccount = props => {
   const [balance, setBalance] = useState(0)
   const { classes } = props
   const createAccountMutation = useMutation(CREATE_ACCOUNT)
-  const [state, dispatch] = useContext(Context)
+  const [state] = useContext(Context)
 
   const handleClose = () => {
     setName('')
