@@ -14,8 +14,6 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-
-
 const styles = theme => ({
   fab: {
     margin: theme.spacing.unit,
@@ -26,7 +24,6 @@ const styles = theme => ({
   },
 })
 
-
 const CreateCompany = props => {
   let [name, setName] = useState('')
   let [mother_id, setMother_id] = useState(null)
@@ -36,9 +33,11 @@ const CreateCompany = props => {
   const [open, setOpen] = useState(false)
 
   const handleClose = () => {
-    setName("")
+    setName('')
     setMother_id(null)
-   
+    if (state.company !== null) {
+      setOpen(!open)
+    }
   }
 
   const onSubmit = e => {
@@ -47,7 +46,8 @@ const CreateCompany = props => {
       createCompanyMutation({
         variables: {
           name,
-          mother_id
+          mother_id,
+          user_id: state.user.id
         },
       })
     }
@@ -55,25 +55,23 @@ const CreateCompany = props => {
   }
 
   return (
-    <Fragment> 
-      <Fab  onClick={handleClose}
+    <Fragment>
+      <Fab
+        onClick={handleClose}
         color="primary"
         aria-label="Add"
         className={classes.fab}
       >
-      <AddIcon/>
+        <AddIcon />
       </Fab>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        > 
-        <DialogTitle id="form-dialog-title" >Add Company</DialogTitle>
+      >
+        <DialogTitle id="form-dialog-title">Add Company</DialogTitle>
         <DialogContent>
-
-          <DialogContentText>
-            Fill this form to add company. Mother ID is optional
-          </DialogContentText>
+          <DialogContentText>Fill this form to add a company</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -90,8 +88,7 @@ const CreateCompany = props => {
             margin="dense"
             id="mother_id"
             label="Mother ID"
-            value={mother_id}
-            type="number"
+            type="text"
             fullWidth
             onChange={e => {
               setMother_id(e.target.value)
@@ -106,10 +103,9 @@ const CreateCompany = props => {
             Add
           </Button>
         </DialogActions>
-        </Dialog>
-
+      </Dialog>
     </Fragment>
-  );
+  )
 }
 
 CreateCompany.propTypes = {
