@@ -8,7 +8,7 @@ import { client } from '../src/utils/apollo'
 import Context from '../src/Context/Context'
 import { GET_USER } from '../src/utils/query'
 
-const StoreUSer = () => {
+const StoreUser = () => {
   const { data, loading, error } = useQuery(GET_USER, {
     variables: {
       token: localStorage.getItem('sub'),
@@ -49,7 +49,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <ApolloProvider client={client}>
-          <StoreUSer />
+          <StoreUser />
           <MainContainer />
         </ApolloProvider>
       </Fragment>

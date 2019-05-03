@@ -45,7 +45,27 @@ const Home = () => {
 
       <button onClick={companiesLoader}>load companies</button>
       <button onClick={companyHandler}>get company</button>
-
+      <button
+        onClick={() => {
+          dispatch({ type: 'set_locals', locals: 'en' })
+        }}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => {
+          dispatch({ type: 'set_locals', locals: 'fo' })
+        }}
+      >
+        FO
+      </button>
+      <button
+        onClick={() => {
+          dispatch({ type: 'set_locals', locals: 'de' })
+        }}
+      >
+        DE
+      </button>
       <Paper>
         <Table>
           <TableHead>

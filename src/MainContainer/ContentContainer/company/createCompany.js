@@ -5,7 +5,7 @@ import Context from '../../../Context/Context'
 
 const CreateCompany = () => {
   let [name, setName] = useState('')
-  let [mother_id, setMother_id] = useState('')
+  let [mother_id, setMother_id] = useState(null)
 
   const createCompanyMutation = useMutation(CREATE_COMPANY)
   const [state] = useContext(Context)
@@ -30,7 +30,7 @@ const CreateCompany = () => {
         </div>
         <div>
           <label>mother_id</label>
-          <input onChange={e => setMother_id(e.target.value)}/>
+          <input onChange={e => {setMother_id(e.target.value)}}/>
         </div>
         <button type="submit">Add Company</button>
       </form>

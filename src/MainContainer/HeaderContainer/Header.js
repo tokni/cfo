@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import Drawer from '../Drawers/Drawer'
+import Language from '../../utils/language'
+import Context from '../../Context/Context'
 
 const styles = {
   root: {
@@ -28,6 +30,7 @@ const styles = {
 const Header = props => {
   const auth = new Auth()
   const [drawer, setDrawer] = useState(false)
+  const [state, dispatch] = useContext(Context)
   const handleAuth = () => {
     if (auth.isAuthenticated() === false) {
       auth.login()
@@ -63,11 +66,11 @@ const Header = props => {
           </Typography>
           {localStorage.getItem('sub') ? (
             <Button onClick={handleLogout} color="inherit">
-              Log out
+              {Language[state.locals].logout}
             </Button>
           ) : (
             <Button onClick={handleAuth} color="inherit">
-              Log in
+              {Language[state.locals].login}
             </Button>
           )}
         </Toolbar>
