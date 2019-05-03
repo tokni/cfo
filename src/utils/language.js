@@ -11,6 +11,8 @@ const Language = {
     login: 'Login',
     logout: 'Logout',
     addcompany: 'Add Company',
+    cancel: 'Cancel',
+    add: 'Add',
   },
   fo: {
     overview: 'Yvirlit',
@@ -24,6 +26,8 @@ const Language = {
     login: 'Rita inn',
     logout: 'Rita út',
     addcompany: 'Stovna Fyritøku',
+    cancel: 'Strika',
+    add: 'Legg afturat',
   },
   de: {
     overview: 'Übersicht',
@@ -37,6 +41,8 @@ const Language = {
     login: 'Anmeldung',
     logout: 'Ausloggen',
     addcompany: 'Firma Hinzufügen',
+    cancel: 'Stornieren',
+    add: 'Hinzufügen',
   },
 }
 

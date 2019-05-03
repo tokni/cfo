@@ -37,7 +37,7 @@ const Home = () => {
         {state.user ? state.user.first_name + ' ' + state.user.last_name : ''}
       </h1>
       <p>Bergur & Kristmund</p>
-      <p>current company:{state.company ? state.company.name : ''}</p>
+      <p>current company:{state.company ? state.company.name : 'Nan'}</p>
 
       <p>{state.user ? state.user.name : console.log('err"3efdfor')}</p>
 
@@ -75,13 +75,14 @@ const Home = () => {
           </TableHead>
           <TableBody>
             {state.companies
-              ? state.companies.map(item => {
+              ? state.companies.map((item, index) => {
                   return (
-                    <TableRow>
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {item.id}
                       </TableCell>
                       <TableCell align="right">{item.mother_id}</TableCell>
+                      <TableCell align="right">{item.user_id}</TableCell>
                       <TableCell align="right">{item.name}</TableCell>
                     </TableRow>
                   )

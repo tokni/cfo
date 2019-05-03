@@ -51,8 +51,8 @@ const SideDrawer = props => {
           Language['en'].addcompany,
         ].map((text, index) => (
           // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-          <Link to={`/${text.split(' ').join('')}`}>
-            <ListItem button key={text} onClick={handleOnClick}>
+          <Link key={index} to={`/${text.split(' ').join('')}`}>
+            <ListItem button key={index} onClick={handleOnClick}>
               <ListItemIcon>
                 {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
               </ListItemIcon>
@@ -72,7 +72,7 @@ const SideDrawer = props => {
       </List>
       {/* </Router> */}
       <Divider />
-      <List>
+      {/* <List>
         {[
           Language[state.locals].sales,
           Language[state.locals].customers,
@@ -85,13 +85,12 @@ const SideDrawer = props => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   )
 
   return (
     <div>
-      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
       <Drawer open={left} onClose={toggleDrawer('left', false)}>
         <div
           tabIndex={0}

@@ -16,7 +16,7 @@ const Company = () => {
     )
   }
   if (error) {
-    console.log('Error: ', error.message)
+    console.log('Error slayer: ', error.message)
     return (
       <tr>
         <td>-</td>

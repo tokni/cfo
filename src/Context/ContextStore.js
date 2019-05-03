@@ -26,6 +26,7 @@ const initialState = {
 
 const reducer = createReducer(initialState, {
   reset: () => initialState,
+
   change_company: (state, action) => ({
     ...state,
     companies: action.companies,
