@@ -4,6 +4,7 @@ import Home from './Home/home'
 import Callback from '../../Callback'
 import Account from './Account/Account'
 import CreateCompany from './Company/createCompany'
+import selectCompany from './Company/selectCompany';
 
 export const ContentContainer = () => (
   <Switch>

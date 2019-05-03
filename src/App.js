@@ -7,6 +7,7 @@ import { ApolloProvider, useQuery, useSubscription } from 'react-apollo-hooks'
 import { client } from '../src/utils/apollo'
 import Context from '../src/Context/Context'
 import { GET_SUBSCRIP_COMPANY, GET_USER } from '../src/utils/query'
+import selectCompany from '../src/MainContainer/ContentContainer/Company/selectCompany'
 
 const StoreUser = () => {
   const { data } = useQuery(GET_USER, {
@@ -71,7 +72,7 @@ class App extends React.Component {
           <StoreUser />
           <StoreCompanies/>
           <MainContainer />
-          
+          <selectCompany/>
         </ApolloProvider>
       </Fragment>
     )

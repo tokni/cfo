@@ -10,41 +10,40 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
 const Home = () => {
-  const { data } = useQuery(GET_COMPANY, {
-    suspend: false,
-  })
+  // const { data } = useQuery(GET_COMPANY, {
+  //   suspend: false,
+  // })
 
   const [state, dispatch] = useContext(Context)
 
-  const companiesLoader = () => {
-    dispatch({
-      type: 'change_company',
-      companies: data.Company,
-    })
-  }
+  // const companiesLoader = () => {
+  //   dispatch({
+  //     type: 'change_company',
+  //     companies: data.Company,
+  //   })
+  // }
 
-  const companyHandler = () => {
-    dispatch({
-      type: 'set_company',
-      index: 0,
-    })
-  }
+  // const companyHandler = () => {
+  //   dispatch({
+  //     type: 'set_company',
+  //     index: 0,
+  //   })
+  // }
 
   return (
     <Fragment>
-      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name: ""}</h1>
+
+      {/* <h1>
+        Hello mr.
+        {state.user ? state.user.first_name + ' ' + state.user.last_name : ''}
+      </h1>
       <p>Bergur & Kristmund</p>
-      <p>
-        current company:{state.company ? state.company.name: "Nan"}
-      </p>
+      <p>current company:{state.company ? state.company.name : 'Nan'}</p>
 
+      <p>{state.user ? state.user.name : console.log('err"3efdfor')}</p>
 
-      <p>
-        {state.user ? state.user.name : console.log('err"3efdfor')}
-      </p>
-
-      <button onClick={companiesLoader}>load companies</button>
-      <button onClick={companyHandler}>get company</button>
+      {/* <button onClick={companiesLoader}>load companies</button>
+      <button onClick={companyHandler}>get company</button> */}
       <button
         onClick={() => {
           dispatch({ type: 'set_locals', locals: 'en' })
@@ -66,6 +65,7 @@ const Home = () => {
       >
         DE
       </button>
+      
       <Paper>
         <Table>
           <TableHead>
@@ -93,7 +93,7 @@ const Home = () => {
               : console.log('error')}
           </TableBody>
         </Table>
-      </Paper>
+      </Paper> */}
     </Fragment>
   )
 }

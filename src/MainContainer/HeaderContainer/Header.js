@@ -13,6 +13,8 @@ import Menu from '@material-ui/core/Menu'
 import Drawer from '../Drawers/Drawer'
 import Language from '../../utils/language'
 import Context from '../../Context/Context'
+import selectCompany from '../../MainContainer/ContentContainer/Company/selectCompany'
+
 
 const styles = {
   root: {
@@ -64,6 +66,7 @@ const Header = props => {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CFO
           </Typography>
+          
           {localStorage.getItem('sub') ? (
             <Button onClick={handleLogout} color="inherit">
               {Language[state.locals].logout}
@@ -73,6 +76,7 @@ const Header = props => {
               {Language[state.locals].login}
             </Button>
           )}
+
         </Toolbar>
       </AppBar>
     </div>

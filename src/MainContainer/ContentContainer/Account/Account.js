@@ -6,6 +6,7 @@ const Account = () => (
   <Fragment>
     <CreateAccount />
     <GetAccount />
+    <selectCompany/>
   </Fragment>
 )
 
