@@ -8,8 +8,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <ContextStore>
-    <BrowserRouter>
-      <App />{' '}
+    <BrowserRouter basename={'/cfo'}>
+      <App />
     </BrowserRouter>
   </ContextStore>,
   document.getElementById('root')
