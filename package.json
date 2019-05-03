@@ -1,9 +1,6 @@
 {
   "name": "cfo",
-<<<<<<< HEAD
-=======
   "homepage": "https://tokni.github.io/cfo",
->>>>>>> d6e3679d1c26b82778c4b599104485bc193e45ec
   "version": "0.1.0",
   "private": true,
   "dependencies": {
