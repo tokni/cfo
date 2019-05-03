@@ -1,17 +1,4 @@
 const Language = {
-  fo: {
-    overview: 'Yvirlit',
-    invoice: 'Faktura',
-    bills: 'Rokningar',
-    transactions: 'Flytingar',
-    customers: 'Kundar',
-    products: 'Vørur',
-    accounts: 'Kontur',
-    sales: 'Sølur',
-    login: 'Rita inn',
-    logout: 'Rita út',
-    addcompany: 'Stovna Fyritøku'
-  },
   en: {
     overview: 'Overview',
     invoice: 'Invoice',
@@ -23,7 +10,24 @@ const Language = {
     sales: 'Sales',
     login: 'Login',
     logout: 'Logout',
-    addcompany: 'AddCompany'
+    addcompany: 'Add Company',
+    cancel: 'Cancel',
+    add: 'Add',
+  },
+  fo: {
+    overview: 'Yvirlit',
+    invoice: 'Faktura',
+    bills: 'Rokningar',
+    transactions: 'Flytingar',
+    customers: 'Kundar',
+    products: 'Vørur',
+    accounts: 'Kontur',
+    sales: 'Sølur',
+    login: 'Rita inn',
+    logout: 'Rita út',
+    addcompany: 'Stovna Fyritøku',
+    cancel: 'Strika',
+    add: 'Legg afturat',
   },
   de: {
     overview: 'Übersicht',
@@ -36,7 +40,9 @@ const Language = {
     sales: 'Verkauf',
     login: 'Anmeldung',
     logout: 'Ausloggen',
-    addcompany: 'Firma Hinzufügen'
+    addcompany: 'Firma Hinzufügen',
+    cancel: 'Stornieren',
+    add: 'Hinzufügen',
   },
 }
 
