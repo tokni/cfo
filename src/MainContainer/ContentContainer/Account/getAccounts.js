@@ -35,7 +35,6 @@ const Accounts = () => {
       </tr>
     )
   }
-  console.log('Accounts data er : ', data.Account)
   return (
     <Paper>
       <Table>
@@ -49,21 +48,19 @@ const Accounts = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.Account.map(item => {
+          {data.Account.map((item, index) => {
             return (
-              <Fragment>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {item.id}
-                  </TableCell>
-                  <TableCell align="right">{item.name}</TableCell>
-                  <TableCell align="right">{item.balance}</TableCell>
-                  <TableCell align="right">
-                    {item.debit ? 'debit' : 'credit'}
-                  </TableCell>
-                  <TableCell align="right">{item.Company.name}</TableCell>
-                </TableRow>
-              </Fragment>
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {item.id}
+                </TableCell>
+                <TableCell align="right">{item.name}</TableCell>
+                <TableCell align="right">{item.balance}</TableCell>
+                <TableCell align="right">
+                  {item.debit ? 'debit' : 'credit'}
+                </TableCell>
+                <TableCell align="right">{item.Company.name}</TableCell>
+              </TableRow>
             )
           })}
         </TableBody>

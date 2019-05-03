@@ -48,17 +48,23 @@ const SideDrawer = props => {
           Language['en'].bills,
           Language['en'].transactions,
           Language['en'].accounts,
-          Language['en'].addcompany
+          Language['en'].addcompany,
         ].map((text, index) => (
           // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-          <Link to={`/${text}`}>
-            {console.log('lang: ', text)}
-            <ListItem button key={text} onClick={handleOnClick}>
+          <Link key={index} to={`/${text.split(' ').join('')}`}>
+            <ListItem button key={index} onClick={handleOnClick}>
               <ListItemIcon>
                 {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText
-                primary={Language[state.locals][text.toLowerCase()]}
+                primary={
+                  Language[state.locals][
+                    text
+                      .toLowerCase()
+                      .split(' ')
+                      .join('')
+                  ]
+                }
               />
             </ListItem>
           </Link>
@@ -66,7 +72,7 @@ const SideDrawer = props => {
       </List>
       {/* </Router> */}
       <Divider />
-      <List>
+      {/* <List>
         {[
           Language[state.locals].sales,
           Language[state.locals].customers,
@@ -79,13 +85,12 @@ const SideDrawer = props => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   )
 
   return (
     <div>
-      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
       <Drawer open={left} onClose={toggleDrawer('left', false)}>
         <div
           tabIndex={0}

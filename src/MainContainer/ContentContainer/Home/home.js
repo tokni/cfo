@@ -32,16 +32,14 @@ const Home = () => {
 
   return (
     <Fragment>
-      <h1>Hello mr.{state.user ? state.user.first_name + ' ' + state.user.last_name: ""}</h1>
+      <h1>
+        Hello mr.
+        {state.user ? state.user.first_name + ' ' + state.user.last_name : ''}
+      </h1>
       <p>Bergur & Kristmund</p>
-      <p>
-        current company:{state.company ? state.company.name: "Nan"}
-      </p>
+      <p>current company:{state.company ? state.company.name : 'Nan'}</p>
 
-
-      <p>
-        {state.user ? state.user.name : console.log('err"3efdfor')}
-      </p>
+      <p>{state.user ? state.user.name : console.log('err"3efdfor')}</p>
 
       <button onClick={companiesLoader}>load companies</button>
       <button onClick={companyHandler}>get company</button>
@@ -71,16 +69,16 @@ const Home = () => {
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
-              <TableCell align="right">mother_id</TableCell>
-              <TableCell align="right">user id</TableCell>
-              <TableCell align="right">name</TableCell>
+              <TableCell align="right">Mother Id</TableCell>
+              <TableCell align="right">User Id</TableCell>
+              <TableCell align="right">Name</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {state.companies
-              ? state.companies.map(item => {
+              ? state.companies.map((item, index) => {
                   return (
-                    <TableRow>
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {item.id}
                       </TableCell>
