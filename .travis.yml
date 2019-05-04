@@ -3,7 +3,8 @@ node_js:
   - 'stable'
 cache:
   directories:
-    - node_modules
+  - node_modules
+  - $HOME/.cache/pip
 python:
   - "3.5"
 install:
@@ -25,6 +26,5 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - aws configure --region eu-west-1 --output json
   - aws configure set preview.cloudfront true
   - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
