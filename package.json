@@ -14,13 +14,10 @@
     "apollo-link-ws": "^1.0.17",
     "apollo-utilities": "^1.2.1",
     "auth0-js": "^9.10.2",
-    "bootstrap": "^4.3.1",
-    "gh-pages": "^2.0.1",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.0",
     "react": "^16.8.6",
     "react-apollo-hooks": "^0.4.5",
-    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
@@ -37,9 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --verbose=false",
     "test:coverage": "npm test -- --coverage",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
