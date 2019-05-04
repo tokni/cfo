@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
 
+import SnackBar from '../SnackBar/SnackBar'
+
 const Accounts = () => {
   const [state] = useContext(Context)
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
@@ -28,15 +30,13 @@ const Accounts = () => {
     )
   }
   if (error) {
-    console.log('Error accounts: ', error)
-    return (
-      <tr>
-        <td>-</td>
-      </tr>
-    )
+    return <SnackBar message={'Error loading accounts'} state={'error'} />
   }
   return (
     <Paper>
+      {state.company === null ? (
+        <SnackBar message={'Load companies first'} state={'warning'} />
+      ) : null}
       <Table>
         <TableHead>
           <TableRow>

@@ -14,6 +14,8 @@ import { CREATE_ACCOUNT } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import SnackBar from '../SnackBar/SnackBar'
+import { setTimeout } from 'timers'
 
 const styles = theme => ({
   fab: {
@@ -33,19 +35,22 @@ const CreateAccount = props => {
   const { classes } = props
   const createAccountMutation = useMutation(CREATE_ACCOUNT)
   const [state] = useContext(Context)
+  const [msg, setMsg] = useState(false)
+  const [msgSuccess, setMsgSuccess] = useState(true)
 
   const handleClose = () => {
-    setName('')
+    setName(null)
     setBalance(0)
     setDebit(true)
     if (state.company !== null) {
       setOpen(!open)
     }
+    setMsg(false)
   }
 
   const onSubmit = e => {
     e.preventDefault()
-    if (name !== '') {
+    if (name !== null) {
       createAccountMutation({
         variables: {
           name,
@@ -54,6 +59,15 @@ const CreateAccount = props => {
           company_id: state.company.id,
         },
       })
+      setTimeout(() => {
+        setMsgSuccess(true)
+        setMsg(true)
+      }, 1000)
+    } else {
+      setTimeout(() => {
+        setMsgSuccess(false)
+        setMsg(true)
+      }, 1000)
     }
     handleClose()
   }
@@ -130,6 +144,13 @@ const CreateAccount = props => {
           </Button>
         </DialogActions>
       </Dialog>
+      {msg === true ? (
+        msg === true && msgSuccess === true ? (
+          <SnackBar message={'Account added successfully'} state={'success'} />
+        ) : (
+          <SnackBar message={'Name is required'} state={'error'} />
+        )
+      ) : null}
     </Fragment>
   )
 }
