@@ -45,12 +45,6 @@ const styles1 = theme => ({
   },
 })
 
-const styles2 = theme => ({
-  margin: {
-    margin: theme.spacing.unit,
-  },
-})
-
 function SnackBarContent(props) {
   const { classes, className, message, onClose, variant, ...other } = props
   const Icon = variantIcon[variant]

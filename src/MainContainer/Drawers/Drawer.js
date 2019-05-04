@@ -48,8 +48,13 @@ const SideDrawer = props => {
           Language['en'].accounts,
           Language['en'].addcompany,
         ].map((text, index) => (
-          // <Link to={text === 'Accounts' ? '/db' : `/${text}`}>
-          <Link key={index} to={`/${text.split(' ').join('').toLowerCase()}`}>
+          <Link
+            key={index}
+            to={`/${text
+              .split(' ')
+              .join('')
+              .toLowerCase()}`}
+          >
             <ListItem button key={index} onClick={handleOnClick}>
               <ListItemIcon>
                 {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
@@ -68,22 +73,7 @@ const SideDrawer = props => {
           </Link>
         ))}
       </List>
-      {/* </Router> */}
       <Divider />
-      {/* <List>
-        {[
-          Language[state.locals].sales,
-          Language[state.locals].customers,
-          Language[state.locals].products,
-        ].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   )
 

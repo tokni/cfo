@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
 import { withStyles } from '@material-ui/core/styles'
 import green from '@material-ui/core/colors/green'
@@ -45,10 +44,6 @@ const MySnackbarContentWrapper = withStyles(styles1)(SnackBarContent)
 const CustomizedSnackbars = props => {
   const [open, setOpen] = useState(true)
 
-  const handleClick = () => {
-    setOpen(true)
-  }
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -57,13 +52,8 @@ const CustomizedSnackbars = props => {
     setOpen(false)
   }
 
-  const { classes } = props
-
   return (
     <div>
-      {/* <Button className={classes.margin} onClick={handleClick}>
-        Open success snackbar
-      </Button> */}
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
