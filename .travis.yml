@@ -9,9 +9,13 @@ script:
   - npm run test:coverage
   - npm run build
 deploy:
-  provider: pages
+  provider: s3
+  access_key_id: $ACCESS_KEY_ID
+  secret_access_key: $SECRET_ACCESS_KEY
+  bucket: cdotfo
+  region: eu-west-1
   skip_cleanup: true
-  github_token: $github_token
+  acl: public_read
   keep_history: true
   local_dir: build
   on:

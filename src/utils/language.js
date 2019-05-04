@@ -25,7 +25,7 @@ const Language = {
     sales: 'Sølur',
     login: 'Rita inn',
     logout: 'Rita út',
-    addcompany: 'Stovna Fyritøku',
+    addcompany: 'Stovna fyritøku',
     cancel: 'Strika',
     add: 'Legg afturat',
   },
