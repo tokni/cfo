@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Drawer from '../Drawers/Drawer'
 import Language from '../../utils/language'
 import Context from '../../Context/Context'
+import SelectCompany from '../../MainContainer/ContentContainer/Company/selectCompany'
+
 
 const styles = {
   root: {
@@ -56,12 +58,15 @@ const Header = props => {
             aria-label="Menu"
             onClick={handleDrawer}
           >
+
             <MenuIcon />
             {drawer ? <Drawer /> : ''}
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CFO
           </Typography>
+          <SelectCompany/>
+          
           {localStorage.getItem('sub') ? (
             <Button onClick={handleLogout} color="inherit">
               {Language[state.locals].logout}
@@ -71,6 +76,7 @@ const Header = props => {
               {Language[state.locals].login}
             </Button>
           )}
+
         </Toolbar>
       </AppBar>
     </div>

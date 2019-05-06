@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
+
 const GET_COMPANY = gql`
-  query getCompanies {
+query getCompanies {
     Company {
       id
       mother_id
@@ -13,17 +14,10 @@ const GET_COMPANY = gql`
 const GET_SUBSCRIP_COMPANY = gql`
   subscription {
     Company {
-      user_id
+      id
+      mother_id
       name
-    }
-  }
-`
-
-const GET_ACCOUNTS = gql`
-  {
-    Company {
       user_id
-      name
     }
   }
 `
@@ -97,7 +91,6 @@ export {
   GET_COMPANY,
   GET_DAY_BOOK,
   GET_SUBSCRIP_COMPANY,
-  GET_ACCOUNTS,
   GET_SUBSCRIP_ACCOUNTS,
   CREATE_ACCOUNT,
   CREATE_COMPANY,
