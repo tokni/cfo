@@ -1,5 +1,4 @@
 import React, { useContext, Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Auth from './Auth/Auth'
 import './App.css'
 import { MainContainer } from './MainContainer/MainContainer'
@@ -7,7 +6,6 @@ import { ApolloProvider, useQuery, useSubscription } from 'react-apollo-hooks'
 import { client } from '../src/utils/apollo'
 import Context from '../src/Context/Context'
 import { GET_SUBSCRIP_COMPANY, GET_USER } from '../src/utils/query'
-import selectCompany from '../src/MainContainer/ContentContainer/Company/selectCompany'
 
 const StoreUser = () => {
   const { data } = useQuery(GET_USER, {
@@ -16,7 +14,7 @@ const StoreUser = () => {
     },
   })
 
- 
+  // eslint-disable-next-line
   const [state, dispatch] = useContext(Context)
 
   useEffect(() => {
@@ -42,7 +40,6 @@ const StoreCompanies = () =>  {
       companies: data ? data.Company : null
     })
   })
-
   return null
 }
 
@@ -57,7 +54,6 @@ class App extends React.Component {
       this.auth.login()
     } else {
       console.log('try again')
-      //  this.auth.handleAuthentication();
     }
   }
 
@@ -72,7 +68,6 @@ class App extends React.Component {
           <StoreUser />
           <StoreCompanies/>
           <MainContainer />
-          <selectCompany/>
         </ApolloProvider>
       </Fragment>
     )

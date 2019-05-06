@@ -39,8 +39,8 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
 `
 
 const GET_USER = gql`
-  query($token: String!){
-    User(where: {token: {_like: $token}}) {
+  query($token: String!) {
+    User(where: { token: { _like: $token } }) {
       first_name
       last_name
       id
@@ -49,19 +49,33 @@ const GET_USER = gql`
 `
 
 const CREATE_COMPANY = gql`
-mutation createCompany($name: String!, $mother_id: uuid, $user_id: uuid!) {
-  insert_Company(objects: {name: $name, mother_id: $mother_id, user_id: $user_id}) {
-      affected_rows     
-    }     
-}
+  mutation createCompany($name: String!, $mother_id: uuid, $user_id: uuid!) {
+    insert_Company(
+      objects: { name: $name, mother_id: $mother_id, user_id: $user_id }
+    ) {
+      affected_rows
+    }
+  }
 `
 
 const CREATE_ACCOUNT = gql`
-mutation createAccount($id: String!, $balance: numeric!, $debit: Boolean!, $company_id: uuid!) {
-  insert_Account(objects: {name: $name, balance: $balance, debit: $debit, company_id: $company_id}) {
-      affected_rows     
-    }     
-}
+  mutation createAccount(
+    $name: String!
+    $balance: numeric!
+    $debit: Boolean!
+    $company_id: uuid!
+  ) {
+    insert_Account(
+      objects: {
+        name: $name
+        balance: $balance
+        debit: $debit
+        company_id: $company_id
+      }
+    ) {
+      affected_rows
+    }
+  }
 `
 const GET_DAY_BOOK = gql`
   {
@@ -80,5 +94,5 @@ export {
   GET_SUBSCRIP_ACCOUNTS,
   CREATE_ACCOUNT,
   CREATE_COMPANY,
-   GET_USER 
+  GET_USER,
 }

@@ -1,6 +1,5 @@
-
 describe('Testing app', () => {
-    it('fdsfsd', () => {
-        expect(true).toBe(true)
-    })    
+  it('fdsfsd', () => {
+    expect(true).toBe(true)
+  })
 })

@@ -1,6 +1,6 @@
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -10,8 +10,10 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
 
+import SnackBar from '../SnackBar/SnackBar'
+
 const Accounts = () => {
-  const [state, dispatch] = useContext(Context)
+  const [state] = useContext(Context)
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
     suspend: false,
     variables: {
@@ -28,16 +30,13 @@ const Accounts = () => {
     )
   }
   if (error) {
-    console.log('Error accounts: ', error)
-    return (
-      <tr>
-        <td>-</td>
-      </tr>
-    )
+    return <SnackBar message={'Error loading accounts'} state={'error'} />
   }
-  console.log('Accounts data er : ', data.Account)
   return (
     <Paper>
+      {state.company === null ? (
+        <SnackBar message={'Load companies first'} state={'warning'} />
+      ) : null}
       <Table>
         <TableHead>
           <TableRow>
@@ -49,21 +48,19 @@ const Accounts = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.Account.map(item => {
+          {data.Account.map((item, index) => {
             return (
-              <Fragment>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {item.id}
-                  </TableCell>
-                  <TableCell align="right">{item.name}</TableCell>
-                  <TableCell align="right">{item.balance}</TableCell>
-                  <TableCell align="right">
-                    {item.debit ? 'debit' : 'credit'}
-                  </TableCell>
-                  <TableCell align="right">{item.Company.name}</TableCell>
-                </TableRow>
-              </Fragment>
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {item.id}
+                </TableCell>
+                <TableCell align="right">{item.name}</TableCell>
+                <TableCell align="right">{item.balance}</TableCell>
+                <TableCell align="right">
+                  {item.debit ? 'debit' : 'credit'}
+                </TableCell>
+                <TableCell align="right">{item.Company.name}</TableCell>
+              </TableRow>
             )
           })}
         </TableBody>

@@ -8,8 +8,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Auth from '../../Auth/Auth'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
 import Drawer from '../Drawers/Drawer'
 import Language from '../../utils/language'
 import Context from '../../Context/Context'
@@ -32,7 +30,7 @@ const styles = {
 const Header = props => {
   const auth = new Auth()
   const [drawer, setDrawer] = useState(false)
-  const [state, dispatch] = useContext(Context)
+  const [state] = useContext(Context)
   const handleAuth = () => {
     if (auth.isAuthenticated() === false) {
       auth.login()

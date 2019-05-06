@@ -47,7 +47,7 @@ const CreateCompany = props => {
         variables: {
           name,
           mother_id,
-          user_id: state.user.id
+          user_id: state.user.id,
         },
       })
     }

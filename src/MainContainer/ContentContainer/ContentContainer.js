@@ -8,9 +8,9 @@ import selectCompany from './Company/selectCompany';
 
 export const ContentContainer = () => (
   <Switch>
-    <Route path="/Overview" component={Home} />
-    <Route path="/callback" component={Callback} />
-    <Route path="/Accounts" component={Account} />
-    <Route path="/AddCompany" component={CreateCompany}/>
+    <Route path={`${process.env.PUBLIC_URL}/overview`} component={Home} />
+    <Route path={`${process.env.PUBLIC_URL}/callback`} component={Callback} />
+    <Route path={`${process.env.PUBLIC_URL}/accounts`} component={Account} />
+    <Route path={`${process.env.PUBLIC_URL}/addcompany`} component={CreateCompany} />
   </Switch>
 )

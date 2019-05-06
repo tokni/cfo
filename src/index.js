@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom'
 ReactDOM.render(
   <ContextStore>
     <BrowserRouter>
-      <App />{' '}
+      <App />
     </BrowserRouter>
   </ContextStore>,
   document.getElementById('root')
