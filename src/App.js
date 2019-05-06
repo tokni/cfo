@@ -32,6 +32,7 @@ const StoreCompanies = () =>  {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
 
 
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
  
   useEffect(() => {   

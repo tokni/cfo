@@ -11,18 +11,19 @@ import Button from '@material-ui/core/Button'
 const styles = theme => ({
   button: {
     display: 'block',
-    marginTop: theme.spacing.unit * 2,
   },
   formControl: {
-    margin: theme.spacing.unit,
     minWidth: 320,
+  },
+  label: {
+    color: 'inherit',
   },
 })
 
 const SelectCompany = props => {
   const [open, setOpen] = useState(false)
   const [state, dispatch] = useContext(Context)
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState(0)
 
   const { classes } = props
 
@@ -46,12 +47,10 @@ const SelectCompany = props => {
   return (
     <form autoComplete="off">
       <Button className={classes.button} onClick={handleOpen} />
-     
       <FormControl className={classes.formControl}>
-      {/* <InputLabel htmlFor="demo-controlled-open-select">
-          Choose Company
-        </InputLabel> */}
-        <Select
+        <InputLabel className={classes.label}>Choose company</InputLabel>
+
+        <Select className={classes.label}
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}

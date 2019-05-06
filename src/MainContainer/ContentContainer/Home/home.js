@@ -1,7 +1,5 @@
 import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
-import { useQuery } from 'react-apollo-hooks'
-import { GET_COMPANY } from '../../../utils/query'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -12,9 +10,6 @@ import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 
 const Home = () => {
-  // const { data } = useQuery(GET_COMPANY, {
-  //   suspend: false,
-  // })
 
   const [state, dispatch] = useContext(Context)
 
@@ -25,25 +20,9 @@ const Home = () => {
     })
   }
 
-  const companyHandler = () => {
-    dispatch({
-      type: 'set_company',
-      index: 0,
-    })
-  }
-
-  const handleChooseCompany = id => {
-    console.log('id is : ', id)
-    dispatch({
-      type: 'set_company',
-      index: id,
-    })
-  }
-
   return (
     <Fragment>
       <button onClick={companiesLoader}>load companies</button>
-      <button onClick={companyHandler}>get company</button>
       <button
         onClick={() => {
           dispatch({ type: 'set_locals', locals: 'en' })
@@ -127,7 +106,6 @@ const Home = () => {
                       return (
                         <TableRow
                           key={index}
-                          onClick={handleChooseCompany.bind(this, index)}
                         >
                           <TableCell component="th" scope="row">
                             {item.id}
