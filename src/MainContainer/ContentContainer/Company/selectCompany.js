@@ -1,65 +1,84 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
-import InboxIcon from '@material-ui/icons/Inbox'
-import DraftsIcon from '@material-ui/icons/Drafts'
 import Context from '../../../Context/Context'
-
+import { withStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+  button: {
+    display: 'block',
+    marginTop: theme.spacing.unit * 2,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 320,
   },
 })
 
-
-
 const SelectCompany = props => {
- 
+  const [open, setOpen] = useState(false)
   const [state, dispatch] = useContext(Context)
-  const { classes } = this.props;
- 
-  const  handleListItemClick = (index) => {
+  const [value, setValue] = useState(null)
+
+  const { classes } = props
+
+  const handleChange = event => {
+    setValue(event.target.value)
+
     dispatch({
-        type: 'set_company', index
+      type: 'set_company',
+      index: event.target.value,
     })
-  };
-  
-    return (
-        <div className={classes.root}>
-        <List component="nav">
-          
-          {
-              state.companies.map(item => {
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  return (
+    <form autoComplete="off">
+      <Button className={classes.button} onClick={handleOpen} />
+     
+      <FormControl className={classes.formControl}>
+      {/* <InputLabel htmlFor="demo-controlled-open-select">
+          Choose Company
+        </InputLabel> */}
+        <Select
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={value}
+          onChange={handleChange}
+          inputProps={{
+            name: 'name',
+            id: 'demo-controlled-open-select',
+          }}
+        >
+          {state.companies
+            ? state.companies.map((item, index) => {
                 return (
-                    <ListItem
-                    button
-                    selected={state.currentIndex === 0}
-                    onClick={handleListItemClick(0)}
-                  >
-                    <ListItemIcon>
-                      <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={item.name} />
-                  </ListItem>
+                  <MenuItem key={index} value={index}>
+                    {item.name}
+                  </MenuItem>
                 )
               })
-          }
-        
-        </List>
-      </div>
-    );
-  }
-  
-  SelectCompany.propTypes = {
-    classes: PropTypes.object.isRequired,
-  }
-  
-  export default withStyles(styles)(SelectCompany)
+            : ''}
+        </Select>
+      </FormControl>
+    </form>
+  )
+}
+
+SelectCompany.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styles)(SelectCompany)

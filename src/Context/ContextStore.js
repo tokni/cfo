@@ -17,7 +17,6 @@ ContextStore.propTypes = {
 }
 
 const initialState = {
-  currentIndex: 0,
   locals: 'fo',
   companies: null,
   company: null,
