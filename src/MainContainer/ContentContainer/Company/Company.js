@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import GetCompany from './GetCompany'
-import CreateCompany from './CreateCompany'
+import CreateCompany from './teCompany'
 
 const Company = () => (
     <Fragment>
