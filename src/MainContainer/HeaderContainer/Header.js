@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Drawer from '../Drawers/Drawer'
 import Language from '../../utils/language'
 import Context from '../../Context/Context'
-import SelectCompany from '../ContentContainer/Company/SelectCompany'
+import SelectCompany from '../ContentContainer/Company/electCompany'
 
 const styles = {
   root: {
