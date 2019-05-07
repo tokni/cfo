@@ -5,6 +5,7 @@ import Callback from '../../Callback'
 import Account from './Account/Account'
 import Company from './Company/Company'
 import CreateCompany from './Company/CreateCompany'
+import DayBook from './DayBook/DayBook'
 
 export const ContentContainer = () => (
   <Switch>
@@ -13,5 +14,6 @@ export const ContentContainer = () => (
     <Route path={`${process.env.PUBLIC_URL}/accounts`} component={Account} />
     <Route path={`${process.env.PUBLIC_URL}/addcompany`} component={CreateCompany} />
     <Route path={`${process.env.PUBLIC_URL}/companies`} component={Company} />
+    <Route path={`${process.env.PUBLIC_URL}/daybook`} component={DayBook} />
   </Switch>
 )

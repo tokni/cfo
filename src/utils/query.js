@@ -98,13 +98,15 @@ const CREATE_ACCOUNT = gql`
   }
 `
 const GET_DAY_BOOK = gql`
-  {
-    day_book {
-      account_id
-      name
-      balance
-    }
+subscription {
+  day_book {
+    account_id
+    name
+    balance
+    debit
   }
+}
+
 `
 
 export {

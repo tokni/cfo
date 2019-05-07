@@ -16,6 +16,7 @@ const Language = {
     addaccount: 'Add account',
     cancel: 'Cancel',
     add: 'Add',
+    daybook: "Day Book",
     choosecompany: 'Choose company',
     fillformtoaddaccount: 'Fill this form to add an account',
   },
@@ -36,6 +37,7 @@ const Language = {
     addcompany: 'Stovna fyritøku',
     cancel: 'Strika',
     add: 'Legg afturat',
+    daybook: 'Kassa Kladda',
     choosecompany: 'Vel fyritøku',
     fillformtoaddaccount: 'Fyll teiðarnar fyri at leggja kontu avtrat',
   },
@@ -56,6 +58,7 @@ const Language = {
     addcompany: 'Firma Hinzufügen',
     cancel: 'Stornieren',
     add: 'Hinzufügen',
+    daybook: 'Tagebuch',
     choosecompany: 'Firma wählen',
     fillformtoaddaccount:
       'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
