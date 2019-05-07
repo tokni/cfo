@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useEffect } from 'react'
+import React, { useContext, Fragment, useEffect, useState } from 'react'
 import Auth from './Auth/Auth'
 import './App.css'
 import { MainContainer } from './MainContainer/MainContainer'
@@ -12,26 +12,29 @@ import {
 } from '../src/utils/query'
 
 const StoreUser = () => {
+  const [user, setUser] = useState()
+  const [state, dispatch] = useContext(Context)
+
   const { data } = useQuery(GET_USER, {
     variables: {
       token: localStorage.getItem('sub'),
     },
   })
 
-  // eslint-disable-next-line
-  const [state, dispatch] = useContext(Context)
-
   useEffect(() => {
     dispatch({
       type: 'load_user',
       user: data.User,
     })
-  })
+    setUser(data.Users)
+  }, [user])
+
   return null
 }
 
 const StorePref = () => {
   const [state, dispatch] = useContext(Context)
+  const [locals, setLocals] = useState()
   const { data } = useQuery(GET_USER_PREF, {
     variables: { user_id: state.user ? state.user.id : null },
   })
@@ -41,14 +44,15 @@ const StorePref = () => {
       type: 'set_locals',
       locals: data.Preferences ? data.Preferences[0].locals : 'fo',
     })
-  })
+    setLocals(data)
+  }, [locals])
 
   return null
 }
 
 const StoreCompanies = () => {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
-
+  const [companies, setCompanies] = useState()
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
 
@@ -57,7 +61,8 @@ const StoreCompanies = () => {
       type: 'set_companies',
       companies: data ? data.Company : null,
     })
-  })
+    setCompanies(data)
+  }, [companies])
   return null
 }
 
@@ -84,8 +89,8 @@ class App extends React.Component {
       <Fragment>
         <ApolloProvider client={client}>
           <StoreUser />
-          <StoreCompanies />
           <StorePref />
+          <StoreCompanies />
           <MainContainer />
         </ApolloProvider>
       </Fragment>

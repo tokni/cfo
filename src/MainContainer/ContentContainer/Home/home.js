@@ -32,16 +32,16 @@ const Home = () => {
   }
 
   const HandleClicker = locals => {
-    MutateLocals({
-      variables: {
-        user_id: state.user.id,
-        locals: locals,
-      },
-    })
-
     dispatch({
       type: 'set_locals',
       locals: locals,
+    })
+
+    MutateLocals({
+      variables: {
+        user_id: state.user ? state.user.id : null,
+        locals: locals,
+      },
     })
   }
 

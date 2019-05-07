@@ -46,6 +46,7 @@ const SideDrawer = props => {
           Language['en'].bills,
           Language['en'].transactions,
           Language['en'].accounts,
+          Language['en'].companies,
           Language['en'].addcompany,
         ].map((text, index) => (
           <Link
