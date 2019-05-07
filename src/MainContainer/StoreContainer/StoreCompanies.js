@@ -20,7 +20,7 @@ const StoreCompanies = () => {
     }
     // setCompanies(data)
     fetchData()
-  }, [data])
+  }, [data, dispatch])
   return null
 }
 

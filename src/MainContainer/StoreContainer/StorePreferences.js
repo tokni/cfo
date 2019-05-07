@@ -13,7 +13,6 @@ const StorePreferences = () => {
     },
   })
 
-  console.log('store preF: : ', data)
   useEffect(() => {
     async function fetchData() {
       await dispatch({
@@ -21,8 +20,10 @@ const StorePreferences = () => {
         locals: data.Preferences ? data.Preferences[0].locals : 'fo',
       })
     }
+
     fetchData()
-  }, [data])
+  }, [data.Preferences, dispatch])
+
   return null
 }
 

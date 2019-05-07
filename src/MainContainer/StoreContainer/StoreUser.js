@@ -21,7 +21,7 @@ const StoreUser = () => {
       })
     }
     fetchData()
-  }, [data.User])
+  }, [data.User, dispatch])
 
   return null
 }
