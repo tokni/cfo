@@ -28,6 +28,7 @@ const GetAccounts = () => {
       </tr>
     )
   }
+ 
   if (error) {
     return <SnackBar message={'Error loading accounts'} state={'error'} />
   }
