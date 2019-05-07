@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
+import Language from '../../../utils/language'
 
 const styles = theme => ({
   button: {
@@ -17,7 +18,7 @@ const styles = theme => ({
   },
   label: {
     color: 'white',
-    focus: "inherit"
+    focus: 'inherit',
   },
 })
 
@@ -49,9 +50,12 @@ const SelectCompany = props => {
     <form autoComplete="off">
       <Button className={classes.button} onClick={handleOpen} />
       <FormControl className={classes.formControl}>
-        <InputLabel focused={false} className={classes.label}>Choose company</InputLabel>
+        <InputLabel focused={false} className={classes.label}>
+          {Language[state.locals].choosecompany}
+        </InputLabel>
 
-        <Select className={classes.label}
+        <Select
+          className={classes.label}
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}

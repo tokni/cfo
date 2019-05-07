@@ -11,16 +11,6 @@ import Grid from '@material-ui/core/Grid'
 import { SET_LOCALS } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
 
-// const MutateLocals = () => {
-//   useMutation(SET_LOCALS, {
-//     variables: {
-//       locals: 'en',
-//     },
-//   })
-
-//   return null
-// }
-
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
