@@ -28,7 +28,7 @@ const reducer = createReducer(initialState, {
 
   set_companies: (state, action) => ({
     ...state,
-    companies: action.companies
+    companies: action.companies,
   }),
   set_company: (state, action) => ({
     ...state,

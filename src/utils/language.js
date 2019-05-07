@@ -6,15 +6,19 @@ const Language = {
     transactions: 'Transactions',
     customers: 'Customers',
     products: 'Products',
+    name: 'Name',
     accounts: 'Accounts',
     companies: 'Companies',
     sales: 'Sales',
     login: 'Login',
     logout: 'Logout',
     addcompany: 'Add Company',
+    addaccount: 'Add account',
     cancel: 'Cancel',
     add: 'Add',
-    daybook: "Day Book"
+    daybook: "Day Book",
+    choosecompany: 'Choose company',
+    fillformtoaddaccount: 'Fill this form to add an account',
   },
   fo: {
     overview: 'Yvirlit',
@@ -23,15 +27,19 @@ const Language = {
     transactions: 'Flytingar',
     customers: 'Kundar',
     products: 'Vørur',
+    addaccount: 'Legg kontu avtrat',
     accounts: 'Kontur',
-    companies: "Fyritøkur",
+    name: 'Navn',
+    companies: 'Fyritøkur',
     sales: 'Sølur',
     login: 'Rita inn',
     logout: 'Rita út',
     addcompany: 'Stovna fyritøku',
     cancel: 'Strika',
     add: 'Legg afturat',
-    daybook: 'Kassa Kladda'
+    daybook: 'Kassa Kladda',
+    choosecompany: 'Vel fyritøku',
+    fillformtoaddaccount: 'Fyll teiðarnar fyri at leggja kontu avtrat',
   },
   de: {
     overview: 'Übersicht',
@@ -41,6 +49,8 @@ const Language = {
     customers: 'Kunden',
     products: 'Produkte',
     companies: 'Firmen',
+    addaccount: 'Konto hinzufügen',
+    name: 'Name',
     accounts: 'Konten',
     sales: 'Verkauf',
     login: 'Anmeldung',
@@ -48,7 +58,10 @@ const Language = {
     addcompany: 'Firma Hinzufügen',
     cancel: 'Stornieren',
     add: 'Hinzufügen',
-    daybook: 'Tagebuch'
+    daybook: 'Tagebuch',
+    choosecompany: 'Firma wählen',
+    fillformtoaddaccount:
+      'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
   },
 }
 

@@ -1,12 +1,32 @@
 import gql from 'graphql-tag'
 
 const GET_COMPANY = gql`
-query getCompanies {
+  query getCompanies {
     Company {
       id
       mother_id
       name
       user_id
+    }
+  }
+`
+
+const GET_USER_PREF = gql`
+  query getPref($user_id: uuid!) {
+    Preferences(where: { user_id: { _eq: $user_id } }) {
+      locals
+      current_company
+    }
+  }
+`
+
+const SET_LOCALS = gql`
+  mutation setLocals($user_id: uuid!, $locals: String!) {
+    update_Preferences(
+      where: { user_id: { _eq: $user_id } }
+      _set: { locals: $locals }
+    ) {
+      affected_rows
     }
   }
 `
@@ -97,4 +117,6 @@ export {
   CREATE_ACCOUNT,
   CREATE_COMPANY,
   GET_USER,
+  GET_USER_PREF,
+  SET_LOCALS,
 }

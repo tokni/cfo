@@ -87,16 +87,18 @@ const CreateAccount = props => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add Account</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {Language[state.locals].addaccount}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Fill this form to add an account
+            {Language[state.locals].fillformtoaddaccount}
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Account name"
+            label={Language[state.locals].name}
             type="text"
             fullWidth
             onChange={e => {
