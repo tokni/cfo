@@ -9,11 +9,8 @@ import Paper from '@material-ui/core/Paper'
 
 
 const GetCompany = () => {
-  
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
-
- 
 
   return (
 <Paper>
