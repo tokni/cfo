@@ -17,7 +17,7 @@ ContextStore.propTypes = {
 }
 
 const initialState = {
-  locals: 'en',
+  locals: 'fo',
   companies: null,
   company: null,
   user: null,

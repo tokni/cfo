@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useEffect } from 'react'
+import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import { SET_LOCALS } from '../../../utils/query'
-import { ApolloProvider, useMutation } from 'react-apollo-hooks'
+import { useMutation } from 'react-apollo-hooks'
 
 // const MutateLocals = () => {
 //   useMutation(SET_LOCALS, {
@@ -31,26 +31,26 @@ const Home = () => {
     })
   }
 
-  const HandleClicker = locals => {
-    dispatch({
-      type: 'set_locals',
-      locals: locals,
-    })
-
+  const handleClicker = locals => {
     MutateLocals({
       variables: {
         user_id: state.user ? state.user.id : null,
         locals: locals,
       },
     })
+
+    dispatch({
+      type: 'set_locals',
+      locals: locals,
+    })
   }
 
   return (
     <Fragment>
       <button onClick={companiesLoader}>load companies</button>
-      <button onClick={HandleClicker('en')}>EN</button>
-      <button onClick={HandleClicker('fo')}>FO</button>
-      <button onClick={HandleClicker('de')}>DE</button>
+      <button onClick={handleClicker.bind(this, 'en')}>EN</button>
+      <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
+      <button onClick={handleClicker.bind(this, 'de')}>DE</button>
       <Grid container spacing={12}>
         <Grid xs={4} style={{ color: '#001011', padding: 20 }}>
           <Grid container justify="center">
