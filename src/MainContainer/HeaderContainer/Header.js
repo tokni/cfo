@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Drawer from '../Drawers/Drawer'
 import Language from '../../utils/language'
 import Context from '../../Context/Context'
-import SelectCompany from '../ContentContainer/Company/SelectCompany'
+// import SelectCompany from '../ContentContainer/Company/SelectCompany'
 
 const styles = {
   root: {
@@ -64,7 +64,7 @@ const Header = props => {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CFO
           </Typography>
-          <SelectCompany/>
+          {/* <SelectCompany/> */}
           
           {localStorage.getItem('sub') ? (
             <Button onClick={handleLogout} color="inherit">
