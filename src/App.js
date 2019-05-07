@@ -22,23 +22,21 @@ const StoreUser = () => {
       type: 'load_user',
       user: data.User,
     })
-
   })
+
   return null
 }
 
-
-const StoreCompanies = () =>  {
+const StoreCompanies = () => {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
-
 
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
- 
-  useEffect(() => {   
+
+  useEffect(() => {
     dispatch({
       type: 'set_companies',
-      companies: data ? data.Company : null
+      companies: data ? data.Company : null,
     })
   })
   return null
@@ -67,7 +65,7 @@ class App extends React.Component {
       <Fragment>
         <ApolloProvider client={client}>
           <StoreUser />
-          <StoreCompanies/>
+          <StoreCompanies />
           <MainContainer />
         </ApolloProvider>
       </Fragment>
