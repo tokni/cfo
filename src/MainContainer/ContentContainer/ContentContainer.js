@@ -5,7 +5,7 @@ import Callback from '../../Callback'
 import Account from './Account/Account'
 import Company from './Company/Company'
 import CreateCompany from './Company/CreateCompany'
-import DayBook from './Day Book/DayBook'
+import DayBook from './DayBook/DayBook'
 
 export const ContentContainer = () => (
   <Switch>
