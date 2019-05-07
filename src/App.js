@@ -1,46 +1,12 @@
-import React, { useContext, Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import Auth from './Auth/Auth'
 import './App.css'
 import { MainContainer } from './MainContainer/MainContainer'
-import { ApolloProvider, useQuery, useSubscription } from 'react-apollo-hooks'
+import { ApolloProvider } from 'react-apollo-hooks'
 import { client } from '../src/utils/apollo'
-import Context from '../src/Context/Context'
-import { GET_SUBSCRIP_COMPANY, GET_USER } from '../src/utils/query'
 
-const StoreUser = () => {
-  const { data } = useQuery(GET_USER, {
-    variables: {
-      token: localStorage.getItem('sub'),
-    },
-  })
 
-  // eslint-disable-next-line
-  const [state, dispatch] = useContext(Context)
 
-  useEffect(() => {
-    dispatch({
-      type: 'load_user',
-      user: data.User,
-    })
-  })
-
-  return null
-}
-
-const StoreCompanies = () => {
-  const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
-
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatch] = useContext(Context)
-
-  useEffect(() => {
-    dispatch({
-      type: 'set_companies',
-      companies: data ? data.Company : null,
-    })
-  })
-  return null
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -64,8 +30,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <ApolloProvider client={client}>
-          <StoreUser />
-          <StoreCompanies />
+          
           <MainContainer />
         </ApolloProvider>
       </Fragment>

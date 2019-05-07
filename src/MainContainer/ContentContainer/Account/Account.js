@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
-import GetAccount from './getAccounts'
-import CreateAccount from './createAccounts'
+import GetAccount from './GetAccounts'
+import CreateAccount from './CreateAccounts'
 const Account = () => (
   <Fragment>
     <CreateAccount />

@@ -1,7 +1,6 @@
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
 import React, { useContext } from 'react'
-
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -12,7 +11,7 @@ import Context from '../../../Context/Context'
 
 import SnackBar from '../SnackBar/SnackBar'
 
-const Accounts = () => {
+const GetAccounts = () => {
   const [state] = useContext(Context)
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
     suspend: false,
@@ -69,4 +68,4 @@ const Accounts = () => {
   )
 }
 
-export default Accounts
+export default GetAccounts
