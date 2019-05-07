@@ -46,10 +46,11 @@ const DayBook = () => {
                   {item.account_id}
                 </TableCell>
                 <TableCell align="right">{item.name}</TableCell>
-                <TableCell align="right">{item.balance}</TableCell>
                 <TableCell align="right">
                   {item.debit ? 'debit' : 'credit'}
                 </TableCell>
+                <TableCell align="right">{item.balance}</TableCell>
+
               </TableRow>
             )
           }) : null}
