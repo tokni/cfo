@@ -16,7 +16,8 @@ const styles = theme => ({
     minWidth: 320,
   },
   label: {
-    color: 'inherit',
+    color: 'white',
+    focus: "inherit"
   },
 })
 
@@ -48,7 +49,7 @@ const SelectCompany = props => {
     <form autoComplete="off">
       <Button className={classes.button} onClick={handleOpen} />
       <FormControl className={classes.formControl}>
-        <InputLabel className={classes.label}>Choose company</InputLabel>
+        <InputLabel focused={false} className={classes.label}>Choose company</InputLabel>
 
         <Select className={classes.label}
           open={open}
