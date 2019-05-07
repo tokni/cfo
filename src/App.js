@@ -5,7 +5,11 @@ import { MainContainer } from './MainContainer/MainContainer'
 import { ApolloProvider, useQuery, useSubscription } from 'react-apollo-hooks'
 import { client } from '../src/utils/apollo'
 import Context from '../src/Context/Context'
-import { GET_SUBSCRIP_COMPANY, GET_USER } from '../src/utils/query'
+import {
+  GET_SUBSCRIP_COMPANY,
+  GET_USER,
+  GET_USER_PREF,
+} from '../src/utils/query'
 
 const StoreUser = () => {
   const { data } = useQuery(GET_USER, {
@@ -22,23 +26,36 @@ const StoreUser = () => {
       type: 'load_user',
       user: data.User,
     })
-
   })
   return null
 }
 
+const StorePref = () => {
+  const [state, dispatch] = useContext(Context)
+  const { data } = useQuery(GET_USER_PREF, {
+    variables: { user_id: state.user ? state.user.id : null },
+  })
 
-const StoreCompanies = () =>  {
+  useEffect(() => {
+    dispatch({
+      type: 'set_locals',
+      locals: data.Preferences ? data.Preferences[0].locals : 'fo',
+    })
+  })
+
+  return null
+}
+
+const StoreCompanies = () => {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
-
 
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
- 
-  useEffect(() => {   
+
+  useEffect(() => {
     dispatch({
       type: 'set_companies',
-      companies: data ? data.Company : null
+      companies: data ? data.Company : null,
     })
   })
   return null
@@ -67,7 +84,8 @@ class App extends React.Component {
       <Fragment>
         <ApolloProvider client={client}>
           <StoreUser />
-          <StoreCompanies/>
+          <StoreCompanies />
+          <StorePref />
           <MainContainer />
         </ApolloProvider>
       </Fragment>

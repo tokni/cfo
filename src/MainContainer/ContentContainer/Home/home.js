@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react'
+import React, { useContext, Fragment, useEffect } from 'react'
 import Context from '../../../Context/Context'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,11 +8,22 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
+import { SET_LOCALS } from '../../../utils/query'
+import { ApolloProvider, useMutation } from 'react-apollo-hooks'
+
+// const MutateLocals = () => {
+//   useMutation(SET_LOCALS, {
+//     variables: {
+//       locals: 'en',
+//     },
+//   })
+
+//   return null
+// }
 
 const Home = () => {
-
   const [state, dispatch] = useContext(Context)
-
+  const MutateLocals = useMutation(SET_LOCALS)
   const companiesLoader = () => {
     dispatch({
       type: 'change_company',
@@ -20,38 +31,34 @@ const Home = () => {
     })
   }
 
+  const HandleClicker = locals => {
+    MutateLocals({
+      variables: {
+        user_id: state.user.id,
+        locals: locals,
+      },
+    })
+
+    dispatch({
+      type: 'set_locals',
+      locals: locals,
+    })
+  }
+
   return (
     <Fragment>
       <button onClick={companiesLoader}>load companies</button>
-      <button
-        onClick={() => {
-          dispatch({ type: 'set_locals', locals: 'en' })
-        }}
-      >
-        EN
-      </button>
-      <button
-        onClick={() => {
-          dispatch({ type: 'set_locals', locals: 'fo' })
-        }}
-      >
-        FO
-      </button>
-      <button
-        onClick={() => {
-          dispatch({ type: 'set_locals', locals: 'de' })
-        }}
-      >
-        DE
-      </button>
+      <button onClick={HandleClicker('en')}>EN</button>
+      <button onClick={HandleClicker('fo')}>FO</button>
+      <button onClick={HandleClicker('de')}>DE</button>
       <Grid container spacing={12}>
         <Grid xs={4} style={{ color: '#001011', padding: 20 }}>
-          <Grid justify="center">
+          <Grid container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
                 Standard license
               </Typography>
-              <Typography gutterBottom variant="body">
+              <Typography gutterBottom variant="body1">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley
@@ -66,7 +73,7 @@ const Home = () => {
               <Typography gutterBottom variant="title">
                 Why do we use it?
               </Typography>
-              <Typography variant="body">
+              <Typography variant="body1">
                 It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
                 The point of using Lorem Ipsum is that it has a more-or-less
@@ -83,7 +90,7 @@ const Home = () => {
         </Grid>
 
         <Grid xs={8} style={{ padding: 20 }}>
-          <Grid justify="center">
+          <Grid container justify="center">
             <Paper style={{ padding: 10 }}>
               <Typography variant="subtitle1">
                 Trýst á eina fyritøku fyri at velja hana.
@@ -104,9 +111,7 @@ const Home = () => {
                 {state.companies
                   ? state.companies.map((item, index) => {
                       return (
-                        <TableRow
-                          key={index}
-                        >
+                        <TableRow key={index}>
                           <TableCell component="th" scope="row">
                             {item.id}
                           </TableCell>
