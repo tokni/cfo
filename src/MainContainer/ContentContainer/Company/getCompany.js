@@ -21,9 +21,9 @@ const GetCompany = () => {
     <TableHead>
       <TableRow>
         <TableCell>Id</TableCell>
-        <TableCell align="right">Mother Id</TableCell>
-        <TableCell align="right">User Id</TableCell>
-        <TableCell align="right">Name</TableCell>
+        {/* <TableCell align="right">Mother Id</TableCell>
+        <TableCell align="right">User Id</TableCell> */}
+        <TableCell align="center">Name</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
@@ -36,9 +36,9 @@ const GetCompany = () => {
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="right">{item.mother_id}</TableCell>
-                <TableCell align="right">{item.user_id}</TableCell>
-                <TableCell align="right">{item.name}</TableCell>
+                {/* <TableCell align="right">{item.mother_id}</TableCell>
+                <TableCell align="right">{item.user_id}</TableCell> */}
+                <TableCell align="center">{item.name}</TableCell>
               </TableRow>
             )
           })
