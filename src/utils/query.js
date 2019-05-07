@@ -82,6 +82,7 @@ const GET_DAY_BOOK = gql`
     day_book {
       account_id
       name
+      debit
       balance
     }
   }

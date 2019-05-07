@@ -14,6 +14,7 @@ const Language = {
     addcompany: 'Add Company',
     cancel: 'Cancel',
     add: 'Add',
+    daybook: "Day Book"
   },
   fo: {
     overview: 'Yvirlit',
@@ -30,6 +31,7 @@ const Language = {
     addcompany: 'Stovna fyritøku',
     cancel: 'Strika',
     add: 'Legg afturat',
+    daybook: 'Kassa Kladda'
   },
   de: {
     overview: 'Übersicht',
@@ -46,6 +48,7 @@ const Language = {
     addcompany: 'Firma Hinzufügen',
     cancel: 'Stornieren',
     add: 'Hinzufügen',
+    daybook: 'Tagebuch'
   },
 }
 
