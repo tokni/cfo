@@ -13,7 +13,6 @@ import Language from '../../utils/language'
 import Context from '../../Context/Context'
 import SelectCompany from '../ContentContainer/Company/SelectCompany'
 
-
 const styles = {
   root: {
     flexGrow: 1,
