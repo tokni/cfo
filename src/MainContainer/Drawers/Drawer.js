@@ -1,27 +1,20 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import Divider from '@material-ui/core/Divider'
 import {
   ListItem,
-  AppBar,
-  Button,
-  Grid,
-  Typography,
-  Toolbar,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
+  List,
+  Divider,
+  CssBaseline,
 } from '@material-ui/core'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
 import MailIcon from '@material-ui/icons/Mail'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
 import { Link } from 'react-router-dom'
 import Context from '../../Context/Context'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import SelectCompany from '../ContentContainer/Company/SelectCompany'
-import Auth from '../../Auth/Auth'
 
 const drawerWidth = 240
 
@@ -57,57 +50,9 @@ const styles = theme => ({
 })
 
 const SideDrawer = props => {
-  const auth = new Auth()
   const [state] = useContext(Context)
 
   const { classes } = props
-
-  const handleLogout = () => {
-    auth.logout()
-  }
-
-  const sideList = (
-    <div className={classes.list}>
-      {/* <Router> */}
-      <List>
-        {[
-          Language['en'].overview,
-          Language['en'].invoice,
-          Language['en'].bills,
-          Language['en'].transactions,
-          Language['en'].accounts,
-          Language['en'].companies,
-          Language['en'].addcompany,
-          Language['en'].daybook,
-        ].map((text, index) => (
-          <Link
-            key={index}
-            to={`/${text
-              .split(' ')
-              .join('')
-              .toLowerCase()}`}
-          >
-            <ListItem button key={index}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  Language[state.locals][
-                    text
-                      .toLowerCase()
-                      .split(' ')
-                      .join('')
-                  ]
-                }
-              />
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  )
 
   return (
     <div className={classes.root}>
