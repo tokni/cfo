@@ -33,7 +33,8 @@ const DayBook = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="right">name</TableCell>
+          <TableCell align="right">Account ID</TableCell>
+            <TableCell align="right">Name</TableCell>
             <TableCell align="right">Debit / Credit</TableCell>
             <TableCell align="right">Balance</TableCell>
           </TableRow>
@@ -42,6 +43,7 @@ const DayBook = () => {
           { data ? data.day_book.map((item, index) => {
             return (
               <TableRow key={index}>
+              <TableCell align="right">{item.account_id}</TableCell>
                 <TableCell align="right">{item.name}</TableCell>
                 <TableCell align="right">
                   {item.debit ? 'debit' : 'credit'}
