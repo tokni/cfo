@@ -10,6 +10,7 @@ import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import { SET_LOCALS } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
+import Company from '../Company/GetCompany'
 
 const Home = () => {
   const [state, dispatch] = useContext(Context)
@@ -41,7 +42,7 @@ const Home = () => {
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid container spacing={12}>
+      <Grid container spacing={12} sm={12}>
         <Grid xs={4} style={{ color: '#001011', padding: 20 }}>
           <Grid container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
@@ -78,7 +79,7 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-
+        <Company />
         <Grid xs={8} style={{ padding: 20 }}>
           <Grid container justify="center">
             <Paper style={{ padding: 10 }}>
