@@ -98,15 +98,14 @@ const CREATE_ACCOUNT = gql`
   }
 `
 const GET_DAY_BOOK = gql`
-subscription {
-  day_book {
+subscription ($company_id: uuid!) {
+  day_book(where: {company_id: {_eq: $company_id}}) {
     account_id
     name
-    balance
     debit
+    balance
   }
 }
-
 `
 
 export {
