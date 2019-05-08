@@ -32,7 +32,7 @@ const GetCompany = () => {
                     <Typography
                       style={{ backgroundColor: '#1100Af', color: '#ffffff' }}
                       align="center"
-                      variant="display1"
+                      variant="title"
                       aria-label="Menu"
                       color="inherit"
                     >
@@ -46,7 +46,7 @@ const GetCompany = () => {
                     >{`id: ${item.id}`}</Typography> */}
                     <Typography
                       align="left"
-                      variant="body2"
+                      variant="body1"
                       style={{ paddingLeft: 12 }}
                     >
                       {item.mother_id
