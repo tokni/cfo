@@ -27,7 +27,7 @@ const GetCompany = () => {
         {state.companies
           ? state.companies.map((item, index) => {
               return (
-                <Grid key={index} sm={2} style={{ padding: 30 }}>
+                <Grid key={index} sm={3} style={{ padding: 30 }}>
                   <Paper style={{ height: 128 }}>
                     <Typography
                       style={{ backgroundColor: '#1100Af', color: '#ffffff' }}
