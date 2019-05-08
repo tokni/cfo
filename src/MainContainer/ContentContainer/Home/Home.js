@@ -1,25 +1,15 @@
 import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import { SET_LOCALS } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
+import Company from '../Company/GetCompany'
 
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
-  const companiesLoader = () => {
-    dispatch({
-      type: 'change_company',
-      companies: state.Company,
-    })
-  }
 
   const handleClicker = locals => {
     MutateLocals({
@@ -37,12 +27,11 @@ const Home = () => {
 
   return (
     <Fragment>
-      <button onClick={companiesLoader}>load companies</button>
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid container spacing={12}>
-        <Grid xs={4} style={{ color: '#001011', padding: 20 }}>
+      <Grid container spacing={12} lg={12}>
+        <Grid md={3} style={{ color: '#001011', padding: 20 }}>
           <Grid container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
@@ -78,43 +67,8 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-
-        <Grid xs={8} style={{ padding: 20 }}>
-          <Grid container justify="center">
-            <Paper style={{ padding: 10 }}>
-              <Typography variant="subtitle1">
-                Trýst á eina fyritøku fyri at velja hana.
-              </Typography>
-            </Paper>
-          </Grid>
-          <Paper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Id</TableCell>
-                  <TableCell align="right">Mother Id</TableCell>
-                  <TableCell align="right">User Id</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {state.companies
-                  ? state.companies.map((item, index) => {
-                      return (
-                        <TableRow key={index}>
-                          <TableCell component="th" scope="row">
-                            {item.id}
-                          </TableCell>
-                          <TableCell align="right">{item.mother_id}</TableCell>
-                          <TableCell align="right">{item.user_id}</TableCell>
-                          <TableCell align="right">{item.name}</TableCell>
-                        </TableRow>
-                      )
-                    })
-                  : console.log('error')}
-              </TableBody>
-            </Table>
-          </Paper>
+        <Grid md={8}>
+          <Company />
         </Grid>
       </Grid>
     </Fragment>
