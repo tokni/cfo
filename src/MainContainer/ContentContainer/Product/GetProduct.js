@@ -1,10 +1,13 @@
-import BorderColor from '@material-ui/icons/BorderColor'
 import Context from '../../../Context/Context'
 import React, { useContext } from 'react'
 import Delete from '@material-ui/icons/Delete'
+import UpdateProduct from './UpdateProduct'
+import PropTypes from 'prop-types'
 import { GET_PRODUCTS, DELETE_PRODUCT } from '../../../utils/Query/ProductQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
+  withStyles,
+  Fab,
   Grid,
   Table,
   TableBody,
@@ -13,9 +16,20 @@ import {
   TableRow,
 } from '@material-ui/core'
 
-const GetProduct = () => {
+const styles = theme => ({
+  fab: {
+    margin: theme.spacing.unit,
+    flexGrow: 1,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+})
+
+const GetProduct = props => {
   const [state] = useContext(Context)
   const deleteProduct = useMutation(DELETE_PRODUCT)
+  const { classes } = props
   const { data } = useSubscription(GET_PRODUCTS, {
     suspend: false,
     variables: {
@@ -52,10 +66,17 @@ const GetProduct = () => {
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{product.company_id}</TableCell>
                     <TableCell>
-                      <BorderColor />
+                      <UpdateProduct name={product.name} id={product.id} />
                     </TableCell>
                     <TableCell>
-                      <Delete onClick={deleteHandeler.bind(this, product.id)} />
+                      <Fab
+                        color="primary"
+                        aria-label="Add"
+                        className={classes.fab}
+                        onClick={deleteHandeler.bind(this, product.id)}
+                      >
+                        <Delete />
+                      </Fab>
                     </TableCell>
                   </TableRow>
                 )
@@ -67,4 +88,8 @@ const GetProduct = () => {
   )
 }
 
-export default GetProduct
+GetProduct.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styles)(GetProduct)
