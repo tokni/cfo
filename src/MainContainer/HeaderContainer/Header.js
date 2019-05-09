@@ -1,16 +1,11 @@
-import React, { useState, useContext } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
 import Auth from '../../Auth/Auth'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Drawer from '../Drawers/Drawer'
-import Language from '../../utils/language'
 import Context from '../../Context/Context'
+import Language from '../../utils/language'
+import PropTypes from 'prop-types'
+import SelectCompany from '../ContentContainer/Company/SelectCompany'
+import React, { useContext } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { Typography, Button, AppBar, Toolbar } from '@material-ui/core'
 
 const styles = {
   root: {
@@ -27,7 +22,6 @@ const styles = {
 
 const Header = props => {
   const auth = new Auth()
-  const [drawer, setDrawer] = useState(false)
   const [state] = useContext(Context)
   const handleAuth = () => {
     if (auth.isAuthenticated() === false) {
@@ -41,27 +35,16 @@ const Header = props => {
     auth.logout()
   }
 
-  const handleDrawer = () => {
-    setDrawer(!drawer)
-  }
-
   const { classes } = props
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={handleDrawer}
-          >
-            <MenuIcon />
-            {drawer ? <Drawer /> : ''}
-          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             CFO
           </Typography>
+          <SelectCompany />
+
           {localStorage.getItem('sub') ? (
             <Button onClick={handleLogout} color="inherit">
               {Language[state.locals].logout}

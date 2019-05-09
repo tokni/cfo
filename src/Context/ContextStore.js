@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react'
-import PropTypes from 'prop-types'
 import Context from './Context'
 import createReducer from './createReducer'
+import PropTypes from 'prop-types'
+import React, { useReducer } from 'react'
 
 const ContextStore = props => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -17,7 +17,6 @@ ContextStore.propTypes = {
 }
 
 const initialState = {
-  currentIndex: 0,
   locals: 'fo',
   companies: null,
   company: null,
@@ -27,7 +26,7 @@ const initialState = {
 const reducer = createReducer(initialState, {
   reset: () => initialState,
 
-  change_company: (state, action) => ({
+  set_companies: (state, action) => ({
     ...state,
     companies: action.companies,
   }),

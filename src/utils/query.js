@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+
 const GET_COMPANY = gql`
   query getCompanies {
     Company {
@@ -10,20 +11,33 @@ const GET_COMPANY = gql`
   }
 `
 
-const GET_SUBSCRIP_COMPANY = gql`
-  subscription {
-    Company {
-      user_id
-      name
+const GET_USER_PREF = gql`
+  query getPref($user_id: uuid!) {
+    Preferences(where: { user_id: { _eq: $user_id } }) {
+      locals
+      current_company
     }
   }
 `
 
-const GET_ACCOUNTS = gql`
-  {
+const SET_LOCALS = gql`
+  mutation setLocals($user_id: uuid!, $locals: String!) {
+    update_Preferences(
+      where: { user_id: { _eq: $user_id } }
+      _set: { locals: $locals }
+    ) {
+      affected_rows
+    }
+  }
+`
+
+const GET_SUBSCRIP_COMPANY = gql`
+  subscription {
     Company {
-      user_id
+      id
+      mother_id
       name
+      user_id
     }
   }
 `
@@ -84,22 +98,24 @@ const CREATE_ACCOUNT = gql`
   }
 `
 const GET_DAY_BOOK = gql`
-  {
-    day_book {
-      account_id
-      name
-      balance
-    }
+subscription ($company_id: uuid!) {
+  day_book(where: {company_id: {_eq: $company_id}}) {
+    account_id
+    name
+    debit
+    balance
   }
+}
 `
 
 export {
   GET_COMPANY,
   GET_DAY_BOOK,
   GET_SUBSCRIP_COMPANY,
-  GET_ACCOUNTS,
   GET_SUBSCRIP_ACCOUNTS,
   CREATE_ACCOUNT,
   CREATE_COMPANY,
   GET_USER,
+  GET_USER_PREF,
+  SET_LOCALS,
 }

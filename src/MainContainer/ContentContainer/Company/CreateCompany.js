@@ -1,18 +1,20 @@
+import AddIcon from '@material-ui/icons/Add'
+import Context from '../../../Context/Context'
+import Fab from '@material-ui/core/Fab'
+import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import { CREATE_COMPANY } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
-import Context from '../../../Context/Context'
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import {
+  withStyles,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Button,
+} from '@material-ui/core'
 
 const styles = theme => ({
   fab: {

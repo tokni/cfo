@@ -11,8 +11,10 @@ class Auth {
   })
 
   login = () => {
-    this.auth.authorize()
-    this.handleAuthentication()
+    if (!this.isAuthenticated()) {
+      this.auth.authorize()
+      this.handleAuthentication()
+    }
   }
 
   isAuthenticated = () => {
