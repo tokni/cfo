@@ -1,7 +1,12 @@
-import React, { useContext } from 'react'
+import Context from '../../Context/Context'
+import Dashboard from '@material-ui/icons/Dashboard'
+import Language from '../../utils/language'
+import MailIcon from '@material-ui/icons/Mail'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import {
+  withStyles,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -11,11 +16,6 @@ import {
   Divider,
   CssBaseline,
 } from '@material-ui/core'
-import MailIcon from '@material-ui/icons/Mail'
-import Dashboard from '@material-ui/icons/Dashboard'
-import Language from '../../utils/language'
-import { Link } from 'react-router-dom'
-import Context from '../../Context/Context'
 
 const drawerWidth = 240
 

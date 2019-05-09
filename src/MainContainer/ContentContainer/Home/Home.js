@@ -1,11 +1,11 @@
-import React, { useContext, Fragment } from 'react'
+import Company from '../Company/GetCompany'
 import Context from '../../../Context/Context'
-import Paper from '@material-ui/core/Paper'
-import { Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import React, { useContext, Fragment } from 'react'
+import { Typography } from '@material-ui/core'
 import { SET_LOCALS } from '../../../utils/query'
 import { useMutation } from 'react-apollo-hooks'
-import Company from '../Company/GetCompany'
 
 const Home = () => {
   const [state, dispatch] = useContext(Context)

@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import GetCompany from './GetCompany'
 import CreateCompany from './CreateCompany'
+import GetCompany from './GetCompany'
+import React, { Fragment } from 'react'
 
 const Company = () => (
-    <Fragment>
-      <CreateCompany />
-      <GetCompany />
-    </Fragment>
-  )
+  <Fragment>
+    <CreateCompany />
+    <GetCompany />
+  </Fragment>
+)
 
-  export default Company
+export default Company

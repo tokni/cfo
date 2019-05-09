@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import { withStyles } from '@material-ui/core/styles'
-import green from '@material-ui/core/colors/green'
-import amber from '@material-ui/core/colors/amber'
+import { green, amber } from '@material-ui/core/colors'
 
 import SnackBarContent from './SnackBarContent'
 

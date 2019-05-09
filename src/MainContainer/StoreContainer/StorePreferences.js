@@ -1,10 +1,9 @@
+import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useQuery } from 'react-apollo-hooks'
-import Context from '../../Context/Context'
 import { GET_USER_PREF } from '../../utils/query'
 
 const StorePreferences = () => {
-  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
 
   const { data } = useQuery(GET_USER_PREF, {
