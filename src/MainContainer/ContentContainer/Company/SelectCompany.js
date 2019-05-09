@@ -1,13 +1,15 @@
-import React, { useState, useContext } from 'react'
-import PropTypes from 'prop-types'
 import Context from '../../../Context/Context'
-import { withStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import Button from '@material-ui/core/Button'
 import Language from '../../../utils/language'
+import PropTypes from 'prop-types'
+import React, { useState, useContext } from 'react'
+import {
+  withStyles,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
+} from '@material-ui/core'
 
 const styles = theme => ({
   button: {

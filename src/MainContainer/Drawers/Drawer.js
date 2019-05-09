@@ -1,20 +1,21 @@
-import React, { useContext } from 'react'
+import Context from '../../Context/Context'
+import Dashboard from '@material-ui/icons/Dashboard'
+import Language from '../../utils/language'
+import MailIcon from '@material-ui/icons/Mail'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import {
+  withStyles,
   ListItem,
   ListItemIcon,
   ListItemText,
   Drawer,
   List,
+  Grid,
   Divider,
   CssBaseline,
 } from '@material-ui/core'
-import MailIcon from '@material-ui/icons/Mail'
-import Dashboard from '@material-ui/icons/Dashboard'
-import Language from '../../utils/language'
-import { Link } from 'react-router-dom'
-import Context from '../../Context/Context'
 
 const drawerWidth = 240
 
@@ -55,60 +56,62 @@ const SideDrawer = props => {
   const { classes } = props
 
   return (
-    <div className={classes.root}>
-      <CssBaseline>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          style={{ backgroundColor: '#1100ee' }}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div
-            className={classes.toolbar}
-            style={{ backgroundColor: 'rgb(63, 81, 181)' }}
-          />
-          <List style={{ backgroundColor: '#DDDDDD' }}>
-            {[
-              Language['en'].overview,
-              Language['en'].invoice,
-              Language['en'].bills,
-              Language['en'].transactions,
-              Language['en'].accounts,
-              Language['en'].companies,
-              Language['en'].addcompany,
-              Language['en'].daybook,
-            ].map((text, index) => (
-              <Link
-                key={index}
-                to={`/${text
-                  .split(' ')
-                  .join('')
-                  .toLowerCase()}`}
-              >
-                <ListItem button key={index}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      Language[state.locals][
-                        text
-                          .toLowerCase()
-                          .split(' ')
-                          .join('')
-                      ]
-                    }
-                  />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
-      </CssBaseline>
-    </div>
+    <Grid lg={3} md={6} sm={6}>
+      <div className={classes.root}>
+        <CssBaseline>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            style={{ backgroundColor: '#1100ee' }}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div
+              className={classes.toolbar}
+              style={{ backgroundColor: 'rgb(63, 81, 181)' }}
+            />
+            <List style={{ backgroundColor: '#DDDDDD' }}>
+              {[
+                Language['en'].overview,
+                Language['en'].invoice,
+                Language['en'].bills,
+                Language['en'].transactions,
+                Language['en'].accounts,
+                Language['en'].companies,
+                Language['en'].addcompany,
+                Language['en'].daybook,
+              ].map((text, index) => (
+                <Link
+                  key={index}
+                  to={`/${text
+                    .split(' ')
+                    .join('')
+                    .toLowerCase()}`}
+                >
+                  <ListItem button key={index}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        Language[state.locals][
+                          text
+                            .toLowerCase()
+                            .split(' ')
+                            .join('')
+                        ]
+                      }
+                    />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+            <Divider />
+          </Drawer>
+        </CssBaseline>
+      </div>
+    </Grid>
   )
 }
 

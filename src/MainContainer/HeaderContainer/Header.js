@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import { Typography, Button, AppBar, Toolbar } from '@material-ui/core'
 import Auth from '../../Auth/Auth'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Language from '../../utils/language'
 import Context from '../../Context/Context'
+import Language from '../../utils/language'
+import PropTypes from 'prop-types'
 import SelectCompany from '../ContentContainer/Company/SelectCompany'
+import React, { useContext } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { Typography, Button, AppBar, Toolbar } from '@material-ui/core'
 
 const styles = {
   root: {

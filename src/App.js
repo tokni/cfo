@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react'
-import './App.css'
-import { MainContainer } from './MainContainer/MainContainer'
-import { ApolloProvider } from 'react-apollo-hooks'
-import { client } from '../src/utils/apollo'
 import Auth from './Auth/Auth'
+import React, { Fragment } from 'react'
+import { client } from '../src/utils/apollo'
+import { ApolloProvider } from 'react-apollo-hooks'
+import { MainContainer } from './MainContainer/MainContainer'
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {

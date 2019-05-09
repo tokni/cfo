@@ -1,10 +1,9 @@
+import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useSubscription } from 'react-apollo-hooks'
-import Context from '../../Context/Context'
 import { GET_SUBSCRIP_COMPANY } from '../../utils/query'
 
 const StoreCompanies = () => {
-  // const [companies, setCompanies] = useState()
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
 
   // eslint-disable-next-line no-unused-vars
@@ -18,7 +17,6 @@ const StoreCompanies = () => {
         companies: data ? data.Company : null,
       })
     }
-    // setCompanies(data)
     fetchData()
   }, [data, dispatch])
   return null

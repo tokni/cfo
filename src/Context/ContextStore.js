@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react'
-import PropTypes from 'prop-types'
 import Context from './Context'
 import createReducer from './createReducer'
+import PropTypes from 'prop-types'
+import React, { useReducer } from 'react'
 
 const ContextStore = props => {
   const [state, dispatch] = useReducer(reducer, initialState)
