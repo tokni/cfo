@@ -1,18 +1,33 @@
 import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
-import { Grid, Divider, Typography } from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
+import { SET_ACTIVE_COMPANY } from '../../../utils/query'
+import { useMutation } from 'react-apollo-hooks'
+import { Grid, Divider, Typography, Paper } from '@material-ui/core'
 
 const GetCompany = () => {
-  const [state] = useContext(Context)
+  const [state, dispatch] = useContext(Context)
+  const storeActiveCompany = useMutation(SET_ACTIVE_COMPANY)
 
   const handleMother = id => {
     return state.companies.map(company => {
       if (company.id === id) {
-        console.log('inni her sum tad skal , ', company.name)
         return company.name
       }
       return null
+    })
+  }
+
+  const clickHandler = index => {
+    dispatch({
+      type: 'set_company',
+      index: index,
+    })
+
+    storeActiveCompany({
+      variables: {
+        user_id: state.user.id,
+        current_company: index.toString(),
+      },
     })
   }
 
@@ -23,9 +38,20 @@ const GetCompany = () => {
           ? state.companies.map((item, index) => {
               return (
                 <Grid key={index} sm={3} style={{ padding: 30 }}>
-                  <Paper style={{ height: 128 }}>
+                  <Paper
+                    style={{ height: 128 }}
+                    onClick={clickHandler.bind(this, index)}
+                  >
                     <Typography
-                      style={{ backgroundColor: '#1100Af', color: '#ffffff' }}
+                      style={
+                        parseInt(index) === parseInt(state.company_index)
+                          ? {
+                              backgroundColor: '#11DF32',
+                              color: '#ffffff',
+                              fontWeight: 'bolder',
+                            }
+                          : { backgroundColor: '#1100Af', color: '#ffffff' }
+                      }
                       align="center"
                       variant="title"
                       aria-label="Menu"

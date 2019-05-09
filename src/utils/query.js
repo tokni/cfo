@@ -31,6 +31,17 @@ const SET_LOCALS = gql`
   }
 `
 
+const SET_ACTIVE_COMPANY = gql`
+  mutation setCompany($user_id: uuid!, $current_company: String!) {
+    update_Preferences(
+      where: { user_id: { _eq: $user_id } }
+      _set: { current_company: $current_company }
+    ) {
+      affected_rows
+    }
+  }
+`
+
 const GET_SUBSCRIP_COMPANY = gql`
   subscription {
     Company {
@@ -98,14 +109,14 @@ const CREATE_ACCOUNT = gql`
   }
 `
 const GET_DAY_BOOK = gql`
-subscription ($company_id: uuid!) {
-  day_book(where: {company_id: {_eq: $company_id}}) {
-    account_id
-    name
-    debit
-    balance
+  subscription($company_id: uuid!) {
+    day_book(where: { company_id: { _eq: $company_id } }) {
+      account_id
+      name
+      debit
+      balance
+    }
   }
-}
 `
 
 export {
@@ -118,4 +129,5 @@ export {
   GET_USER,
   GET_USER_PREF,
   SET_LOCALS,
+  SET_ACTIVE_COMPANY,
 }
