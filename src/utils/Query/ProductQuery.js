@@ -26,15 +26,15 @@ const GET_PRODUCTS = gql`
   }
 `
 
-// const PUT_PRODUCT = gql`
-//   update_Product putProduct {
-//     Product {
-//       id
-//       mother_id
-//       name
-//       user_id
-//     }
-//   }
-// `
+const PUT_PRODUCT = gql`
+  mutation putProduct($company_id: uuid!, $id: uuid!, $name: String!) {
+    update_Product(
+      where: { company_id: { _eq: $company_id }, id: { _eq: $id } }
+      _set: { name: $name }
+    ) {
+      affected_rows
+    }
+  }
+`
 
-export { POST_PRODUCT, GET_PRODUCTS, DELETE_PRODUCT }
+export { POST_PRODUCT, GET_PRODUCTS, DELETE_PRODUCT, PUT_PRODUCT }

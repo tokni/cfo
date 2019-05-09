@@ -1,11 +1,11 @@
-import AddIcon from '@material-ui/icons/Add'
+import BorderColor from '@material-ui/icons/BorderColor'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
-import { POST_PRODUCT } from '../../../utils/Query/ProductQuery'
+import { PUT_PRODUCT } from '../../../utils/Query/ProductQuery'
 import {
   withStyles,
   Dialog,
@@ -28,17 +28,16 @@ const styles = theme => ({
   },
 })
 
-const CreateProduct = props => {
+const UpdateProduct = props => {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
+  const [name, setName] = useState(props.name)
   const { classes } = props
-  const postProductMutation = useMutation(POST_PRODUCT)
+  const putProductMutation = useMutation(PUT_PRODUCT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
 
   const handleClose = () => {
-    setName(null)
     if (state.company !== null) {
       setOpen(!open)
     }
@@ -48,10 +47,11 @@ const CreateProduct = props => {
   const onSubmit = async e => {
     e.preventDefault()
     if (name !== null) {
-      await postProductMutation({
+      await putProductMutation({
         variables: {
           name,
           company_id: state.company.id,
+          id: props.id,
         },
       })
       setTimeout(() => {
@@ -75,7 +75,7 @@ const CreateProduct = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <AddIcon />
+        <BorderColor />
       </Fab>
       <Dialog
         open={open}
@@ -93,6 +93,7 @@ const CreateProduct = props => {
             autoFocus
             margin="dense"
             id="name"
+            value={name}
             label={Language[state.locals].name}
             type="text"
             fullWidth
@@ -121,8 +122,8 @@ const CreateProduct = props => {
   )
 }
 
-CreateProduct.propTypes = {
+UpdateProduct.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(CreateProduct)
+export default withStyles(styles)(UpdateProduct)
