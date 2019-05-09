@@ -13,8 +13,8 @@ const Language = {
     login: 'Login',
     logout: 'Logout',
     addcompany: 'Add Company',
-    addaccount: 'Add Account',
-    addbill: 'Add Bill',
+    addaccount: 'Add account',
+    addproduct: 'Add product',
     cancel: 'Cancel',
     add: 'Add',
     daybook: 'Day Book',
@@ -28,7 +28,8 @@ const Language = {
     payment: 'Payment',
     tax: 'Tax',
     billreceived: "Bill Received",
-    paymentdue: "Payment Due"
+    paymentdue: "Payment Due",
+    fillformtoaddproduct: 'Fill this form to add a product',
   },
   fo: {
     overview: 'Yvirlit',
@@ -39,6 +40,7 @@ const Language = {
     products: 'Vørur',
     addaccount: 'Legg kontu avtrat',
     addbill: 'Legg rokning avtrat',
+    addproduct: 'Legg vøru avtrat',
     accounts: 'Kontur',
     name: 'Navn',
     companies: 'Fyritøkur',
@@ -59,7 +61,8 @@ const Language = {
     payment: 'Rindan',
     tax: 'Skattur',
     billreceived: 'Rokningin móttikin',
-    paymentdue: 'Rokningin til gjladingar'
+    paymentdue: 'Rokningin til gjladingar',
+    fillformtoaddproduct: 'Fyll teiðarnar fyri at leggja eina vøru avtrat',
   },
   de: {
     overview: 'Übersicht',
@@ -71,6 +74,7 @@ const Language = {
     companies: 'Firmen',
     addaccount: 'Konto hinzufügen',
     addbill: 'Rechnung hinzufügen',
+    addproduct: 'Produkte hinzufügen',
     name: 'Name',
     accounts: 'Konten',
     sales: 'Verkauf',
@@ -91,7 +95,9 @@ const Language = {
     payment: 'Zahlung',
     tax: 'Besteuern',
     billreceived: 'Rechnung Erhalten',
-    paymentdue: 'Zahlung Fällig'
+    paymentdue: 'Zahlung Fällig',
+    fillformtoaddproduct:
+      'Füllen Sie dieses Formular aus, um eine Produkte hinzuzufügen',
   },
 }
 
