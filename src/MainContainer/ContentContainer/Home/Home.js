@@ -31,7 +31,7 @@ const Home = () => {
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
       <Grid container spacing={12} lg={12}>
-        <Grid md={3} style={{ color: '#001011', padding: 20 }}>
+        <Grid lg={3} md={9} sm={12} style={{ color: '#001011', padding: 20 }}>
           <Grid container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
@@ -67,7 +67,7 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Grid md={8}>
+        <Grid lg={8} md={11} sm={11}>
           <Company />
         </Grid>
       </Grid>

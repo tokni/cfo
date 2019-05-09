@@ -7,6 +7,7 @@ import {
   ListItemText,
   Drawer,
   List,
+  Grid,
   Divider,
   CssBaseline,
 } from '@material-ui/core'
@@ -55,60 +56,62 @@ const SideDrawer = props => {
   const { classes } = props
 
   return (
-    <div className={classes.root}>
-      <CssBaseline>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          style={{ backgroundColor: '#1100ee' }}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div
-            className={classes.toolbar}
-            style={{ backgroundColor: 'rgb(63, 81, 181)' }}
-          />
-          <List style={{ backgroundColor: '#DDDDDD' }}>
-            {[
-              Language['en'].overview,
-              Language['en'].invoice,
-              Language['en'].bills,
-              Language['en'].transactions,
-              Language['en'].accounts,
-              Language['en'].companies,
-              Language['en'].addcompany,
-              Language['en'].daybook,
-            ].map((text, index) => (
-              <Link
-                key={index}
-                to={`/${text
-                  .split(' ')
-                  .join('')
-                  .toLowerCase()}`}
-              >
-                <ListItem button key={index}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      Language[state.locals][
-                        text
-                          .toLowerCase()
-                          .split(' ')
-                          .join('')
-                      ]
-                    }
-                  />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
-      </CssBaseline>
-    </div>
+    <Grid lg={3} md={6} sm={6}>
+      <div className={classes.root}>
+        <CssBaseline>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            style={{ backgroundColor: '#1100ee' }}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div
+              className={classes.toolbar}
+              style={{ backgroundColor: 'rgb(63, 81, 181)' }}
+            />
+            <List style={{ backgroundColor: '#DDDDDD' }}>
+              {[
+                Language['en'].overview,
+                Language['en'].invoice,
+                Language['en'].bills,
+                Language['en'].transactions,
+                Language['en'].accounts,
+                Language['en'].companies,
+                Language['en'].addcompany,
+                Language['en'].daybook,
+              ].map((text, index) => (
+                <Link
+                  key={index}
+                  to={`/${text
+                    .split(' ')
+                    .join('')
+                    .toLowerCase()}`}
+                >
+                  <ListItem button key={index}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        Language[state.locals][
+                          text
+                            .toLowerCase()
+                            .split(' ')
+                            .join('')
+                        ]
+                      }
+                    />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
+            <Divider />
+          </Drawer>
+        </CssBaseline>
+      </div>
+    </Grid>
   )
 }
 
