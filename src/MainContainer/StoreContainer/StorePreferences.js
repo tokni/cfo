@@ -18,10 +18,19 @@ const StorePreferences = () => {
         type: 'set_locals',
         locals: data.Preferences ? data.Preferences[0].locals : 'fo',
       })
+
+      if (data.Preferences && state.companies) {
+        if (data.Preferences[0].current_company) {
+          await dispatch({
+            type: 'set_company',
+            index: parseInt(data.Preferences[0].current_company),
+          })
+        }
+      }
     }
 
     fetchData()
-  }, [data.Preferences, dispatch])
+  }, [data.Preferences, dispatch, state.companies])
 
   return null
 }

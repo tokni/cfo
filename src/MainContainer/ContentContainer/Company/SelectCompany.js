@@ -2,6 +2,8 @@ import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { useState, useContext } from 'react'
+import { useMutation } from 'react-apollo-hooks'
+import { SET_ACTIVE_COMPANY } from '../../../utils/query'
 import {
   withStyles,
   InputLabel,
@@ -27,16 +29,20 @@ const styles = theme => ({
 const SelectCompany = props => {
   const [open, setOpen] = useState(false)
   const [state, dispatch] = useContext(Context)
-  const [value, setValue] = useState(0)
-
+  const storeActiveCompany = useMutation(SET_ACTIVE_COMPANY)
   const { classes } = props
 
   const handleChange = event => {
-    setValue(event.target.value)
-
     dispatch({
       type: 'set_company',
       index: event.target.value,
+    })
+
+    storeActiveCompany({
+      variables: {
+        user_id: state.user.id,
+        current_company: event.target.value.toString(),
+      },
     })
   }
 
@@ -61,7 +67,7 @@ const SelectCompany = props => {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={value}
+          value={state.company_index}
           onChange={handleChange}
           inputProps={{
             name: 'name',

@@ -20,6 +20,7 @@ const initialState = {
   locals: 'fo',
   companies: null,
   company: null,
+  company_index: 0,
   user: null,
 }
 
@@ -32,7 +33,8 @@ const reducer = createReducer(initialState, {
   }),
   set_company: (state, action) => ({
     ...state,
-    company: state.companies[action.index],
+    company: state.companies[parseInt(action.index)],
+    company_index: [parseInt(action.index)],
   }),
   set_locals: (state, action) => ({
     ...state,
