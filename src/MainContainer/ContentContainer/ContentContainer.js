@@ -6,6 +6,7 @@ import DayBook from './DayBook/DayBook'
 import Home from './Home/Home'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import Bill from './Bill/Bill';
 
 export const ContentContainer = () => (
   <Switch>
@@ -18,5 +19,7 @@ export const ContentContainer = () => (
     />
     <Route path={`${process.env.PUBLIC_URL}/companies`} component={Company} />
     <Route path={`${process.env.PUBLIC_URL}/daybook`} component={DayBook} />
+    <Route path={`${process.env.PUBLIC_URL}/bills`} component={Bill} />
+
   </Switch>
 )

@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react'
+import GetBills from './GetBills'
+import CreateBill from './CreateBill'
 
 const Bill = () => {
+    return(
     <Fragment>
-        hey
+        <CreateBill />
+        <GetBills/>
     </Fragment>
+    )
+    
 }
 
 
