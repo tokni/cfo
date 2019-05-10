@@ -1,10 +1,10 @@
-import AddIcon from '@material-ui/icons/Add'
+import EditIcon from '@material-ui/icons/Edit'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+import { PUT_BILL } from '../../../utils/Query/BillQuery'
 import StoreExpense from '../../StoreContainer/StoreExpense'
 import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
@@ -33,37 +33,39 @@ const styles = theme => ({
   },
 })
 
-const CreateBill = props => {
+const UpdateBill = props => {
   //load expense, vendor, tax
   const expenses = StoreExpense()
   const vendors = StoreVendor()
   const taxes = StoreTax()
 
   const [open, setOpen] = useState(false)
-  const [vendor_id, setVendor_id] = useState('')
-  const [expense_id, setExpense_id] = useState('')
-  const [description, setDescription] = useState('')
-  const [tax_id, setTax_id] = useState('')
-  const [payment, setPayment] = useState(0)
-  const [date_bill_received, setDate_bill_received] = useState(null)
-  const [payment_due, setPayment_due] = useState(null)
-  const [attachment_id, setAttachment_id] = useState('')
+  const [vendor_id, setVendor_id] = useState(props.vendor_id)
+  const [expense_id, setExpense_id] = useState(props.expense_id)
+  const [description, setDescription] = useState(props.description)
+  const [tax_id, setTax_id] = useState(props.tax_id)
+  const [payment, setPayment] = useState(props.payment)
+  const [date_bill_received, setDate_bill_received] = useState(
+    props.date_bill_received
+  )
+  const [payment_due, setPayment_due] = useState(props.payment_due)
+  const [attachment_id, setAttachment_id] = useState(props.attachment_id)
 
   const { classes } = props
-  const createBilltMutation = useMutation(CREATE_BILL)
+  const updateBilltMutation = useMutation(PUT_BILL)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
 
-  const handleClose = () => {
-    setVendor_id('')
-    setExpense_id('')
-    setDescription('')
-    setTax_id('')
-    setPayment(0)
-    setDate_bill_received(null)
-    setPayment_due(null)
-    setAttachment_id('')
+  const handleClose = props => {
+    // setVendor_id(props.id)
+    // setExpense_id('')
+    // setDescription('')
+    // setTax_id('')
+    // setPayment(0)
+    // setDate_bill_received(null)
+    // setPayment_due(null)
+    // setAttachment_id('')
 
     if (state.company) {
       setOpen(!open)
@@ -83,8 +85,10 @@ const CreateBill = props => {
       payment_due !== null &&
       attachment_id !== ''
     ) {
-      createBilltMutation({
+      updateBilltMutation({
         variables: {
+          id: props.id,
+          company_id: state.company.id,
           vendor_id,
           expense_id,
           description,
@@ -93,7 +97,6 @@ const CreateBill = props => {
           date_bill_received,
           payment_due,
           attachment_id,
-          company_id: state.company.id,
         },
       })
       setTimeout(() => {
@@ -117,7 +120,7 @@ const CreateBill = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <AddIcon />
+        <EditIcon />
       </Fab>
       <Dialog
         open={open}
@@ -133,6 +136,7 @@ const CreateBill = props => {
           </DialogContentText>
 
           <TextField
+            autoFocus
             select
             margin="dense"
             value={vendor_id || ''}
@@ -185,8 +189,9 @@ const CreateBill = props => {
             autoFocus
             margin="dense"
             id="description"
+            value={description || ''}
             label={Language[state.locals].description}
-            type="text"
+            // type="text"
             fullWidth
             onChange={e => {
               setDescription(e.target.value)
@@ -194,7 +199,7 @@ const CreateBill = props => {
           />
 
           <TextField
-            focus
+            autoFocus
             margin="dense"
             id="payment"
             label={Language[state.locals].payment}
@@ -235,7 +240,7 @@ const CreateBill = props => {
             autoFocus
             margin="dense"
             id="tax"
-            value={date_bill_received}
+            value={date_bill_received || ''}
             type="date"
             fullWidth
             onChange={e => {
@@ -288,8 +293,8 @@ const CreateBill = props => {
   )
 }
 
-CreateBill.propTypes = {
+UpdateBill.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(CreateBill)
+export default withStyles(styles)(UpdateBill)
