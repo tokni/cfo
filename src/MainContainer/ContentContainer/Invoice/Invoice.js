@@ -1,21 +1,55 @@
-import React, { Fragment } from 'react'
+import Demo from './Demo'
+import Form from './Form'
+import React, { Fragment, useState } from 'react'
 
 import { Grid, Paper, Typography } from '@material-ui/core'
 
 const Invoice = () => {
+  const [name, setName] = useState('')
+  const [product, setProduct] = useState('')
+  const [quantity, setQuantity] = useState(1)
+  const [dueDate, setDueDate] = useState(null)
+  const [description, setDescription] = useState('')
+  const fetchFileFromForm = (type, value) => {
+    switch (type) {
+      case 'name':
+        setName(value)
+        break
+      case 'description':
+        setDescription(value)
+        break
+      case 'dueDate':
+        setDueDate(value)
+        break
+      case 'product':
+        setProduct(value)
+        break
+      case 'quantity':
+        setQuantity(value)
+        break
+      default:
+        return true
+    }
+  }
   return (
     <Fragment>
-      <Grid container lg={12}>
-        <Grid lg={7}>
+      <Grid style={{ paddingTop: 20 }} container lg={12} spacing={40}>
+        <Grid item lg={7}>
           <Paper style={{ padding: 40 }}>
-            <Typography variant="display3">Form !!!!!!!!!!</Typography>
+            {/* <Typography variant="display3">Form !!!!!!!!!!</Typography> */}
+            <Form fetcher={fetchFileFromForm} />
           </Paper>
         </Grid>
         <br />
-        <Grid lg={4}>
+        <Grid item lg={4}>
           <Paper style={{ padding: 40 }}>
-            <Typography variant="display3">DEMO !!!!!!!</Typography>
-            <Typography variant="display1">End product</Typography>
+            <Demo
+              name={name}
+              description={description}
+              dueDate={dueDate}
+              product={product}
+              quantity={quantity}
+            />
           </Paper>
         </Grid>
       </Grid>

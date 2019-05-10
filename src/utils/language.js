@@ -17,11 +17,11 @@ const Language = {
     fillformtoaddbill: 'Fill this form to add a bill',
     expense: 'Expense',
     attachment: 'Attachment',
-    description : 'Description',
+    description: 'Description',
     payment: 'Payment',
     tax: 'Tax',
-    billreceived: "Bill Received",
-    paymentdue: "Payment Due",
+    billreceived: 'Bill Received',
+    paymentdue: 'Payment Due',
     fillformtoaddproduct: 'Fill this form to add a product',
     invoice: 'Invoice',
     login: 'Login',
@@ -34,6 +34,7 @@ const Language = {
     transactions: 'Transactions',
     updatecustomer: 'Update customer',
     vendor: 'Vendor',
+    quantity: 'Quantity',
   },
   fo: {
     addaccount: 'Legg kontu avtrat',
@@ -43,7 +44,7 @@ const Language = {
     add: 'Legg afturat',
     addcompany: 'Stovna fyritøku',
     addcustomer: 'Legg kunda avtrat',
-    attachment: 'Fylgiskjal',    
+    attachment: 'Fylgiskjal',
     bills: 'Rokningar',
     cancel: 'Strika',
     choosecompany: 'Vel fyritøku',
@@ -71,6 +72,7 @@ const Language = {
     transactions: 'Flytingar',
     updatecustomer: 'Dagfør kunda',
     vendor: 'Seljari',
+    quantity: 'Nøgd',
   },
   de: {
     addaccount: 'Konto hinzufügen',
@@ -89,7 +91,8 @@ const Language = {
     daybook: 'Tagebuch',
     fillformtoaddaccount:
       'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
-    fillformtoaddbill: 'Füllen Sie dieses Formular aus, um ein Rechnung hinzuzufügen',
+    fillformtoaddbill:
+      'Füllen Sie dieses Formular aus, um ein Rechnung hinzuzufügen',
     expense: 'Kostenaufwand',
     attachment: 'Befestigung',
     description: 'Beschreibung',
@@ -110,7 +113,7 @@ const Language = {
     transactions: 'Transaktionen',
     updatecustomer: 'Kunden aktualisieren',
     vendor: 'Verkäufer',
-
+    quantity: 'Menge',
   },
 }
 
