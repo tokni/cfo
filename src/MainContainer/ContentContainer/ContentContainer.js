@@ -5,6 +5,7 @@ import CreateCompany from './Company/CreateCompany'
 import Customers from './Customer/Customer'
 import DayBook from './DayBook/DayBook'
 import Home from './Home/Home'
+import Invoice from './Invoice/Invoice'
 import Products from './Product/Products'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
@@ -14,6 +15,7 @@ import Vendor from './Vendor/Vendor';
 export const ContentContainer = () => (
   <Switch>
     <Route path={`${process.env.PUBLIC_URL}/overview`} component={Home} />
+    <Route path={`${process.env.PUBLIC_URL}/invoice`} component={Invoice} />
     <Route path={`${process.env.PUBLIC_URL}/callback`} component={Callback} />
     <Route path={`${process.env.PUBLIC_URL}/accounts`} component={Account} />
     <Route
