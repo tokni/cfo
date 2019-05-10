@@ -106,8 +106,6 @@ const Language = {
       'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
     fillformtoaddbill: 'Füllen Sie dieses Formular aus, um ein Rechnung hinzuzufügen',
     fillformtoaddvendor: 'Füllen Sie dieses Formular aus, um ein Verkäufer hinzuzufügen',
-    fillformtoaddbill:
-      'Füllen Sie dieses Formular aus, um ein Rechnung hinzuzufügen',
     expense: 'Kostenaufwand',
     attachment: 'Befestigung',
     description: 'Beschreibung',
