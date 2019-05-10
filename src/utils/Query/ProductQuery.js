@@ -9,7 +9,7 @@ const POST_PRODUCT = gql`
 `
 
 const DELETE_PRODUCT = gql`
-  mutation postProduct($id: uuid!) {
+  mutation deleteProduct($id: uuid!) {
     delete_Product(where: { id: { _eq: $id } }) {
       affected_rows
     }
