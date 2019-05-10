@@ -9,6 +9,7 @@ import Invoice from './Invoice/Invoice'
 import Products from './Product/Products'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import Bill from './Bill/Bill';
 
 export const ContentContainer = () => (
   <Switch>
@@ -22,6 +23,7 @@ export const ContentContainer = () => (
     />
     <Route path={`${process.env.PUBLIC_URL}/companies`} component={Company} />
     <Route path={`${process.env.PUBLIC_URL}/daybook`} component={DayBook} />
+    <Route path={`${process.env.PUBLIC_URL}/bills`} component={Bill} />
     <Route path={`${process.env.PUBLIC_URL}/products`} component={Products} />
     <Route path={`${process.env.PUBLIC_URL}/customers`} component={Customers} />
   </Switch>
