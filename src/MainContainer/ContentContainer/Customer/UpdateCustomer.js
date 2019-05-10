@@ -83,7 +83,7 @@ const UpdateCustomer = props => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {Language[state.locals].Updatecustomer}
+          {Language[state.locals].updatecustomer}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
