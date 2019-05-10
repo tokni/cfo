@@ -81,7 +81,6 @@ const SideDrawer = props => {
                 Language['en'].companies,
                 Language['en'].products,
                 Language['en'].daybook,
-                Language['en'].bills
               ].map((text, index) => (
                 <Link
                   key={index}

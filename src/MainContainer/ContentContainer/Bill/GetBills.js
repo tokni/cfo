@@ -32,9 +32,7 @@ const GetBills = () => {
     return <SnackBar message={'Error loading bills'} state={'error'} />
   }
   return (
-
     <Paper>
-    {console.log("bills", data)}
 
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />

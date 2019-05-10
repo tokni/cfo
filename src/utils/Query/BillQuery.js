@@ -1,4 +1,4 @@
-import gql from './node_modules/graphql-tag'
+import gql from 'graphql-tag'
 
 const GET_BILLS_SUBSCRIPTION = gql`
   subscription($company_id: uuid!) {

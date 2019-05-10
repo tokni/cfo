@@ -5,6 +5,9 @@ import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+import StoreExpense from '../../StoreContainer/StoreExpense'
+import StoreVendor from '../../StoreContainer/StoreVendor'
+import StoreTax from '../../StoreContainer/StoreTax'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
 import {
@@ -25,31 +28,44 @@ const styles = theme => ({
     flexGrow: 1,
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   },
 })
 
 const CreateBill = props => {
+  
+  //load expense, vendor, tax
+  const expenses = StoreExpense()
+  const vendors = StoreVendor()
+  const taxes = StoreTax()
+
   const [open, setOpen] = useState(false)
-  const [vendor_id, setVendor_id] = useState(null)
-  const [expense_id, setExpense_id] = useState(null)
+  const [vendor_id, setVendor_id] = useState('')
+  const [expense_id, setExpense_id] = useState('')
   const [description, setDescription] = useState('')
-  const [tax_id, setTax_id] = useState(null)
+  const [tax_id, setTax_id] = useState('')
   const [payment, setPayment] = useState(0)
-  const [date_bill_received, setDate_bill_received] = useState(Date.now())
+  const [date_bill_received, setDate_bill_received] = useState(null)
   const [payment_due, setPayment_due] = useState(null)
-  const [attachment_id, setAttachment_id] = useState(null)
+  const [attachment_id, setAttachment_id] = useState('')
 
   const { classes } = props
   const createAccountMutation = useMutation(CREATE_BILL)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
-
+ 
   const handleClose = () => {
-    setVendor_id(null)
-    setExpense_id(null)
-    if (state.company !== null) {
+    setVendor_id('')
+    setExpense_id('')
+    setDescription('')
+    setTax_id('')
+    setPayment(0)
+    setDate_bill_received(null)
+    setPayment_due(null)
+    setAttachment_id('')
+
+    if (state.company) {
       setOpen(!open)
     }
     setMsg(false)
@@ -57,7 +73,7 @@ const CreateBill = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    if (0 !== 1) {
+    if (state.vendor_id !== '' && state.expense_id !== '' && description !== '' && tax_id !== '' && payment !== 0 && date_bill_received !== null && payment_due !== null && attachment_id !== '') {
       createAccountMutation({
         variables: {
           vendor_id,
@@ -86,6 +102,9 @@ const CreateBill = props => {
 
   return (
     <Fragment>
+      {
+        console.log("expenses bill: ", expenses)
+      }
       <Fab
         onClick={handleClose}
         color="primary"
@@ -106,30 +125,50 @@ const CreateBill = props => {
           <DialogContentText>
             {Language[state.locals].fillformtoaddbill}
           </DialogContentText>
-          
+
           <TextField
-            autoFocus
+            select
             margin="dense"
+            value={vendor_id || ''}
             id="vendor"
             label={Language[state.locals].vendor}
-            type="text"
             fullWidth
             onChange={e => {
               setVendor_id(e.target.value)
             }}
-          />
-          
+          > 
+            {              
+              vendors ? vendors.map((item, index) => {
+              return (
+                <option key={index} value={item.id}>
+                    {item.name}
+                </option>
+              )
+            }) : <option>no vendors created</option>}
+          </TextField>
+
+
           <TextField
             autoFocus
+            select
             margin="dense"
+            value={expense_id || ''}
             id="expense"
             label={Language[state.locals].expense}
-            type="text"
             fullWidth
             onChange={e => {
               setExpense_id(e.target.value)
             }}
-          />
+          >
+            {              
+              expenses ? expenses.map((item, index) => {
+              return (
+                <option key={index} value={item.id}>
+                    {item.name}
+                </option>
+              )
+            }) : <option>empty</option>}
+          </TextField>
 
           <TextField
             autoFocus
@@ -144,7 +183,7 @@ const CreateBill = props => {
           />
 
           <TextField
-            autoFocus
+            focus
             margin="dense"
             id="payment"
             label={Language[state.locals].payment}
@@ -157,53 +196,63 @@ const CreateBill = props => {
           />
           <TextField
             autoFocus
+            select
             margin="dense"
             id="tax"
             label={Language[state.locals].tax}
-            value={tax_id}
-            type="text"
+            value={tax_id || ''}
             fullWidth
             onChange={e => {
               setTax_id(e.target.value)
             }}
+          > 
+          {              
+              taxes ? taxes.map((item, index) => {
+              return (
+                <option key={index} value={item.id}>
+                    {item.name + ' %' + (item.tax_percentage*100)}
+                </option>
+              )
+            }) : <option>No tax created</option>}
+          
+          </TextField>
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="tax"
+            label={Language[state.locals].billreceived}
+            value={date_bill_received}
+            type="date"
+            fullWidth
+            onChange={e => {
+              setDate_bill_received(e.target.value)
+            }}
           />
 
           <TextField
-             autoFocus
-             margin="dense"
-             id="tax"
-             label={Language[state.locals].billreceived}
-             value={date_bill_received}
-             type="date"
-             fullWidth
-             onChange={e => {
-               setDate_bill_received(e.target.value)
-             }}
+            autoFocus
+            margin="dense"
+            id="payment_due"
+            label={Language[state.locals].payment_due}
+            value={payment_due}
+            type="date"
+            fullWidth
+            onChange={e => {
+              setPayment_due(e.target.value)
+            }}
           />
-
           <TextField
-             autoFocus
-             margin="dense"
-             id="tax"
-             label={Language[state.locals].payment_due}
-             value={payment_due}
-             type="date"
-             fullWidth
-             onChange={e => {
-               setPayment_due(e.target.value)
-             }}
-          />
-           <TextField
-             autoFocus
-             margin="dense"
-             id="attachment"
-             label={Language[state.locals].attachment}
-             value={attachment_id}
-             type="text"
-             fullWidth
-             onChange={e => {
-               setAttachment_id(e.target.value)
-             }}
+            autoFocus
+            margin="dense"
+            id="attachment"
+            label={Language[state.locals].attachment}
+            value={attachment_id}
+            type="text"
+            fullWidth
+            onChange={e => {
+              setAttachment_id(e.target.value)
+            }}
           />
         </DialogContent>
         <DialogActions>
@@ -217,7 +266,7 @@ const CreateBill = props => {
       </Dialog>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
-          <SnackBar message={'Account added successfully'} state={'success'} />
+          <SnackBar message={'Bill added successfully'} state={'success'} />
         ) : (
           <SnackBar message={'Name is required'} state={'error'} />
         )
