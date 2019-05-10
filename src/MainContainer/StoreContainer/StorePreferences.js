@@ -16,7 +16,7 @@ const StorePreferences = () => {
     async function fetchData() {
       await dispatch({
         type: 'set_locals',
-        locals: data.Preferences ? data.Preferences[0].locals : 'fo',
+        locals: data.Preferences && data.Preferences[0] ? data.Preferences[0].locals : 'en',
       })
 
       if (data.Preferences && state.companies) {
