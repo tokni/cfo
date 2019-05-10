@@ -20,6 +20,7 @@ import {
   TextField,
   Button,
   Fab,
+  InputLabel,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -28,12 +29,11 @@ const styles = theme => ({
     flexGrow: 1,
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
 })
 
 const CreateBill = props => {
-  
   //load expense, vendor, tax
   const expenses = StoreExpense()
   const vendors = StoreVendor()
@@ -54,7 +54,7 @@ const CreateBill = props => {
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
- 
+
   const handleClose = () => {
     setVendor_id('')
     setExpense_id('')
@@ -73,7 +73,16 @@ const CreateBill = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    if (state.vendor_id !== '' && state.expense_id !== '' && description !== '' && tax_id !== '' && payment !== 0 && date_bill_received !== null && payment_due !== null && attachment_id !== '') {
+    if (
+      state.vendor_id !== '' &&
+      state.expense_id !== '' &&
+      description !== '' &&
+      tax_id !== '' &&
+      payment !== 0 &&
+      date_bill_received !== null &&
+      payment_due !== null &&
+      attachment_id !== ''
+    ) {
       createBilltMutation({
         variables: {
           vendor_id,
@@ -133,17 +142,19 @@ const CreateBill = props => {
             onChange={e => {
               setVendor_id(e.target.value)
             }}
-          > 
-            {              
-              vendors ? vendors.map((item, index) => {
-              return (
-                <option key={index} value={item.id}>
+          >
+            {vendors ? (
+              vendors.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
                     {item.name}
-                </option>
-              )
-            }) : <option>no vendors created</option>}
+                  </option>
+                )
+              })
+            ) : (
+              <option>no vendors created</option>
+            )}
           </TextField>
-
 
           <TextField
             autoFocus
@@ -157,14 +168,17 @@ const CreateBill = props => {
               setExpense_id(e.target.value)
             }}
           >
-            {              
-              expenses ? expenses.map((item, index) => {
-              return (
-                <option key={index} value={item.id}>
+            {expenses ? (
+              expenses.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
                     {item.name}
-                </option>
-              )
-            }) : <option>empty</option>}
+                  </option>
+                )
+              })
+            ) : (
+              <option>empty</option>
+            )}
           </TextField>
 
           <TextField
@@ -202,23 +216,25 @@ const CreateBill = props => {
             onChange={e => {
               setTax_id(e.target.value)
             }}
-          > 
-          {              
-              taxes ? taxes.map((item, index) => {
-              return (
-                <option key={index} value={item.id}>
-                    {item.name + ' %' + (item.tax_percentage*100)}
-                </option>
-              )
-            }) : <option>No tax created</option>}
-          
+          >
+            {taxes ? (
+              taxes.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
+                    {item.name + ' %' + item.tax_percentage * 100}
+                  </option>
+                )
+              })
+            ) : (
+              <option>No tax created</option>
+            )}
           </TextField>
 
+          <InputLabel>{Language[state.locals].billreceived}</InputLabel>
           <TextField
             autoFocus
             margin="dense"
             id="tax"
-            label={Language[state.locals].billreceived}
             value={date_bill_received}
             type="date"
             fullWidth
@@ -226,7 +242,7 @@ const CreateBill = props => {
               setDate_bill_received(e.target.value)
             }}
           />
-
+          <InputLabel>{Language[state.locals].paymentdue}</InputLabel>
           <TextField
             autoFocus
             margin="dense"

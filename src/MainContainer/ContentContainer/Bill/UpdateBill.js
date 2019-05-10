@@ -20,6 +20,7 @@ import {
   TextField,
   Button,
   Fab,
+  InputLabel,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -234,19 +235,19 @@ const UpdateBill = props => {
             )}
           </TextField>
 
+          <InputLabel>{Language[state.locals].billreceived}</InputLabel>
           <TextField
             autoFocus
             margin="dense"
             id="tax"
-            label={Language[state.locals].billreceived}
-            value={date_bill_received}
+            value={date_bill_received || ''}
             type="date"
             fullWidth
             onChange={e => {
               setDate_bill_received(e.target.value)
             }}
           />
-
+          <InputLabel>{Language[state.locals].paymentdue}</InputLabel>
           <TextField
             autoFocus
             margin="dense"
