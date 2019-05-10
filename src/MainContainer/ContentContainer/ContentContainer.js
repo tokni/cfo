@@ -9,7 +9,6 @@ import Products from './Product/Products'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Bill from './Bill/Bill';
-import Products from './Product/Products'
 
 export const ContentContainer = () => (
   <Switch>

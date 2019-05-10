@@ -268,7 +268,7 @@ const CreateBill = props => {
         msg === true && msgSuccess === true ? (
           <SnackBar message={'Bill added successfully'} state={'success'} />
         ) : (
-          <SnackBar message={'Name is required'} state={'error'} />
+          <SnackBar message={'Fill all parameters'} state={'error'} />
         )
       ) : null}
     </Fragment>
