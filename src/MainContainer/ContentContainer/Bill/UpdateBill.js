@@ -39,7 +39,6 @@ const UpdateBill = props => {
   const taxes = StoreTax()
 
   const [open, setOpen] = useState(false)
-  const [id] = useState(props.id)
   const [vendor_id, setVendor_id] = useState(props.vendor_id)
   const [expense_id, setExpense_id] = useState(props.expense_id)
   const [description, setDescription] = useState(props.description)
