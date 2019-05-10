@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { Grid, Paper, Typography, Divider } from '@material-ui/core'
+import { Grid, Typography, Divider } from '@material-ui/core'
 
 const Demo = props => {
   return (
@@ -22,15 +22,30 @@ const Demo = props => {
           <Typography variant="subtitle1">Rokning til: </Typography>
           <Typography variant="body1">{props.name}</Typography>
         </Grid>
-        <Grid lg={12}>
+        <Grid item lg={12}>
           <Divider />
         </Grid>
-        <Grid item lg={6}>
-          <Typography variant="body1">Product: {props.product}</Typography>
-        </Grid>
-        <Grid item lg={6}>
-          <Typography variant="body1">Quantity: {props.quantity}</Typography>
-        </Grid>
+        {props.products
+          ? props.products.map((item, index) => {
+              return (
+                <Fragment>
+                  <Grid lg={5}>
+                    <Typography variant="body1">
+                      Product: {item.product}
+                    </Typography>
+                  </Grid>
+                  <Grid lg={4}>
+                    <Typography variant="body1">
+                      Quantity: {item.quantity}
+                    </Typography>
+                  </Grid>
+                  <Grid lg={3}>
+                    <Typography variant="body1">Price: {item.price}</Typography>
+                  </Grid>
+                </Fragment>
+              )
+            })
+          : null}
         <Grid item lg={12}>
           <Divider />
           <Typography variant="caption">Description</Typography>

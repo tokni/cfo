@@ -2,11 +2,11 @@ import Demo from './Demo'
 import Form from './Form'
 import React, { Fragment, useState } from 'react'
 
-import { Grid, Paper, Typography } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 
 const Invoice = () => {
   const [name, setName] = useState('')
-  const [product, setProduct] = useState('')
+  const [products, setProducts] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [dueDate, setDueDate] = useState(null)
   const [description, setDescription] = useState('')
@@ -21,8 +21,8 @@ const Invoice = () => {
       case 'dueDate':
         setDueDate(value)
         break
-      case 'product':
-        setProduct(value)
+      case 'products':
+        setProducts(value)
         break
       case 'quantity':
         setQuantity(value)
@@ -47,7 +47,7 @@ const Invoice = () => {
               name={name}
               description={description}
               dueDate={dueDate}
-              product={product}
+              products={products}
               quantity={quantity}
             />
           </Paper>
