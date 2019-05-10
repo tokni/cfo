@@ -13,7 +13,6 @@ import {
   TableHead,
   TableCell,
   TableRow,
-  InputLabel
 } from '@material-ui/core'
 
 import SnackBar from '../SnackBar/SnackBar'
