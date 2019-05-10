@@ -79,6 +79,7 @@ const SideDrawer = props => {
                 Language['en'].transactions,
                 Language['en'].accounts,
                 Language['en'].companies,
+                Language['en'].customers,
                 Language['en'].products,
                 Language['en'].daybook,
               ].map((text, index) => (
