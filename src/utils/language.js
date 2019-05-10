@@ -15,6 +15,7 @@ const Language = {
     daybook: 'Day Book',
     fillformtoaddaccount: 'Fill this form to add an account',
     fillformtoaddbill: 'Fill this form to add a bill',
+    fillformtoaddvendor: 'Fill this form to add a vendor',  
     expense: 'Expense',
     attachment: 'Attachment',
     description : 'Description',
@@ -33,7 +34,10 @@ const Language = {
     sales: 'Sales',
     transactions: 'Transactions',
     updatecustomer: 'Update customer',
+    updatevendor: 'Update vendor',
     vendor: 'Vendor',
+    vendors: 'Vendors',
+    vendorsuccessfullyupdated: 'Vendor successfully updated'
   },
   fo: {
     addaccount: 'Legg kontu avtrat',
@@ -51,8 +55,9 @@ const Language = {
     customers: 'Kundar',
     customersuccessfullyupdated: '',
     daybook: 'Kassa Kladda',
-    fillformtoaddaccount: 'Fyll teiðarnar fyri at leggja kontu avtrat',
-    fillformtoaddbill: 'Fyll teiðarnar fyri at leggja rokning avtrat',
+    fillformtoaddaccount: 'Fyll teigarnar fyri at leggja kontu avtrat',
+    fillformtoaddbill: 'Fyll teigarnar fyri at leggja rokning avtrat',
+    fillformtoaddvendor: 'Fyll teigarnar fyri at leggja seljara avtrat',
     expense: 'Kostnaðarslag',
     description: 'Frágreiðing',
     payment: 'Rindan',
@@ -70,7 +75,10 @@ const Language = {
     sales: 'Sølur',
     transactions: 'Flytingar',
     updatecustomer: 'Dagfør kunda',
+    updatevendor: 'Dagfør seljara',
     vendor: 'Seljari',
+    vendors: 'Seljarir',
+    vendorsuccessfullyupdated: 'Tað eydnaðist at dagføra seljara'
   },
   de: {
     addaccount: 'Konto hinzufügen',
@@ -90,6 +98,7 @@ const Language = {
     fillformtoaddaccount:
       'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
     fillformtoaddbill: 'Füllen Sie dieses Formular aus, um ein Rechnung hinzuzufügen',
+    fillformtoaddvendor: 'Füllen Sie dieses Formular aus, um ein Verkäufer hinzuzufügen',
     expense: 'Kostenaufwand',
     attachment: 'Befestigung',
     description: 'Beschreibung',
@@ -110,6 +119,8 @@ const Language = {
     transactions: 'Transaktionen',
     updatecustomer: 'Kunden aktualisieren',
     vendor: 'Verkäufer',
+    vendors: 'Verkäufer',
+    vendorsuccessfullyupdated: 'Verkäufer wurde erfolgreich hinzugefügt'
 
   },
 }
