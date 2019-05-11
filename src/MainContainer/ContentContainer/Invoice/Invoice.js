@@ -34,14 +34,14 @@ const Invoice = () => {
   return (
     <Fragment>
       <Grid style={{ paddingTop: 20 }} container lg={12} spacing={40}>
-        <Grid item lg={7}>
+        <Grid item lg={4}>
           <Paper style={{ padding: 40 }}>
             {/* <Typography variant="display3">Form !!!!!!!!!!</Typography> */}
             <Form fetcher={fetchFileFromForm} />
           </Paper>
         </Grid>
         <br />
-        <Grid item lg={4}>
+        <Grid item lg={7}>
           <Paper style={{ padding: 40 }}>
             <Demo
               name={name}
