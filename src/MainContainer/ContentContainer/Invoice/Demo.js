@@ -16,7 +16,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableFooter,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -80,13 +79,25 @@ const Demo = props => {
             <Typography variant="caption">Due date</Typography>
             <Typography variant="body1">{props.dueDate}</Typography>
           </Grid>
-          <Grid item lg={8}>
-            <Typography variant="subtitle1">Rokning til: </Typography>
-            <Typography variant="body1">{props.name}</Typography>
-          </Grid>
-          <Grid item lg={12}>
+          <Grid item lg={6}>
+            <Typography variant="subtitle1">Rokning frá: </Typography>
             <Divider />
+            <Typography variant="body1">{state.company.name}</Typography>
+            <Typography variant="body1">tlf: 35XXXX</Typography>
+            <Typography variant="body1">fax: 35XXX1</Typography>
+            <Typography variant="body1">adr: Yemen road, Yemen</Typography>
           </Grid>
+          <Grid item lg={6}>
+            <Typography variant="subtitle1">Rokning til: </Typography>
+            <Divider />
+            <Typography variant="body1">{props.name}</Typography>
+            <Typography variant="body1">tlf: 31XXXX</Typography>
+            <Typography variant="body1">fax: </Typography>
+            <Typography variant="body1">
+              adr: Skopunarvegur 15, Skopun
+            </Typography>
+          </Grid>
+
           <div style={{ paddingLeft: 20 }}>
             <Table>
               <TableHead>
@@ -114,10 +125,8 @@ const Demo = props => {
                     })
                   : null}
                 <TableRow>
-                  <TableCell rowSpan={2} />
-                  <TableCell colSpan={2}>
-                    {Language[state.locals].sum}:{' '}
-                  </TableCell>
+                  <TableCell rowSpan={2} colSpan={2} />
+                  <TableCell>{Language[state.locals].sum}: </TableCell>
                   <TableCell> {total} </TableCell>
                 </TableRow>
               </TableBody>
