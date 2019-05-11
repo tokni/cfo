@@ -15,6 +15,7 @@ import {
   InputLabel,
   FormControl,
   withStyles,
+  Typography,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -100,6 +101,19 @@ const Form = props => {
         </FormControl>
         <br />
         <br />
+        {products
+          ? products.map((item, index) => {
+              return (
+                <Typography key={index}>
+                  {Language[state.locals].product}: {item.product}
+                  {Language[state.locals].price}: {item.price}
+                  {Language[state.locals].quantity}: {item.quantity}
+                  delete
+                </Typography>
+              )
+            })
+          : null}
+        <br />
         <FormControl variant="filled" className={classes.formControl}>
           <InputLabel htmlFor="product-helper">
             {Language[state.locals].product}
@@ -167,6 +181,8 @@ const Form = props => {
             }}
           />
         </FormControl>
+        <br />
+        <br />
         <FormControl variant="filled" className={classes.formControl}>
           <TextField
             multiline

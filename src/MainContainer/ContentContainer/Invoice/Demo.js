@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
 import html2canvas from 'html2canvas'
+import Context from '../../../Context/Context'
+import Language from '../../../utils/language'
 import jsPDF from 'jspdf'
 import Print from '@material-ui/icons/Print'
 import {
@@ -28,6 +30,7 @@ const styles = theme => ({
 })
 
 const Demo = props => {
+  const [state] = useContext(Context)
   const { classes } = props
   let total = 0
   const printPDFHandeler = () => {
@@ -46,12 +49,12 @@ const Demo = props => {
     <Fragment>
       <div
         id="kladda"
-        style={{
-          width: '210mm',
-          minHeight: '297mm',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-        }}
+        // style={{
+        //   width: '210mm',
+        //   minHeight: '297mm',
+        //   marginLeft: 'auto',
+        //   marginRight: 'auto',
+        // }}
       >
         <Grid
           style={{
@@ -88,10 +91,10 @@ const Demo = props => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Product</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Total</TableCell>
+                  <TableCell>{Language[state.locals].product}</TableCell>
+                  <TableCell>{Language[state.locals].price}</TableCell>
+                  <TableCell>{Language[state.locals].quantity}</TableCell>
+                  <TableCell>{Language[state.locals].total}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -110,20 +113,34 @@ const Demo = props => {
                       )
                     })
                   : null}
-              </TableBody>
-              <TableFooter>
                 <TableRow>
                   <TableCell rowSpan={2} />
-                  <TableCell colSpan={2}>Sum: </TableCell>
+                  <TableCell colSpan={2}>
+                    {Language[state.locals].sum}:{' '}
+                  </TableCell>
                   <TableCell> {total} </TableCell>
                 </TableRow>
-              </TableFooter>
+              </TableBody>
+              {/* <TableFooter> */}
+              {/* </TableFooter> */}
             </Table>
           </div>
           <Grid item lg={12}>
             <Divider />
-            <Typography variant="caption">Description</Typography>
+            <Typography variant="caption">
+              {Language[state.locals].description}
+            </Typography>
             <Typography variant="body1">{props.description}</Typography>
+          </Grid>
+          <Grid item lg={12}>
+            <Divider />
+            <Typography variant="body2">
+              {state.company.name} | tlf: 35xxxx | fax35xxx1
+            </Typography>
+            <Typography variant="body2">
+              betri: 9181-123.456.7 | bank nordik: 6460-987.654.3 | suðuroyar
+              sparikassi: 4370-333.444.5
+            </Typography>
           </Grid>
         </Grid>
       </div>
