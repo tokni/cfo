@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 })
 
-const UpdateBill = props => {
+const UpdateVendor = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(props.name)
 
@@ -86,11 +86,11 @@ const UpdateBill = props => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {Language[state.locals].addvendor}
+          {Language[state.locals].updatevendor}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {Language[state.locals].fillformtoaddvendor}
+            {Language[state.locals].fillformtoupdatevendor}
           </DialogContentText>
 
        
@@ -114,7 +114,7 @@ const UpdateBill = props => {
             {Language[state.locals].cancel}
           </Button>
           <Button onClick={onSubmit} color="primary">
-            {Language[state.locals].add}
+            {Language[state.locals].update}
           </Button>
         </DialogActions>
       </Dialog>
@@ -129,8 +129,8 @@ const UpdateBill = props => {
   )
 }
 
-UpdateBill.propTypes = {
+UpdateVendor.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(UpdateBill)
+export default withStyles(styles)(UpdateVendor)

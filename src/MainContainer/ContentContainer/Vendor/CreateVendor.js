@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 })
 
-const CreateBill = props => {
+const CreateVendor = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
 
@@ -131,8 +131,8 @@ const CreateBill = props => {
   )
 }
 
-CreateBill.propTypes = {
+CreateVendor.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(CreateBill)
+export default withStyles(styles)(CreateVendor)
