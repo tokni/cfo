@@ -7,6 +7,7 @@ import { Grid, Paper } from '@material-ui/core'
 const Invoice = () => {
   const [name, setName] = useState('')
   const [products, setProducts] = useState(null)
+  const [account, setAccount] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [dueDate, setDueDate] = useState(null)
   const [description, setDescription] = useState('')
@@ -17,6 +18,9 @@ const Invoice = () => {
         break
       case 'description':
         setDescription(value)
+        break
+      case 'account':
+        setAccount(value)
         break
       case 'dueDate':
         setDueDate(value)
@@ -49,6 +53,7 @@ const Invoice = () => {
               dueDate={dueDate}
               products={products}
               quantity={quantity}
+              account={account}
             />
           </Paper>
         </Grid>

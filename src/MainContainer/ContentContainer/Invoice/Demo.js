@@ -16,6 +16,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -35,11 +36,11 @@ const Demo = props => {
   const printPDFHandeler = () => {
     console.log('CLICK!!')
     const input = document.getElementById('kladda')
+
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL('image/png')
       const pdf = new jsPDF()
       pdf.addImage(imgData, 0, 0)
-
       pdf.save('tempTest.pdf')
     })
   }
@@ -144,23 +145,34 @@ const Demo = props => {
           <Grid item lg={12}>
             <Divider />
             <Typography variant="body2">
-              {state.company.name} | tlf: 35xxxx | fax35xxx1
-            </Typography>
-            <Typography variant="body2">
-              betri: 9181-123.456.7 | bank nordik: 6460-987.654.3 | suðuroyar
-              sparikassi: 4370-333.444.5
+              {props.account && props.account.account_numbers
+                ? props.account.account_numbers.map((item, index) => {
+                    return (
+                      item.name +
+                      ': ' +
+                      item.account_number +
+                      (index + 1 === props.account.account_numbers.length
+                        ? ''
+                        : ' | ')
+                    )
+                  })
+                : null}
+              {/* betri: 9181-123.456.7 | bank nordik: 6460-987.654.3 | suðuroyar
+              sparikassi: 4370-333.444.5 */}
             </Typography>
           </Grid>
         </Grid>
       </div>
-      <Fab
-        onClick={printPDFHandeler}
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
-      >
-        <Print />
-      </Fab>
+      <Tooltip title={Language[state.locals].downloadinvoice}>
+        <Fab
+          onClick={printPDFHandeler}
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+        >
+          <Print />
+        </Fab>
+      </Tooltip>
     </Fragment>
   )
 }

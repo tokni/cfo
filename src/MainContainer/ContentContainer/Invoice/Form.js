@@ -2,9 +2,11 @@ import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import { GET_PRODUCTS } from '../../../utils/Query/ProductQuery'
 import { GET_CUSTOMERS } from '../../../utils/Query/CustomersQuery'
+import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
 import { useSubscription } from 'react-apollo-hooks'
 import React, { Fragment, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
+import Delete from '@material-ui/icons/Delete'
 
 import {
   TextField,
@@ -13,9 +15,15 @@ import {
   Input,
   Button,
   InputLabel,
+  Tooltip,
   FormControl,
   withStyles,
-  Typography,
+  Table,
+  Fab,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -54,20 +62,30 @@ const Form = props => {
   const [dueDate, setDueDate] = useState(Date.now())
   const [quantity, setQuantity] = useState(null)
   const [price, setPrice] = useState(null)
+  const [account, setAccount] = useState(null)
   const [product, setProduct] = useState('')
   const [customer, setCustomer] = useState('')
   const [products] = useState(Array)
   const [state] = useContext(Context)
+
   const { data } = useSubscription(GET_PRODUCTS, {
     suspend: false,
     variables: {
       company_id: state.company.id,
     },
   })
+
   const customerData = useSubscription(GET_CUSTOMERS, {
     suspend: false,
     variables: {
       company_id: state.company.id,
+    },
+  })
+
+  const accountData = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
+    suspend: false,
+    variables: {
+      company_id: state.company ? state.company.id : null,
     },
   })
 
@@ -80,12 +98,22 @@ const Form = props => {
     props.fetcher('name', e.target.value)
   }
 
+  const handleAccountChange = e => {
+    setAccount(e.target.value)
+    console.log('value is: ', e.target.value)
+    props.fetcher('account', e.target.value)
+  }
+
   const addProductHandler = () => {
     products.push({ product: product, quantity: quantity, price: price })
     props.fetcher('products', products)
     setProduct('')
     setQuantity(null)
     setPrice(null)
+  }
+
+  const handleDelete = index => {
+    products.splice(index, 1)
   }
 
   const { classes } = props
@@ -118,18 +146,37 @@ const Form = props => {
         </FormControl>
         <br />
         <br />
-        {products
-          ? products.map((item, index) => {
-              return (
-                <Typography key={index}>
-                  {Language[state.locals].product}: {item.product}
-                  {Language[state.locals].price}: {item.price}
-                  {Language[state.locals].quantity}: {item.quantity}
-                  delete
-                </Typography>
-              )
-            })
-          : null}
+
+        {products.length >= 1 ? (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>{Language[state.locals].product}</TableCell>
+                <TableCell>{Language[state.locals].quantity}</TableCell>
+                <TableCell>{Language[state.locals].price}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {products.map((item, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{item.product}</TableCell>
+                    <TableCell>{item.quantity}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                    <Tooltip title={Language[state.locals].removefromlist}>
+                      <Fab
+                        onClick={handleDelete.bind(this, index)}
+                        color="secondary"
+                      >
+                        <Delete />
+                      </Fab>
+                    </Tooltip>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        ) : null}
         <br />
         <div className={classes.container}>
           <FormControl
@@ -233,6 +280,31 @@ const Form = props => {
               props.fetcher('description', e.target.value)
             }}
           />
+        </FormControl>
+        <br />
+        <br />
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="account-helper">
+            {Language[state.locals].account}
+            {': '}
+          </InputLabel>
+          <Select
+            required
+            value={account}
+            onChange={handleAccountChange}
+            label="Konta"
+            input={<Input name="kundi1" id="account-helper" />}
+          >
+            {accountData.data
+              ? accountData.data.Account.map((item, index) => {
+                  return (
+                    <MenuItem key={index} id={item.name} value={item}>
+                      {item.name}
+                    </MenuItem>
+                  )
+                })
+              : null}
+          </Select>
         </FormControl>
       </form>
     </Fragment>
