@@ -4,7 +4,7 @@ import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { PUT_VENDOR } from '../../../utils/Query/VendorQuery'
+import { PUT_EXPENSE } from '../../../utils/Query/ExpenseQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
 import {
@@ -29,12 +29,12 @@ const styles = theme => ({
   },
 })
 
-const UpdateVendor = props => {
+const UpdateBill = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(props.name)
 
   const { classes } = props
-  const updateVendortMutation = useMutation(PUT_VENDOR)
+  const updateExpenseMutation = useMutation(PUT_EXPENSE)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -50,7 +50,7 @@ const UpdateVendor = props => {
   const onSubmit = e => {
     e.preventDefault()
     if (name !== '') {
-      updateVendortMutation({
+      updateExpenseMutation({
         variables: {
           id: props.id,
           company_id: state.company.id,
@@ -86,11 +86,11 @@ const UpdateVendor = props => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {Language[state.locals].updatevendor}
+          {Language[state.locals].updateexpense}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {Language[state.locals].fillformtoupdatevendor}
+            {Language[state.locals].fillformtoupdateexpense}
           </DialogContentText>
 
        
@@ -120,7 +120,7 @@ const UpdateVendor = props => {
       </Dialog>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
-          <SnackBar message={'Vendor updated successfully'} state={'success'} />
+          <SnackBar message={'Expense updated successfully'} state={'success'} />
         ) : (
           <SnackBar message={'Fill all parameters'} state={'error'} />
         )
@@ -129,8 +129,8 @@ const UpdateVendor = props => {
   )
 }
 
-UpdateVendor.propTypes = {
+UpdateBill.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(UpdateVendor)
+export default withStyles(styles)(UpdateBill)

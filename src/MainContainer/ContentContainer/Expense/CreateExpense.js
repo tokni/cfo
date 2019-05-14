@@ -1,10 +1,10 @@
-import EditIcon from '@material-ui/icons/Edit'
+import AddIcon from '@material-ui/icons/Add'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { PUT_VENDOR } from '../../../utils/Query/VendorQuery'
+import { POST_EXPENSE } from '../../../utils/Query/ExpenseQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
 import {
@@ -29,18 +29,20 @@ const styles = theme => ({
   },
 })
 
-const UpdateVendor = props => {
+const CreateExpense = props => {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState(props.name)
+  const [name, setName] = useState('')
+
 
   const { classes } = props
-  const updateVendortMutation = useMutation(PUT_VENDOR)
+  const createExpenseMutation = useMutation(POST_EXPENSE)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
 
-  const handleClose = props => {
-  
+  const handleClose = () => {
+    setName('')
+
     if (state.company) {
       setOpen(!open)
     }
@@ -49,12 +51,13 @@ const UpdateVendor = props => {
 
   const onSubmit = e => {
     e.preventDefault()
-    if (name !== '') {
-      updateVendortMutation({
+    if (
+      name !== ''
+    ) {
+        createExpenseMutation({
         variables: {
-          id: props.id,
-          company_id: state.company.id,
           name,
+          company_id: state.company.id,
         },
       })
       setTimeout(() => {
@@ -78,7 +81,7 @@ const UpdateVendor = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <EditIcon />
+        <AddIcon />
       </Fab>
       <Dialog
         open={open}
@@ -86,41 +89,40 @@ const UpdateVendor = props => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {Language[state.locals].updatevendor}
+          {Language[state.locals].addexpense}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {Language[state.locals].fillformtoupdatevendor}
+            {Language[state.locals].fillformtoaddexpense}
           </DialogContentText>
 
-       
+  
           <TextField
-            autoFocus
+            focus
             margin="dense"
-            id="description"
-            value={name || ''}
+            id="name"
             label={Language[state.locals].name}
+            value={name}
             type="text"
             fullWidth
             onChange={e => {
               setName(e.target.value)
             }}
           />
-
-       
+         
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
           <Button onClick={onSubmit} color="primary">
-            {Language[state.locals].update}
+            {Language[state.locals].add}
           </Button>
         </DialogActions>
       </Dialog>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
-          <SnackBar message={'Vendor updated successfully'} state={'success'} />
+          <SnackBar message={'Expense created successfully'} state={'success'} />
         ) : (
           <SnackBar message={'Fill all parameters'} state={'error'} />
         )
@@ -129,8 +131,8 @@ const UpdateVendor = props => {
   )
 }
 
-UpdateVendor.propTypes = {
+CreateExpense.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(UpdateVendor)
+export default withStyles(styles)(CreateExpense)
