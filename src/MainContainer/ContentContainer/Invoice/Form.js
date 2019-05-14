@@ -3,11 +3,13 @@ import Language from '../../../utils/language'
 import { GET_PRODUCTS } from '../../../utils/Query/ProductQuery'
 import { GET_CUSTOMERS } from '../../../utils/Query/CustomersQuery'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
-import { useSubscription } from 'react-apollo-hooks'
+import { CREATE_INVOICE } from '../../../utils/Query/InvoiceQuery'
+import { CREATE_ORDER } from '../../../utils/Query/OrderQuery'
+import { useSubscription, useMutation } from 'react-apollo-hooks'
 import React, { Fragment, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import Delete from '@material-ui/icons/Delete'
-
+import AddIcon from '@material-ui/icons/Add'
 import {
   TextField,
   Select,
@@ -60,13 +62,17 @@ const styles = theme => ({
 const Form = props => {
   const [description, setDescription] = useState('')
   const [dueDate, setDueDate] = useState(Date.now())
+  const [created, setCreated] = useState(Date.now())
   const [quantity, setQuantity] = useState(null)
   const [price, setPrice] = useState(null)
   const [account, setAccount] = useState(null)
+  const [invoiceNumber, setInvoiceNumber] = useState(null)
   const [product, setProduct] = useState('')
-  const [customer, setCustomer] = useState('')
+  const [customer, setCustomer] = useState(null)
   const [products] = useState(Array)
   const [state] = useContext(Context)
+  const mutateInvoice = useMutation(CREATE_INVOICE)
+  const mutateOrder = useMutation(CREATE_ORDER)
 
   const { data } = useSubscription(GET_PRODUCTS, {
     suspend: false,
@@ -95,12 +101,11 @@ const Form = props => {
 
   const handleCustomerChange = e => {
     setCustomer(e.target.value)
-    props.fetcher('name', e.target.value)
+    props.fetcher('name', e.target.value.name)
   }
 
   const handleAccountChange = e => {
     setAccount(e.target.value)
-    console.log('value is: ', e.target.value)
     props.fetcher('account', e.target.value)
   }
 
@@ -116,6 +121,32 @@ const Form = props => {
     products.splice(index, 1)
   }
 
+  const addQueryHandler = async () => {
+    const result = await mutateInvoice({
+      variables: {
+        customer_id: customer.id,
+        company_id: state.company.id,
+        invoice_number: invoiceNumber,
+        attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
+        description: description,
+        payment_due_date: dueDate,
+      },
+    })
+
+    if (result) {
+      products.map((product, index) => {
+        return mutateOrder({
+          variables: {
+            invoice_id: result.data.insert_Invoice.returning[0].id,
+            product_id: product.product.id,
+            quantity: product.quantity,
+            price: product.price,
+          },
+        })
+      })
+    }
+  }
+
   const { classes } = props
   return (
     <Fragment>
@@ -127,7 +158,7 @@ const Form = props => {
           </InputLabel>
           <Select
             required
-            value={customer}
+            value={customer || ''}
             onChange={handleCustomerChange}
             label="Kundi"
             placeholder="Vel ein kunda"
@@ -136,7 +167,7 @@ const Form = props => {
             {customerData.data
               ? customerData.data.Customer.map((item, index) => {
                   return (
-                    <MenuItem key={index} id={item.name} value={item.name}>
+                    <MenuItem key={index} id={item.name} value={item}>
                       {item.name}
                     </MenuItem>
                   )
@@ -145,7 +176,17 @@ const Form = props => {
           </Select>
         </FormControl>
         <br />
-        <br />
+        <FormControl variant="filled" className={classes.formControl}>
+          <TextField
+            label={Language[state.locals].invoicenumber}
+            value={invoiceNumber || ''}
+            placeholder="e.g. F431"
+            onChange={e => {
+              setInvoiceNumber(e.target.value)
+              props.fetcher('invoiceNumber', e.target.value)
+            }}
+          />
+        </FormControl>
 
         {products.length >= 1 ? (
           <Table>
@@ -160,7 +201,7 @@ const Form = props => {
               {products.map((item, index) => {
                 return (
                   <TableRow key={index}>
-                    <TableCell>{item.product}</TableCell>
+                    <TableCell>{item.product.name}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.price}</TableCell>
                     <Tooltip title={Language[state.locals].removefromlist}>
@@ -189,7 +230,7 @@ const Form = props => {
               {': '}
             </InputLabel>
             <Select
-              value={product}
+              value={product || ''}
               onChange={handleProductChange}
               label="Vvøru"
               input={<Input name="Product1" id="product-helper" />}
@@ -197,7 +238,7 @@ const Form = props => {
               {data
                 ? data.Product.map((item, index) => {
                     return (
-                      <MenuItem key={index} id={item.name} value={item.name}>
+                      <MenuItem key={index} id={item.name} value={item}>
                         {item.name}
                       </MenuItem>
                     )
@@ -246,25 +287,35 @@ const Form = props => {
         </div>
         <br />
         <br />
-        <FormControl variant="standard" className={classes.formControl}>
-          {/* <InputLabel htmlFor="payment_due-helper">
-            {Language[state.locals].paymentdue}
-            {': '}
-          </InputLabel> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="payment_due-helper"
-            label={Language[state.locals].payment_due}
-            value={dueDate}
-            type="date"
-            onChange={e => {
-              setDueDate(e.target.value)
-              props.fetcher('dueDate', e.target.value)
-            }}
-          />
-        </FormControl>
+        <InputLabel>{Language[state.locals].invoicecreated}</InputLabel>
         <br />
+        <TextField
+          autoFocus
+          margin="dense"
+          label={Language[state.locals].payment_due}
+          value={created || ''}
+          type="date"
+          onChange={e => {
+            setCreated(e.target.value)
+            props.fetcher('created', e.target.value)
+          }}
+        />
+        <br />
+        <InputLabel>{Language[state.locals].invoicedue}</InputLabel>
+        <br />
+        <TextField
+          autoFocus
+          margin="dense"
+          label={Language[state.locals].payment_due}
+          value={dueDate || ''}
+          type="date"
+          onChange={e => {
+            setDueDate(e.target.value)
+            props.fetcher('dueDate', e.target.value)
+          }}
+        />
+        <br />
+
         <br />
         <FormControl variant="filled" className={classes.formControl}>
           <TextField
@@ -290,7 +341,7 @@ const Form = props => {
           </InputLabel>
           <Select
             required
-            value={account}
+            value={account || ''}
             onChange={handleAccountChange}
             label="Konta"
             input={<Input name="kundi1" id="account-helper" />}
@@ -307,6 +358,16 @@ const Form = props => {
           </Select>
         </FormControl>
       </form>
+      <Tooltip title="Add invoice">
+        <Fab
+          onClick={addQueryHandler}
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
     </Fragment>
   )
 }

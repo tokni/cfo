@@ -68,7 +68,7 @@ const Demo = props => {
           lg={12}
           spacing={40}
         >
-          <Grid item lg={8}>
+          <Grid item lg={9}>
             <img
               width={100}
               height="auto"
@@ -76,8 +76,20 @@ const Demo = props => {
               alt="myndin riggar ikki.."
             />
           </Grid>
-          <Grid item lg={4}>
-            <Typography variant="caption">Due date</Typography>
+          <Grid item lg={3}>
+            <Typography variant="caption">
+              {Language[state.locals].invoicenumber}
+            </Typography>
+            <Typography variant="body1">{props.invoiceNumber}</Typography>
+            <br />
+            <Typography variant="caption">
+              {Language[state.locals].invoicecreated}
+            </Typography>
+            <Typography variant="body1">{props.created}</Typography>
+            <br />
+            <Typography variant="caption">
+              {Language[state.locals].invoicedue}
+            </Typography>
             <Typography variant="body1">{props.dueDate}</Typography>
           </Grid>
           <Grid item lg={6}>
@@ -93,7 +105,7 @@ const Demo = props => {
             <Divider />
             <Typography variant="body1">{props.name}</Typography>
             <Typography variant="body1">tlf: 31XXXX</Typography>
-            <Typography variant="body1">fax: </Typography>
+            <Typography variant="body1" />
             <Typography variant="body1">
               adr: Skopunarvegur 15, Skopun
             </Typography>
@@ -110,11 +122,12 @@ const Demo = props => {
                 </TableRow>
               </TableHead>
               <TableBody>
+                {console.log('TTT:', props.products)}
                 {props.products
                   ? props.products.map((item, index) => {
                       return (
                         <TableRow key={index}>
-                          <TableCell>{item.product}</TableCell>
+                          <TableCell>{item.product.name}</TableCell>
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.price * item.quantity}</TableCell>
@@ -144,7 +157,7 @@ const Demo = props => {
           </Grid>
           <Grid item lg={12}>
             <Divider />
-            <Typography variant="body2">
+            <Typography variant="caption">
               {props.account && props.account.account_numbers
                 ? props.account.account_numbers.map((item, index) => {
                     return (
@@ -157,8 +170,6 @@ const Demo = props => {
                     )
                   })
                 : null}
-              {/* betri: 9181-123.456.7 | bank nordik: 6460-987.654.3 | suðuroyar
-              sparikassi: 4370-333.444.5 */}
             </Typography>
           </Grid>
         </Grid>
