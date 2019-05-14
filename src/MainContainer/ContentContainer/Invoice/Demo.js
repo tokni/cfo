@@ -131,9 +131,9 @@ const Demo = props => {
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.price * item.quantity}</TableCell>
-                          <div style={{ display: 'none' }}>
+                          <TableCell style={{ display: 'none' }}>
                             {(total += item.price * item.quantity)}
-                          </div>
+                          </TableCell>
                         </TableRow>
                       )
                     })
@@ -144,8 +144,6 @@ const Demo = props => {
                   <TableCell> {total} </TableCell>
                 </TableRow>
               </TableBody>
-              {/* <TableFooter> */}
-              {/* </TableFooter> */}
             </Table>
           </div>
           <Grid item lg={12}>

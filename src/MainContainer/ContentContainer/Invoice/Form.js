@@ -1,15 +1,10 @@
-import Context from '../../../Context/Context'
-import Language from '../../../utils/language'
-import { GET_PRODUCTS } from '../../../utils/Query/ProductQuery'
-import { GET_CUSTOMERS } from '../../../utils/Query/CustomersQuery'
-import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
-import { CREATE_INVOICE } from '../../../utils/Query/InvoiceQuery'
-import { CREATE_ORDER } from '../../../utils/Query/OrderQuery'
-import { useSubscription, useMutation } from 'react-apollo-hooks'
-import React, { Fragment, useContext, useState } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Language from '../../../utils/language'
 import Delete from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
+import Logic from './Logic'
+
 import {
   TextField,
   Select,
@@ -44,108 +39,37 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit,
-  //   width: '20%',
-  // },
 })
 
-// const styles = theme => ({
-//   textField: {
-//     marginLeft: theme.spacing.unit,
-//     marginRight: theme.spacing.unit,
-//     width: 200,
-//   },
-// });
-
 const Form = props => {
-  const [description, setDescription] = useState('')
-  const [dueDate, setDueDate] = useState(Date.now())
-  const [created, setCreated] = useState(Date.now())
-  const [quantity, setQuantity] = useState(null)
-  const [price, setPrice] = useState(null)
-  const [account, setAccount] = useState(null)
-  const [invoiceNumber, setInvoiceNumber] = useState(null)
-  const [product, setProduct] = useState('')
-  const [customer, setCustomer] = useState(null)
-  const [products] = useState(Array)
-  const [state] = useContext(Context)
-  const mutateInvoice = useMutation(CREATE_INVOICE)
-  const mutateOrder = useMutation(CREATE_ORDER)
-
-  const { data } = useSubscription(GET_PRODUCTS, {
-    suspend: false,
-    variables: {
-      company_id: state.company.id,
-    },
-  })
-
-  const customerData = useSubscription(GET_CUSTOMERS, {
-    suspend: false,
-    variables: {
-      company_id: state.company.id,
-    },
-  })
-
-  const accountData = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
-    suspend: false,
-    variables: {
-      company_id: state.company ? state.company.id : null,
-    },
-  })
-
-  const handleProductChange = e => {
-    setProduct(e.target.value)
-  }
-
-  const handleCustomerChange = e => {
-    setCustomer(e.target.value)
-    props.fetcher('name', e.target.value.name)
-  }
-
-  const handleAccountChange = e => {
-    setAccount(e.target.value)
-    props.fetcher('account', e.target.value)
-  }
-
-  const addProductHandler = () => {
-    products.push({ product: product, quantity: quantity, price: price })
-    props.fetcher('products', products)
-    setProduct('')
-    setQuantity(null)
-    setPrice(null)
-  }
-
-  const handleDelete = index => {
-    products.splice(index, 1)
-  }
-
-  const addQueryHandler = async () => {
-    const result = await mutateInvoice({
-      variables: {
-        customer_id: customer.id,
-        company_id: state.company.id,
-        invoice_number: invoiceNumber,
-        attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
-        description: description,
-        payment_due_date: dueDate,
-      },
-    })
-
-    if (result) {
-      products.map((product, index) => {
-        return mutateOrder({
-          variables: {
-            invoice_id: result.data.insert_Invoice.returning[0].id,
-            product_id: product.product.id,
-            quantity: product.quantity,
-            price: product.price,
-          },
-        })
-      })
-    }
-  }
+  const {
+    addQueryHandler,
+    addProductHandler,
+    handleAccountChange,
+    handleCustomerChange,
+    handleDelete,
+    handleProductChange,
+    accountData,
+    data,
+    customerData,
+    customer,
+    setDescription,
+    setDueDate,
+    setCreated,
+    setInvoiceNumber,
+    account,
+    created,
+    invoiceNumber,
+    products,
+    product,
+    price,
+    quantity,
+    setPrice,
+    setQuantity,
+    description,
+    dueDate,
+    state,
+  } = Logic(props)
 
   const { classes } = props
   return (
@@ -204,14 +128,16 @@ const Form = props => {
                     <TableCell>{item.product.name}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.price}</TableCell>
-                    <Tooltip title={Language[state.locals].removefromlist}>
-                      <Fab
-                        onClick={handleDelete.bind(this, index)}
-                        color="secondary"
-                      >
-                        <Delete />
-                      </Fab>
-                    </Tooltip>
+                    <TableCell>
+                      <Tooltip title={Language[state.locals].removefromlist}>
+                        <Fab
+                          onClick={handleDelete.bind(this, index)}
+                          color="secondary"
+                        >
+                          <Delete />
+                        </Fab>
+                      </Tooltip>
+                    </TableCell>
                   </TableRow>
                 )
               })}
@@ -256,7 +182,6 @@ const Form = props => {
               id="quantity"
               label={Language[state.locals].quantity}
               value={quantity ? quantity : ''}
-              placeholder={0}
               onChange={e => {
                 setQuantity(e.target.value)
               }}
@@ -272,7 +197,6 @@ const Form = props => {
               id="price"
               label={Language[state.locals].price}
               value={price ? price : ''}
-              placeholder={0}
               onChange={e => {
                 setPrice(e.target.value)
               }}
