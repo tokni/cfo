@@ -10,10 +10,10 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Button,
+  // Button,
 } from '@material-ui/core'
 
-const styles = theme => ({
+const styles = () => ({
   button: {
     display: 'block',
   },
@@ -56,7 +56,7 @@ const SelectCompany = props => {
 
   return (
     <form autoComplete="off">
-      <Button className={classes.button} onClick={handleOpen} />
+      {/* <Button className={classes.button} onClick={handleOpen} /> */}
       <FormControl className={classes.formControl}>
         <InputLabel focused={false} className={classes.label}>
           {Language[state.locals].choosecompany}

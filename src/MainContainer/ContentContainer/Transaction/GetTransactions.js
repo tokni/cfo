@@ -53,11 +53,7 @@ const GetTransactions = props => {
   }
 
   if (loading) {
-    return (
-      <tr>
-        <td>-</td>
-      </tr>
-    )
+    return <p>Loading...</p>
   }
 
   if (error) {
@@ -83,36 +79,42 @@ const GetTransactions = props => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.Transaction ? data.Transaction.map((item, index) => {
-          return (
-            <TableRow key={index}>
-            {console.log("hey: ", item)}
-              <TableCell component="th" scope="row">
-                {item.id}
-              </TableCell>
-              <TableCell align="right">{item.debit_id}</TableCell>
-              <TableCell align="right">{item.credit_id}</TableCell>
-              <TableCell align="right">{item.type}</TableCell>
-              <TableCell align="right">{item.time_stamp}</TableCell>
-              <TableCell align="right">{item.payment}</TableCell>
-              <TableCell align="right">{item.invoice_id}</TableCell>
-              <TableCell align="right">{item.bill_id}</TableCell>
-              <TableCell align="right">
-                <UpdateTransaction id={item.id}/>
-              </TableCell>
-              <TableCell>
-                <Fab
-                  color="primary"
-                  aria-label="delete"
-                  className={classes.fab}
-                  onClick={deleteHandeler.bind(this, item.id)}
-                >
-                  <Delete />
-                </Fab>
-              </TableCell>
-            </TableRow>
-          )
-        }) : <TableRow><TableCell>Empty</TableCell></TableRow>}
+        {data.Transaction ? (
+          data.Transaction.map((item, index) => {
+            return (
+              <TableRow key={index}>
+                {console.log('hey: ', item)}
+                <TableCell component="th" scope="row">
+                  {item.id}
+                </TableCell>
+                <TableCell align="right">{item.debit_id}</TableCell>
+                <TableCell align="right">{item.credit_id}</TableCell>
+                <TableCell align="right">{item.type}</TableCell>
+                <TableCell align="right">{item.time_stamp}</TableCell>
+                <TableCell align="right">{item.payment}</TableCell>
+                <TableCell align="right">{item.invoice_id}</TableCell>
+                <TableCell align="right">{item.bill_id}</TableCell>
+                <TableCell align="right">
+                  <UpdateTransaction id={item.id} />
+                </TableCell>
+                <TableCell>
+                  <Fab
+                    color="primary"
+                    aria-label="delete"
+                    className={classes.fab}
+                    onClick={deleteHandeler.bind(this, item.id)}
+                  >
+                    <Delete />
+                  </Fab>
+                </TableCell>
+              </TableRow>
+            )
+          })
+        ) : (
+          <TableRow>
+            <TableCell>Empty</TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   )

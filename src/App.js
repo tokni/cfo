@@ -14,6 +14,7 @@ class App extends React.Component {
 
   render() {
     this.auth.login()
+    this.auth.getUserProfile()
 
     return (
       <Fragment>
