@@ -20,10 +20,12 @@ const GET_BILLS_SUBSCRIPTION = gql`
       date_bill_received
       payment_due
       description
+      paid
       Attachment {
         attachment_name
         id
       }
+      
     }
   }
 `
@@ -88,6 +90,23 @@ const PUT_BILL = gql`
     }
   }
 `
+const PUT_BILL_PAY = gql`
+mutation putBill(
+  $id: uuid!
+  $company_id: uuid!
+  $paid: Boolean!
+) {
+  update_Bill(
+    where: { company_id: { _eq: $company_id }, id: { _eq: $id } }
+    _set: {
+      paid: $paid
+    }
+  ) {
+    affected_rows
+  }
+}
+`
+
 
 const DELETE_BILL = gql`
 mutation deleteBill($id: uuid!) {
@@ -97,4 +116,4 @@ mutation deleteBill($id: uuid!) {
 }
 `
 
-export { GET_BILLS_SUBSCRIPTION, CREATE_BILL, PUT_BILL, DELETE_BILL }
+export { GET_BILLS_SUBSCRIPTION, CREATE_BILL, PUT_BILL, DELETE_BILL, PUT_BILL_PAY }
