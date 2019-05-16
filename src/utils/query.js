@@ -3,10 +3,43 @@ import gql from 'graphql-tag'
 const GET_COMPANY = gql`
   query getCompanies {
     Company {
+      Bills {
+        attachment_id
+        company_id
+        date_bill_received
+        description
+        expense_id
+        id
+        paid
+        payment
+        payment_due
+        tax_id
+        vendor_id
+      }
+      Customers {
+        id
+        name
+      }
+      Invoices {
+        attachment_id
+        company_id
+        customer_id
+        description
+        id
+        invoice_number
+        paid
+        payment_due_date
+        quantity
+        time_stampt
+      }
+      Products {
+        name
+        id
+        company_id
+      }
       id
       mother_id
       name
-      user_id
     }
   }
 `
@@ -45,10 +78,53 @@ const SET_ACTIVE_COMPANY = gql`
 const GET_SUBSCRIP_COMPANY = gql`
   subscription {
     Company {
+      Bills {
+        attachment_id
+        company_id
+        date_bill_received
+        description
+        expense_id
+        id
+        paid
+        payment
+        payment_due
+        tax_id
+        vendor_id
+      }
+      Customers {
+        id
+        name
+      }
+      Invoices {
+        attachment_id
+        company_id
+        customer_id
+        description
+        id
+        invoice_number
+        paid
+        payment_due_date
+        time_stampt
+        Orders{
+          quantity
+          price
+        }
+      }
+      Products {
+        name
+        id
+        company_id
+      }
       id
       mother_id
       name
-      user_id
+      Accounts {
+        name
+        id
+        debit
+        company_id
+        balance
+      }
     }
   }
 `

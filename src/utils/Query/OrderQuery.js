@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const CREATE_ORDER = gql`
+const POST_ORDER = gql`
   mutation createOrder(
     $invoice_id: uuid!
     $product_id: uuid!
@@ -28,4 +28,4 @@ const DELETE_ORDER = gql`
   }
 `
 
-export { CREATE_ORDER, DELETE_ORDER }
+export { POST_ORDER, DELETE_ORDER }

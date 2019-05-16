@@ -1,11 +1,13 @@
 import AddIcon from '@material-ui/icons/Add'
 import Context from '../../../Context/Context'
 import PropTypes from 'prop-types'
+import Language from '../../../utils/language'
 import React, { Fragment, useState, useContext } from 'react'
 import Invoice from './Invoice'
 import { GET_INVOICES, DELETE_INVOICE } from '../../../utils/Query/InvoiceQuery'
 import { DELETE_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
+import Delete from '@material-ui/icons/Delete'
 import {
   withStyles,
   Dialog,
@@ -33,10 +35,8 @@ const styles = theme => ({
 
 const CreateCustomer = props => {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
   const { classes } = props
   const [state] = useContext(Context)
-  const [setMsg] = useState(false)
   const deleteInvoiceMutation = useMutation(DELETE_INVOICE)
   const deleteOrderMutation = useMutation(DELETE_ORDER)
   const { data } = useSubscription(GET_INVOICES, {
@@ -46,11 +46,9 @@ const CreateCustomer = props => {
   })
 
   const handleClose = () => {
-    setName(null)
     if (state.company !== null) {
       setOpen(!open)
     }
-    // setMsg(false)
   }
 
   const deleteHandler = async id => {
@@ -83,19 +81,19 @@ const CreateCustomer = props => {
         classes={{ paper: classes.dialogPaper }}
         // aria-labelledby="form-dialog-title"
       >
-        <Invoice />
+        <Invoice handleClose={handleClose} />
       </Dialog>
 
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
-            <TableCell>customer id</TableCell>
+            <TableCell>{Language[state.locals].customer} id</TableCell>
             <TableCell>timestamp</TableCell>
-            <TableCell>payment due</TableCell>
-            <TableCell>invoice number</TableCell>
-            <TableCell>paid</TableCell>
-            <TableCell>description</TableCell>
+            <TableCell>{Language[state.locals].paymentdue}</TableCell>
+            <TableCell>{Language[state.locals].invoicenumber}</TableCell>
+            <TableCell>{Language[state.locals].paid}</TableCell>
+            <TableCell>{Language[state.locals].description}</TableCell>
           </TableRow>
         </TableHead>
         {data ? (
@@ -113,13 +111,22 @@ const CreateCustomer = props => {
                   <TableCell>{invoice.payment_due_date}</TableCell>
                   <TableCell>{invoice.invoice_number}</TableCell>
                   <TableCell style={{ color: invoice.paid ? 'green' : 'red' }}>
-                    {invoice.paid ? 'Yes' : 'No'}
+                    {invoice.paid
+                      ? Language[state.locals].yes
+                      : Language[state.locals].no}
                   </TableCell>
                   <TableCell>{invoice.description}</TableCell>
                   <TableCell>PAY</TableCell>
                   <TableCell>EDIT</TableCell>
-                  <TableCell onClick={deleteHandler.bind(this, invoice.id)}>
-                    DEL
+                  <TableCell>
+                    <Fab
+                      color="primary"
+                      aria-label="Delete"
+                      className={classes.fab}
+                      onClick={deleteHandler.bind(this, invoice.id)}
+                    >
+                      <Delete />
+                    </Fab>
                   </TableCell>
                 </TableRow>
               )

@@ -3,8 +3,8 @@ import Context from '../../../Context/Context'
 import { GET_PRODUCTS } from '../../../utils/Query/ProductQuery'
 import { GET_CUSTOMERS } from '../../../utils/Query/CustomersQuery'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
-import { CREATE_INVOICE } from '../../../utils/Query/InvoiceQuery'
-import { CREATE_ORDER } from '../../../utils/Query/OrderQuery'
+import { POST_INVOICE } from '../../../utils/Query/InvoiceQuery'
+import { POST_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 
 const Logic = props => {
@@ -19,8 +19,8 @@ const Logic = props => {
   const [customer, setCustomer] = useState(null)
   const [products] = useState(Array)
   const [state] = useContext(Context)
-  const mutateInvoice = useMutation(CREATE_INVOICE)
-  const mutateOrder = useMutation(CREATE_ORDER)
+  const mutateInvoice = useMutation(POST_INVOICE)
+  const mutateOrder = useMutation(POST_ORDER)
 
   const { data } = useSubscription(GET_PRODUCTS, {
     suspend: false,
@@ -103,6 +103,7 @@ const Logic = props => {
             },
           })
         })
+        props.handleClose()
       }
     } else {
       console.log('ERROR IN INPUT !!!!!')

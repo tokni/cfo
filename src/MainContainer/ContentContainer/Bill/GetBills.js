@@ -2,8 +2,12 @@ import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
 import Delete from '@material-ui/icons/Delete'
 import UpdateBill from './UpdateBill'
+import PayBill from './PayBill'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
-import { GET_BILLS_SUBSCRIPTION, DELETE_BILL } from '../../../utils/Query/BillQuery'
+import {
+  GET_BILLS_SUBSCRIPTION,
+  DELETE_BILL,
+} from '../../../utils/Query/BillQuery'
 import PropTypes from 'prop-types'
 import {
   withStyles,
@@ -73,9 +77,10 @@ const GetBills = props => {
           <TableCell align="right">Date: Bill received</TableCell>
           <TableCell align="right">Date: Payment due</TableCell>
           <TableCell align="right">Description</TableCell>
-          <TableCell align="right">Attachment Name</TableCell>
+          <TableCell align="right">Has been paid</TableCell>
           <TableCell align="right">Edit</TableCell>
           <TableCell align="right">Delete</TableCell>
+          <TableCell align="right">Pay Bill</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -92,9 +97,8 @@ const GetBills = props => {
               <TableCell align="right">{item.date_bill_received}</TableCell>
               <TableCell align="right">{item.payment_due}</TableCell>
               <TableCell align="right">{item.description}</TableCell>
-              <TableCell align="right">
-                {item.Attachment.attachment_name}
-              </TableCell>
+              {/* <TableCell align="right">{item.attachment_name}</TableCell> */}
+              <TableCell align="right">{item.paid ? 'Yes' : 'No'}</TableCell>
               <TableCell>
                 <UpdateBill
                   id={item.id}
@@ -117,6 +121,9 @@ const GetBills = props => {
                 >
                   <Delete />
                 </Fab>
+              </TableCell>
+              <TableCell>
+                <PayBill bill_id={item.id} payment={item.payment}/>
               </TableCell>
             </TableRow>
           )

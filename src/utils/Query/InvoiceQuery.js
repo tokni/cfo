@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const CREATE_INVOICE = gql`
+const POST_INVOICE = gql`
   mutation createInvoice(
     $customer_id: uuid!
     $company_id: uuid!
@@ -51,4 +51,4 @@ const DELETE_INVOICE = gql`
   }
 `
 
-export { CREATE_INVOICE, GET_INVOICES, DELETE_INVOICE }
+export { POST_INVOICE, GET_INVOICES, DELETE_INVOICE }

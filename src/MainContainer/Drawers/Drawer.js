@@ -75,7 +75,6 @@ const SideDrawer = props => {
               {[
                 Language['en'].overview,
                 Language['en'].invoice,
-                Language['en'].getinvoice,
                 Language['en'].bills,
                 Language['en'].transactions,
                 Language['en'].accounts,
