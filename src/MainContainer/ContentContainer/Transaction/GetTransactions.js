@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
 import Delete from '@material-ui/icons/Delete'
+import UpdateTransaction from './UpdateTransaction'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
   GET_TRANSACTIONS_SUBSCRIPTION,
@@ -72,9 +73,9 @@ const GetTransactions = props => {
           <TableCell align="right">ID</TableCell>
           <TableCell align="right">Debit Account</TableCell>
           <TableCell align="right">Credit Account</TableCell>
-          <TableCell align="right">Payment</TableCell>
-          <TableCell align="right">Date paid</TableCell>
           <TableCell align="right">Type</TableCell>
+          <TableCell align="right">Date paid</TableCell>
+          <TableCell align="right">Payment</TableCell>
           <TableCell align="right">Invoice</TableCell>
           <TableCell align="right">Bill</TableCell>
           <TableCell align="right">Edit</TableCell>
@@ -91,16 +92,18 @@ const GetTransactions = props => {
               </TableCell>
               <TableCell align="right">{item.debit_id}</TableCell>
               <TableCell align="right">{item.credit_id}</TableCell>
-              <TableCell align="right">{item.payment}</TableCell>
+              <TableCell align="right">{item.type}</TableCell>
               <TableCell align="right">{item.time_stamp}</TableCell>
               <TableCell align="right">{item.payment}</TableCell>
-              <TableCell align="right">{item.invoice}</TableCell>
-
+              <TableCell align="right">{item.invoice_id}</TableCell>
               <TableCell align="right">{item.bill_id}</TableCell>
+              <TableCell align="right">
+                <UpdateTransaction id={item.id}/>
+              </TableCell>
               <TableCell>
                 <Fab
                   color="primary"
-                  aria-label="Update"
+                  aria-label="delete"
                   className={classes.fab}
                   onClick={deleteHandeler.bind(this, item.id)}
                 >

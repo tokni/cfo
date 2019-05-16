@@ -105,6 +105,10 @@ const GET_SUBSCRIP_COMPANY = gql`
         paid
         payment_due_date
         time_stampt
+        Orders{
+          quantity
+          price
+        }
       }
       Products {
         name

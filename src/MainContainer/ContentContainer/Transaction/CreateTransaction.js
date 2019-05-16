@@ -35,11 +35,10 @@ const CreateTransaction = props => {
   const [credit_id, setCreditAccount] = useState('')
   const [payment, setPayment] = useState('')
   const [type, setType] = useState('')
-  const [bill_id, setBill] = useState('')
+  const [bill_id, setBill] = useState(null)
   const [billDescription, setBillDescription] = useState('')
-  
-  const [invoice, setInvoice] = useState('')
-
+  const [invoice_id, setInvoice] = useState(null)
+  const [invoiceDescription, setInvoiceDescription] = useState('')
   const { classes } = props
   const postTransactionMutation = useMutation(POST_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
@@ -51,9 +50,10 @@ const CreateTransaction = props => {
     setDebitAccount('')
     setCreditAccount('')
     setPayment('')
-    setBill('')
-    setInvoice('')
+    setBill(null)
+    setInvoice(null)
     setBillDescription('')
+    setInvoiceDescription('')
     if (state.company !== null) {
       console.log('trans', state.company)
       setOpen(!open)
@@ -67,7 +67,7 @@ const CreateTransaction = props => {
       debit_id !== '' &&
       credit_id !== '' &&
       payment !== '' &&
-      (bill_id !== '' || invoice !== '')
+      (bill_id !== null || invoice_id !== null)
     ) {
       await postTransactionMutation({
         variables: {
@@ -77,6 +77,7 @@ const CreateTransaction = props => {
           payment,
           type,
           bill_id,
+          invoice_id
         },
       })
       await updateBilltMutation({
@@ -122,8 +123,8 @@ const CreateTransaction = props => {
             {Language[state.locals].fillformtoaddtransaction}
           </DialogContentText>
 
-      {/* invoice FIELD */}
-      <TextField
+          {/* invoice FIELD */}
+          <TextField
             autoFocus
             margin="dense"
             id="debit"
@@ -134,7 +135,7 @@ const CreateTransaction = props => {
               setType(e.target.value)
             }}
           />
-          
+
           {/* DEBIT FIELD */}
           <TextField
             autoFocus
@@ -207,8 +208,7 @@ const CreateTransaction = props => {
             type="text"
             fullWidth
             onChange={e => {
-
-              console.log("arget", e.target.value)
+              console.log('arget', e.target.value)
               setBillDescription(e.target.value)
               setBill(e.target.value.id)
               setPayment(e.target.value.payment)
@@ -219,7 +219,7 @@ const CreateTransaction = props => {
               // eslint-disable-next-line array-callback-return
               state.company.Bills.map((item, index) => {
                 return (
-                  <option key={index} value={item} >
+                  <option key={index} value={item}>
                     {item.description}
                   </option>
                 )
@@ -230,22 +230,34 @@ const CreateTransaction = props => {
           </TextField>
 
           {/* invoice FIELD */}
+
           <TextField
             autoFocus
             margin="dense"
-            id="debit"
-            label={Language[state.locals].invoice}
+            id="invoice"
+            select
+            value={invoiceDescription || ''}
+            label={Language[state.locals].invoice || ''}
             type="text"
             fullWidth
             onChange={e => {
-              setInvoice(e.target.value)
+              console.log('arget invoice', e.target.value)
+              setInvoiceDescription(e.target.value)
+              setInvoice(e.target.value.id)
+              
+              const accumulatedPrice =+ e.target.value.Orders.map((item, index) => {
+                return item.quantity*item.price
+              })
+              setPayment(accumulatedPrice)
             }}
           >
+            {console.log('invoices', state.company.Invoices)}
             {state.company.Invoices ? (
+              // eslint-disable-next-line array-callback-return
               state.company.Invoices.map((item, index) => {
                 return (
-                  <option key={index} value={item.id}>
-                    {item.name}
+                  <option key={index} value={item}>
+                    {item.description}
                   </option>
                 )
               })

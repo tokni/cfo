@@ -1,11 +1,11 @@
-import AddIcon from '@material-ui/icons/Money'
+import UpdateIcon from '@material-ui/icons/Edit'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
-import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
+import { PUT_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
 import {
   withStyles,
@@ -29,25 +29,31 @@ const styles = theme => ({
   },
 })
 
-const PayBill = props => {
+const CreateTransaction = props => {
   const [open, setOpen] = useState(false)
   const [debit_id, setDebitAccount] = useState('')
   const [credit_id, setCreditAccount] = useState('')
+  const [payment, setPayment] = useState('')
   const [type, setType] = useState('')
-  const bill_id = props.bill_id
-  const payment = props.payment
-  
+  const [bill_id, setBill] = useState(null)
+  const [billDescription, setBillDescription] = useState('')
+  const [invoice_id, setInvoice] = useState(null)
+  const [invoiceDescription, setInvoiceDescription] = useState('')
   const { classes } = props
-  const postTransactionMutation = useMutation(POST_TRANSACTION)
+  const postTransactionMutation = useMutation(PUT_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
 
   const handleClose = () => {
-    setDebitAccount('')
-    setCreditAccount('')
-    // setBill('')
+    // setDebitAccount('')
+    // setCreditAccount('')
+    // setPayment('')
+    // setBill(null)
+    // setInvoice(null)
+    // setBillDescription('')
+    // setInvoiceDescription('')
     if (state.company !== null) {
       console.log('trans', state.company)
       setOpen(!open)
@@ -61,16 +67,18 @@ const PayBill = props => {
       debit_id !== '' &&
       credit_id !== '' &&
       payment !== '' &&
-      bill_id !== ''
+      (bill_id !== null || invoice_id !== null)
     ) {
       await postTransactionMutation({
         variables: {
+          id: props.id,
           company_id: state.company.id,
           credit_id,
           debit_id,
           payment,
           type,
           bill_id,
+          invoice_id,
         },
       })
       await updateBilltMutation({
@@ -101,7 +109,7 @@ const PayBill = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <AddIcon />
+        <UpdateIcon />
       </Fab>
       <Dialog
         open={open}
@@ -116,8 +124,8 @@ const PayBill = props => {
             {Language[state.locals].fillformtoaddtransaction}
           </DialogContentText>
 
-      {/* invoice FIELD */}
-      <TextField
+          {/* invoice FIELD */}
+          <TextField
             autoFocus
             margin="dense"
             id="debit"
@@ -128,7 +136,7 @@ const PayBill = props => {
               setType(e.target.value)
             }}
           />
-          
+
           {/* DEBIT FIELD */}
           <TextField
             autoFocus
@@ -188,6 +196,78 @@ const PayBill = props => {
               <option>empty</option>
             )}
           </TextField>
+
+          {/* Bill FIELD */}
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="bill"
+            select
+            value={billDescription || ''}
+            label={Language[state.locals].bill || ''}
+            type="text"
+            fullWidth
+            onChange={e => {
+              console.log('arget', e.target.value)
+              setBillDescription(e.target.value)
+              setBill(e.target.value.id)
+              setPayment(e.target.value.payment)
+            }}
+          >
+            {console.log('bill', state.company.Bills)}
+            {state.company.Bills ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Bills.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item.description}
+                  </option>
+                )
+              })
+            ) : (
+              <option>empty</option>
+            )}
+          </TextField>
+
+          {/* invoice FIELD */}
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="invoice"
+            select
+            value={invoiceDescription || ''}
+            label={Language[state.locals].invoice || ''}
+            type="text"
+            fullWidth
+            onChange={e => {
+              console.log('arget invoice', e.target.value)
+              setInvoiceDescription(e.target.value)
+              setInvoice(e.target.value.id)
+
+              const accumulatedPrice = +e.target.value.Orders.map(
+                (item, index) => {
+                  return item.quantity * item.price
+                }
+              )
+              setPayment(accumulatedPrice)
+            }}
+          >
+            {console.log('invoices', state.company.Invoices)}
+            {state.company.Invoices ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Invoices.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item.description}
+                  </option>
+                )
+              })
+            ) : (
+              <option>empty</option>
+            )}
+          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -212,8 +292,8 @@ const PayBill = props => {
   )
 }
 
-PayBill.propTypes = {
+CreateTransaction.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(PayBill)
+export default withStyles(styles)(CreateTransaction)
