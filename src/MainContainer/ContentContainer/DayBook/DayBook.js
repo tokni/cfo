@@ -28,7 +28,6 @@ const DayBook = () => {
 
   return (
     <Paper>
-      {console.log('Day', data)}
       {data === null ? (
         <SnackBar message={'No data'} state={'warning'} />
       ) : null}

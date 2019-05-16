@@ -37,9 +37,15 @@ const Home = () => {
       <input type="file" onChange={handleFile} />
 
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid container spacing={8} lg={12}>
-        <Grid lg={3} md={9} sm={12} style={{ color: '#001011', padding: 20 }}>
-          <Grid container justify="center">
+      <Grid item container spacing={8} lg={12}>
+        <Grid
+          item
+          lg={3}
+          md={9}
+          sm={12}
+          style={{ color: '#001011', padding: 20 }}
+        >
+          <Grid item container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
                 Standard license
@@ -74,7 +80,7 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Grid lg={8} md={11} sm={11}>
+        <Grid item lg={8} md={11} sm={11}>
           <Company />
         </Grid>
       </Grid>

@@ -55,7 +55,6 @@ const CreateTransaction = props => {
     setBillDescription('')
     setInvoiceDescription('')
     if (state.company !== null) {
-      console.log('trans', state.company)
       setOpen(!open)
     }
     setMsg(false)
@@ -77,7 +76,7 @@ const CreateTransaction = props => {
           payment,
           type,
           bill_id,
-          invoice_id
+          invoice_id,
         },
       })
       await updateBilltMutation({
@@ -208,13 +207,11 @@ const CreateTransaction = props => {
             type="text"
             fullWidth
             onChange={e => {
-              console.log('arget', e.target.value)
               setBillDescription(e.target.value)
               setBill(e.target.value.id)
               setPayment(e.target.value.payment)
             }}
           >
-            {console.log('bill', state.company.Bills)}
             {state.company.Bills ? (
               // eslint-disable-next-line array-callback-return
               state.company.Bills.map((item, index) => {
@@ -241,17 +238,17 @@ const CreateTransaction = props => {
             type="text"
             fullWidth
             onChange={e => {
-              console.log('arget invoice', e.target.value)
               setInvoiceDescription(e.target.value)
               setInvoice(e.target.value.id)
-              
-              const accumulatedPrice =+ e.target.value.Orders.map((item, index) => {
-                return item.quantity*item.price
-              })
+
+              const accumulatedPrice = +e.target.value.Orders.map(
+                (item, index) => {
+                  return item.quantity * item.price
+                }
+              )
               setPayment(accumulatedPrice)
             }}
           >
-            {console.log('invoices', state.company.Invoices)}
             {state.company.Invoices ? (
               // eslint-disable-next-line array-callback-return
               state.company.Invoices.map((item, index) => {

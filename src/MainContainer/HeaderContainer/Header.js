@@ -61,7 +61,7 @@ const Header = props => {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 }
 
 export default withStyles(styles)(Header)

@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
-
+import Language from '../../../utils/language'
 import SnackBar from '../SnackBar/SnackBar'
 
 const GetAccounts = () => {
@@ -21,17 +21,13 @@ const GetAccounts = () => {
   })
 
   if (loading) {
-    console.log('Loading accounts...')
-    return (
-      <tr>
-        <td>-</td>
-      </tr>
-    )
+    return <p>Loading...</p>
   }
- 
+
   if (error) {
     return <SnackBar message={'Error loading accounts'} state={'error'} />
   }
+
   return (
     <Paper>
       {state.company === null ? (
@@ -54,7 +50,9 @@ const GetAccounts = () => {
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="right">{item.name}</TableCell>
+                <TableCell align="right">
+                  {Language[state.locals][item.name.toLowerCase()] || item.name}
+                </TableCell>
                 <TableCell align="right">{item.balance}</TableCell>
                 <TableCell align="right">
                   {item.debit ? 'debit' : 'credit'}

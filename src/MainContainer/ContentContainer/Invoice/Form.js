@@ -216,8 +216,9 @@ const Form = props => {
         <TextField
           autoFocus
           margin="dense"
-          label={Language[state.locals].payment_due}
+          label={Language[state.locals].invoicecreated}
           value={created || ''}
+          fullWidth
           type="date"
           onChange={e => {
             setCreated(e.target.value)
@@ -231,6 +232,7 @@ const Form = props => {
           autoFocus
           margin="dense"
           label={Language[state.locals].payment_due}
+          fullWidth
           value={dueDate || ''}
           type="date"
           onChange={e => {

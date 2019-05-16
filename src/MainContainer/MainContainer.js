@@ -8,14 +8,14 @@ import { Grid } from '@material-ui/core'
 export const MainContainer = () => (
   <Fragment>
     <StoreContainer />
-    <Grid container lg={12}>
-      <Grid lg={12} sm={12}>
+    <Grid item container lg={12}>
+      <Grid item lg={12} sm={12}>
         <Header />
       </Grid>
-      <Grid lg={2} md={4} sm={4}>
+      <Grid item lg={2} md={4} sm={4}>
         <Drawer />
       </Grid>
-      <Grid lg={9} md={8} sm={7}>
+      <Grid item lg={9} md={8} sm={7}>
         <ContentContainer />
       </Grid>
     </Grid>

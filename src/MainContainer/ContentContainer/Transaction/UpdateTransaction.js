@@ -55,7 +55,6 @@ const CreateTransaction = props => {
     // setBillDescription('')
     // setInvoiceDescription('')
     if (state.company !== null) {
-      console.log('trans', state.company)
       setOpen(!open)
     }
     setMsg(false)
@@ -209,13 +208,11 @@ const CreateTransaction = props => {
             type="text"
             fullWidth
             onChange={e => {
-              console.log('arget', e.target.value)
               setBillDescription(e.target.value)
               setBill(e.target.value.id)
               setPayment(e.target.value.payment)
             }}
           >
-            {console.log('bill', state.company.Bills)}
             {state.company.Bills ? (
               // eslint-disable-next-line array-callback-return
               state.company.Bills.map((item, index) => {
@@ -242,7 +239,6 @@ const CreateTransaction = props => {
             type="text"
             fullWidth
             onChange={e => {
-              console.log('arget invoice', e.target.value)
               setInvoiceDescription(e.target.value)
               setInvoice(e.target.value.id)
 
