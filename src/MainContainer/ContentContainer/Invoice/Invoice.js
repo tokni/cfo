@@ -4,7 +4,7 @@ import React, { Fragment, useState } from 'react'
 
 import { Grid, Paper } from '@material-ui/core'
 
-const Invoice = () => {
+const Invoice = props => {
   const [name, setName] = useState('')
   const [products, setProducts] = useState(null)
   const [created, setCreated] = useState(null)
@@ -48,8 +48,8 @@ const Invoice = () => {
       <Grid style={{ paddingTop: 20 }} container lg={12} spacing={40}>
         <Grid item lg={5}>
           <Paper style={{ padding: 40 }}>
-            {/* <Typography variant="display3">Form !!!!!!!!!!</Typography> */}
-            <Form fetcher={fetchFileFromForm} />
+            <Form fetcher={fetchFileFromForm} handleClose={props.handleClose} />
+            {console.log('from invoice... ', props.handleClose)}
           </Paper>
         </Grid>
         <br />
