@@ -146,15 +146,7 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
   }
 `
 
-const GET_USER = gql`
-  query($token: String!) {
-    User(where: { token: { _like: $token } }) {
-      first_name
-      last_name
-      id
-    }
-  }
-`
+
 
 const CREATE_COMPANY = gql`
   mutation createCompany($name: String!, $mother_id: uuid, $user_id: uuid!) {
@@ -203,7 +195,6 @@ export {
   GET_SUBSCRIP_ACCOUNTS,
   CREATE_ACCOUNT,
   CREATE_COMPANY,
-  GET_USER,
   GET_USER_PREF,
   SET_LOCALS,
   SET_ACTIVE_COMPANY,

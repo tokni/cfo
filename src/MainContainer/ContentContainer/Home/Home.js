@@ -30,6 +30,7 @@ const Home = () => {
   }
   return (
     <Fragment>
+      {console.log("user ", state.user)}
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
 

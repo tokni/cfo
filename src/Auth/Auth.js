@@ -1,5 +1,6 @@
 import Auth0 from 'auth0-js'
 
+
 class Auth {
   auth = new Auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -8,6 +9,7 @@ class Auth {
     redirectUri: process.env.REACT_APP_REDIRECT_URI,
     responseType: 'token id_token',
     scope: 'openid',
+  
   })
 
   login = () => {
@@ -48,6 +50,8 @@ class Auth {
       }
       if (authResult && authResult.idToken && authResult.accessToken) {
         this.setSession(authResult)
+         
+  
       }
     })
   }
