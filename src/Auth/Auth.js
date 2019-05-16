@@ -1,5 +1,5 @@
 import Auth0 from 'auth0-js'
-
+import jwt_decode from 'jwt-decode'
 export const isBrowser = typeof window !== 'undefined'
 class Auth {
   auth = isBrowser
@@ -9,20 +9,24 @@ class Auth {
         audience: `https://${process.env.REACT_APP_AUTH_DOMAIN}/userinfo`,
         redirectUri: process.env.REACT_APP_REDIRECT_URI,
         responseType: 'token id_token',
-        scope: 'openid',
+        scope: 'openid profile',
       })
     : {}
+
 
   login = () => {
     if (!this.isAuthenticated()) {
       this.auth.authorize()
       this.handleAuthentication()
+      this.GetUserProfile()
+      console.log('login')
     }
   }
 
   isAuthenticated = () => {
     return localStorage.getItem('idToken') ? true : false
   }
+
 
   logout = () => {
     localStorage.removeItem('accessToken')
@@ -31,15 +35,12 @@ class Auth {
     this.auth.logout()
   }
 
-  getUserProfile = () => {
-    if (this.isAuthenticated()) {
-      this.auth.client.userInfo(
-        localStorage.getItem('accessToken'),
-        (err, userProfile) => {
-          console.log('user profile: ', JSON.stringify(userProfile, null, 2))
-          console.log('user profile: ', userProfile.email)
-        }
-      )
+  GetUserProfile = () => {
+    if (localStorage.getItem('idToken')) {
+
+      return jwt_decode(localStorage.getItem('idToken'))
+    }else{
+      return 'John Doe'
     }
   }
 
@@ -71,14 +72,15 @@ class Auth {
           authResult.accessToken,
           (err, userProfile) => {
             console.log('5')
+            console.log('user profile: ', JSON.stringify(userProfile))
 
             console.log('user profile; inside handleAuth: ', userProfile)
+            this.first_name = userProfile.given_name
+            this.last_name = userProfile.family_name
           }
         )
 
         this.setSession(authResult)
-         
-  
       }
     })
   }
