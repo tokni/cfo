@@ -122,7 +122,6 @@ const Demo = props => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {console.log('TTT:', props.products)}
                 {props.products
                   ? props.products.map((item, index) => {
                       return (

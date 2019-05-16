@@ -56,7 +56,7 @@ const SideDrawer = props => {
   const { classes } = props
 
   return (
-    <Grid lg={3} md={6} sm={6}>
+    <Grid item lg={3} md={6} sm={6}>
       <div className={classes.root}>
         <CssBaseline>
           <Drawer

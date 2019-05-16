@@ -46,7 +46,7 @@ const GetProduct = props => {
   }
 
   return (
-    <Grid container lg={12}>
+    <Grid item container lg={12}>
       <Table>
         <TableHead>
           <TableRow>

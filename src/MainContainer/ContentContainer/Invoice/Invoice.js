@@ -49,7 +49,6 @@ const Invoice = props => {
         <Grid item lg={5}>
           <Paper style={{ padding: 40 }}>
             <Form fetcher={fetchFileFromForm} handleClose={props.handleClose} />
-            {console.log('from invoice... ', props.handleClose)}
           </Paper>
         </Grid>
         <br />

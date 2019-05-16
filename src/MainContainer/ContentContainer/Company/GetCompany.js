@@ -33,11 +33,11 @@ const GetCompany = () => {
 
   return (
     <Paper>
-      <Grid container sm={12}>
+      <Grid item container sm={12}>
         {state.companies
           ? state.companies.map((item, index) => {
               return (
-                <Grid key={index} sm={3} style={{ padding: 30 }}>
+                <Grid item key={index} sm={3} style={{ padding: 30 }}>
                   <Paper
                     style={{ height: 128 }}
                     onClick={clickHandler.bind(this, index)}
