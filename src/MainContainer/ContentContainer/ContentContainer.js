@@ -9,14 +9,19 @@ import Invoice from './Invoice/Invoice'
 import Products from './Product/Products'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Bill from './Bill/Bill';
-import Vendor from './Vendor/Vendor';
-import Expense from './Expense/Expense';
+import Bill from './Bill/Bill'
+import Vendor from './Vendor/Vendor'
+import Expense from './Expense/Expense'
+import GetInvoice from './Invoice/GetInvoice'
 
 export const ContentContainer = () => (
   <Switch>
     <Route path={`${process.env.PUBLIC_URL}/overview`} component={Home} />
     <Route path={`${process.env.PUBLIC_URL}/invoice`} component={Invoice} />
+    <Route
+      path={`${process.env.PUBLIC_URL}/getinvoice`}
+      component={GetInvoice}
+    />
     <Route path={`${process.env.PUBLIC_URL}/callback`} component={Callback} />
     <Route path={`${process.env.PUBLIC_URL}/accounts`} component={Account} />
     <Route
@@ -30,7 +35,5 @@ export const ContentContainer = () => (
     <Route path={`${process.env.PUBLIC_URL}/customers`} component={Customers} />
     <Route path={`${process.env.PUBLIC_URL}/vendor`} component={Vendor} />
     <Route path={`${process.env.PUBLIC_URL}/expense`} component={Expense} />
-
-
   </Switch>
 )

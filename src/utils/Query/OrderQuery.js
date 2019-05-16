@@ -20,4 +20,12 @@ const CREATE_ORDER = gql`
   }
 `
 
-export { CREATE_ORDER }
+const DELETE_ORDER = gql`
+  mutation deleteOrder($id: uuid!) {
+    delete_Order(where: { invoice_id: { _eq: $id } }) {
+      affected_rows
+    }
+  }
+`
+
+export { CREATE_ORDER, DELETE_ORDER }
