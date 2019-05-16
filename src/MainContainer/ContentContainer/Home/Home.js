@@ -25,18 +25,18 @@ const Home = () => {
     })
   }
 
-  const handleFile = (e) => {
-      console.log('file name: ', e.target.files[0].name)
+  const handleFile = e => {
+    console.log('file name: ', e.target.files[0].name)
   }
   return (
     <Fragment>
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
-      
+
       <input type="file" onChange={handleFile} />
-      
+
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid container spacing={12} lg={12}>
+      <Grid container spacing={8} lg={12}>
         <Grid lg={3} md={9} sm={12} style={{ color: '#001011', padding: 20 }}>
           <Grid container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>

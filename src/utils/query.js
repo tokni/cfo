@@ -137,6 +137,7 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
       debit
       balance
       company_id
+      account_numbers
       Company {
         user_id
         name
