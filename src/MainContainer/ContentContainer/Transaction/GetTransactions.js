@@ -83,7 +83,6 @@ const GetTransactions = props => {
           data.Transaction.map((item, index) => {
             return (
               <TableRow key={index}>
-                {console.log('hey: ', item)}
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>

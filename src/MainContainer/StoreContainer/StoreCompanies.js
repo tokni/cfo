@@ -8,7 +8,6 @@ const StoreCompanies = () => {
 
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
-  console.log('inni i store companies')
 
   useEffect(() => {
     async function fetchData() {

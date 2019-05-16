@@ -21,7 +21,6 @@ const GetAccounts = () => {
   })
 
   if (loading) {
-    console.log('Loading accounts...')
     return <p>Loading...</p>
   }
 
