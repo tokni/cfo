@@ -3,7 +3,7 @@ import Context from '../../../Context/Context'
 import Fab from '@material-ui/core/Fab'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
-import { CREATE_COMPANY } from '../../../utils/query'
+import { POST_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
 import {
   withStyles,
@@ -30,7 +30,7 @@ const CreateCompany = props => {
   let [name, setName] = useState('')
   let [mother_id, setMother_id] = useState(null)
   const { classes } = props
-  const createCompanyMutation = useMutation(CREATE_COMPANY)
+  const createCompanyMutation = useMutation(POST_COMPANY)
   const [state] = useContext(Context)
   const [open, setOpen] = useState(false)
 
