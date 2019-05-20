@@ -1,20 +1,10 @@
-import AddIcon from '@material-ui/icons/Add'
 import Context from '../../../Context/Context'
-import Fab from '@material-ui/core/Fab'
 import PropTypes from 'prop-types'
+import Modal from '../../../Helpers/Modal'
 import React, { Fragment, useState, useContext } from 'react'
 import { POST_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
-import {
-  withStyles,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Button,
-} from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -29,7 +19,6 @@ const styles = theme => ({
 const CreateCompany = props => {
   let [name, setName] = useState('')
   let [mother_id, setMother_id] = useState(null)
-  const { classes } = props
   const createCompanyMutation = useMutation(POST_COMPANY)
   const [state] = useContext(Context)
   const [open, setOpen] = useState(false)
@@ -43,7 +32,6 @@ const CreateCompany = props => {
   }
 
   const onSubmit = e => {
-    e.preventDefault()
     if (name !== '') {
       createCompanyMutation({
         variables: {
@@ -58,54 +46,34 @@ const CreateCompany = props => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleClose}
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
+      <Modal
+        title="addcompany"
+        text="fill"
+        submit={onSubmit}
+        close={handleClose}
       >
-        <AddIcon />
-      </Fab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Add Company</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Fill this form to add a company</DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Company name"
-            type="text"
-            fullWidth
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="mother_id"
-            label="Mother ID"
-            type="text"
-            fullWidth
-            onChange={e => {
-              setMother_id(e.target.value)
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={onSubmit} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Company name"
+          type="text"
+          fullWidth
+          onChange={e => {
+            setName(e.target.value)
+          }}
+        />
+        <TextField
+          margin="dense"
+          id="mother_id"
+          label="Mother ID"
+          type="text"
+          fullWidth
+          onChange={e => {
+            setMother_id(e.target.value)
+          }}
+        />
+      </Modal>
     </Fragment>
   )
 }
