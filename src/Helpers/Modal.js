@@ -31,6 +31,7 @@ const Modal = (props, { children }) => {
 
   const handleClose = () => {
     if (state.company !== null) {
+      props.close()
       setOpen(!open)
     }
   }

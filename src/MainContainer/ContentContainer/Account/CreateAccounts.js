@@ -65,7 +65,12 @@ const CreateAccount = props => {
 
   return (
     <Fragment>
-      <Modal title="addaccount" text="fillformtoaddaccount" submit={onSubmit}>
+      <Modal
+        title="addaccount"
+        text="fillformtoaddaccount"
+        submit={onSubmit}
+        close={handleClose}
+      >
         <TextField
           autoFocus
           margin="dense"
