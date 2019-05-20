@@ -4,6 +4,7 @@ import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Add } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { POST_CUSTOMER } from '../../../utils/Query/CustomersQuery'
 import { withStyles, TextField } from '@material-ui/core'
@@ -58,6 +59,7 @@ const CreateCustomer = props => {
   return (
     <Fragment>
       <Modal
+        Icon={Add}
         title="addcustomer"
         text="fill"
         submit={onSubmit}

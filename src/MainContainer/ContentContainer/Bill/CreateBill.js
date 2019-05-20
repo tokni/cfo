@@ -1,15 +1,16 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { CREATE_BILL } from '../../../utils/Query/BillQuery'
 import StoreExpense from '../../StoreContainer/StoreExpense'
 import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
+import { Add } from '../../../Helpers/Constants'
+import { CREATE_BILL } from '../../../utils/Query/BillQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import Modal from '../../../Helpers/Modal'
 import { withStyles, TextField, InputLabel } from '@material-ui/core'
 
 const styles = theme => ({
@@ -99,6 +100,7 @@ const CreateBill = props => {
   return (
     <Fragment>
       <Modal
+        Icon={Add}
         title="addbill"
         text="fillformtoaddbill"
         submit={onSubmit}

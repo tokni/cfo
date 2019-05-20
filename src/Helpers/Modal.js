@@ -1,5 +1,3 @@
-// import AddIcon from '@material-ui/icons/Add'
-import { Add } from './Constants'
 import Context from '../Context/Context'
 import Language from '../utils/language'
 import PropTypes from 'prop-types'
@@ -49,10 +47,10 @@ const Modal = (props, { children }) => {
       <Fab
         onClick={handleClose}
         color="primary"
-        aria-label="Add"
+        // aria-label="Add"
         className={classes.fab}
       >
-        <Add />
+        <props.Icon />
       </Fab>
       <Dialog
         open={open}

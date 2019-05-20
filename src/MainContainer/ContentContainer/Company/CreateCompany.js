@@ -2,6 +2,7 @@ import Context from '../../../Context/Context'
 import PropTypes from 'prop-types'
 import Modal from '../../../Helpers/Modal'
 import React, { Fragment, useState, useContext } from 'react'
+import { Add } from '../../../Helpers/Constants'
 import { POST_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
 import { withStyles, TextField } from '@material-ui/core'
@@ -47,6 +48,7 @@ const CreateCompany = props => {
   return (
     <Fragment>
       <Modal
+        Icon={Add}
         title="addcompany"
         text="fill"
         submit={onSubmit}
