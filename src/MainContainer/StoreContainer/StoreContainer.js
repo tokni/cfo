@@ -1,9 +1,11 @@
 import StoreCompanies from './StoreCompanies'
 import StoreUser from './StoreUser'
 import StorePreferences from './StorePreferences'
-import React, { Fragment } from 'react'
+import React, { Fragment} from 'react'
 
-const StoreContainer = () => {
+
+const StoreContainer = props => {
+
   return (
     <Fragment>
       <StoreUser />
