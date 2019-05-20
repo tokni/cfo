@@ -1,9 +1,9 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import Modal from '../../../Helpers/Modal'
 import { POST_EXPENSE } from '../../../utils/Query/ExpenseQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -61,7 +61,7 @@ const CreateExpense = props => {
     <Fragment>
       <Modal
         title="addexpense"
-        text="fill"
+        text="fillformtoupdateexpense"
         submit={onSubmit}
         close={handleClose}
       >

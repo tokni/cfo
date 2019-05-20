@@ -1,12 +1,12 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { POST_ACCOUNT } from '../../../utils/Query/AccountQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import Modal from '../../../Helpers/Modal'
 import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({

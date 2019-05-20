@@ -1,7 +1,7 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
-import PropTypes from 'prop-types'
 import Modal from '../../../Helpers/Modal'
+import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
@@ -59,7 +59,7 @@ const CreateProduct = props => {
     <Fragment>
       <Modal
         title="addproduct"
-        text="fill"
+        text="fillformtoaddproduct"
         submit={onSubmit}
         close={handleClose}
       >

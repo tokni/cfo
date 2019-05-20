@@ -1,8 +1,8 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
-import Modal from '../../../Helpers/Modal'
 import SnackBar from '../SnackBar/SnackBar'
 import { POST_VENDOR } from '../../../utils/Query/VendorQuery'
 import { setTimeout } from 'timers'
@@ -61,7 +61,7 @@ const CreateVendor = props => {
     <Fragment>
       <Modal
         title="addvendor"
-        text="fill"
+        text="fillformtoaddvendor"
         submit={onSubmit}
         close={handleClose}
       >

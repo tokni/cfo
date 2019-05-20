@@ -1,8 +1,8 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
-import Modal from '../../../Helpers/Modal'
 import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
 import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
@@ -87,7 +87,7 @@ const CreateTransaction = props => {
     <Fragment>
       <Modal
         title="addtransaction"
-        text="fill"
+        text="fillformtoaddtransaction"
         submit={onSubmit}
         close={handleClose}
       >

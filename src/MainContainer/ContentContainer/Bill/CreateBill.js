@@ -98,7 +98,12 @@ const CreateBill = props => {
 
   return (
     <Fragment>
-      <Modal title="addbill" text="fill" submit={onSubmit} close={handleClose}>
+      <Modal
+        title="addbill"
+        text="fillformtoaddbill"
+        submit={onSubmit}
+        close={handleClose}
+      >
         <TextField
           select
           margin="dense"
