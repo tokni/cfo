@@ -1,11 +1,11 @@
 import Context from '../../Context/Context'
 import { useContext } from 'react'
-import { useQuery } from 'react-apollo-hooks'
-import { GET_TAX } from '../../utils/Query/TaxQuery'
+import { useSubscription } from 'react-apollo-hooks'
+import { GET_TAX_SUBSCRIPTION } from '../../utils/Query/TaxQuery'
 
 const StoreTax = () => {
   const [state] = useContext(Context)
-  const { data, error } = useQuery(GET_TAX, {
+  const { data, error } = useSubscription(GET_TAX_SUBSCRIPTION, {
     suspend: false,
     variables: {
       company_id: state.company ? state.company.id : null,
@@ -16,7 +16,7 @@ const StoreTax = () => {
     return error
   }
 
-  return data.Tax ? data.Tax : null
+  return data ? data.Tax : null ? data.Tax : null
 }
 
 export default StoreTax
