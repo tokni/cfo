@@ -1,5 +1,5 @@
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Update from './UpdateCustomer'
@@ -78,7 +78,7 @@ const GetCustomer = props => {
                         className={classes.fab}
                         onClick={deleteHandeler.bind(this, customer.id)}
                       >
-                        <Delete />
+                        <DeleteIcon />
                       </Fab>
                     </TableCell>
                   </TableRow>

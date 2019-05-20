@@ -1,9 +1,9 @@
-import UpdateIcon from '@material-ui/icons/Edit'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Edit } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { PUT_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
@@ -108,7 +108,7 @@ const CreateTransaction = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <UpdateIcon />
+        <Edit />
       </Fab>
       <Dialog
         open={open}

@@ -1,4 +1,5 @@
-import AddIcon from '@material-ui/icons/Add'
+// import AddIcon from '@material-ui/icons/Add'
+import { Add } from './Constants'
 import Context from '../Context/Context'
 import Language from '../utils/language'
 import PropTypes from 'prop-types'
@@ -51,7 +52,7 @@ const Modal = (props, { children }) => {
         aria-label="Add"
         className={classes.fab}
       >
-        <AddIcon />
+        <Add />
       </Fab>
       <Dialog
         open={open}
