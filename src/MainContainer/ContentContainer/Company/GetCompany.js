@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
-import { SET_ACTIVE_COMPANY } from '../../../utils/query'
+import { SET_ACTIVE_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
 import { Grid, Divider, Typography, Paper } from '@material-ui/core'
 

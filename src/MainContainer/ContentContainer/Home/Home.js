@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import React, { useContext, Fragment } from 'react'
 import { Typography } from '@material-ui/core'
-import { SET_LOCALS } from '../../../utils/query'
+import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
 
 const Home = () => {

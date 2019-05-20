@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import React, { useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_DAY_BOOK } from '../../../utils/query'
+import { GET_DAY_BOOK } from '../../../utils/Query/DaybookQuery'
 import {
   Table,
   TableBody,

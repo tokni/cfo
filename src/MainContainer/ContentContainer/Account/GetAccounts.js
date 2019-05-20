@@ -1,5 +1,5 @@
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
+import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import React, { useContext } from 'react'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'

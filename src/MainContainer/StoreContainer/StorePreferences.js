@@ -1,7 +1,7 @@
 import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useQuery } from 'react-apollo-hooks'
-import { GET_USER_PREF } from '../../utils/query'
+import { GET_USER_PREF } from '../../utils/Query/UserQuery'
 
 const StorePreferences = () => {
   const [state, dispatch] = useContext(Context)
