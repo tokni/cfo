@@ -24,7 +24,6 @@ const CreateAccount = props => {
   const [name, setName] = useState('')
   const [debit, setDebit] = useState(true)
   const [balance, setBalance] = useState(0)
-  const { classes } = props
   const createAccountMutation = useMutation(CREATE_ACCOUNT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
