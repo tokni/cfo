@@ -1,4 +1,3 @@
-import AddIcon from '@material-ui/icons/Add'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
@@ -7,17 +6,8 @@ import SnackBar from '../SnackBar/SnackBar'
 import { CREATE_ACCOUNT } from '../../../utils/query'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import {
-  withStyles,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Button,
-  Fab,
-} from '@material-ui/core'
+import Modal from '../../../Helpers/Modal'
+import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -51,7 +41,6 @@ const CreateAccount = props => {
   }
 
   const onSubmit = e => {
-    e.preventDefault()
     if (name !== null) {
       createAccountMutation({
         variables: {
@@ -76,83 +65,58 @@ const CreateAccount = props => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleClose}
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
-      >
-        <AddIcon />
-      </Fab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          {Language[state.locals].addaccount}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {Language[state.locals].fillformtoaddaccount}
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label={Language[state.locals].name}
-            type="text"
-            fullWidth
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="balance"
-            label="Balance"
-            value={balance}
-            type="number"
-            fullWidth
-            onChange={e => {
-              setBalance(e.target.value)
-            }}
-          />
-          <TextField
-            autoFocus
-            select
-            margin="dense"
-            id="debit"
-            label="Debit / Credit"
-            fullWidth
-            value={debit}
-            onChange={e => {
-              setDebit(e.target.value)
-            }}
-          >
-            <option key={1} value={true}>
-              Debit
-            </option>
-            <option key={2} value={false}>
-              Credit
-            </option>
-          </TextField>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            {Language[state.locals].cancel}
-          </Button>
-          <Button onClick={onSubmit} color="primary">
-            {Language[state.locals].add}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Modal title="addaccount" text="fillformtoaddaccount" submit={onSubmit}>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label={Language[state.locals].name}
+          type="text"
+          fullWidth
+          onChange={e => {
+            setName(e.target.value)
+          }}
+        />{' '}
+        <TextField
+          autoFocus
+          margin="dense"
+          id="balance"
+          label="Balance"
+          value={balance}
+          type="number"
+          fullWidth
+          onChange={e => {
+            setBalance(e.target.value)
+          }}
+        />
+        <TextField
+          autoFocus
+          select
+          margin="dense"
+          id="debit"
+          label="Debit / Credit"
+          fullWidth
+          value={debit}
+          onChange={e => {
+            setDebit(e.target.value)
+          }}
+        >
+          <option key={1} value={true}>
+            Debit
+          </option>
+          <option key={2} value={false}>
+            Credit
+          </option>
+        </TextField>
+      </Modal>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar message={'Account added successfully'} state={'success'} />
         ) : (
-          <SnackBar message={'Name is required'} state={'error'} />
+          <SnackBar
+            message={Language[state.locals].nameisrequired}
+            state={'error'}
+          />
         )
       ) : null}
     </Fragment>
