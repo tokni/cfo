@@ -10,7 +10,7 @@ const PostUser = props => {
       last_name: props.last_name,
     },
   })
-  // eslint-disable-next-line no-unused-vars
+
   useEffect(() => {
     async function PostUser() {
       await createUserMutation()
