@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import UpdateTransaction from './UpdateTransaction'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
@@ -103,7 +103,7 @@ const GetTransactions = props => {
                     className={classes.fab}
                     onClick={deleteHandeler.bind(this, item.id)}
                   >
-                    <Delete />
+                    <DeleteIcon />
                   </Fab>
                 </TableCell>
               </TableRow>

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Language from '../../../utils/language'
-import Delete from '@material-ui/icons/Delete'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import AddIcon from '@material-ui/icons/Add'
 import Logic from './Logic'
 
@@ -134,7 +134,7 @@ const Form = props => {
                           onClick={handleDelete.bind(this, index)}
                           color="secondary"
                         >
-                          <Delete />
+                          <DeleteIcon />
                         </Fab>
                       </Tooltip>
                     </TableCell>

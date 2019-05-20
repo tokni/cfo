@@ -1,13 +1,13 @@
-import EditIcon from '@material-ui/icons/Edit'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { PUT_BILL } from '../../../utils/Query/BillQuery'
 import StoreExpense from '../../StoreContainer/StoreExpense'
 import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
+import { Edit } from '../../../Helpers/Constants'
+import { PUT_BILL } from '../../../utils/Query/BillQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
 import {
@@ -120,7 +120,7 @@ const UpdateBill = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <EditIcon />
+        <Edit />
       </Fab>
       <Dialog
         open={open}

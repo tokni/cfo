@@ -7,7 +7,7 @@ import Invoice from './Invoice'
 import { GET_INVOICES, DELETE_INVOICE } from '../../../utils/Query/InvoiceQuery'
 import { DELETE_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
-import Delete from '@material-ui/icons/Delete'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import {
   withStyles,
   Dialog,
@@ -125,7 +125,7 @@ const CreateCustomer = props => {
                       className={classes.fab}
                       onClick={deleteHandler.bind(this, invoice.id)}
                     >
-                      <Delete />
+                      <DeleteIcon />
                     </Fab>
                   </TableCell>
                 </TableRow>

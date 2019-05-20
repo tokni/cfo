@@ -1,9 +1,9 @@
-import BorderColor from '@material-ui/icons/BorderColor'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Edit } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { PUT_CUSTOMER } from '../../../utils/Query/CustomersQuery'
 import {
@@ -75,7 +75,7 @@ const UpdateCustomer = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <BorderColor />
+        <Edit />
       </Fab>
       <Dialog
         open={open}

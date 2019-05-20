@@ -1,9 +1,9 @@
-import EditIcon from '@material-ui/icons/Edit'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Edit } from '../../../Helpers/Constants'
 import { PUT_VENDOR } from '../../../utils/Query/VendorQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -40,7 +40,6 @@ const UpdateVendor = props => {
   const [msgSuccess, setMsgSuccess] = useState(true)
 
   const handleClose = props => {
-  
     if (state.company) {
       setOpen(!open)
     }
@@ -78,7 +77,7 @@ const UpdateVendor = props => {
         aria-label="Add"
         className={classes.fab}
       >
-        <EditIcon />
+        <Edit />
       </Fab>
       <Dialog
         open={open}
@@ -93,7 +92,6 @@ const UpdateVendor = props => {
             {Language[state.locals].fillformtoupdatevendor}
           </DialogContentText>
 
-       
           <TextField
             autoFocus
             margin="dense"
@@ -106,8 +104,6 @@ const UpdateVendor = props => {
               setName(e.target.value)
             }}
           />
-
-       
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
