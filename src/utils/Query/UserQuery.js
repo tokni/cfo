@@ -29,4 +29,14 @@ mutation postUser(
   }
 `
 
-export {GET_USER, POST_USER}
+const GET_USER_PREF = gql`
+  query getPref($user_id: uuid!) {
+    Preferences(where: { user_id: { _eq: $user_id } }) {
+      locals
+      current_company
+    }
+  }
+`
+
+
+export {GET_USER, POST_USER, GET_USER_PREF}

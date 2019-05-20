@@ -3,7 +3,7 @@ import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { CREATE_ACCOUNT } from '../../../utils/query'
+import { POST_ACCOUNT } from '../../../utils/Query/AccountQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
 import Modal from '../../../Helpers/Modal'
@@ -24,7 +24,7 @@ const CreateAccount = props => {
   const [name, setName] = useState('')
   const [debit, setDebit] = useState(true)
   const [balance, setBalance] = useState(0)
-  const createAccountMutation = useMutation(CREATE_ACCOUNT)
+  const createAccountMutation = useMutation(POST_ACCOUNT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)

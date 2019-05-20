@@ -1,7 +1,7 @@
 import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_COMPANY } from '../../utils/query'
+import { GET_SUBSCRIP_COMPANY } from '../../utils/Query/CompanyQuery'
 
 const StoreCompanies = () => {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)

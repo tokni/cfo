@@ -1,7 +1,7 @@
 import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useQuery } from 'react-apollo-hooks'
-import { GET_USER_PREF } from '../../utils/query'
+import { GET_USER_PREF } from '../../utils/Query/UserQuery'
 
 const StorePreferences = () => {
   const [state, dispatch] = useContext(Context)
@@ -19,7 +19,7 @@ const StorePreferences = () => {
         locals: data.Preferences && data.Preferences[0] ? data.Preferences[0].locals : 'en',
       })
 
-      if (data.Preferences && state.companies) {
+      if (data.Preferences && state.companies && data.Preferences[0]) {
         if (data.Preferences[0].current_company) {
           await dispatch({
             type: 'set_company',
