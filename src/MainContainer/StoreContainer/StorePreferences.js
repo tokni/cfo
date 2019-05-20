@@ -19,7 +19,7 @@ const StorePreferences = () => {
         locals: data.Preferences && data.Preferences[0] ? data.Preferences[0].locals : 'en',
       })
 
-      if (data.Preferences && state.companies) {
+      if (data.Preferences && state.companies && data.Preferences[0]) {
         if (data.Preferences[0].current_company) {
           await dispatch({
             type: 'set_company',
