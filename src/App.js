@@ -1,28 +1,25 @@
 import Auth from './Auth/Auth'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { client } from '../src/utils/apollo'
 import { ApolloProvider } from 'react-apollo-hooks'
 import { MainContainer } from './MainContainer/MainContainer'
 import './App.css'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
+const App = props => {
 
-    this.auth = new Auth()
-  }
+  const auth = new Auth()
 
-  render() {
-    this.auth.login()
+  useEffect(() => {
+    auth.handleAuthentication()
+  })
 
-    return (
-      <Fragment>
-        <ApolloProvider client={client}>
-          <MainContainer />
-        </ApolloProvider>
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      <ApolloProvider client={client}>
+        <MainContainer auth={auth} />
+      </ApolloProvider>
+    </Fragment>
+  )
 }
 
 export default App

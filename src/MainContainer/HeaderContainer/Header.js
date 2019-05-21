@@ -1,4 +1,3 @@
-import Auth from '../../Auth/Auth'
 import Context from '../../Context/Context'
 import Language from '../../utils/language'
 import PropTypes from 'prop-types'
@@ -21,17 +20,17 @@ const styles = {
 }
 
 const Header = props => {
-  const auth = new Auth()
+  const auth = props.auth
+ 
   const [state] = useContext(Context)
-  const handleAuth = () => {
-    if (auth.isAuthenticated() === false) {
-      auth.login()
-    } else {
-      console.log('try again')
-    }
+
+  const login = () => {
+     auth.login()
+     auth.handleAuthentication()
+     
   }
 
-  const handleLogout = () => {
+  const logout = () => {
     auth.logout()
   }
 
@@ -44,13 +43,12 @@ const Header = props => {
             CFO
           </Typography>
           <SelectCompany />
-
           {localStorage.getItem('sub') ? (
-            <Button onClick={handleLogout} color="inherit">
+            <Button onClick={logout} color="inherit">
               {Language[state.locals].logout}
             </Button>
           ) : (
-            <Button onClick={handleAuth} color="inherit">
+            <Button onClick={login} color="inherit">
               {Language[state.locals].login}
             </Button>
           )}
@@ -61,7 +59,7 @@ const Header = props => {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 }
 
 export default withStyles(styles)(Header)

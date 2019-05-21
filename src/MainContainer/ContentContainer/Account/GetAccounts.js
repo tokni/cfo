@@ -1,5 +1,5 @@
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/query'
+import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import React, { useContext } from 'react'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
-
+import Language from '../../../utils/language'
 import SnackBar from '../SnackBar/SnackBar'
 
 const GetAccounts = () => {
@@ -21,17 +21,18 @@ const GetAccounts = () => {
   })
 
   if (loading) {
-    console.log('Loading accounts...')
+    return <p>{Language[state.locals].loading}...</p>
+  }
+
+  if (error) {
     return (
-      <tr>
-        <td>-</td>
-      </tr>
+      <SnackBar
+        message={Language[state.locals].errorloadingaccounts}
+        state={'error'}
+      />
     )
   }
- 
-  if (error) {
-    return <SnackBar message={'Error loading accounts'} state={'error'} />
-  }
+
   return (
     <Paper>
       {state.company === null ? (
@@ -40,11 +41,14 @@ const GetAccounts = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Balance</TableCell>
-            <TableCell align="right">Debit / Credit</TableCell>
-            <TableCell align="right">Company name</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell align="right">{Language[state.locals].name}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].balance}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].debit} / {Language[state.locals].credit}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,12 +58,15 @@ const GetAccounts = () => {
                 <TableCell component="th" scope="row">
                   {item.id}
                 </TableCell>
-                <TableCell align="right">{item.name}</TableCell>
+                <TableCell align="right">
+                  {Language[state.locals][item.name.toLowerCase()] || item.name}
+                </TableCell>
                 <TableCell align="right">{item.balance}</TableCell>
                 <TableCell align="right">
-                  {item.debit ? 'debit' : 'credit'}
+                  {item.debit
+                    ? Language[state.locals].debit
+                    : Language[state.locals].credit}
                 </TableCell>
-                <TableCell align="right">{item.Company.name}</TableCell>
               </TableRow>
             )
           })}

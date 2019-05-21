@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import React, { useContext, Fragment } from 'react'
 import { Typography } from '@material-ui/core'
-import { SET_LOCALS } from '../../../utils/query'
+import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
 
 const Home = () => {
@@ -25,20 +25,27 @@ const Home = () => {
     })
   }
 
-  const handleFile = (e) => {
-      console.log('file name: ', e.target.files[0].name)
+  const handleFile = e => {
+    console.log('file name: ', e.target.files[0].name)
   }
   return (
     <Fragment>
+      {console.log("user ", state.user)}
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>
       <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
-      
+
       <input type="file" onChange={handleFile} />
-      
+
       <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid container spacing={12} lg={12}>
-        <Grid lg={3} md={9} sm={12} style={{ color: '#001011', padding: 20 }}>
-          <Grid container justify="center">
+      <Grid item container spacing={8} lg={12}>
+        <Grid
+          item
+          lg={3}
+          md={9}
+          sm={12}
+          style={{ color: '#001011', padding: 20 }}
+        >
+          <Grid item container justify="center">
             <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
                 Standard license
@@ -73,7 +80,7 @@ const Home = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Grid lg={8} md={11} sm={11}>
+        <Grid item lg={8} md={11} sm={11}>
           <Company />
         </Grid>
       </Grid>

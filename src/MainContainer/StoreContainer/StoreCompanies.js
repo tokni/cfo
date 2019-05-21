@@ -1,14 +1,13 @@
 import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_COMPANY } from '../../utils/query'
+import { GET_SUBSCRIP_COMPANY } from '../../utils/Query/CompanyQuery'
 
 const StoreCompanies = () => {
   const { data } = useSubscription(GET_SUBSCRIP_COMPANY)
 
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
-  console.log('inni i store companies')
 
   useEffect(() => {
     async function fetchData() {

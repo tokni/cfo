@@ -6,12 +6,15 @@ import * as serviceWorker from './serviceWorker'
 import ContextStore from './Context/ContextStore'
 import { BrowserRouter } from 'react-router-dom'
 
+
+
 ReactDOM.render(
-  <ContextStore>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ContextStore>,
+    <ContextStore>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ContextStore>,
+
   document.getElementById('root')
 )
 

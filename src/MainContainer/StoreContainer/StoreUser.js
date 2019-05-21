@@ -1,7 +1,7 @@
 import Context from '../../Context/Context'
 import { useContext, useEffect } from 'react'
 import { useQuery } from 'react-apollo-hooks'
-import { GET_USER } from '../../utils/query'
+import { GET_USER } from '../../utils/Query/UserQuery'
 
 const StoreUser = () => {
   const { data } = useQuery(GET_USER, {

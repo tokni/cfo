@@ -1,23 +1,14 @@
-import AddIcon from '@material-ui/icons/Add'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Add } from '../../../Helpers/Constants'
 import { POST_VENDOR } from '../../../utils/Query/VendorQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import {
-  withStyles,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Button,
-  Fab,
-} from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -29,12 +20,9 @@ const styles = theme => ({
   },
 })
 
-const CreateBill = props => {
+const CreateVendor = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
-
-
-  const { classes } = props
   const createVendorMutation = useMutation(POST_VENDOR)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
@@ -50,10 +38,7 @@ const CreateBill = props => {
   }
 
   const onSubmit = e => {
-    e.preventDefault()
-    if (
-      name !== ''
-    ) {
+    if (name !== '') {
       createVendorMutation({
         variables: {
           name,
@@ -75,51 +60,27 @@ const CreateBill = props => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleClose}
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
+      <Modal
+        Icon={Add}
+        title="addvendor"
+        text="fillformtoaddvendor"
+        submit={onSubmit}
+        close={handleClose}
       >
-        <AddIcon />
-      </Fab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          {Language[state.locals].addvendor}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {Language[state.locals].fillformtoaddvendor}
-          </DialogContentText>
+        <TextField
+          focus
+          margin="dense"
+          id="name"
+          label={Language[state.locals].name}
+          value={name}
+          type="text"
+          fullWidth
+          onChange={e => {
+            setName(e.target.value)
+          }}
+        />
+      </Modal>
 
-  
-          <TextField
-            focus
-            margin="dense"
-            id="name"
-            label={Language[state.locals].name}
-            value={name}
-            type="text"
-            fullWidth
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-         
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            {Language[state.locals].cancel}
-          </Button>
-          <Button onClick={onSubmit} color="primary">
-            {Language[state.locals].add}
-          </Button>
-        </DialogActions>
-      </Dialog>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar message={'Vendor created successfully'} state={'success'} />
@@ -131,8 +92,8 @@ const CreateBill = props => {
   )
 }
 
-CreateBill.propTypes = {
+CreateVendor.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(CreateBill)
+export default withStyles(styles)(CreateVendor)

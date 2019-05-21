@@ -1,9 +1,10 @@
 import Context from '../../../Context/Context'
+import Language from '../../../utils/language'
 import Paper from '@material-ui/core/Paper'
 import React, { useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_DAY_BOOK } from '../../../utils/query'
+import { GET_DAY_BOOK } from '../../../utils/Query/DaybookQuery'
 import {
   Table,
   TableBody,
@@ -28,17 +29,22 @@ const DayBook = () => {
 
   return (
     <Paper>
-      {console.log('Day', data)}
       {data === null ? (
         <SnackBar message={'No data'} state={'warning'} />
       ) : null}
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="right">Account ID</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Debit / Credit</TableCell>
-            <TableCell align="right">Balance</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].account} {Language[state.locals].id}
+            </TableCell>
+            <TableCell align="right">{Language[state.locals].name}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].debit} / {Language[state.locals].credit}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].balance}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,7 +55,9 @@ const DayBook = () => {
                     <TableCell align="right">{item.account_id}</TableCell>
                     <TableCell align="right">{item.name}</TableCell>
                     <TableCell align="right">
-                      {item.debit ? 'debit' : 'credit'}
+                      {item.debit
+                        ? Language[state.locals].debit
+                        : Language[state.locals].credit}
                     </TableCell>
                     <TableCell align="right">{item.balance}</TableCell>
                   </TableRow>

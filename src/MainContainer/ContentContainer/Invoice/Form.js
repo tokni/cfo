@@ -1,10 +1,9 @@
-import Context from '../../../Context/Context'
-import Language from '../../../utils/language'
-import { GET_PRODUCTS } from '../../../utils/Query/ProductQuery'
-import { GET_CUSTOMERS } from '../../../utils/Query/CustomersQuery'
-import { useSubscription } from 'react-apollo-hooks'
-import React, { Fragment, useContext, useState } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Language from '../../../utils/language'
+import { DeleteIcon } from '../../../Helpers/Constants'
+import AddIcon from '@material-ui/icons/Add'
+import Logic from './Logic'
 
 import {
   TextField,
@@ -13,12 +12,23 @@ import {
   Input,
   Button,
   InputLabel,
+  Tooltip,
   FormControl,
   withStyles,
+  Table,
+  Fab,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
 } from '@material-ui/core'
 
 const styles = theme => ({
   root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  container: {
     display: 'flex',
     flexWrap: 'wrap',
   },
@@ -32,43 +42,34 @@ const styles = theme => ({
 })
 
 const Form = props => {
-  const [description, setDescription] = useState('')
-  const [dueDate, setDueDate] = useState(Date.now())
-  const [quantity, setQuantity] = useState(0)
-  const [price, setPrice] = useState(0)
-  const [product, setProduct] = useState('')
-  const [customer, setCustomer] = useState('')
-  const [products] = useState(Array)
-  const [state] = useContext(Context)
-  const { data } = useSubscription(GET_PRODUCTS, {
-    suspend: false,
-    variables: {
-      company_id: state.company.id,
-    },
-  })
-  const customerData = useSubscription(GET_CUSTOMERS, {
-    suspend: false,
-    variables: {
-      company_id: state.company.id,
-    },
-  })
-
-  const handleProductChange = e => {
-    setProduct(e.target.value)
-  }
-
-  const handleCustomerChange = e => {
-    setCustomer(e.target.value)
-    props.fetcher('name', e.target.value)
-  }
-
-  const addProductHandler = () => {
-    products.push({ product: product, quantity: quantity, price: price })
-    props.fetcher('products', products)
-    setProduct('')
-    setQuantity(0)
-    setPrice(0)
-  }
+  const {
+    addQueryHandler,
+    addProductHandler,
+    handleAccountChange,
+    handleCustomerChange,
+    handleDelete,
+    handleProductChange,
+    accountData,
+    data,
+    customerData,
+    customer,
+    setDescription,
+    setDueDate,
+    setCreated,
+    setInvoiceNumber,
+    account,
+    created,
+    invoiceNumber,
+    products,
+    product,
+    price,
+    quantity,
+    setPrice,
+    setQuantity,
+    description,
+    dueDate,
+    state,
+  } = Logic(props)
 
   const { classes } = props
   return (
@@ -81,7 +82,7 @@ const Form = props => {
           </InputLabel>
           <Select
             required
-            value={customer}
+            value={customer || ''}
             onChange={handleCustomerChange}
             label="Kundi"
             placeholder="Vel ein kunda"
@@ -90,7 +91,7 @@ const Form = props => {
             {customerData.data
               ? customerData.data.Customer.map((item, index) => {
                   return (
-                    <MenuItem key={index} id={item.name} value={item.name}>
+                    <MenuItem key={index} id={item.name} value={item}>
                       {item.name}
                     </MenuItem>
                   )
@@ -99,74 +100,149 @@ const Form = props => {
           </Select>
         </FormControl>
         <br />
-        <br />
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="product-helper">
-            {Language[state.locals].product}
-            {': '}
-          </InputLabel>
-          <Select
-            value={product}
-            onChange={handleProductChange}
-            label="Vel eina vøru"
-            input={<Input name="Product1" id="product-helper" />}
+          <TextField
+            label={Language[state.locals].invoicenumber}
+            value={invoiceNumber || ''}
+            placeholder="e.g. F431"
+            onChange={e => {
+              setInvoiceNumber(e.target.value)
+              props.fetcher('invoiceNumber', e.target.value)
+            }}
+          />
+        </FormControl>
+
+        {products.length >= 1 ? (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>{Language[state.locals].product}</TableCell>
+                <TableCell>{Language[state.locals].quantity}</TableCell>
+                <TableCell>{Language[state.locals].price}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {products.map((item, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{item.product.name}</TableCell>
+                    <TableCell>{item.quantity}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                    <TableCell>
+                      <Tooltip title={Language[state.locals].removefromlist}>
+                        <Fab
+                          onClick={handleDelete.bind(this, index)}
+                          color="secondary"
+                        >
+                          <DeleteIcon />
+                        </Fab>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        ) : null}
+        <br />
+        <div className={classes.container}>
+          <FormControl
+            className={classes.textField}
+            variant="filled"
+            style={{ width: '30%' }}
           >
-            {data
-              ? data.Product.map((item, index) => {
-                  return (
-                    <MenuItem key={index} id={item.name} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  )
-                })
-              : null}
-          </Select>
-        </FormControl>
-        <FormControl variant="filled" className={classes.formControl}>
-          <TextField
-            type="number"
-            id="quantity"
-            label={Language[state.locals].quantity}
-            value={quantity}
-            placeholder={quantity}
-            onChange={e => {
-              setQuantity(e.target.value)
-            }}
-          />
-        </FormControl>
-        <FormControl variant="filled" className={classes.formControl}>
-          <TextField
-            type="number"
-            id="price"
-            label={Language[state.locals].price}
-            value={price}
-            placeholder={price}
-            onChange={e => {
-              setPrice(e.target.value)
-            }}
-          />
-        </FormControl>
-        <Button onClick={addProductHandler.bind(this)}>+</Button>
+            <InputLabel htmlFor="product-helper">
+              {Language[state.locals].product}
+              {': '}
+            </InputLabel>
+            <Select
+              value={product || ''}
+              onChange={handleProductChange}
+              label="Vvøru"
+              input={<Input name="Product1" id="product-helper" />}
+            >
+              {data
+                ? data.Product.map((item, index) => {
+                    return (
+                      <MenuItem key={index} id={item.name} value={item}>
+                        {item.name}
+                      </MenuItem>
+                    )
+                  })
+                : null}
+            </Select>
+          </FormControl>
+          <FormControl
+            className={classes.textField}
+            variant="standard"
+            style={{ width: '20%', paddingLeft: 10 }}
+          >
+            <TextField
+              type="number"
+              id="quantity"
+              label={Language[state.locals].quantity}
+              value={quantity ? quantity : ''}
+              onChange={e => {
+                setQuantity(e.target.value)
+              }}
+            />
+          </FormControl>
+          <FormControl
+            className={classes.textField}
+            variant="standard"
+            style={{ width: '30%', paddingLeft: 10 }}
+          >
+            <TextField
+              type="number"
+              id="price"
+              label={Language[state.locals].price}
+              value={price ? price : ''}
+              onChange={e => {
+                setPrice(e.target.value)
+              }}
+            />
+          </FormControl>
+          <Button
+            style={{ width: '15%' }}
+            onClick={addProductHandler.bind(this)}
+          >
+            +
+          </Button>
+        </div>
         <br />
         <br />
-        <FormControl variant="standard" className={classes.formControl}>
-          {/* <InputLabel htmlFor="payment_due-helper">
-            {Language[state.locals].paymentdue}
-            {': '}
-          </InputLabel> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="payment_due-helper"
-            label={Language[state.locals].payment_due}
-            value={dueDate}
-            type="date"
-            onChange={e => {
-              setDueDate(e.target.value)
-              props.fetcher('dueDate', e.target.value)
-            }}
-          />
-        </FormControl>
+        <InputLabel>{Language[state.locals].invoicecreated}</InputLabel>
+        <br />
+        <TextField
+          autoFocus
+          margin="dense"
+          label={Language[state.locals].invoicecreated}
+          value={created || ''}
+          fullWidth
+          type="date"
+          onChange={e => {
+            setCreated(e.target.value)
+            props.fetcher('created', e.target.value)
+          }}
+        />
+        <br />
+        <InputLabel>{Language[state.locals].invoicedue}</InputLabel>
+        <br />
+        <TextField
+          autoFocus
+          margin="dense"
+          label={Language[state.locals].payment_due}
+          fullWidth
+          value={dueDate || ''}
+          type="date"
+          onChange={e => {
+            setDueDate(e.target.value)
+            props.fetcher('dueDate', e.target.value)
+          }}
+        />
+        <br />
+
+        <br />
         <FormControl variant="filled" className={classes.formControl}>
           <TextField
             multiline
@@ -182,7 +258,42 @@ const Form = props => {
             }}
           />
         </FormControl>
+        <br />
+        <br />
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="account-helper">
+            {Language[state.locals].account}
+            {': '}
+          </InputLabel>
+          <Select
+            required
+            value={account || ''}
+            onChange={handleAccountChange}
+            label="Konta"
+            input={<Input name="kundi1" id="account-helper" />}
+          >
+            {accountData.data
+              ? accountData.data.Account.map((item, index) => {
+                  return (
+                    <MenuItem key={index} id={item.name} value={item}>
+                      {item.name}
+                    </MenuItem>
+                  )
+                })
+              : null}
+          </Select>
+        </FormControl>
       </form>
+      <Tooltip title="Add invoice">
+        <Fab
+          onClick={addQueryHandler}
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
     </Fragment>
   )
 }

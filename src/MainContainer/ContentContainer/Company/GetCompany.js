@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
-import { SET_ACTIVE_COMPANY } from '../../../utils/query'
+import { SET_ACTIVE_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
 import { Grid, Divider, Typography, Paper } from '@material-ui/core'
 
@@ -33,11 +33,11 @@ const GetCompany = () => {
 
   return (
     <Paper>
-      <Grid container sm={12}>
+      <Grid item container sm={12}>
         {state.companies
           ? state.companies.map((item, index) => {
               return (
-                <Grid key={index} sm={3} style={{ padding: 30 }}>
+                <Grid item key={index} sm={3} style={{ padding: 30 }}>
                   <Paper
                     style={{ height: 128 }}
                     onClick={clickHandler.bind(this, index)}

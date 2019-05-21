@@ -3,17 +3,17 @@ import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
 import React, { useState, useContext } from 'react'
 import { useMutation } from 'react-apollo-hooks'
-import { SET_ACTIVE_COMPANY } from '../../../utils/query'
+import { SET_ACTIVE_COMPANY } from '../../../utils/Query/CompanyQuery'
 import {
   withStyles,
   InputLabel,
   MenuItem,
   FormControl,
   Select,
-  Button,
+  // Button,
 } from '@material-ui/core'
 
-const styles = theme => ({
+const styles = () => ({
   button: {
     display: 'block',
   },
@@ -56,7 +56,7 @@ const SelectCompany = props => {
 
   return (
     <form autoComplete="off">
-      <Button className={classes.button} onClick={handleOpen} />
+      {/* <Button className={classes.button} onClick={handleOpen} /> */}
       <FormControl className={classes.formControl}>
         <InputLabel focused={false} className={classes.label}>
           {Language[state.locals].choosecompany}

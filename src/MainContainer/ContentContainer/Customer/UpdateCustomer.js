@@ -1,22 +1,13 @@
-import BorderColor from '@material-ui/icons/BorderColor'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Edit } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { PUT_CUSTOMER } from '../../../utils/Query/CustomersQuery'
-import {
-  withStyles,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Button,
-  Fab,
-} from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -31,7 +22,6 @@ const styles = theme => ({
 const UpdateCustomer = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(props.name)
-  const { classes } = props
   const putCustomerMutation = useMutation(PUT_CUSTOMER)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
@@ -45,7 +35,6 @@ const UpdateCustomer = props => {
   }
 
   const onSubmit = async e => {
-    e.preventDefault()
     if (name !== null || name !== '') {
       await putCustomerMutation({
         variables: {
@@ -69,48 +58,26 @@ const UpdateCustomer = props => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleClose}
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
+      <Modal
+        Icon={Edit}
+        title="updatecustomer"
+        text="fillformtoupdatecustomer"
+        submit={onSubmit}
+        close={handleClose}
       >
-        <BorderColor />
-      </Fab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          {Language[state.locals].updatecustomer}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {Language[state.locals].fillformtoaddproduct}
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            value={name}
-            label={Language[state.locals].name}
-            type="text"
-            fullWidth
-            onChange={e => {
-              setName(e.target.value)
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            {Language[state.locals].cancel}
-          </Button>
-          <Button onClick={onSubmit} color="primary">
-            {Language[state.locals].add}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          value={name}
+          label={Language[state.locals].name}
+          type="text"
+          fullWidth
+          onChange={e => {
+            setName(e.target.value)
+          }}
+        />
+      </Modal>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar
