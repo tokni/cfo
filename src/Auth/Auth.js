@@ -59,7 +59,6 @@ class Auth {
   }
 
 
-
   handleAuthentication = () => {
     this.auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {

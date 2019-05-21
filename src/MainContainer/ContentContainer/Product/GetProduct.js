@@ -1,8 +1,9 @@
 import Context from '../../../Context/Context'
+import Language from '../../../utils/language'
 import React, { useContext } from 'react'
-import Delete from '@material-ui/icons/Delete'
-import UpdateProduct from './UpdateProduct'
 import PropTypes from 'prop-types'
+import UpdateProduct from './UpdateProduct'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import { GET_PRODUCTS, DELETE_PRODUCT } from '../../../utils/Query/ProductQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
@@ -50,11 +51,10 @@ const GetProduct = props => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Comapny id</TableCell>
-            <TableCell>Edit</TableCell>
-            <TableCell>Del</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell>{Language[state.locals].name}</TableCell>
+            <TableCell>{Language[state.locals].update}</TableCell>
+            <TableCell>{Language[state.locals].delete}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -64,7 +64,6 @@ const GetProduct = props => {
                   <TableRow key={index}>
                     <TableCell>{product.id}</TableCell>
                     <TableCell>{product.name}</TableCell>
-                    <TableCell>{product.company_id}</TableCell>
                     <TableCell>
                       <UpdateProduct name={product.name} id={product.id} />
                     </TableCell>
@@ -75,7 +74,7 @@ const GetProduct = props => {
                         className={classes.fab}
                         onClick={deleteHandeler.bind(this, product.id)}
                       >
-                        <Delete />
+                        <DeleteIcon />
                       </Fab>
                     </TableCell>
                   </TableRow>

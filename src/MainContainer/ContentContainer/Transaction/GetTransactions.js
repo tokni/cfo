@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
+import Language from '../../../utils/language'
+import React, { useContext } from 'react'
 import UpdateTransaction from './UpdateTransaction'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
   GET_TRANSACTIONS_SUBSCRIPTION,
@@ -53,11 +54,16 @@ const GetTransactions = props => {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <p>{Language[state.locals].loading}...</p>
   }
 
   if (error) {
-    return <SnackBar message={'Error loading transactions'} state={'error'} />
+    return (
+      <SnackBar
+        message={Language[state.locals].errorloadingtransactions}
+        state={'error'}
+      />
+    )
   }
   return (
     <Table>
@@ -66,16 +72,20 @@ const GetTransactions = props => {
       ) : null}
       <TableHead>
         <TableRow>
-          <TableCell align="right">ID</TableCell>
-          <TableCell align="right">Debit Account</TableCell>
-          <TableCell align="right">Credit Account</TableCell>
-          <TableCell align="right">Type</TableCell>
-          <TableCell align="right">Date paid</TableCell>
-          <TableCell align="right">Payment</TableCell>
-          <TableCell align="right">Invoice</TableCell>
-          <TableCell align="right">Bill</TableCell>
-          <TableCell align="right">Edit</TableCell>
-          <TableCell align="right">Delete</TableCell>
+          <TableCell align="right">{Language[state.locals].id}</TableCell>
+          <TableCell align="right">
+            {Language[state.locals].debit} {Language[state.locals].account}
+          </TableCell>
+          <TableCell align="right">
+            {Language[state.locals].credit} {Language[state.locals].account}
+          </TableCell>
+          <TableCell align="right">{Language[state.locals].type}</TableCell>
+          <TableCell align="right">{Language[state.locals].datepaid}</TableCell>
+          <TableCell align="right">{Language[state.locals].payment}</TableCell>
+          <TableCell align="right">{Language[state.locals].invoice}</TableCell>
+          <TableCell align="right">{Language[state.locals].bill}</TableCell>
+          <TableCell align="right">{Language[state.locals].update}</TableCell>
+          <TableCell align="right">{Language[state.locals].delete}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -103,7 +113,7 @@ const GetTransactions = props => {
                     className={classes.fab}
                     onClick={deleteHandeler.bind(this, item.id)}
                   >
-                    <Delete />
+                    <DeleteIcon />
                   </Fab>
                 </TableCell>
               </TableRow>

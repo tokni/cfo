@@ -1,8 +1,9 @@
-import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
+import Language from '../../../utils/language'
+import React, { useContext, Fragment } from 'react'
 import UpdateBill from './UpdateBill'
 import PayBill from './PayBill'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
   GET_BILLS_SUBSCRIPTION,
@@ -51,11 +52,16 @@ const GetBills = props => {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <p>{Language[state.locals].loading}...</p>
   }
 
   if (error) {
-    return <SnackBar message={'Error loading bills'} state={'error'} />
+    return (
+      <SnackBar
+        message={Language[state.locals].errorloadingbills}
+        state={'error'}
+      />
+    )
   }
   return (
     <Fragment>
@@ -66,19 +72,32 @@ const GetBills = props => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">Expense Name</TableCell>
-            <TableCell align="right">Vendor Name</TableCell>
-
-            <TableCell align="right">Payment</TableCell>
-            <TableCell align="right">Tax</TableCell>
-            <TableCell align="right">Date: Bill received</TableCell>
-            <TableCell align="right">Date: Payment due</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Has been paid</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
-            <TableCell align="right">Pay Bill</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].expensename}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].vendorname}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].payment}
+            </TableCell>
+            <TableCell align="right">{Language[state.locals].tax}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].received}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].paymentdue}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].description}
+            </TableCell>
+            <TableCell align="right">{Language[state.locals].paid}</TableCell>
+            <TableCell align="right">{Language[state.locals].update}</TableCell>
+            <TableCell align="right">{Language[state.locals].delete}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].paybill}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -96,7 +115,11 @@ const GetBills = props => {
                 <TableCell align="right">{item.payment_due}</TableCell>
                 <TableCell align="right">{item.description}</TableCell>
                 {/* <TableCell align="right">{item.attachment_name}</TableCell> */}
-                <TableCell align="right">{item.paid ? 'Yes' : 'No'}</TableCell>
+                <TableCell align="right">
+                  {item.paid
+                    ? Language[state.locals].yes
+                    : Language[state.locals].no}
+                </TableCell>
                 <TableCell>
                   <UpdateBill
                     id={item.id}
@@ -117,7 +140,7 @@ const GetBills = props => {
                     className={classes.fab}
                     onClick={deleteHandeler.bind(this, item.id)}
                   >
-                    <Delete />
+                    <DeleteIcon />
                   </Fab>
                 </TableCell>
                 <TableCell>

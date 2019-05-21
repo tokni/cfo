@@ -1,13 +1,15 @@
-import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
+import Language from '../../../utils/language'
+import PropTypes from 'prop-types'
+import React, { useContext, Fragment } from 'react'
 import UpdateExpense from './UpdateExpense'
+import SnackBar from '../SnackBar/SnackBar'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import {
   GET_EXPENSE_SUBSCRIPTION,
   DELETE_EXPENSE,
 } from '../../../utils/Query/ExpenseQuery'
-import PropTypes from 'prop-types'
 import {
   withStyles,
   Fab,
@@ -17,8 +19,6 @@ import {
   TableCell,
   TableRow,
 } from '@material-ui/core'
-
-import SnackBar from '../SnackBar/SnackBar'
 
 const styles = theme => ({
   fab: {
@@ -50,11 +50,16 @@ const GetExpenses = props => {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <p>{Language[state.locals].loading}...</p>
   }
 
   if (error) {
-    return <SnackBar message={'Error loading vendor'} state={'error'} />
+    return (
+      <SnackBar
+        message={Language[state.locals].errorloadingexpenses}
+        state={'error'}
+      />
+    )
   }
   return (
     <Fragment>
@@ -65,10 +70,10 @@ const GetExpenses = props => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell align="right">{Language[state.locals].name}</TableCell>
+            <TableCell align="right">{Language[state.locals].update}</TableCell>
+            <TableCell align="right">{Language[state.locals].delete}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -93,7 +98,7 @@ const GetExpenses = props => {
                     className={classes.fab}
                     onClick={deleteHandeler.bind(this, item.id)}
                   >
-                    <Delete />
+                    <DeleteIcon />
                   </Fab>
                 </TableCell>
               </TableRow>

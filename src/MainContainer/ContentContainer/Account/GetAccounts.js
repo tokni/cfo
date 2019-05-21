@@ -21,11 +21,16 @@ const GetAccounts = () => {
   })
 
   if (loading) {
-    return <p>Loading...</p>
+    return <p>{Language[state.locals].loading}...</p>
   }
 
   if (error) {
-    return <SnackBar message={'Error loading accounts'} state={'error'} />
+    return (
+      <SnackBar
+        message={Language[state.locals].errorloadingaccounts}
+        state={'error'}
+      />
+    )
   }
 
   return (
@@ -36,11 +41,14 @@ const GetAccounts = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Balance</TableCell>
-            <TableCell align="right">Debit / Credit</TableCell>
-            <TableCell align="right">Company name</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell align="right">{Language[state.locals].name}</TableCell>
+            <TableCell align="right">
+              {Language[state.locals].balance}
+            </TableCell>
+            <TableCell align="right">
+              {Language[state.locals].debit} / {Language[state.locals].credit}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,9 +63,10 @@ const GetAccounts = () => {
                 </TableCell>
                 <TableCell align="right">{item.balance}</TableCell>
                 <TableCell align="right">
-                  {item.debit ? 'debit' : 'credit'}
+                  {item.debit
+                    ? Language[state.locals].debit
+                    : Language[state.locals].credit}
                 </TableCell>
-                <TableCell align="right">{item.Company.name}</TableCell>
               </TableRow>
             )
           })}

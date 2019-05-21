@@ -1,8 +1,9 @@
 import Context from '../../../Context/Context'
-import Delete from '@material-ui/icons/Delete'
-import React, { useContext } from 'react'
+import Language from '../../../utils/language'
 import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
 import Update from './UpdateCustomer'
+import { DeleteIcon } from '../../../Helpers/Constants'
 import {
   GET_CUSTOMERS,
   DELETE_CUSTOMERS,
@@ -53,11 +54,10 @@ const GetCustomer = props => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Comapny id</TableCell>
-            <TableCell>Edit</TableCell>
-            <TableCell>Del</TableCell>
+            <TableCell>{Language[state.locals].id}</TableCell>
+            <TableCell>{Language[state.locals].name}</TableCell>
+            <TableCell>{Language[state.locals].update}</TableCell>
+            <TableCell>{Language[state.locals].delete}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,7 +67,6 @@ const GetCustomer = props => {
                   <TableRow key={index}>
                     <TableCell>{customer.id}</TableCell>
                     <TableCell>{customer.name}</TableCell>
-                    <TableCell>{customer.company_id}</TableCell>
                     <TableCell>
                       <Update name={customer.name} id={customer.id} />
                     </TableCell>
@@ -78,7 +77,7 @@ const GetCustomer = props => {
                         className={classes.fab}
                         onClick={deleteHandeler.bind(this, customer.id)}
                       >
-                        <Delete />
+                        <DeleteIcon />
                       </Fab>
                     </TableCell>
                   </TableRow>
