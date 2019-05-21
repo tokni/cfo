@@ -5,12 +5,12 @@ import React, { Fragment } from 'react'
 import { ContentContainer } from './ContentContainer/ContentContainer'
 import { Grid } from '@material-ui/core'
 
-export const MainContainer = () => (
+export const MainContainer = props => (
   <Fragment>
-    <StoreContainer />
+    <StoreContainer auth={props.auth}/>
     <Grid item container lg={12}>
       <Grid item lg={12} sm={12}>
-        <Header />
+        <Header auth={props.auth}/>
       </Grid>
       <Grid item lg={2} md={4} sm={4}>
         <Drawer />
