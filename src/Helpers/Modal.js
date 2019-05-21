@@ -62,7 +62,7 @@ const Modal = (props, { children }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {Language[state.locals][props.text] || 'Modal Description...'}
+            {Language[state.locals][props.text] || null}
           </DialogContentText>
           {props.children}
         </DialogContent>
