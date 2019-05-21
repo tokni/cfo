@@ -60,8 +60,8 @@ const UpdateCustomer = props => {
     <Fragment>
       <Modal
         Icon={Edit}
-        title="editcustomer"
-        text="fill"
+        title="updatecustomer"
+        text="fillformtoupdatecustomer"
         submit={onSubmit}
         close={handleClose}
       >

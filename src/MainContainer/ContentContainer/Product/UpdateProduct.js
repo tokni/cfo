@@ -57,7 +57,6 @@ const UpdateProduct = props => {
       <Modal
         Icon={Edit}
         title="updateproduct"
-        text="fill"
         submit={onSubmit}
         close={handleClose}
       >
