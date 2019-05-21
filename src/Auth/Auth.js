@@ -13,7 +13,6 @@ class Auth {
       })
     : {}
 
-
   login = () => {
     if (!this.isAuthenticated()) {
       this.auth.authorize()
@@ -27,7 +26,6 @@ class Auth {
     return localStorage.getItem('idToken') ? true : false
   }
 
-
   logout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('idToken')
@@ -37,9 +35,8 @@ class Auth {
 
   GetUserProfile = () => {
     if (localStorage.getItem('idToken')) {
-
       return jwt_decode(localStorage.getItem('idToken'))
-    }else{
+    } else {
       return 'John Doe'
     }
   }
@@ -55,26 +52,17 @@ class Auth {
   }
 
   handleAuthentication = async () => {
-    console.log('1')
     await this.auth.parseHash(async (err, authResult) => {
       if (err) {
         if (err.error === 'login_required') {
-          console.log('2')
           this.login()
         }
-        console.log('3')
-
         console.log(err)
       }
       if (authResult && authResult.idToken && authResult.accessToken) {
-        console.log('4')
         await this.auth.client.userInfo(
           authResult.accessToken,
           (err, userProfile) => {
-            console.log('5')
-            console.log('user profile: ', JSON.stringify(userProfile))
-
-            console.log('user profile; inside handleAuth: ', userProfile)
             this.first_name = userProfile.given_name
             this.last_name = userProfile.family_name
           }

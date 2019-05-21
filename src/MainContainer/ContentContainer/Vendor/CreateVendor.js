@@ -4,6 +4,7 @@ import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Add } from '../../../Helpers/Constants'
 import { POST_VENDOR } from '../../../utils/Query/VendorQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -60,6 +61,7 @@ const CreateVendor = props => {
   return (
     <Fragment>
       <Modal
+        Icon={Add}
         title="addvendor"
         text="fillformtoaddvendor"
         submit={onSubmit}

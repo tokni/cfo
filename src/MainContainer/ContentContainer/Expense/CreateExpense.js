@@ -4,6 +4,7 @@ import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
+import { Add } from '../../../Helpers/Constants'
 import { POST_EXPENSE } from '../../../utils/Query/ExpenseQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -60,6 +61,7 @@ const CreateExpense = props => {
   return (
     <Fragment>
       <Modal
+        Icon={Add}
         title="addexpense"
         text="fillformtoupdateexpense"
         submit={onSubmit}
