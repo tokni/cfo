@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
   Table,
   TableRow,
@@ -9,67 +9,53 @@ import {
 
 const TableHelper = props => {
 
-    const [header, setHeader] = useState(Object.keys(props
-    ? props.array
-      ? props.array[0]
-        ? Object.keys(props.array[0])
-        : []
-      : []
-    : []))
-
-
   const renderTableHeader = () => {
-    setHeader(props
+    const header = props
       ? props.array
         ? props.array[0]
           ? Object.keys(props.array[0])
           : null
         : null
-      : null)
+      : null
 
+      
     if (header !== null) {
+      
+
       return header.map((item, index) => {
-        return (
-            <TableCell>{item.toUpperCase()}</TableCell>
-        )
+          if(item === '__typename')return null
+        return (<TableCell key={index}>{item.toLocaleLowerCase()}</TableCell>)
       })
-    } else {
-      return (
-        <TableRow>
-          <TableCell />
-        </TableRow>
-      )
     }
   }
 
   const renderTableData = () => {
-    // console.log('htmlHelper ', props.array)
-
-    let data = props.array
-    if (data !== undefined) {
-      return data.map((item, index) => {
+    if (props.array !== undefined) {
+      return props.array.map((item, index) => {
+        delete item['__typename']
         return (
-          <TableRow key={index}>
-            <TableCell>
-              {item[0]}
-            </TableCell>
+          <TableRow>
+            {Object.values(item).map((row, index) => {
+              if (typeof row === 'object') {
+                if (row !== null) {
+                  row = row['name']
+                }
+              } else if (typeof row === 'boolean') {
+                row ? (row = 'Yes') : (row = 'No')
+              }
+              return <TableCell key={index}>{row}</TableCell>
+            })}
           </TableRow>
         )
       })
-    } else {
-      return (
-        <TableRow>
-          <TableCell />
-        </TableRow>
-      )
     }
   }
 
   return (
     <Table>
       <TableHead>
-      
-      {/* <TableRow>{renderTableHeader()}</TableRow>*/}</TableHead>
+        <TableRow>{renderTableHeader()}</TableRow>
+      </TableHead>
       <TableBody>{renderTableData()}</TableBody>
     </Table>
   )

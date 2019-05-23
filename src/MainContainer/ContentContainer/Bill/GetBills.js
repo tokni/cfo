@@ -43,6 +43,7 @@ const GetBills = props => {
       company_id: state.company ? state.company.id : null,
     },
   })
+  
 
   const deleteHandeler = id => {
     deleteBill({
@@ -66,13 +67,12 @@ const GetBills = props => {
   }
   return (
     <Fragment>
-
       {data.Bill ? <TableHelper array={data.Bill}/> : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
       ) : null}
 
-      {/* <Table>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>{Language[state.locals].id}</TableCell>
@@ -132,7 +132,7 @@ const GetBills = props => {
                     date_bill_received={item.date_bill_received}
                     payment_due={item.payment_due}
                     description={item.description}
-                    attachment_id={item.Attachment.id}
+                    // attachment_id={item.Attachment.id}
                   />
                 </TableCell>
                 <TableCell>
@@ -152,7 +152,7 @@ const GetBills = props => {
             )
           })}
         </TableBody>
-      </Table> */}
+      </Table>
     </Fragment>
   )
 }
