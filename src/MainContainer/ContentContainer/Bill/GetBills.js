@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core'
 
 import SnackBar from '../SnackBar/SnackBar'
+import TableHelper from '../../../Helpers/TableHelper';
 
 const styles = theme => ({
   fab: {
@@ -65,11 +66,13 @@ const GetBills = props => {
   }
   return (
     <Fragment>
+
+      {data.Bill ? <TableHelper array={data.Bill}/> : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
       ) : null}
 
-      <Table>
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>{Language[state.locals].id}</TableCell>
@@ -114,7 +117,6 @@ const GetBills = props => {
                 <TableCell align="right">{item.date_bill_received}</TableCell>
                 <TableCell align="right">{item.payment_due}</TableCell>
                 <TableCell align="right">{item.description}</TableCell>
-                {/* <TableCell align="right">{item.attachment_name}</TableCell> */}
                 <TableCell align="right">
                   {item.paid
                     ? Language[state.locals].yes
@@ -150,7 +152,7 @@ const GetBills = props => {
             )
           })}
         </TableBody>
-      </Table>
+      </Table> */}
     </Fragment>
   )
 }
