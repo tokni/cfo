@@ -16,7 +16,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Tooltip,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -171,16 +170,14 @@ const Demo = props => {
           </Grid>
         </Grid>
       </div>
-      <Tooltip title={Language[state.locals].downloadinvoice}>
-        <Fab
-          onClick={printPDFHandeler}
-          color="primary"
-          aria-label="Add"
-          className={classes.fab}
-        >
-          <Print />
-        </Fab>
-      </Tooltip>
+      <Fab
+        onClick={printPDFHandeler}
+        color="primary"
+        aria-label="Add"
+        className={classes.fab}
+      >
+        <Print />
+      </Fab>
     </Fragment>
   )
 }
