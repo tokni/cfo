@@ -2,13 +2,14 @@ import { useSubscription } from 'react-apollo-hooks'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import React, { useContext } from 'react'
 import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
+import { TableBody } from '@material-ui/core/'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
+import AccountNumbers from './AccountNumber'
 import SnackBar from '../SnackBar/SnackBar'
 
 const GetAccounts = () => {
@@ -49,6 +50,7 @@ const GetAccounts = () => {
             <TableCell align="right">
               {Language[state.locals].debit} / {Language[state.locals].credit}
             </TableCell>
+            <TableCell align="right">kontu nummar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,6 +68,21 @@ const GetAccounts = () => {
                   {item.debit
                     ? Language[state.locals].debit
                     : Language[state.locals].credit}
+                </TableCell>
+                <TableCell>
+                  {item.account_numbers
+                    ? item.account_numbers.map((account, index) => {
+                        return (
+                          account.account_number +
+                          (index + 1 === item.account_numbers.length
+                            ? ''
+                            : ' | ')
+                        )
+                      })
+                    : 'vinarliga legg kontunummar til'}
+                </TableCell>
+                <TableCell>
+                  <AccountNumbers id={item.id} />
                 </TableCell>
               </TableRow>
             )
