@@ -20,13 +20,21 @@ const [state] = useContext(Context)
 
       
     if (header !== null) {
-      return header.map((item, index) => {
-          if(item === '__typename')return null // skip __typename colummns
-          
-        return (<TableCell key={index}>{item.toLocaleLowerCase()}</TableCell>)
+      return header.map((item, index) => {  
+        if(item === '__typename')return null // skip __typename colummns
+        
+        item = stringFormatter(item, '_', ' ')
+       
+        return (<TableCell key={index}>{item}</TableCell>)
       })
     }
   }
+  
+  const stringFormatter = (target, search, replacement) => {
+    target = target.charAt(0).toUpperCase() + target.slice(1)
+    return target.split(search).join(replacement);
+  }
+
 
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
