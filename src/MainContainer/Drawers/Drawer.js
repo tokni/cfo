@@ -2,6 +2,7 @@ import Context from '../../Context/Context'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
 import MailIcon from '@material-ui/icons/Mail'
+import { MenuItems } from './MenuItems'
 import PropTypes from 'prop-types'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
@@ -52,7 +53,6 @@ const styles = theme => ({
 
 const SideDrawer = props => {
   const [state] = useContext(Context)
-
   const { classes } = props
 
   return (
@@ -72,19 +72,7 @@ const SideDrawer = props => {
               style={{ backgroundColor: 'rgb(63, 81, 181)' }}
             />
             <List style={{ backgroundColor: '#DDDDDD' }}>
-              {[
-                Language['en'].overview,
-                Language['en'].invoice,
-                Language['en'].bills,
-                Language['en'].transactions,
-                Language['en'].accounts,
-                Language['en'].companies,
-                Language['en'].customers,
-                Language['en'].products,
-                Language['en'].daybook,
-                Language['en'].vendor,
-                Language['en'].expense,
-              ].map((text, index) => (
+              {MenuItems().map((text, index) => (
                 <Link
                   key={index}
                   to={`/${text
