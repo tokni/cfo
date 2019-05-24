@@ -29,7 +29,7 @@ const [state] = useContext(Context)
       })
     }
   }
-  
+
   const stringFormatter = (target, search, replacement) => {
     target = target.charAt(0).toUpperCase() + target.slice(1)
     return target.split(search).join(replacement);
@@ -53,13 +53,17 @@ const [state] = useContext(Context)
               } else if(typeof row === 'number'){
                 row = row.toLocaleString(state.locales)
               }
+
+              
               return <TableCell key={index}>{row}</TableCell>
             })}
+            {props.update}
           </TableRow>
         )
       })
     }
   }
+
 
   return (
     <Table>

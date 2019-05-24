@@ -67,12 +67,12 @@ const GetBills = props => {
   }
   return (
     <Fragment>
-      {data.Bill ? <TableHelper array={data.Bill}/> : null}
+      {data.Bill ? <TableHelper array={data.Bill} update={<UpdateBill />}/> : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
       ) : null}
 
-      <Table>
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>{Language[state.locals].id}</TableCell>
@@ -152,7 +152,7 @@ const GetBills = props => {
             )
           })}
         </TableBody>
-      </Table>
+      </Table> */}
     </Fragment>
   )
 }
