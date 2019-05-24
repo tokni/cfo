@@ -18,6 +18,7 @@ import {
   TableRow,
   TableCell,
 } from '@material-ui/core'
+import TableHelper from '../../../Helpers/TableHelper';
 
 const styles = theme => ({
   fab: {
@@ -41,7 +42,7 @@ const CreateCustomer = props => {
   const deleteOrderMutation = useMutation(DELETE_ORDER)
   const { data } = useSubscription(GET_INVOICES, {
     variables: {
-      company_id: state.company.id,
+      company_id: state.company ? state.company.id : null,
     },
   })
 
@@ -83,8 +84,8 @@ const CreateCustomer = props => {
       >
         <Invoice handleClose={handleClose} />
       </Dialog>
-
-      <Table>
+      {data ? <TableHelper array={data.Invoice}/> : null}
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
@@ -133,7 +134,7 @@ const CreateCustomer = props => {
             })}
           </TableBody>
         ) : null}
-      </Table>
+      </Table> */}
     </Fragment>
   )
 }

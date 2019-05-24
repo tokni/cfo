@@ -19,6 +19,7 @@ import {
   TableCell,
   TableRow,
 } from '@material-ui/core'
+import TableHelper from '../../../Helpers/TableHelper';
 
 const styles = theme => ({
   fab: {
@@ -63,7 +64,10 @@ const GetVendors = props => {
   }
   return (
     <Fragment>
-      {state.company === null ? (
+
+
+      {data ? <TableHelper array={data.Vendor} /> : null}
+      {/* {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
       ) : null}
 
@@ -105,7 +109,7 @@ const GetVendors = props => {
             )
           })}
         </TableBody>
-      </Table>
+      </Table> */}
     </Fragment>
   )
 }
