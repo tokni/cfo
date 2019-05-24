@@ -29,17 +29,13 @@ const Modal = (props, { children }) => {
   const [state] = useContext(Context)
 
   const handleClose = () => {
-    if (state.company !== null) {
-      props.close()
-      setOpen(!open)
-    }
+    props.close()
+    setOpen(!open)
   }
 
   const handleSubmit = () => {
-    if (state.company !== null) {
-      props.submit()
-      setOpen(!open)
-    }
+    props.submit()
+    setOpen(!open)
   }
 
   return (
