@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import {
   Table,
   TableRow,
@@ -22,6 +22,7 @@ const [state] = useContext(Context)
     if (header !== null) {
       return header.map((item, index) => {
           if(item === '__typename')return null // skip __typename colummns
+          
         return (<TableCell key={index}>{item.toLocaleLowerCase()}</TableCell>)
       })
     }
