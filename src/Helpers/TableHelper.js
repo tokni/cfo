@@ -69,9 +69,9 @@ const TableHelper = props => {
                 }
               } else if (typeof item === 'boolean') {
                 if (header[rowIndex] === 'paid') {
-                  item ? (item = 'Yes') : (item = 'No')
+                  item ? (item = Language[state.locals]['Yes']) : (item = Language[state.locals]['No'])
                 } else if (header[rowIndex] === 'debit') {
-                  item ? (item = 'Debit') : (item = 'Credit')
+                  item ? (item = Language[state.locals]['Debit']) : (item = Language[state.locals]['Credit'])
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
