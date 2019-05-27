@@ -34,7 +34,7 @@ const PayBill = props => {
   const [debit_id, setDebitAccount] = useState('')
   const [credit_id, setCreditAccount] = useState('')
   const [type, setType] = useState('')
-  const bill_id = props.bill_id
+  const bill_id = props.id
   const payment = props.payment
   
   const { classes } = props
@@ -68,9 +68,9 @@ const PayBill = props => {
           company_id: state.company.id,
           credit_id,
           debit_id,
-          payment,
+          payment: props.payment,
           type,
-          bill_id,
+          bill_id: bill_id,
         },
       })
       await updateBilltMutation({

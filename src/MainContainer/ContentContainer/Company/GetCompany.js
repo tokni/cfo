@@ -3,7 +3,6 @@ import Context from '../../../Context/Context'
 import { SET_ACTIVE_COMPANY } from '../../../utils/Query/CompanyQuery'
 import { useMutation } from 'react-apollo-hooks'
 import { Grid, Divider, Typography, Paper } from '@material-ui/core'
-
 const GetCompany = () => {
   const [state, dispatch] = useContext(Context)
   const storeActiveCompany = useMutation(SET_ACTIVE_COMPANY)

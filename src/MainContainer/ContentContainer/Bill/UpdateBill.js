@@ -40,16 +40,16 @@ const UpdateBill = props => {
   const taxes = StoreTax()
 
   const [open, setOpen] = useState(false)
-  const [vendor_id, setVendor_id] = useState(props.vendor_id)
-  const [expense_id, setExpense_id] = useState(props.expense_id)
+  const [vendor_id, setVendor_id] = useState(props.Vendor.id)
+  const [expense_id, setExpense_id] = useState(props.Expense.id)
   const [description, setDescription] = useState(props.description)
-  const [tax_id, setTax_id] = useState(props.tax_id)
+  const [tax_id, setTax_id] = useState(props.Tax.id)
   const [payment, setPayment] = useState(props.payment)
   const [date_bill_received, setDate_bill_received] = useState(
     props.date_bill_received
   )
   const [payment_due, setPayment_due] = useState(props.payment_due)
-  const [attachment_id, setAttachment_id] = useState(props.attachment_id)
+  const [attachment_id, setAttachment_id] = useState('')
 
   const { classes } = props
   const updateBilltMutation = useMutation(PUT_BILL)
@@ -76,6 +76,7 @@ const UpdateBill = props => {
   const onSubmit = e => {
     e.preventDefault()
     if (
+      props.id !== undefined &&
       state.vendor_id !== '' &&
       state.expense_id !== '' &&
       description !== '' &&
@@ -83,7 +84,7 @@ const UpdateBill = props => {
       payment !== 0 &&
       date_bill_received !== null &&
       payment_due !== null &&
-      attachment_id !== ''
+      (attachment_id !== '' || attachment_id !== undefined)
     ) {
       updateBilltMutation({
         variables: {
@@ -96,7 +97,7 @@ const UpdateBill = props => {
           payment,
           date_bill_received,
           payment_due,
-          attachment_id,
+          attachment_id: attachment_id ? attachment_id : null,
         },
       })
       setTimeout(() => {
