@@ -109,6 +109,7 @@ const TableHelper = props => {
     }
   }
 
+
   const payBillsRender = item => {
     return (
       <TableCell key={item.id}>
@@ -125,7 +126,7 @@ const TableHelper = props => {
     )
   }
 
-  const deleteHandeler = id => {
+  const deleteHandler = id => {
     props.delete({
       variables: {
         id: id,
@@ -140,7 +141,7 @@ const TableHelper = props => {
           color="primary"
           aria-label="Delete"
           className={classes.fab}
-          onClick={deleteHandeler.bind(this, id)}
+          onClick={deleteHandler.bind(this, id)}
         >
           <DeleteIcon />
         </Fab>
