@@ -95,7 +95,7 @@ const CreateTax = props => {
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar
-            message={Language[state.locals].tax + Language[state.locals].addedsuccesfully}
+            message={Language[state.locals].tax + ' ' + Language[state.locals].addedsuccesfully}
             state={'success'}
           />
         ) : (
