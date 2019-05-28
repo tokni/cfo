@@ -1,7 +1,15 @@
 import gql from 'graphql-tag'
 
-const GET_COMPANY = gql`
-  query getCompanies {
+const GET_COMPANIES_NAME_ID_MOTHERID = gql`
+  subscription getCompanies {
+    Company {
+      id
+      mother_id
+      name
+    }
+  }
+`
+/**  subscription getCompanies {
     Company {
       Bills {
         attachment_id
@@ -42,8 +50,7 @@ const GET_COMPANY = gql`
       name
     }
   }
-`
-
+` */
 
 const SET_ACTIVE_COMPANY = gql`
   mutation setCompany($user_id: uuid!, $current_company: String!) {
@@ -120,4 +127,4 @@ const POST_COMPANY = gql`
 `
 
 
-export {GET_COMPANY, SET_ACTIVE_COMPANY, GET_SUBSCRIP_COMPANY, POST_COMPANY}
+export {GET_COMPANIES_NAME_ID_MOTHERID, SET_ACTIVE_COMPANY, GET_SUBSCRIP_COMPANY, POST_COMPANY}

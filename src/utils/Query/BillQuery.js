@@ -14,6 +14,7 @@ const GET_BILLS_SUBSCRIPTION = gql`
       }
       payment
       Tax {
+        name
         tax_percentage
         id
       }
@@ -22,7 +23,7 @@ const GET_BILLS_SUBSCRIPTION = gql`
       description
       paid
       Attachment {
-        attachment_name
+        name
         id
       }
     }

@@ -120,7 +120,7 @@ const CreateTransaction = props => {
             setDebitAccount(e.target.value)
           }}
         >
-          {state.company.Accounts ? (
+          {state.company ? state.company.Accounts ? (
             // eslint-disable-next-line array-callback-return
             state.company.Accounts.map((item, index) => {
               if (item.debit === true) {
@@ -133,7 +133,7 @@ const CreateTransaction = props => {
             })
           ) : (
             <option>empty</option>
-          )}
+           ) : <option>empty</option>}
         </TextField>
 
         {/* CREDIT FIELD */}
@@ -150,7 +150,7 @@ const CreateTransaction = props => {
             setCreditAccount(e.target.value)
           }}
         >
-          {state.company.Accounts ? (
+          {state.company ? state.company.Accounts ? (
             // eslint-disable-next-line array-callback-return
             state.company.Accounts.map((item, index) => {
               if (item.debit === false) {
@@ -163,7 +163,7 @@ const CreateTransaction = props => {
             })
           ) : (
             <option>empty</option>
-          )}
+          ): (<option>empty</option>)}
         </TextField>
 
         {/* Bill FIELD */}
@@ -183,7 +183,7 @@ const CreateTransaction = props => {
             setPayment(e.target.value.payment)
           }}
         >
-          {state.company.Bills ? (
+          {state.company ? state.company.Bills ? (
             // eslint-disable-next-line array-callback-return
             state.company.Bills.map((item, index) => {
               return (
@@ -194,7 +194,7 @@ const CreateTransaction = props => {
             })
           ) : (
             <option>empty</option>
-          )}
+          ) : <option>empty</option>}
         </TextField>
 
         {/* invoice FIELD */}
@@ -220,7 +220,7 @@ const CreateTransaction = props => {
             setPayment(accumulatedPrice)
           }}
         >
-          {state.company.Invoices ? (
+          {state.company ? state.company.Invoices ? (
             // eslint-disable-next-line array-callback-return
             state.company.Invoices.map((item, index) => {
               return (
@@ -230,6 +230,8 @@ const CreateTransaction = props => {
               )
             })
           ) : (
+            <option>empty</option>
+          ): (
             <option>empty</option>
           )}
         </TextField>
