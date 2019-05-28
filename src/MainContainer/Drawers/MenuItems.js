@@ -16,6 +16,7 @@ const MenuItems = () => {
     menu.push(Language['en'].invoice)
     menu.push(Language['en'].bills)
     menu.push(Language['en'].transactions)
+    menu.push(Language['en'].tax)
     menu.push(Language['en'].accounts)
     menu.push(Language['en'].companies)
     menu.push(Language['en'].customers)
