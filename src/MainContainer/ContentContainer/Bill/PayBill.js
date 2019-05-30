@@ -7,6 +7,7 @@ import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
 import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
+import { PUT_ACCOUNT_BALANCE } from '../../../utils/Query/AccountQuery'
 import {
   withStyles,
   Dialog,
@@ -40,6 +41,8 @@ const PayBill = props => {
   const { classes } = props
   const postTransactionMutation = useMutation(POST_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
+  const updateAccountBalanceMutation = useMutation(PUT_ACCOUNT_BALANCE)
+
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -79,6 +82,22 @@ const PayBill = props => {
           company_id: state.company.id,
           paid: true,
         },
+      })
+      // update Debit account
+      await updateAccountBalanceMutation({
+        variables: {
+          id: debit_id,
+          company_id: state.company.id,
+          balance: props.payment
+        }
+      })
+      // update credit account
+      await updateAccountBalanceMutation({
+        variables: {
+          id: credit_id,
+          company_id: state.company.id,
+          balance: (props.payment)
+        }
       })
       setTimeout(() => {
         setMsgSuccess(true)

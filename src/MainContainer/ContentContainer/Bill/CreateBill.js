@@ -9,9 +9,10 @@ import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
 import { Add } from '../../../Helpers/Constants'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField, InputLabel } from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -40,6 +41,7 @@ const CreateBill = props => {
   const [attachment_id, setAttachment_id] = useState('')
 
   const createBilltMutation = useMutation(CREATE_BILL)
+
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -82,8 +84,9 @@ const CreateBill = props => {
           payment_due,
           attachment_id,
           company_id: state.company.id,
-        },
+        }
       })
+     
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -204,25 +207,26 @@ const CreateBill = props => {
           )}
         </TextField>
 
-        <InputLabel>{Language[state.locals].billreceived}</InputLabel>
         <TextField
+          InputLabelProps={{ shrink: true }}
           autoFocus
           margin="dense"
           id="tax"
-          value={date_bill_received}
+          value={date_bill_received || ''}
+          label={Language[state.locals].date_bill_received}
           type="date"
           fullWidth
           onChange={e => {
             setDate_bill_received(e.target.value)
           }}
         />
-        <InputLabel>{Language[state.locals].paymentdue}</InputLabel>
         <TextField
+          InputLabelProps={{ shrink: true }}
           autoFocus
           margin="dense"
           id="payment_due"
           label={Language[state.locals].payment_due}
-          value={payment_due}
+          value={payment_due || ''}
           type="date"
           fullWidth
           onChange={e => {

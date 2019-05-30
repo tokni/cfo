@@ -24,6 +24,8 @@ const MenuItems = () => {
     menu.push(Language['en'].daybook)
     menu.push(Language['en'].vendor)
     menu.push(Language['en'].expense)
+    menu.push(Language['en'].balance)
+
   }
   return menu
 }
