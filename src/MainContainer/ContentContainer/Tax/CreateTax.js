@@ -37,11 +37,15 @@ const CreateTax = props => {
 
   const onSubmit = async e => {
     if (taxName !== '' && taxPercentage !== '') {
+      const tax_per =
+        parseFloat(taxPercentage, 10) >= 1
+          ? parseFloat(taxPercentage, 10) / 100
+          : parseFloat(taxPercentage, 10)
       await postTaxMutation({
         variables: {
           company_id: state.company.id,
           name: taxName,
-          tax_percentage: taxPercentage,
+          tax_percentage: tax_per,
         },
       })
       setTimeout(() => {
@@ -76,30 +80,38 @@ const CreateTax = props => {
           label={Language[state.locals].tax || ''}
           type="text"
           fullWidth
-          onChange={e => {setTaxName(e.target.value)}}
-        >
-        </TextField>
+          onChange={e => {
+            setTaxName(e.target.value)
+          }}
+        />
         {/* percentage field */}
         <TextField
-          autoFocus
           margin="dense"
           id="taxPercentage"
           value={taxPercentage || ''}
-          label={Language[state.locals].taxpercentage || ''}
+          label={Language[state.locals].taxpercentage || '%'}
           type="number"
           fullWidth
-          onChange={e => {setTaxPercentage(e.target.value)}}
-        >
-        </TextField>
+          onChange={e => {
+            setTaxPercentage(e.target.value)
+          }}
+        />
       </Modal>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar
-            message={Language[state.locals].tax + ' ' + Language[state.locals].addedsuccesfully}
+            message={
+              Language[state.locals].tax +
+              ' ' +
+              Language[state.locals].addedsuccesfully
+            }
             state={'success'}
           />
         ) : (
-          <SnackBar message={Language[state.locals].fieldsarerequired} state={'error'} />
+          <SnackBar
+            message={Language[state.locals].fieldsarerequired}
+            state={'error'}
+          />
         )
       ) : null}
     </Fragment>
