@@ -2,7 +2,6 @@ import Attachment from '../../../Helpers/Attachment'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import Modal from '../../../Helpers/Modal'
-import DropdownVendor from '../Vendor/DropdownVendor'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
@@ -40,7 +39,6 @@ const CreateBill = props => {
   const [payment, setPayment] = useState(0)
   const [date_bill_received, setDate_bill_received] = useState(null)
   const [payment_due, setPayment_due] = useState(null)
-  const [attachment_id, setAttachment_id] = useState('')
   const [file, setFile] = useState(null)
 
   const createBilltMutation = useMutation(CREATE_BILL)
@@ -57,8 +55,7 @@ const CreateBill = props => {
     setPayment(0)
     setDate_bill_received(null)
     setPayment_due(null)
-    setAttachment_id('')
-
+    setFile(null)
     if (state.company) {
       setOpen(!open)
     }
@@ -87,9 +84,6 @@ const CreateBill = props => {
           },
         })
       }).then(() => {
-        console.log('attac id is : ', attachmentId)
-        const id = attachmentId.data.insert_Attachment.returning[0].id
-        console.log('id is : ', id)
         createBilltMutation({
           variables: {
             vendor_id,
@@ -99,7 +93,7 @@ const CreateBill = props => {
             payment,
             date_bill_received,
             payment_due,
-            attachment_id: id,
+            attachment_id: attachmentId.data.insert_Attachment.returning[0].id,
             company_id: state.company.id,
           },
         })
@@ -146,8 +140,6 @@ const CreateBill = props => {
                 ) : null
               })
             : null}
-          <hr />
-          <option value="dfgf">{<DropdownVendor />}</option>
         </TextField>
         <TextField
           select
@@ -249,17 +241,6 @@ const CreateBill = props => {
             setFile(e.target.files[0])
           }}
         />
-        {/* <TextField
-          margin="dense"
-          id="attachment"
-          label={Language[state.locals].attachment}
-          value={attachment_id || ''}
-          type="text"
-          fullWidth
-          onChange={e => {
-            setAttachment_id(e.target.value)
-          }}
-        /> */}
       </Modal>
 
       {msg === true ? (
