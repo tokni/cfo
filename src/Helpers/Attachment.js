@@ -12,8 +12,8 @@ class Attachment {
       bucketName: 'cfoproject-file-endpoint',
       dirName: props ? props.type : 'default',
       region: 'eu-west-2',
-      accessKeyId: process.env.REACT_APP_Access_Key_ID,
-      secretAccessKey: process.env.REACT_APP_Secret_Access_Key,
+      accessKeyId: process.env.REACT_APP_AWS_Access_Key_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_Secret_Access_Key,
     }
   }
 
@@ -24,26 +24,8 @@ class Attachment {
    * @returns {string} location
    */
   upload = async file => {
-    console.log('file is : ', file)
-    console.log('file type is : ', file.type)
-
     const data = await uploadFile(file, this.config)
-    console.log('path er her vid : ', data.location)
     return data.location
-    // console.log('file is : ', file)
-    // console.log('file type is : ', file.type)
-    // let path
-    // uploadFile(file, this.config)
-    //   .then(data => {
-    //     console.log('data: ', data)
-    //     path = data.location
-    //   })
-    //   .catch(err => {
-    //     console.log('Err: ', err)
-    //   })
-
-    // console.log('path er her vid : ', path)
-    // return path
   }
 }
 

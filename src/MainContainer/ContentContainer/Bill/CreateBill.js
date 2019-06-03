@@ -72,6 +72,13 @@ const CreateBill = props => {
       date_bill_received !== null &&
       payment_due !== null
     ) {
+      console.log('namme: ', file.name)
+      // file.name = file.name + '_' + Date.now()
+      Object.defineProperty(file, 'name', {
+        writable: true,
+        value: Date.now() + '_' + file.name,
+      })
+      console.log('namme: ', file.name)
       const s3 = new Attachment({ type: 'bill' }).upload(file)
       const name = file.name
       let attachmentId
