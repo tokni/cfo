@@ -60,7 +60,7 @@ const TableHelper = props => {
       return props.array.map((row, index) => {
         delete row['__typename'] // delete __typename properties from array
         return (
-          <TableRow>
+          <TableRow key={index}>
             {Object.values(row).map((item, rowIndex) => {
               //  mape the data values
               if (typeof item === 'object') {
@@ -85,9 +85,9 @@ const TableHelper = props => {
               return (
                 <Fragment>
                   {item ? (
-                    <TableCell key={index}>{item}</TableCell>
+                    <TableCell key={item.id}>{item}</TableCell>
                   ) : (
-                    <TableCell key={index}>
+                    <TableCell key={item.id}>
                       {row.account_numbers
                         ? row.account_numbers.map((account, index) => {
                             return (
@@ -116,17 +116,13 @@ const TableHelper = props => {
 
   const payBillsRender = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.payBill, { ...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.payBill, { ...item })}</TableCell>
     )
   }
 
   const getAccountNumbers = id => {
     return (
-      <TableCell key={id}>
-        {React.cloneElement(props.accountNumbers, { id })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.accountNumbers, { id })}</TableCell>
     )
   }
 
@@ -154,9 +150,7 @@ const TableHelper = props => {
   }
   const renderUpdate = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.update, { ...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.update, { ...item })}</TableCell>
     )
   }
   return (

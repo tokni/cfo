@@ -29,8 +29,13 @@ const Home = () => {
   }
 
   const handleFile = e => {
-    const s3 = new Attachment({ type: 'home' }).upload(e.target.files[0])
-    const name = e.target.files[0].name
+    let file = e.target.files[0]
+    Object.defineProperty(file, 'name', {
+      writable: true,
+      value: Date.now() + '_' + file.name,
+    })
+    const s3 = new Attachment({ type: 'home' }).upload(file)
+    const name = file.name
     s3.then(path => {
       postAttachment({
         variables: {
