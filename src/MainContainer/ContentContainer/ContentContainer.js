@@ -69,6 +69,6 @@ export const ContentContainer = () => (
     />
     <ProtectedRoute path={`${process.env.PUBLIC_URL}/tax`} component={Tax} />
 
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balance`} component={Balance} />
+    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={Balance} />
   </Switch>
 )

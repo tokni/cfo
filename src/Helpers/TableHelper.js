@@ -41,6 +41,7 @@ const TableHelper = props => {
     if (header !== null) {
       return header.map((item, index) => {
         if (item === '__typename') return null // skip __typename colummns
+        
         item = stringFormatter(item) //format the strings so that they comply with Languages
           // Translate the items according to language preference
         return (
@@ -59,24 +60,28 @@ const TableHelper = props => {
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-        delete row['__typename'] // delete __typename properties from array
+       console.log("row ", row)
+       
+       delete row['__typename'] // delete __typename properties from array
+       
         return (
           <TableRow>
             {Object.values(row).map((item, rowIndex) => { //  mape the data values
+              
+              
               if (typeof item === 'object') { // if the row
                 if (item !== null) {
                   item = item['name']
                 }
               } else if (typeof item === 'boolean') {
                 if (header[rowIndex] === 'paid') {
-                  item ? (item = Language[state.locals]['Yes']) : (item = Language[state.locals]['No'])
+                  item ? (item = Language[state.locals]['yes']) : (item = Language[state.locals]['no'])
                 } else if (header[rowIndex] === 'debit') {
                   item ? (item = Language[state.locals]['debit']) : (item = Language[state.locals]['credit'])
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
-              }
-
+              }  
               return (
                 <Fragment>
                   {item ? (
