@@ -2,7 +2,9 @@ import Company from '../Company/GetCompany'
 import Context from '../../../Context/Context'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import Attachment from '../../../Helpers/Attachment'
 import React, { useContext, Fragment } from 'react'
+import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 import { Typography } from '@material-ui/core'
 import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
@@ -10,6 +12,7 @@ import { useMutation } from 'react-apollo-hooks'
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
+  const postAttachment = useMutation(POST_ATTACHMENT)
 
   const handleClicker = locals => {
     MutateLocals({
@@ -26,8 +29,24 @@ const Home = () => {
   }
 
   const handleFile = e => {
-    console.log('file name: ', e.target.files[0].name)
+    let file = e.target.files[0]
+    Object.defineProperty(file, 'name', {
+      writable: true,
+      value: Date.now() + '_' + file.name,
+    })
+    const s3 = new Attachment({ type: 'home' }).upload(file)
+    const name = file.name
+    s3.then(path => {
+      postAttachment({
+        variables: {
+          company_id: state.company.id,
+          name: name,
+          path: path,
+        },
+      })
+    })
   }
+
   return (
     <Fragment>
       <button onClick={handleClicker.bind(this, 'en')}>EN</button>

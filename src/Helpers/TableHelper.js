@@ -22,6 +22,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
   },
 })
+
 const TableHelper = props => {
   const header = props // load headers for tables
     ? props.array
@@ -30,11 +31,9 @@ const TableHelper = props => {
         : null
       : null
     : null
-  
-  
+
   const [state] = useContext(Context)
   const { classes } = props
-
 
   // render tableheaders
   const renderTableHeader = () => {
@@ -43,7 +42,7 @@ const TableHelper = props => {
         if (item === '__typename') return null // skip __typename colummns
         
         item = stringFormatter(item) //format the strings so that they comply with Languages
-          // Translate the items according to language preference
+        // Translate the items according to language preference
         return (
           <TableCell key={index}>
             {Language[state.locals][item] || item}
@@ -53,10 +52,10 @@ const TableHelper = props => {
     }
   }
 
-  const stringFormatter = (target) => {
+  const stringFormatter = target => {
     return target.charAt(0).toLowerCase() + target.slice(1) // make first character lowercase for every item
   }
-// render the data for every table
+  // render the data for every table
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
@@ -65,19 +64,23 @@ const TableHelper = props => {
        delete row['__typename'] // delete __typename properties from array
        
         return (
-          <TableRow>
-            {Object.values(row).map((item, rowIndex) => { //  mape the data values
-              
-              
-              if (typeof item === 'object') { // if the row
+          <TableRow key={index}>
+            {Object.values(row).map((item, rowIndex) => {
+              //  mape the data values
+              if (typeof item === 'object') {
+                // if the row
                 if (item !== null) {
                   item = item['name']
                 }
               } else if (typeof item === 'boolean') {
                 if (header[rowIndex] === 'paid') {
-                  item ? (item = Language[state.locals]['yes']) : (item = Language[state.locals]['no'])
+                  item
+                    ? (item = Language[state.locals]['yes'])
+                    : (item = Language[state.locals]['no'])
                 } else if (header[rowIndex] === 'debit') {
-                  item ? (item = Language[state.locals]['debit']) : (item = Language[state.locals]['credit'])
+                  item
+                    ? (item = Language[state.locals]['debit'])
+                    : (item = Language[state.locals]['credit'])
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
@@ -85,9 +88,9 @@ const TableHelper = props => {
               return (
                 <Fragment>
                   {item ? (
-                    <TableCell key={index}>{item}</TableCell>
+                    <TableCell key={item.id}>{item}</TableCell>
                   ) : (
-                    <TableCell key={index}> 
+                    <TableCell key={item.id}>
                       {row.account_numbers
                         ? row.account_numbers.map((account, index) => {
                             return (
@@ -114,20 +117,15 @@ const TableHelper = props => {
     }
   }
 
-
   const payBillsRender = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.payBill, {...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.payBill, { ...item })}</TableCell>
     )
   }
 
   const getAccountNumbers = id => {
     return (
-      <TableCell key={id}>
-        {React.cloneElement(props.accountNumbers, { id })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.accountNumbers, { id })}</TableCell>
     )
   }
 
@@ -155,9 +153,7 @@ const TableHelper = props => {
   }
   const renderUpdate = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.update, { ...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.update, { ...item })}</TableCell>
     )
   }
   return (
