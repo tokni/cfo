@@ -108,7 +108,7 @@ const TableHelper = props => {
             })}
             {/* Only add update button if it was passed */}
             {props.accountNumbers ? getAccountNumbers(row.id) : null}
-            {props.payBill ? payBillsRender(row) : null}
+            {props.payBill ? row.paid === false ? payBillsRender(row) : null : null}
             {props.update ? renderUpdate(row) : null}
             {props.delete ? renderDelete(row.id) : null}
           </TableRow>
