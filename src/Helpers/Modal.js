@@ -67,7 +67,7 @@ const Modal = (props, { children }) => {
             {Language[state.locals].cancel}
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            {Language[state.locals].add}
+            {Language[state.locals].accept}
           </Button>
         </DialogActions>
       </Dialog>

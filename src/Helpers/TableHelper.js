@@ -40,6 +40,7 @@ const TableHelper = props => {
     if (header !== null) {
       return header.map((item, index) => {
         if (item === '__typename') return null // skip __typename colummns
+        
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
         return (
@@ -58,13 +59,16 @@ const TableHelper = props => {
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-        delete row['__typename'] // delete __typename properties from array
+      //  console.log("row ", row)
+       
+       delete row['__typename'] // delete __typename properties from array
+       
         return (
           <TableRow key={index}>
             {Object.values(row).map((item, rowIndex) => {
               //  mape the data values
               if (typeof item === 'object') {
-                // if the row
+                
                 if (item !== null) {
                   item = item['name']
                 }
@@ -80,8 +84,7 @@ const TableHelper = props => {
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
-              }
-
+              }  
               return (
                 <Fragment>
                   {item ? (
