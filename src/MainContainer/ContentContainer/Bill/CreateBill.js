@@ -13,7 +13,7 @@ import { CREATE_BILL } from '../../../utils/Query/BillQuery'
 
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField, InputLabel } from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
 import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 
 const styles = theme => ({
