@@ -61,6 +61,11 @@ const Balance = () => {
     calculateTotalLiability()
   }, [calculateTotalAssets, assets, calculateTotalLiability, liabilities])
 
+
+  const filterBalanceSheets = () =>{
+
+    
+  }
   return (
     <Fragment>
       <Typography variant="h5" component="h3"> 
@@ -82,7 +87,7 @@ const Balance = () => {
         {Language[state.locals]['total']} : {liabilities}
       </Typography>
 
-      <GetBalanceSheets date='2018-01-1'/>
+      <GetBalanceSheets date='2019-01-01'/>
     </Fragment>
   )
 }

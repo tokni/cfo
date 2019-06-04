@@ -59,7 +59,7 @@ const TableHelper = props => {
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-       console.log("row ", row)
+      //  console.log("row ", row)
        
        delete row['__typename'] // delete __typename properties from array
        
@@ -68,7 +68,7 @@ const TableHelper = props => {
             {Object.values(row).map((item, rowIndex) => {
               //  mape the data values
               if (typeof item === 'object') {
-                // if the row
+                
                 if (item !== null) {
                   item = item['name']
                 }

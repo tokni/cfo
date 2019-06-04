@@ -5,6 +5,7 @@ import SnackBar from '../SnackBar/SnackBar'
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_BALANCE_SHEETS } from '../../../utils/Query/BalanceSheetQuery'
 import TableHelper from '../../../Helpers/TableHelper'
+import { Typography } from '@material-ui/core';
 
 const GetBalanceSheets = props => {
   const [state] = useContext(Context)
@@ -30,28 +31,20 @@ const GetBalanceSheets = props => {
     )
   }
 
-
-  const getSheetRows = () =>{
-    
-    console.log("data ", data.Balance_sheet)
+  const getSheetRows = () => {
     return data.Balance_sheet.map((row, rowIndex) => {
-        Object.values(row).map((item, index) => { //  mape the data values
-           console.log("item ", item)   
-              
-           if(typeof item === 'object'){
-                return array
-           }
-           return ["empty"]
-           
-          })
+      return (
+        <Fragment>
+            <Typography component="h5" align="left">{row.date}</Typography>
+          <TableHelper array={row.Balance_sheet_rows} />
+        </Fragment>
+      )
     })
   }
   return (
-   <Fragment>
-    
-       {data ? data.Balance_sheet ?  getSheetRows() ? <TableHelper array={getSheetRows()}/> : null : null : null}
+    <Fragment>
+      {data ? getSheetRows() : console.log('empty')}
 
-    
       {state.company === null ? (
         <SnackBar message={'could not load balance sheets'} state={'warning'} />
       ) : null}
