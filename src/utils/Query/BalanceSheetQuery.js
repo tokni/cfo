@@ -7,6 +7,7 @@ subscription getBalanceSheet($company_id: uuid!) {
       Balance_sheet_rows {
         name
         amount
+        debit
       }
     }
   }
