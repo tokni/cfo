@@ -70,7 +70,7 @@ const GetBalanceSheets = props => {
     <Fragment>
         <Modal
           Icon={DateRange}
-          title="showcurrentbalancesheet"
+          title="showpreviousbalancesheets"
           submit={onSubmit}
           close={handleClose}
           tooltipTitle={Language[state.locals].showpreviousbalancesheets}
@@ -78,7 +78,7 @@ const GetBalanceSheets = props => {
           <TextField
             autoFocus
             margin="dense"
-            id="showcurrentbalancesheet"
+            id="showpreviousbalancesheets"
             value={date || ''}
             label={date}
             select
