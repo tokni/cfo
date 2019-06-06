@@ -4,7 +4,7 @@ import Language from '../../../utils/language'
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_BALANCE_SHEETS } from '../../../utils/Query/BalanceSheetQuery'
 import TableHelper from '../../../Helpers/TableHelper'
-import { Typography, TextField } from '@material-ui/core'
+import { Typography, TextField  } from '@material-ui/core'
 import Modal from '../../../Helpers/Modal'
 import { DateRange } from '../../../Helpers/Constants'
 
@@ -38,20 +38,24 @@ const GetBalanceSheets = props => {
   const getSheetRows = () => {
     return data.Balance_sheet.map((item, index) => {
       if (item.date === date) {
-        console.log("assets ", item)
+        console.log('assets ', item)
         return (
           <Fragment>
-            <TableHelper
-              array={item.Balance_sheet_debit_accounts}
-            />
-            <Typography component="h5" align="left">
+            <Typography variant="h5" component="h3">
+              {Language[state.locals]['assets']}
+            </Typography>
+
+            <TableHelper array={item.Balance_sheet_debit_accounts} />
+            <Typography component="h5" align="center">
               Total Assets: {item.total_debit}
             </Typography>
 
-            <TableHelper
-              array={item.Balance_sheet_credit_accounts}
-            />
-            <Typography component="h5" align="left">
+            <Typography variant="h5" component="h3">
+              {Language[state.locals]['liabilities']}
+            </Typography>
+            <TableHelper array={item.Balance_sheet_credit_accounts} />
+
+            <Typography component="h5" align="center">
               Total liabilities: {item.total_credit}
             </Typography>
           </Fragment>
@@ -64,47 +68,48 @@ const GetBalanceSheets = props => {
 
   return (
     <Fragment>
-      <Modal
-        Icon={DateRange}
-        title="showcurrentbalancesheet"
-        submit={onSubmit}
-        close={handleClose}
-      >
-        <TextField
-          autoFocus
-          margin="dense"
-          id="showcurrentbalancesheet"
-          value={date || ''}
-          label={date}
-          select
-          fullWidth
-          onChange={e => {
-            setDate(e.target.value)
-          }}
+        <Modal
+          Icon={DateRange}
+          title="showcurrentbalancesheet"
+          submit={onSubmit}
+          close={handleClose}
+          tooltipTitle={Language[state.locals].showpreviousbalancesheets}
         >
-          {data ? (
-            data.Balance_sheet ? (
-              data.Balance_sheet.map((item, index) => {
-                return (
-                  <option key={index} value={item.date}>
-                    {item.date}
-                  </option>
-                )
-              })
+          <TextField
+            autoFocus
+            margin="dense"
+            id="showcurrentbalancesheet"
+            value={date || ''}
+            label={date}
+            select
+            fullWidth
+            onChange={e => {
+              setDate(e.target.value)
+            }}
+          >
+            {data ? (
+              data.Balance_sheet ? (
+                data.Balance_sheet.map((item, index) => {
+                  return (
+                    <option key={index} value={item.date}>
+                      {item.date}
+                    </option>
+                  )
+                })
+              ) : (
+                <option value={null}>
+                  {Language[state.locals].choosebalance}
+                </option>
+              )
             ) : (
               <option value={null}>
+                {' '}
                 {Language[state.locals].choosebalance}
               </option>
-            )
-          ) : (
-            <option value={null}>
-              {' '}
-              {Language[state.locals].choosebalance}
-            </option>
-          )}
-          <option value={null}>{Language[state.locals].clear}</option>
-        </TextField>
-      </Modal>
+            )}
+            <option value={null}>{Language[state.locals].clear}</option>
+          </TextField>
+        </Modal>
 
       {data
         ? data.Balance_sheet
