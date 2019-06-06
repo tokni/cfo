@@ -57,9 +57,11 @@ const TableHelper = props => {
   }
   // render the data for every table
   const renderTableData = () => {
+    console.log("array ", props.array)
+
     if (props.array !== undefined || props.array !== null) {
+     
       return props.array.map((row, index) => {
-      //  console.log("row ", row)
        
        delete row['__typename'] // delete __typename properties from array
        

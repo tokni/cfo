@@ -13,7 +13,7 @@ const GetBalanceSheets = props => {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState(null)
 
-  const { data} = useSubscription(GET_BALANCE_SHEETS, {
+  const { data } = useSubscription(GET_BALANCE_SHEETS, {
     variables: {
       company_id: state.company ? state.company.id : null,
     },
@@ -36,23 +36,32 @@ const GetBalanceSheets = props => {
   }
 
   const getSheetRows = () => {
-    return data.Balance_sheet.map((row, rowIndex) => {
-      
-      if (row.date === date) {
-        console.log("id ", row.id)
+    return data.Balance_sheet.map((item, index) => {
+      if (item.date === date) {
+        console.log("assets ", item)
         return (
           <Fragment>
+            <TableHelper
+              array={item.Balance_sheet_debit_accounts}
+            />
             <Typography component="h5" align="left">
-              {row.date}
+              Total Assets: {item.total_debit}
             </Typography>
-            <TableHelper key={rowIndex} array={row.Balance_sheet_rows} />
+
+            <TableHelper
+              array={item.Balance_sheet_credit_accounts}
+            />
+            <Typography component="h5" align="left">
+              Total liabilities: {item.total_credit}
+            </Typography>
           </Fragment>
         )
-      }else{
+      } else {
         return null
       }
     })
   }
+
   return (
     <Fragment>
       <Modal
@@ -65,7 +74,7 @@ const GetBalanceSheets = props => {
           autoFocus
           margin="dense"
           id="showcurrentbalancesheet"
-          value={date}
+          value={date || ''}
           label={date}
           select
           fullWidth
@@ -83,10 +92,15 @@ const GetBalanceSheets = props => {
                 )
               })
             ) : (
-              <option value={null}>{Language[state.locals].choosebalance}</option>
+              <option value={null}>
+                {Language[state.locals].choosebalance}
+              </option>
             )
           ) : (
-            <option value={null}> {Language[state.locals].choosebalance}</option>
+            <option value={null}>
+              {' '}
+              {Language[state.locals].choosebalance}
+            </option>
           )}
           <option value={null}>{Language[state.locals].clear}</option>
         </TextField>
