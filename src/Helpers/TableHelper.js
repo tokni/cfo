@@ -65,7 +65,7 @@ const TableHelper = props => {
        
         return (
           <TableRow key={index}>
-            {Object.values(row).map((item, rowIndex) => {
+            {Object.values(row).map((item, itemIndex) => {
               //  mape the data values
               if (typeof item === 'object') {
                 
@@ -73,11 +73,11 @@ const TableHelper = props => {
                   item = item['name']
                 }
               } else if (typeof item === 'boolean') {
-                if (header[rowIndex] === 'paid') {
+                if (header[itemIndex] === 'paid') {
                   item
                     ? (item = Language[state.locals]['yes'])
                     : (item = Language[state.locals]['no'])
-                } else if (header[rowIndex] === 'debit') {
+                } else if (header[itemIndex] === 'debit') {
                   item
                     ? (item = Language[state.locals]['debit'])
                     : (item = Language[state.locals]['credit'])
@@ -86,13 +86,13 @@ const TableHelper = props => {
                 item = item.toLocaleString(state.locales)
               }  
               return (
-                <Fragment>
+                <Fragment key={itemIndex}>
                   {item ? (
                     <TableCell key={item.id}>{item}</TableCell>
                   ) : (
-                    <TableCell key={item.id}>
+                    <TableCell key={itemIndex}>
                       {row.account_numbers
-                        ? row.account_numbers.map((account, index) => {
+                        ? row.account_numbers.map((account, accountNumbersIndex) => {
                             return (
                               account.account_number +
                               (index + 1 === row.account_numbers.length
