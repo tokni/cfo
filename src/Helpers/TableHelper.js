@@ -22,6 +22,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
   },
 })
+
 const TableHelper = props => {
   const header = props // load headers for tables
     ? props.array
@@ -30,19 +31,18 @@ const TableHelper = props => {
         : null
       : null
     : null
-  
-  
+
   const [state] = useContext(Context)
   const { classes } = props
-
 
   // render tableheaders
   const renderTableHeader = () => {
     if (header !== null) {
       return header.map((item, index) => {
         if (item === '__typename') return null // skip __typename colummns
+        
         item = stringFormatter(item) //format the strings so that they comply with Languages
-          // Translate the items according to language preference
+        // Translate the items according to language preference
         return (
           <TableCell key={index}>
             {Language[state.locals][item] || item}
@@ -52,39 +52,44 @@ const TableHelper = props => {
     }
   }
 
-  const stringFormatter = (target) => {
+  const stringFormatter = target => {
     return target.charAt(0).toLowerCase() + target.slice(1) // make first character lowercase for every item
   }
-// render the data for every table
+  // render the data for every table
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-        delete row['__typename'] // delete __typename properties from array
+       delete row['__typename'] // delete __typename properties from array
         return (
-          <TableRow>
-            {Object.values(row).map((item, rowIndex) => { //  mape the data values
-              if (typeof item === 'object') { // if the row
+          <TableRow key={index}>
+            {Object.values(row).map((item, itemIndex) => {
+              //  mape the data values
+              if (typeof item === 'object') {
+                
                 if (item !== null) {
                   item = item['name']
                 }
               } else if (typeof item === 'boolean') {
-                if (header[rowIndex] === 'paid') {
-                  item ? (item = Language[state.locals]['Yes']) : (item = Language[state.locals]['No'])
-                } else if (header[rowIndex] === 'debit') {
-                  item ? (item = Language[state.locals]['Debit']) : (item = Language[state.locals]['Credit'])
+                if (header[itemIndex] === 'paid') {
+                  item
+                    ? (item = Language[state.locals]['yes'])
+                    : (item = Language[state.locals]['no'])
+                } else if (header[itemIndex] === 'debit') {
+                  item
+                    ? (item = Language[state.locals]['debit'])
+                    : (item = Language[state.locals]['credit'])
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
-              }
-
+              }  
               return (
-                <Fragment>
+                <Fragment key={itemIndex}>
                   {item ? (
-                    <TableCell key={index}>{item}</TableCell>
+                    <TableCell key={item.id}>{Language[state.locals][item.toLowerCase()] || item}</TableCell>
                   ) : (
-                    <TableCell key={index}> 
+                    <TableCell key={itemIndex}>
                       {row.account_numbers
-                        ? row.account_numbers.map((account, index) => {
+                        ? row.account_numbers.map((account, accountNumbersIndex) => {
                             return (
                               account.account_number +
                               (index + 1 === row.account_numbers.length
@@ -100,7 +105,7 @@ const TableHelper = props => {
             })}
             {/* Only add update button if it was passed */}
             {props.accountNumbers ? getAccountNumbers(row.id) : null}
-            {props.payBill ? payBillsRender(row) : null}
+            {props.payBill ? row.paid === false ? payBillsRender(row) : null : null}
             {props.update ? renderUpdate(row) : null}
             {props.delete ? renderDelete(row.id) : null}
           </TableRow>
@@ -109,20 +114,15 @@ const TableHelper = props => {
     }
   }
 
-
   const payBillsRender = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.payBill, {...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.payBill, { ...item })}</TableCell>
     )
   }
 
   const getAccountNumbers = id => {
     return (
-      <TableCell key={id}>
-        {React.cloneElement(props.accountNumbers, { id })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.accountNumbers, { id })}</TableCell>
     )
   }
 
@@ -150,9 +150,7 @@ const TableHelper = props => {
   }
   const renderUpdate = item => {
     return (
-      <TableCell key={item.id}>
-        {React.cloneElement(props.update, { ...item })}
-      </TableCell>
+      <TableCell>{React.cloneElement(props.update, { ...item })}</TableCell>
     )
   }
   return (

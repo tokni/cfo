@@ -1,3 +1,4 @@
+import Attachment from '../../../Helpers/Attachment'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import Modal from '../../../Helpers/Modal'
@@ -9,9 +10,11 @@ import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
 import { Add } from '../../../Helpers/Constants'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField, InputLabel } from '@material-ui/core'
+import { withStyles, TextField } from '@material-ui/core'
+import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 
 const styles = theme => ({
   fab: {
@@ -37,9 +40,10 @@ const CreateBill = props => {
   const [payment, setPayment] = useState(0)
   const [date_bill_received, setDate_bill_received] = useState(null)
   const [payment_due, setPayment_due] = useState(null)
-  const [attachment_id, setAttachment_id] = useState('')
+  const [file, setFile] = useState(null)
 
   const createBilltMutation = useMutation(CREATE_BILL)
+  const postAttachment = useMutation(POST_ATTACHMENT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -52,15 +56,14 @@ const CreateBill = props => {
     setPayment(0)
     setDate_bill_received(null)
     setPayment_due(null)
-    setAttachment_id('')
-
+    setFile(null)
     if (state.company) {
       setOpen(!open)
     }
     setMsg(false)
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     if (
       state.vendor_id !== '' &&
       state.expense_id !== '' &&
@@ -68,22 +71,39 @@ const CreateBill = props => {
       tax_id !== '' &&
       payment !== 0 &&
       date_bill_received !== null &&
-      payment_due !== null &&
-      attachment_id !== ''
+      payment_due !== null
     ) {
-      createBilltMutation({
-        variables: {
-          vendor_id,
-          expense_id,
-          description,
-          tax_id,
-          payment,
-          date_bill_received,
-          payment_due,
-          attachment_id,
-          company_id: state.company.id,
-        },
+      Object.defineProperty(file, 'name', {
+        writable: true,
+        value: Date.now() + '_' + file.name,
       })
+      const s3 = new Attachment({ type: 'bill' }).upload(file)
+      const name = file.name
+      let attachmentId
+      s3.then(async path => {
+        attachmentId = await postAttachment({
+          variables: {
+            company_id: state.company.id,
+            name: name,
+            path: path,
+          },
+        })
+      }).then(() => {
+        createBilltMutation({
+          variables: {
+            vendor_id,
+            expense_id,
+            description,
+            tax_id,
+            payment,
+            date_bill_received,
+            payment_due,
+            attachment_id: attachmentId.data.insert_Attachment.returning[0].id,
+            company_id: state.company.id,
+          },
+        })
+      })
+     
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -117,21 +137,17 @@ const CreateBill = props => {
             setVendor_id(e.target.value)
           }}
         >
-          {vendors ? (
-            vendors.map((item, index) => {
-              return (
-                <option key={index} value={item.id}>
-                  {item.name}
-                </option>
-              )
-            })
-          ) : (
-            <option>no vendors created</option>
-          )}
+          {vendors
+            ? vendors.map((item, index) => {
+                return index <= vendors.length ? (
+                  <option key={index} value={item.id}>
+                    {item.name}
+                  </option>
+                ) : null
+              })
+            : null}
         </TextField>
-
         <TextField
-          autoFocus
           select
           margin="dense"
           value={expense_id || ''}
@@ -151,15 +167,15 @@ const CreateBill = props => {
               )
             })
           ) : (
-            <option>empty</option>
+            <option value="">empty</option>
           )}
         </TextField>
 
         <TextField
-          autoFocus
           margin="dense"
           id="description"
           label={Language[state.locals].description}
+          value={description || ''}
           type="text"
           fullWidth
           onChange={e => {
@@ -168,11 +184,10 @@ const CreateBill = props => {
         />
 
         <TextField
-          focus
           margin="dense"
           id="payment"
           label={Language[state.locals].payment}
-          value={payment}
+          value={payment || ''}
           type="number"
           fullWidth
           onChange={e => {
@@ -180,7 +195,6 @@ const CreateBill = props => {
           }}
         />
         <TextField
-          autoFocus
           select
           margin="dense"
           id="tax"
@@ -200,45 +214,35 @@ const CreateBill = props => {
               )
             })
           ) : (
-            <option>No tax created</option>
+            <option value={''}>No tax created</option>
           )}
         </TextField>
 
-        <InputLabel>{Language[state.locals].billreceived}</InputLabel>
         <TextField
-          autoFocus
           margin="dense"
           id="tax"
-          value={date_bill_received}
+          value={date_bill_received || ''}
           type="date"
           fullWidth
           onChange={e => {
             setDate_bill_received(e.target.value)
           }}
         />
-        <InputLabel>{Language[state.locals].paymentdue}</InputLabel>
         <TextField
-          autoFocus
           margin="dense"
           id="payment_due"
           label={Language[state.locals].payment_due}
-          value={payment_due}
+          value={payment_due || ''}
           type="date"
           fullWidth
           onChange={e => {
             setPayment_due(e.target.value)
           }}
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          id="attachment"
-          label={Language[state.locals].attachment}
-          value={attachment_id}
-          type="text"
-          fullWidth
+        <input
+          type="file"
           onChange={e => {
-            setAttachment_id(e.target.value)
+            setFile(e.target.files[0])
           }}
         />
       </Modal>

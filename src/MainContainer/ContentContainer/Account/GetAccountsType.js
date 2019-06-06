@@ -1,19 +1,18 @@
 import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
-import AccountNumbers from './AccountNumber'
 import SnackBar from '../SnackBar/SnackBar'
 import { useSubscription } from 'react-apollo-hooks'
-import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
+import { GET_ACCOUNTS_BY_TYPE } from '../../../utils/Query/AccountQuery'
 import TableHelper from '../../../Helpers/TableHelper'
 
-const GetAccounts = () => {
+const GetAccountsType = props => {
   const [state] = useContext(Context)
-  const accountNumbers = <AccountNumbers />
-  const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
+  const { data, error, loading } = useSubscription(GET_ACCOUNTS_BY_TYPE, {
     suspend: false,
     variables: {
-      company_id: state.company ? state.company.id : null,
+        company_id: state.company ? state.company.id : null,
+        debit: props.debit
     },
   })
 
@@ -33,7 +32,7 @@ const GetAccounts = () => {
   return (
     <Fragment>
       {data.Account ? (
-        <TableHelper array={data.Account} accountNumbers={accountNumbers} />
+        <TableHelper array={data.Account}/>
       ) : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
@@ -42,4 +41,4 @@ const GetAccounts = () => {
   )
 }
 
-export default GetAccounts
+export default GetAccountsType

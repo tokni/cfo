@@ -25,6 +25,21 @@ const GET_SUBSCRIP_ACCOUNT = gql`
   }
 `
 
+const PUT_ACCOUNT_BALANCE = gql`
+  mutation putBalanceAccount(
+    $id: uuid
+    $company_id: uuid!
+    $balance: numeric!
+  ) {
+    update_Account(
+      where: { id: { _eq: $id }, company_id: { _eq: $company_id } }
+      _set: { balance: $balance }
+    ) {
+      affected_rows
+    }
+  }
+`
+
 const PUT_ACCOUNT_NUMBERS = gql`
   mutation putAccountNumber($id: uuid!, $account_numbers: json!) {
     update_Account(
@@ -63,9 +78,22 @@ const POST_ACCOUNT = gql`
     }
   }
 `
+
+const GET_ACCOUNTS_BY_TYPE = gql`
+  subscription getDebitAccounts($company_id: uuid!, $debit: Boolean!) {
+    Account(
+      where: { company_id: { _eq: $company_id }, debit: { _eq: $debit } }
+    ) {
+      name
+      balance
+    }
+  }
+`
 export {
   GET_SUBSCRIP_ACCOUNTS,
   GET_SUBSCRIP_ACCOUNT,
   POST_ACCOUNT,
   PUT_ACCOUNT_NUMBERS,
+  PUT_ACCOUNT_BALANCE,
+  GET_ACCOUNTS_BY_TYPE
 }

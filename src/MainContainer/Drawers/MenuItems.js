@@ -16,6 +16,7 @@ const MenuItems = () => {
     menu.push(Language['en'].invoice)
     menu.push(Language['en'].bills)
     menu.push(Language['en'].transactions)
+    menu.push(Language['en'].tax)
     menu.push(Language['en'].accounts)
     menu.push(Language['en'].companies)
     menu.push(Language['en'].customers)
@@ -23,6 +24,8 @@ const MenuItems = () => {
     menu.push(Language['en'].daybook)
     menu.push(Language['en'].vendor)
     menu.push(Language['en'].expense)
+    menu.push(Language['en'].balancesheet)
+
   }
   return menu
 }
