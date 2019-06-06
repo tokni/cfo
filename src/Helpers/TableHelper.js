@@ -59,10 +59,7 @@ const TableHelper = props => {
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-      //  console.log("row ", row)
-       
        delete row['__typename'] // delete __typename properties from array
-       
         return (
           <TableRow key={index}>
             {Object.values(row).map((item, itemIndex) => {
@@ -88,7 +85,7 @@ const TableHelper = props => {
               return (
                 <Fragment key={itemIndex}>
                   {item ? (
-                    <TableCell key={item.id}>{item}</TableCell>
+                    <TableCell key={item.id}>{Language[state.locals][item.toLowerCase()] || item}</TableCell>
                   ) : (
                     <TableCell key={itemIndex}>
                       {row.account_numbers

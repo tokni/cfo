@@ -118,9 +118,10 @@ const Balance = () => {
     <Fragment>
       <Modal
         Icon={ArrowDropDown}
-        title="showcurrentbalancesheet"
+        title={Language[state.locals].showcurrentbalancesheet}
         submit={onSubmit}
         close={handleClose}
+        tooltipTitle={Language[state.locals].showcurrentbalancesheet}
       >
         <TextField
           autoFocus
