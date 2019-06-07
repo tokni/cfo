@@ -18,7 +18,7 @@ import { ArrowDropDown } from '../../../Helpers/Constants'
 import SnackBar from '../SnackBar/SnackBar'
 import CreateBalanceSheets from './CreateBalanceSheet';
 
-const Balance = () => {
+const BalanceSheet = () => {
   const [open, setOpen] = useState(false)
   const [assets, setAssets] = useState(null)
   const latestAssets = useRef(assets)
@@ -155,4 +155,4 @@ const Balance = () => {
   )
 }
 
-export default Balance
+export default BalanceSheet
