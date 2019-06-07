@@ -17,6 +17,15 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
   }
 `
 
+const GET_ACCOUNTS_NAME_BALANCE = gql`
+subscription getAccountNamesBalances($company_id: uuid!, $debit: Boolean) {
+  Account(where: {company_id: {_eq: $company_id}, debit: {_eq: $debit}}) {
+    name
+    balance
+  }
+}
+`
+
 const GET_SUBSCRIP_ACCOUNT = gql`
   subscription getAccount($company_id: uuid!, $id: uuid!) {
     Account(where: { company_id: { _eq: $company_id }, id: { _eq: $id } }) {
@@ -92,6 +101,7 @@ const GET_ACCOUNTS_BY_TYPE = gql`
 export {
   GET_SUBSCRIP_ACCOUNTS,
   GET_SUBSCRIP_ACCOUNT,
+  GET_ACCOUNTS_NAME_BALANCE,
   POST_ACCOUNT,
   PUT_ACCOUNT_NUMBERS,
   PUT_ACCOUNT_BALANCE,
