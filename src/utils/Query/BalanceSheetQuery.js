@@ -8,11 +8,11 @@ subscription getBalanceSheet($company_id: uuid!) {
     total_credit
     Balance_sheet_credit_accounts {
       name
-      amount
+      balance
     }
     Balance_sheet_debit_accounts{
       name
-      amount
+      balance
     }
   }
 }

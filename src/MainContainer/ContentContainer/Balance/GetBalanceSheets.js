@@ -36,7 +36,7 @@ const GetBalanceSheets = props => {
   }
 
   const getSheetRows = () => {
-    return data.Balance_sheet.map((item, index) => {
+    return data.Balance_sheet.map((item, z) => {
       if (item.date === date) {
         console.log('assets ', item)
         return (
