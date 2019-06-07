@@ -16,7 +16,7 @@ const CreateBalanceSheets = props => {
   const [open, setOpen] = useState(false)
 
   const [date, setDate] = useState(null)
-  const postBalanceSheetDebitMutation = useMutation(POST_BALANCE_SHEET)
+  const postBalanceSheetMutation = useMutation(POST_BALANCE_SHEET)
   const postBalanceDebitAccountMutation = useMutation(
     POST_BALANCE_SHEET_DEBIT_ACCOUNT
   )
