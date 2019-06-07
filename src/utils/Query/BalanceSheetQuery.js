@@ -23,6 +23,9 @@ subscription getBalanceSheet($company_id: uuid!) {
   mutation postBalanceSheet($company_id: uuid!, $date: date!, $total_credit: numeric!, $total_debit: numeric!) {
     insert_Balance_sheet(objects: {company_id: $company_id, date: $date, total_credit: $total_credit, total_debit: $total_debit}) {
       affected_rows
+      returning {
+        id
+      }
     }
   }  
   `

@@ -86,7 +86,7 @@ const Logic = props => {
           customer_id: customer.id,
           company_id: state.company.id,
           invoice_number: invoiceNumber,
-          attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
+          attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399', //hardcode
           description: description,
           payment_due_date: dueDate,
         },

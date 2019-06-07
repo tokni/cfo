@@ -26,21 +26,20 @@ const CreateBalanceSheets = props => {
 
   const handleClose = props => {
     if (date !== null) {
-     
       setOpen(!open)
     }
   }
 
-  const formatAccountIntoSheetRows = debit => {
+  const formatAccountIntoSheetRows = (debit, result) => {
     const container = []
-
     props.accounts.forEach(element => {
       let object = {}
       if (debit) {
         if (element.debit) {
+        
           object.name = element.name
           object.balance = element.balance
-          object.balance_sheet_id = '44504370-1579-4065-9a48-f049fd5b7e45'
+          object.balance_sheet_id = result.data.insert_Balance_sheet.returning[0].id
 
           container.push(object)
         }
@@ -48,19 +47,17 @@ const CreateBalanceSheets = props => {
         if (!element.debit) {
           object.name = element.name
           object.balance = element.balance
-          object.balance_sheet_id = '44504370-1579-4065-9a48-f049fd5b7e45'
-
+          object.balance_sheet_id = result.data.insert_Balance_sheet.returning[0].id
           container.push(object)
         }
       }
     })
     return container
   }
-  const onSubmit = e => {
+  const onSubmit = async e => {
     if (date !== null) {
       setTimeout(() => {}, 1000)
-      // console.log('data ', props.accounts)
-      postBalanceSheetDebitMutation({
+      const result = await postBalanceSheetDebitMutation({
         variables: {
           company_id: state.company ? state.company.id : null,
           total_debit: props.assets,
@@ -71,13 +68,13 @@ const CreateBalanceSheets = props => {
 
       postBalanceDebitAccountMutation({
         variables: {
-          objects: formatAccountIntoSheetRows(true),
+          objects: formatAccountIntoSheetRows(true, result),
         },
       })
 
       postBalanceCreditAccountMutation({
         variables: {
-          objects: formatAccountIntoSheetRows(false),
+          objects: formatAccountIntoSheetRows(false, result),
         },
       })
     } else {
