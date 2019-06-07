@@ -57,7 +57,7 @@ const CreateBalanceSheets = props => {
   const onSubmit = async e => {
     if (date !== null) {
       setTimeout(() => {}, 1000)
-      const result = await postBalanceSheetDebitMutation({
+      const result = await postBalanceSheetMutation({
         variables: {
           company_id: state.company ? state.company.id : null,
           total_debit: props.assets,
