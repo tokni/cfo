@@ -2,10 +2,11 @@
 
 context('End testing accounts CRUD...', () => {
   beforeEach(() => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
    describe('./Accounts', () => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    // localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
+    
     it('Visits CFO on localhost', () => {
       cy.visit('http://localhost:3000/')
       cy.wait(500)
@@ -19,13 +20,13 @@ context('End testing accounts CRUD...', () => {
     it('open and cancel modal', () => {
       cy.get('[name="addaccount"]').click()
       cy.get('[name="cancel"]').click()
+      cy.wait(100)
     })
 
     it('open and cancel modal', () => {
       cy.get('[name="addaccount-Income"]')
-        .children()
         .click()
-      cy.get('[name="cancel"]').click()
+      cy.get('[name="cancel"]').click( { multiple: true })
     })
 
     it('open and submit modal', () => {

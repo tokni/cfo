@@ -2,7 +2,8 @@
 
 context('Deleting ...', () => {
   beforeEach(() => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
+    
   })
   
   describe('./Invoice', () => {
@@ -12,7 +13,7 @@ context('Deleting ...', () => {
     })
 
     it('go to invoice', () => {
-      cy.get('[name="invoice"]').click()
+      cy.get('[name="invoice"]').click('center')
     })
 
     it('delete invoice', () => {
@@ -34,7 +35,7 @@ context('Deleting ...', () => {
     })
 
     it('go to bills', () => {
-      cy.get('[name="bills"]').click()
+      cy.get('[name="bills"]').click('center')
     })
 
     it('delete bill', () => {
@@ -56,7 +57,7 @@ context('Deleting ...', () => {
     })
 
     it('go to companies', () => {
-      cy.get('[name="customers"]').click()
+      cy.get('[name="customers"]').click('center')
     })
 
     it('delete customer', () => {
@@ -77,13 +78,14 @@ context('Deleting ...', () => {
     })
 
     it('go to tax', () => {
-      cy.get('[name="tax"]').click()
+      cy.get('[name="tax"]').click('center')
     })
 
     it('delete tax', () => {
-      cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click()
-      cy.wait(700)
-      cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click()
+      cy.get('[name="delete"]').click('center', { multiple: true } )
+      // cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click('center')
+      // cy.wait(700)
+      // cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click('center')
     })
 
     it('tax deleted successfully', () => {
@@ -100,11 +102,11 @@ context('Deleting ...', () => {
     })
 
     it('go to products', () => {
-      cy.get('[name="products"]').click()
+      cy.get('[name="products"]').click('center')
     })
 
     it('delete product', () => {
-      cy.get('[name="delete"]').click()
+      cy.get('[name="delete"]').children().click('left')
     })
 
     it('product deleted successfully', () => {
@@ -121,10 +123,10 @@ context('Deleting ...', () => {
     })
 
     it('go to vendor', () => {
-      cy.get('[name="vendor"]').click()
+      cy.get('[name="vendor"]').click('center')
     })
 
-    it('delete vendoor', () => {
+    it('delete vendor', () => {
       cy.get('[name="delete"]').click()
       cy.wait(2000)
     })
@@ -135,6 +137,7 @@ context('Deleting ...', () => {
         .should('have.length', 0)
     })
 
+  })
     describe('./Expense', () => {
       it('Visits CFO on localhost', () => {
         cy.visit('http://localhost:3000/')
@@ -142,7 +145,7 @@ context('Deleting ...', () => {
       })
 
       it('go to expense', () => {
-        cy.get('[name="expense"]').click()
+        cy.get('[name="expense"]').click('center')
       })
 
       it('delete expense', () => {
@@ -155,6 +158,5 @@ context('Deleting ...', () => {
           .children()
           .should('have.length', 0)
       })
-    })
   })
 })

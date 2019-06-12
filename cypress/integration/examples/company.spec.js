@@ -2,31 +2,31 @@
 
 context('End testing company CRUD...', () => {
   beforeEach(() => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Companies', () => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
     it('Visits CFO on localhost', () => {
       cy.visit('http://localhost:3000/')
       cy.wait(200)
     })
 
     it('go to companies', () => {
-      cy.get('[name="companies"]').click()
+      cy.get('[name="companies"]').click('center')
     })
 
     it('open and cancel modal', () => {
-      cy.get('[name="addcompany"]').click()
-      cy.get('[name="cancel"]').click()
+      cy.get('[name="addcompany"]').click('center')
+      cy.get('[name="cancel"]').click('center')
     })
 
     it('open and submit modal', () => {
-      cy.get('[name="addcompany"]').click()
+      cy.get('[name="addcompany"]').click('center')
       cy.get('[id="name"]').type('Company 1')
-      cy.get('[name="submit"]').click()
+      cy.get('[name="submit"]').click('center')
     })
 
-    it('find created customer', () => {
+    it('find created company', () => {
       cy.contains('Company 1')
     })
   })

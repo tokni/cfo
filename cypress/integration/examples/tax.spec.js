@@ -2,7 +2,7 @@
 
 context('End testing tax ...', () => {
   beforeEach(() => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
+    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Tax', () => {
     localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
@@ -36,11 +36,11 @@ context('End testing tax ...', () => {
     })
 
     it('find created tax at rate 25%', () => {
-      cy.contains('0.25')
+      cy.contains('0,25')
     })
 
     it('find created tax at rate 51%', () => {
-      cy.contains('0.51')
+      cy.contains('0,51')
     })
 
     //   it('update vendor', () => {
