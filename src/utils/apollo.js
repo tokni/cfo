@@ -5,12 +5,12 @@ import { split } from 'apollo-link'
 import { ApolloClient } from 'apollo-boost'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { fetch } from 'isomorphic-fetch'
+
 import ws from 'ws'
 
-const token = 'goo|johndoe2019maletestbunny'
-
-if (process.env.NODE_ENV === 'tets') {
-  localStorage.setItem('sub', token)
+if (process.env.NODE_ENV === 'test') {
+  localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
 }
 
 const http = new HttpLink({

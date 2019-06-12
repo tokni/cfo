@@ -88,7 +88,8 @@ const AccountNumber = props => {
         <TextField
           required
           margin="dense"
-          id="name"
+          id="accountnumber"
+          name="accountnumber"
           label={Language[state.locals].accountnumber}
           type="text"
           placeholder="xxxx-xxx.xxx.x"

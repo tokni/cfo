@@ -69,6 +69,7 @@ const CreateAccount = props => {
         Icon={Add}
         title="addaccount"
         text="fillformtoaddaccount"
+        name="addaccount"
         submit={onSubmit}
         close={handleClose}
       >
@@ -76,6 +77,7 @@ const CreateAccount = props => {
           autoFocus
           margin="dense"
           id="name"
+          name="name"
           label={Language[state.locals].name}
           type="text"
           fullWidth

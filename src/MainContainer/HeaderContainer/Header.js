@@ -21,13 +21,12 @@ const styles = {
 
 const Header = props => {
   const auth = props.auth
- 
+
   const [state] = useContext(Context)
 
   const login = () => {
-     auth.login()
-     auth.handleAuthentication()
-     
+    auth.login()
+    auth.handleAuthentication()
   }
 
   const logout = () => {
@@ -44,11 +43,11 @@ const Header = props => {
           </Typography>
           <SelectCompany />
           {localStorage.getItem('sub') ? (
-            <Button onClick={logout} color="inherit">
+            <Button name="login" onClick={logout} color="inherit">
               {Language[state.locals].logout}
             </Button>
           ) : (
-            <Button onClick={login} color="inherit">
+            <Button name="login" onClick={login} color="inherit">
               {Language[state.locals].login}
             </Button>
           )}

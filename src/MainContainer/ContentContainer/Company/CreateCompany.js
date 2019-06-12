@@ -51,6 +51,7 @@ const CreateCompany = props => {
         Icon={Add}
         title="addcompany"
         text="fill"
+        name="addcompany"
         submit={onSubmit}
         close={handleClose}
       >

@@ -49,12 +49,18 @@ const Home = () => {
 
   return (
     <Fragment>
-      <button onClick={handleClicker.bind(this, 'en')}>EN</button>
-      <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
+      <button name="en" onClick={handleClicker.bind(this, 'en')}>
+        EN
+      </button>
+      <button name="fo" onClick={handleClicker.bind(this, 'fo')}>
+        FO
+      </button>
 
       <input type="file" onChange={handleFile} />
 
-      <button onClick={handleClicker.bind(this, 'de')}>DE</button>
+      <button name="de" onClick={handleClicker.bind(this, 'de')}>
+        DE
+      </button>
       <Grid item container spacing={8} lg={12}>
         <Grid
           item

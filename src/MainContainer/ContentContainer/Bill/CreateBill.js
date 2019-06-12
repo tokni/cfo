@@ -73,22 +73,46 @@ const CreateBill = props => {
       date_bill_received !== null &&
       payment_due !== null
     ) {
-      Object.defineProperty(file, 'name', {
-        writable: true,
-        value: Date.now() + '_' + file.name,
-      })
-      const s3 = new Attachment({ type: 'bill' }).upload(file)
-      const name = file.name
-      let attachmentId
-      s3.then(async path => {
-        attachmentId = await postAttachment({
-          variables: {
-            company_id: state.company.id,
-            name: name,
-            path: path,
-          },
+      if (
+        process.env.NODE_ENV !== 'test' &&
+        process.env.NODE_ENV !== 'development'
+      ) {
+        console.log('env is: ', process.env.NODE_ENV)
+        Object.defineProperty(file, 'name', {
+          writable: true,
+          value: Date.now() + '_' + file.name,
         })
-      }).then(() => {
+        const s3 = new Attachment({ type: 'bill' }).upload(file)
+        const name = file.name
+        let attachmentId
+        s3.then(async path => {
+          attachmentId = await postAttachment({
+            variables: {
+              company_id: state.company.id,
+              name: name,
+              path: path,
+            },
+          })
+        }).then(() => {
+          createBilltMutation({
+            variables: {
+              vendor_id,
+              expense_id,
+              description,
+              tax_id,
+              payment,
+              date_bill_received,
+              payment_due,
+              attachment_id:
+                attachmentId.data.insert_Attachment.returning[0].id,
+              company_id: state.company.id,
+            },
+          })
+        })
+      } else if (
+        process.env.NODE_ENV === 'test' ||
+        process.env.NODE_ENV === 'development'
+      ) {
         createBilltMutation({
           variables: {
             vendor_id,
@@ -98,12 +122,12 @@ const CreateBill = props => {
             payment,
             date_bill_received,
             payment_due,
-            attachment_id: attachmentId.data.insert_Attachment.returning[0].id,
+            attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
             company_id: state.company.id,
           },
         })
-      })
-     
+      }
+
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -123,6 +147,7 @@ const CreateBill = props => {
         Icon={Add}
         title="addbill"
         text="fillformtoaddbill"
+        name="addbill"
         submit={onSubmit}
         close={handleClose}
       >

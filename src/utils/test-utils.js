@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { client } from './apollo'
-import { ApolloClient } from 'apollo-boost'
-import { render } from 'react-testing-library'
+import { ApolloProvider } from 'react-apollo-hooks'
+import { render, cleanup } from 'react-testing-library'
 import ContextStore from '../Context/ContextStore'
 import { BrowserRouter } from 'react-router-dom'
 
 // shall be the same element order as in index.js
 const AllTheProviders = ({ children }) => (
-  <ApolloClient client={client}>
-    <ContextStore>
+  <ContextStore>
+    <ApolloProvider client={client}>
       <BrowserRouter>{children}</BrowserRouter>
-    </ContextStore>
-  </ApolloClient>
+    </ApolloProvider>
+  </ContextStore>
 )
 
 const customRender = (ui, options) =>
@@ -22,7 +22,7 @@ const customRender = (ui, options) =>
 export * from 'react-testing-library'
 
 // override render method
-export { customRender as render }
+export { customRender as render, cleanup }
 
 AllTheProviders.propTypes = {
   children: PropTypes.any,

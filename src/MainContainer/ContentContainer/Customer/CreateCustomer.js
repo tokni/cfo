@@ -62,6 +62,7 @@ const CreateCustomer = props => {
         Icon={Add}
         title="addcustomer"
         text="fill"
+        name="addcustomer"
         submit={onSubmit}
         close={handleClose}
       >
