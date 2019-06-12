@@ -16,6 +16,7 @@ import GetAccountsType from '../Account/GetAccountsType'
 import Modal from '../../../Helpers/Modal'
 import { ArrowDropDown } from '../../../Helpers/Constants'
 import SnackBar from '../SnackBar/SnackBar'
+import CreateBalanceSheets from './CreateBalanceSheet';
 
 const Balance = () => {
   const [open, setOpen] = useState(false)
@@ -116,6 +117,9 @@ const Balance = () => {
   }
   return (
     <Fragment>
+     
+    { data ? data.Account ? <CreateBalanceSheets liabilities={liabilities} assets={assets} accounts={data.Account}/> : null : null}
+     
       <Modal
         Icon={ArrowDropDown}
         title={Language[state.locals].showcurrentbalancesheet}
