@@ -25,10 +25,6 @@ describe('Store User tests', () => {
   //     render(<StoreUser />)
   //   })
   // }, 20000)
-  
-    
-  })
 
-
-
+  // })
 })
