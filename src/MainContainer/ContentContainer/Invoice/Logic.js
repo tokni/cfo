@@ -73,7 +73,6 @@ const Logic = props => {
     let payment = 0
     
     products.forEach(element => {
-      console.log("element ", element)  
       payment += element.price
     })
     return payment
