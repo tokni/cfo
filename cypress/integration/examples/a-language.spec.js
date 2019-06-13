@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 /// <reference types="Cypress" />
 
 context('Testing Language...', () => {
   beforeEach(() => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
-
   })
   describe('Language', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))

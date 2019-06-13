@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 /// <reference types="Cypress" />
 
 context('End testing customers CRUD...', () => {
   beforeEach(() => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
-   describe('./Customer', () => {
+  describe('./Customer', () => {
     localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
     it('Visits CFO on localhost', () => {
       cy.visit('http://localhost:3000/')

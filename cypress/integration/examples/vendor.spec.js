@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /// <reference types="Cypress" />
 
 context('End testing vendor ...', () => {
