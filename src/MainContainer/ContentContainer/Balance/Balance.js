@@ -11,6 +11,7 @@ const Balance = () => {
       state.company.Transactions.forEach(item => {
         if (type === 'bills') {
           if (item.bill_id !== null) {
+            item.payment = item.payment * -1
             array.push(item)
           }
         } else if (type === 'invoices') {
@@ -31,6 +32,7 @@ const Balance = () => {
     if (state.company && state.company.Bills) {
       state.company.Bills.forEach(element => {
         if (!element.paid) {
+          element.payment = element.payment * -1 
           array.push(element)
         }
       })

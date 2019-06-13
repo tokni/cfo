@@ -161,6 +161,7 @@ const Chart = props => {
     months.push(dec)
 
     if (type === 'invoices') {
+      
       setIncome(months)
     } else {
       setPayment(months)
@@ -168,7 +169,6 @@ const Chart = props => {
   }, [])
 
   useEffect(() => {
-    console.log('invoices ', props.invoices)
     getArray(props.invoices, 'invoices')
     getArray(props.bills, 'bills')
 
