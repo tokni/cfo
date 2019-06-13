@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from 'react'
+import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
 import Chart from '../../../utils/Chart'
 
