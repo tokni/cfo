@@ -91,9 +91,9 @@ const GET_SUBSCRIP_COMPANY = gql`
         id
         invoice_number
         paid
-        payment_due_date
+        payment_due
         time_stampt
-        Orders{
+        Orders {
           quantity
           price
         }
@@ -126,5 +126,9 @@ const POST_COMPANY = gql`
   }
 `
 
-
-export {GET_COMPANIES_NAME_ID_MOTHERID, SET_ACTIVE_COMPANY, GET_SUBSCRIP_COMPANY, POST_COMPANY}
+export {
+  GET_COMPANIES_NAME_ID_MOTHERID,
+  SET_ACTIVE_COMPANY,
+  GET_SUBSCRIP_COMPANY,
+  POST_COMPANY,
+}

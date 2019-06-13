@@ -3,7 +3,6 @@
 context('End testing invoice ...', () => {
   beforeEach(() => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
-
   })
   describe('./Invoice', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))

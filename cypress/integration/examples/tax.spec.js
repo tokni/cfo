@@ -12,6 +12,7 @@ context('End testing tax ...', () => {
     })
 
     it('go to tax', () => {
+      cy.wait(1000)
       cy.get('[name="tax"]').click()
     })
 
@@ -36,11 +37,11 @@ context('End testing tax ...', () => {
     })
 
     it('find created tax at rate 25%', () => {
-      cy.contains('0,25')
+      cy.contains(/^([0]{1}([,]|[.])[2,5]{2})$/) // checks for format x,xx and x.xx
     })
 
     it('find created tax at rate 51%', () => {
-      cy.contains('0,51')
+      cy.contains(/^([0]{1}([,]|[.])[1,5]{2})$/) // checks for format x,xx and x.xx
     })
 
     //   it('update vendor', () => {

@@ -3,7 +3,6 @@
 context('Testing products CRUD...', () => {
   beforeEach(() => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
-
   })
   describe('./Products', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))

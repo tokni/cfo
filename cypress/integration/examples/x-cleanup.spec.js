@@ -3,9 +3,8 @@
 context('Deleting ...', () => {
   beforeEach(() => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
-    
   })
-  
+
   describe('./Invoice', () => {
     it('Visits CFO on localhost', () => {
       cy.visit('http://localhost:3000/')
@@ -82,10 +81,7 @@ context('Deleting ...', () => {
     })
 
     it('delete tax', () => {
-      cy.get('[name="delete"]').click('center', { multiple: true } )
-      // cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click('center')
-      // cy.wait(700)
-      // cy.get(':nth-child(1) > :nth-child(6) > .MuiButtonBase-root-278').click('center')
+      cy.get('[name="delete"]').click('center', { multiple: true })
     })
 
     it('tax deleted successfully', () => {
@@ -106,7 +102,9 @@ context('Deleting ...', () => {
     })
 
     it('delete product', () => {
-      cy.get('[name="delete"]').children().click('left')
+      cy.get('[name="delete"]')
+        .children()
+        .click('left')
     })
 
     it('product deleted successfully', () => {
@@ -136,27 +134,26 @@ context('Deleting ...', () => {
         .children()
         .should('have.length', 0)
     })
-
   })
-    describe('./Expense', () => {
-      it('Visits CFO on localhost', () => {
-        cy.visit('http://localhost:3000/')
-        cy.wait(300)
-      })
+  describe('./Expense', () => {
+    it('Visits CFO on localhost', () => {
+      cy.visit('http://localhost:3000/')
+      cy.wait(300)
+    })
 
-      it('go to expense', () => {
-        cy.get('[name="expense"]').click('center')
-      })
+    it('go to expense', () => {
+      cy.get('[name="expense"]').click('center')
+    })
 
-      it('delete expense', () => {
-        cy.get('[name="delete"]').click()
-        cy.wait(2000)
-      })
+    it('delete expense', () => {
+      cy.get('[name="delete"]').click()
+      cy.wait(2000)
+    })
 
-      it('expense deleted successfully', () => {
-        cy.get('table tr')
-          .children()
-          .should('have.length', 0)
-      })
+    it('expense deleted successfully', () => {
+      cy.get('table tr')
+        .children()
+        .should('have.length', 0)
+    })
   })
 })
