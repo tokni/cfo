@@ -275,10 +275,10 @@ const UpdateBill = props => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={onSubmit} color="primary">
+          <Button name="submit" onClick={onSubmit} color="primary">
             {Language[state.locals].add}
           </Button>
         </DialogActions>

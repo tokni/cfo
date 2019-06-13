@@ -7,6 +7,28 @@ context('Deleting ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
 
+  describe('./Transactions', () => {
+    it('Visits CFO on localhost', () => {
+      cy.visit('http://localhost:3000/')
+      cy.wait(1000)
+    })
+
+    it('go to transactions', () => {
+      cy.get('[name="transactions"]').click('center')
+    })
+
+    it('delete transaction', () => {
+      cy.get('[name="delete"]').click()
+    })
+
+    it('transaction deleted successfully', () => {
+      cy.wait(1000)
+      cy.get('table tr')
+        .children()
+        .should('have.length', 0)
+    })
+  })
+
   describe('./Invoice', () => {
     it('Visits CFO on localhost', () => {
       cy.visit('http://localhost:3000/')

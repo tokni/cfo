@@ -37,7 +37,7 @@ const PayBill = props => {
   const [type, setType] = useState('')
   const bill_id = props.id
   const payment = props.payment
-  
+
   const { classes } = props
   const postTransactionMutation = useMutation(POST_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
@@ -88,16 +88,16 @@ const PayBill = props => {
         variables: {
           id: debit_id,
           company_id: state.company.id,
-          balance: props.payment
-        }
+          balance: props.payment,
+        },
       })
       // update credit account
       await updateAccountBalanceMutation({
         variables: {
           id: credit_id,
           company_id: state.company.id,
-          balance: (props.payment)
-        }
+          balance: props.payment,
+        },
       })
       setTimeout(() => {
         setMsgSuccess(true)
@@ -135,11 +135,11 @@ const PayBill = props => {
             {Language[state.locals].fillformtoaddtransaction}
           </DialogContentText>
 
-      {/* invoice FIELD */}
-      <TextField
+          {/* invoice FIELD */}
+          <TextField
             autoFocus
             margin="dense"
-            id="debit"
+            id="type"
             label={Language[state.locals].type}
             type="text"
             fullWidth
@@ -147,7 +147,7 @@ const PayBill = props => {
               setType(e.target.value)
             }}
           />
-          
+
           {/* DEBIT FIELD */}
           <TextField
             autoFocus
@@ -209,10 +209,10 @@ const PayBill = props => {
           </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={onSubmit} color="primary">
+          <Button name="submit" onClick={onSubmit} color="primary">
             {Language[state.locals].add}
           </Button>
         </DialogActions>

@@ -60,11 +60,71 @@ context('End testing bills ...', () => {
     })
 
     it('Set due date', () => {
-      cy.get('#payment_due').type('2019-08-22')
+      cy.get('#payment_due').type('2017-08-22')
     })
 
     it('Create bill', () => {
       cy.get('[name="submit"]').click()
+    })
+
+    it('find unpaid bill', () => {
+      cy.contains('Name' && 'No')
+    })
+
+    it('open update modal', () => {
+      cy.get('[name="update"]')
+        .children()
+        .click()
+    })
+
+    it('change payment due', () => {
+      cy.get('#payment_due').type('2019-08-22')
+    })
+
+    it('submit update', () => {
+      cy.get('[name="submit"]').click()
+    })
+
+    it('open and cancel', () => {
+      cy.get('[name="paybill"]')
+        .children()
+        .click()
+
+      cy.get('[name="cancel"]').click()
+    })
+
+    it('open pay bill', () => {
+      cy.get('[name="paybill"]')
+        .children()
+        .click()
+    })
+
+    it('fill form', () => {
+      cy.get('[id="type"]').type('Payment')
+
+      cy.get(
+        ':nth-child(3) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
+      ).click()
+      cy.contains('Assets').click()
+
+      cy.get(
+        ':nth-child(4) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
+      ).click()
+      cy.contains('Debts').click()
+    })
+
+    it('submit form', () => {
+      cy.get('[name="submit"]').click()
+    })
+
+    it('find paid bill', () => {
+      cy.contains('Name' && 'Yes')
+    })
+
+    it('pay bill should be gone', () => {
+      cy.get('table tr')
+        .children()
+        .should('have.length', 21)
     })
   })
 })
