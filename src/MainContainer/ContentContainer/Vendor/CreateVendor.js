@@ -64,6 +64,7 @@ const CreateVendor = props => {
         Icon={Add}
         title="addvendor"
         text="fillformtoaddvendor"
+        name="addvendor"
         submit={onSubmit}
         close={handleClose}
       >

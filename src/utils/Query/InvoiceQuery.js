@@ -5,7 +5,7 @@ const POST_INVOICE = gql`
     $customer_id: uuid!
     $company_id: uuid!
     $attachment_id: uuid!
-    $payment_due_date: date!
+    $payment_due: date!
     $invoice_number: String!
     $description: String!
   ) {
@@ -14,7 +14,7 @@ const POST_INVOICE = gql`
         customer_id: $customer_id
         company_id: $company_id
         attachment_id: $attachment_id
-        payment_due_date: $payment_due_date
+        payment_due: $payment_due
         invoice_number: $invoice_number
         description: $description
       }
@@ -35,7 +35,7 @@ const GET_INVOICES = gql`
       company_id
       customer_id
       time_stampt
-      payment_due_date
+      payment_due
       invoice_number
       paid
       attachment_id

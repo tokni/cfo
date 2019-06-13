@@ -40,7 +40,7 @@ const TableHelper = props => {
     if (header !== null) {
       return header.map((item, index) => {
         if (item === '__typename') return null // skip __typename colummns
-        
+
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
         return (
@@ -59,13 +59,12 @@ const TableHelper = props => {
   const renderTableData = () => {
     if (props.array !== undefined || props.array !== null) {
       return props.array.map((row, index) => {
-       delete row['__typename'] // delete __typename properties from array
+        delete row['__typename'] // delete __typename properties from array
         return (
           <TableRow key={index}>
             {Object.values(row).map((item, itemIndex) => {
               //  mape the data values
               if (typeof item === 'object') {
-                
                 if (item !== null) {
                   item = item['name']
                 }
@@ -81,22 +80,26 @@ const TableHelper = props => {
                 }
               } else if (typeof item === 'number') {
                 item = item.toLocaleString(state.locales)
-              }  
+              }
               return (
                 <Fragment key={itemIndex}>
                   {item ? (
-                    <TableCell key={item.id}>{Language[state.locals][item.toLowerCase()] || item}</TableCell>
+                    <TableCell key={item.id}>
+                      {Language[state.locals][item.toLowerCase()] || item}
+                    </TableCell>
                   ) : (
                     <TableCell key={itemIndex}>
                       {row.account_numbers
-                        ? row.account_numbers.map((account, accountNumbersIndex) => {
-                            return (
-                              account.account_number +
-                              (index + 1 === row.account_numbers.length
-                                ? ''
-                                : ' | ')
-                            )
-                          })
+                        ? row.account_numbers.map(
+                            (account, accountNumbersIndex) => {
+                              return (
+                                account.account_number +
+                                (index + 1 === row.account_numbers.length
+                                  ? ''
+                                  : ' | ')
+                              )
+                            }
+                          )
                         : null}
                     </TableCell>
                   )}
@@ -104,10 +107,17 @@ const TableHelper = props => {
               )
             })}
             {/* Only add update button if it was passed */}
-            {props.accountNumbers ? getAccountNumbers(row.id) : null}
-            {props.payBill ? row.paid === false ? payBillsRender(row) : null : null}
+            {props.accountNumbers ? getAccountNumbers(row) : null}
+            {props.payBill
+              ? row.paid === false
+                ? payBillsRender(row)
+                : null
+              : null}
             {props.update ? renderUpdate(row) : null}
             {props.delete ? renderDelete(row.id) : null}
+            {props.deleteInvoiceMutation
+              ? renderDeleteInvoiceMutation(row.id)
+              : null}
           </TableRow>
         )
       })
@@ -120,9 +130,11 @@ const TableHelper = props => {
     )
   }
 
-  const getAccountNumbers = id => {
+  const getAccountNumbers = ({ id, name }) => {
     return (
-      <TableCell>{React.cloneElement(props.accountNumbers, { id })}</TableCell>
+      <TableCell name={`addaccount-${name}`}>
+        {React.cloneElement(props.accountNumbers, { id })}
+      </TableCell>
     )
   }
 
@@ -134,9 +146,39 @@ const TableHelper = props => {
     })
   }
 
+  const deleteOrderAndInvoiceHandler = id => {
+    console.log('123, ', id)
+    props.deleteOrderMutation({
+      variables: {
+        id: id,
+      },
+    })
+
+    props.deleteInvoiceMutation({
+      variables: {
+        id: id,
+      },
+    })
+  }
+
+  const renderDeleteInvoiceMutation = id => {
+    return (
+      <TableCell name="delete">
+        <Fab
+          color="primary"
+          aria-label="Delete"
+          className={classes.fab}
+          onClick={deleteOrderAndInvoiceHandler.bind(this, id)}
+        >
+          <DeleteIcon />
+        </Fab>
+      </TableCell>
+    )
+  }
+
   const renderDelete = id => {
     return (
-      <TableCell>
+      <TableCell name="delete">
         <Fab
           color="primary"
           aria-label="Delete"
@@ -150,7 +192,9 @@ const TableHelper = props => {
   }
   const renderUpdate = item => {
     return (
-      <TableCell>{React.cloneElement(props.update, { ...item })}</TableCell>
+      <TableCell name="update">
+        {React.cloneElement(props.update, { ...item })}
+      </TableCell>
     )
   }
   return (
