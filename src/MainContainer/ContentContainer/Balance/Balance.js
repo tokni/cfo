@@ -1,12 +1,8 @@
 import React, { useContext, Fragment, useState } from 'react'
 import Context from '../../../Context/Context'
-import TableHelper from '../../../Helpers/TableHelper'
-import ChartLine from '../../../utils/Chart'
+import Chart from '../../../utils/Chart'
 
 const Balance = () => {
-  const [open, setOpen] = useState(false)
-  const [income, setIncome] = useState(0)
-  const [expense, setExpense] = useState(0)
   const [state] = useContext(Context)
 
   const getTransactions = type => {
@@ -60,15 +56,12 @@ const Balance = () => {
 
   return (
     <Fragment>
-      <ChartLine
+      <Chart
         invoices={getTransactions('invoices')}
         bills={getTransactions('bills')}
       />
 
-      <ChartLine
-        invoices={getUnpaidInvoices()}
-        bills={getUnpaidBills()}
-      />
+      <Chart invoices={getUnpaidInvoices()} bills={getUnpaidBills()} />
     </Fragment>
   )
 }
