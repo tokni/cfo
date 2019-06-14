@@ -65,7 +65,7 @@ const UpdateVendor = props => {
         <TextField
           autoFocus
           margin="dense"
-          id="description"
+          id="name"
           value={name || ''}
           label={Language[state.locals].name}
           type="text"

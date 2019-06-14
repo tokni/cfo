@@ -67,6 +67,7 @@ const CreateTax = props => {
         Icon={Add}
         title="addtax"
         text="fillformtoaddtax"
+        name="addtax"
         submit={onSubmit}
         close={handleClose}
       >

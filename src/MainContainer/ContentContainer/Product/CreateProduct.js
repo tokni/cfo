@@ -63,6 +63,7 @@ const CreateProduct = props => {
         title="addproduct"
         text="fillformtoaddproduct"
         submit={onSubmit}
+        name="addproduct"
         close={handleClose}
       >
         <TextField

@@ -44,6 +44,7 @@ const Modal = (props, { children }) => {
       <Tooltip title={props.tooltipTitle || ''}>
         <Fab
           onClick={handleClose}
+          name={props.name}
           color="primary"
           // aria-label="Add"
           className={classes.fab}
@@ -67,10 +68,10 @@ const Modal = (props, { children }) => {
           {props.children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button name="submit" onClick={handleSubmit} color="primary">
             {Language[state.locals].accept}
           </Button>
         </DialogActions>

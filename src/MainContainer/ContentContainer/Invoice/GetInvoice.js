@@ -6,12 +6,8 @@ import Invoice from './Invoice'
 import { GET_INVOICES, DELETE_INVOICE } from '../../../utils/Query/InvoiceQuery'
 import { DELETE_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
-import {
-  withStyles,
-  Dialog,
-  Fab,
-} from '@material-ui/core'
-import TableHelper from '../../../Helpers/TableHelper';
+import { withStyles, Dialog, Fab } from '@material-ui/core'
+import TableHelper from '../../../Helpers/TableHelper'
 
 const styles = theme => ({
   fab: {
@@ -64,6 +60,7 @@ const CreateCustomer = props => {
       <Fab
         onClick={handleClose}
         color="primary"
+        name="addinvoice"
         aria-label="Add"
         className={classes.fab}
       >
@@ -76,7 +73,13 @@ const CreateCustomer = props => {
       >
         <Invoice handleClose={handleClose} />
       </Dialog>
-      {data ? <TableHelper array={data.Invoice} delete={deleteInvoiceMutation} deleteOrder={deleteOrderMutation}/> : null}
+      {data ? (
+        <TableHelper
+          array={data.Invoice}
+          deleteInvoiceMutation={deleteInvoiceMutation}
+          deleteOrderMutation={deleteOrderMutation}
+        />
+      ) : null}
     </Fragment>
   )
 }

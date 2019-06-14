@@ -288,6 +288,7 @@ const Form = props => {
         <Fab
           onClick={addQueryHandler}
           color="primary"
+          name='submit-invoice'
           aria-label="Add"
           className={classes.fab}
         >

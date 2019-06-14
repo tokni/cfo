@@ -85,6 +85,10 @@ const SideDrawer = props => {
                       {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
                     </ListItemIcon>
                     <ListItemText
+                      name={text
+                        .split(' ')
+                        .join('')
+                        .toLowerCase()}
                       primary={
                         Language[state.locals][
                           text

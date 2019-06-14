@@ -64,6 +64,7 @@ const CreateExpense = props => {
         Icon={Add}
         title="addexpense"
         text="fillformtoupdateexpense"
+        name="addexpense"
         submit={onSubmit}
         close={handleClose}
       >
