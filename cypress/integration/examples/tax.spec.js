@@ -6,9 +6,8 @@ context('End testing tax ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Tax', () => {
-    localStorage.setItem('sub', process.env.REACT_APP_TEST_TOKEN)
-    it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', async () => {
+     await cy.visit('http://localhost:3000/')
       cy.wait(1000)
     })
 

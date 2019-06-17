@@ -8,8 +8,8 @@ context('Deleting ...', () => {
   })
 
   describe('./Transactions', () => {
-    it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', async () => {
+      await cy.visit('http://localhost:3000/')
       cy.wait(1000)
     })
 

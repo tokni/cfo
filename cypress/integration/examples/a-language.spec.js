@@ -6,13 +6,12 @@ context('Testing Language...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('Language', () => {
-    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
-    it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
-      cy.wait(1000)
+    it('Visits CFO on localhost', async () => {
+      await cy.visit('http://localhost:3000/')
     })
 
     it('go to Overview', () => {
+      cy.wait(6000)
       cy.get('[name="overview"]').click()
     })
 
