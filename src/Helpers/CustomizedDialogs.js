@@ -57,7 +57,7 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions)
 
 const CustomizedDialogs = props => {
-  const [open, setOpen] = useState(true)
+  const [open] = useState(true)
   const [state] = useContext(Context)
 
 

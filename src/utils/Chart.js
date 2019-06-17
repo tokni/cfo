@@ -14,6 +14,7 @@ const Chart = props => {
   const [income, setIncome] = useState([])
   const [paymentsPerMonth, setPaymentsPerMOnth] = useState({})
   const [incomePerMonth, setIncomePerMOnth] = useState({})
+  
   const [open, setOpen] = useState(false)
   const [item, setItems] = useState(null)
   const data = {
