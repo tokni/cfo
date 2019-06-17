@@ -15,12 +15,9 @@ import Context from '../Context/Context'
 const styles = theme => ({
   root: {
     margin: 0,
-    // padding: theme.spacing(2),
   },
   closeButton: {
     position: 'absolute',
-    // right: theme.spacing(1),
-    // top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
 })
@@ -44,15 +41,11 @@ const DialogTitle = withStyles(styles)(props => {
 })
 
 const DialogContent = withStyles(theme => ({
-  root: {
-    // padding: theme.spacing(2),
-  },
 }))(MuiDialogContent)
 
 const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
-    // padding: theme.spacing(1),
   },
 }))(MuiDialogActions)
 
@@ -67,6 +60,8 @@ const CustomizedDialogs = props => {
         onClose={props.handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        fullWidth={true}
+        maxWidth='100%'
       >
         <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
           {props.title}

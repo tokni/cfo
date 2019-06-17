@@ -15,6 +15,7 @@ const Chart = props => {
   const [paymentsPerMonth, setPaymentsPerMOnth] = useState({})
   const [incomePerMonth, setIncomePerMOnth] = useState({})
   
+  // eslint-disable-next-line no-unused-vars
   const [open, setOpen] = useState(false)
   const [item, setItems] = useState(null)
   const data = {
@@ -244,7 +245,7 @@ const Chart = props => {
           }}
         />
       ) : null}
-      {item ? <CustomizedDialogs title={item.name} items={item} handleClose={handleClose}/> : null}
+      {item ? <CustomizedDialogs items={item} handleClose={handleClose}/> : null}
     </Fragment>
   )
 }
