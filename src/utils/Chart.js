@@ -185,10 +185,7 @@ const Chart = props => {
           data={data}
           getElementAtEvent={e => {
             try {
-              const type = e[0]._model.datasetLabel === 'Bills' ? 0 : 1
-              console.log("type ", type)
-              console.log("element ", e[0])
-              
+              const type = e[0]._model.datasetLabel === 'Bills' ? 0 : 1 // find the correct type, so that we cann use the correct array
               let money = null
               if (type === 0) {
                 money = paymentsPerMonth
