@@ -93,20 +93,20 @@ const Chart = props => {
 
       switch (condition) {
         case 0:
-          objectArray.jan.total += item.payment
-          objectArray.jan.items.push(item)
+          objectArray[0].jan.total += item.payment
+          objectArray[0].jan.items.push(item)
           break
         case 1:
-          objectArray.feb.total += item.payment
-          objectArray.feb.items.push(item)
+          objectArray[1].feb.total += item.payment
+          objectArray[1].feb.items.push(item)
           break
         case 2:
-          objectArray.mar.total += item.payment
-          objectArray.mar.items.push(item)
+          objectArray[2].mar.total += item.payment
+          objectArray[2].mar.items.push(item)
           break
         case 3:
-          objectArray.apr.total += item.payment
-          objectArray.apr.items.push(item)
+          objectArray[3].apr.total += item.payment
+          objectArray[3].apr.items.push(item)
           break
         case 4:
           objectArray[4].mai.total += item.payment
@@ -118,7 +118,6 @@ const Chart = props => {
           break
         case 6:
           objectArray[6].jul.total += item.payment
-
           objectArray[6].jul.items.push(item)
           break
         case 7:
