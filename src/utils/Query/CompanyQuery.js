@@ -36,7 +36,7 @@ const GET_COMPANIES_NAME_ID_MOTHERID = gql`
         id
         invoice_number
         paid
-        payment_due_date
+        payment_due
         quantity
         time_stampt
       }
@@ -93,7 +93,8 @@ const GET_SUBSCRIP_COMPANY = gql`
         paid
         payment_due
         time_stampt
-        Orders {
+        payment
+        Orders{
           quantity
           price
         }
@@ -112,6 +113,13 @@ const GET_SUBSCRIP_COMPANY = gql`
         debit
         company_id
         balance
+      }
+      Transactions{
+        payment
+        type
+        invoice_id
+        bill_id
+        time_stamp
       }
     }
   }

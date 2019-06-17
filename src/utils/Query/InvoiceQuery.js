@@ -8,6 +8,7 @@ const POST_INVOICE = gql`
     $payment_due: date!
     $invoice_number: String!
     $description: String!
+    $payment: numeric!
   ) {
     insert_Invoice(
       objects: {
@@ -17,6 +18,7 @@ const POST_INVOICE = gql`
         payment_due: $payment_due
         invoice_number: $invoice_number
         description: $description
+        payment: $payment
       }
     ) {
       affected_rows
@@ -39,6 +41,7 @@ const GET_INVOICES = gql`
       invoice_number
       paid
       attachment_id
+      payment
     }
   }
 `
