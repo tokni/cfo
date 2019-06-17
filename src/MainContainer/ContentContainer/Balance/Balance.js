@@ -1,6 +1,8 @@
 import React, { useContext, Fragment } from 'react'
 import Context from '../../../Context/Context'
 import Chart from '../../../utils/Chart'
+import { Typography } from '@material-ui/core'
+import Language from '../../../utils/language'
 
 const Balance = () => {
   const [state] = useContext(Context)
@@ -32,7 +34,7 @@ const Balance = () => {
     if (state.company && state.company.Bills) {
       state.company.Bills.forEach(element => {
         if (!element.paid) {
-          element.payment = element.payment * -1 
+          element.payment = element.payment * -1
           array.push(element)
         }
       })
@@ -58,12 +60,22 @@ const Balance = () => {
 
   return (
     <Fragment>
-      <Chart
+      <Typography variant="h4" component="h1">
+        {Language[state.locals]['unpaidbillsandinvoices']}
+      </Typography>
+      {/* <Chart
         invoices={getTransactions('invoices')}
         bills={getTransactions('bills')}
-      />
+        color_income={'blue'}
+        color_payment={'red'}
+      /> */}
 
-      <Chart invoices={getUnpaidInvoices()} bills={getUnpaidBills()} />
+      <Chart
+        invoices={getUnpaidInvoices()}
+        bills={getUnpaidBills()}
+        color_income={'blue'}
+        color_payment={'red'}
+      />
     </Fragment>
   )
 }

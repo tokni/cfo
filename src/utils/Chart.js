@@ -5,16 +5,17 @@ import React, {
   useState,
   useCallback,
 } from 'react'
-
 import { Bar } from 'react-chartjs-2'
+import CustomizedDialogs from '../Helpers/CustomizedDialogs'
 
 const Chart = props => {
   const inputRef = useRef('chart')
   const [payment, setPayment] = useState([])
   const [income, setIncome] = useState([])
-
-  // const outcome = useRef(plotPoint)
-
+  const [paymentsPerMonth, setPaymentsPerMOnth] = useState({})
+  const [incomePerMonth, setIncomePerMOnth] = useState({})
+  const [open, setOpen] = useState(false)
+  const [item, setItems] = useState(null)
   const data = {
     labels: [
       'Jan',
@@ -35,73 +36,52 @@ const Chart = props => {
         label: 'Bills',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: 'red',
-        borderColor: 'red',
-        borderCapStyle: 'butt',
+        backgroundColor: props.color_payment,
+        borderColor: props.color_payment,
+        borderCapStyle: props.color_payment,
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: 'black',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'red',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        axisY: {
-          valueFormatString: '#,###',
-        },
-
         data: payment,
       },
       {
         label: 'Income',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: 'blue',
-        borderColor: 'blue',
+        backgroundColor: props.color_income,
+        borderColor: props.color_income,
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: 'black',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'blue',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        axisX: {
-          valueFormatString: 'DD-MMM',
-        },
-        axisY: {
-          valueFormatString: '#,###',
-        },
-
         data: income,
       },
     ],
   }
 
+  const handleClose = () => {
+    setOpen(false)
+    setItems(null)
+  }
+
   const getArray = useCallback((array, type) => {
-    let months = []
-    let january = 0
-    let feb = 0
-    let march = 0
-    let apr = 0
-    let mai = 0
-    let jun = 0
-    let jul = 0
-    let aug = 0
-    let sep = 0
-    let oct = 0
-    let nov = 0
-    let dec = 0
+    let objectArray = [
+      { jan: { total: 0, items: [] } },
+      { feb: { total: 0, items: [] } },
+      { mar: { total: 0, items: [] } },
+      { apr: { total: 0, items: [] } },
+      { mai: { total: 0, items: [] } },
+      { jun: { total: 0, items: [] } },
+      { jul: { total: 0, items: [] } },
+      { aug: { total: 0, items: [] } },
+      { sep: { total: 0, items: [] } },
+      { oct: { total: 0, items: [] } },
+      { nov: { total: 0, items: [] } },
+      { dec: { total: 0, items: [] } },
+    ]
     let condition = 0
+    let monthsTotal = []
+
     array.forEach(item => {
       if (item.__typename === 'Transaction') {
         condition = new Date(item.time_stamp).getMonth()
@@ -111,75 +91,159 @@ const Chart = props => {
 
       switch (condition) {
         case 0:
-          january += item.payment
+          objectArray.jan.total += item.payment
+          objectArray.jan.items.push(item)
           break
         case 1:
-          feb += item.payment
+          objectArray.feb.total += item.payment
+          objectArray.feb.items.push(item)
           break
         case 2:
-          march += item.payment
+          objectArray.mar.total += item.payment
+          objectArray.mar.items.push(item)
           break
         case 3:
-          apr += item.payment
+          objectArray.apr.total += item.payment
+          objectArray.apr.items.push(item)
           break
         case 4:
-          mai += item.payment
+          objectArray[4].mai.total += item.payment
+          objectArray[4].mai.items.push(item)
           break
         case 5:
-          jun += item.payment
+          objectArray[5].jun.total += item.payment
+          objectArray[5].jun.items.push(item)
           break
         case 6:
-          jul += item.payment
+          objectArray[6].jul.total += item.payment
+
+          objectArray[6].jul.items.push(item)
           break
         case 7:
-          aug += item.payment
+          objectArray[7].aug.total += item.payment
+          objectArray[7].aug.items.push(item)
           break
         case 8:
-          sep += item.payment
+          objectArray[8].sep.total += item.payment
+          objectArray[8].sep.items.push(item)
           break
         case 9:
-          nov += item.payment
+          objectArray[9].oct.total += item.payment
+          objectArray[9].oct.items.push(item)
           break
         case 10:
-          dec += item.payment
+          objectArray[10].nov.total += item.payment
+          objectArray[10].nov.item.push(item)
+          break
+        case 11:
+          objectArray[11].dec.total += item.payment
+          objectArray[11].dec.items.push(item)
           break
         default:
           break
       }
     })
-    months.push(january)
-    months.push(feb)
-    months.push(march)
-    months.push(apr)
-    months.push(mai)
-    months.push(jun)
-    months.push(jul)
-    months.push(aug)
-    months.push(sep)
-    months.push(oct)
-    months.push(nov)
-    months.push(dec)
+    monthsTotal.push(objectArray[0].jan.total)
+    monthsTotal.push(objectArray[1].feb.total)
+    monthsTotal.push(objectArray[2].mar.total)
+    monthsTotal.push(objectArray[3].apr.total)
+
+    monthsTotal.push(objectArray[4].mai.total)
+    monthsTotal.push(objectArray[5].jun.total)
+    monthsTotal.push(objectArray[6].jul.total)
+    monthsTotal.push(objectArray[7].aug.total)
+    monthsTotal.push(objectArray[8].sep.total)
+    monthsTotal.push(objectArray[9].oct.total)
+    monthsTotal.push(objectArray[10].nov.total)
+    monthsTotal.push(objectArray[11].dec.total)
 
     if (type === 'invoices') {
-      
-      setIncome(months)
+      setIncome(monthsTotal)
+      setIncomePerMOnth(objectArray)
     } else {
-      setPayment(months)
+      setPayment(monthsTotal)
+      setPaymentsPerMOnth(objectArray)
     }
   }, [])
 
   useEffect(() => {
-    getArray(props.invoices, 'invoices')
     getArray(props.bills, 'bills')
+    getArray(props.invoices, 'invoices')
 
     data.current = inputRef
   }, [data, props.invoices, props.bills, getArray])
 
+
+
   return (
     <Fragment>
       {props.invoices && props.bills ? (
-        <Bar ref={inputRef} data={data} />
+        <Bar
+          ref={inputRef}
+          data={data}
+          getElementAtEvent={e => {
+            try {
+              const type = e[0]._model.datasetLabel === 'Bills' ? 0 : 1
+              console.log("type ", type)
+              console.log("element ", e[0])
+              
+              let money = null
+              if (type === 0) {
+                money = paymentsPerMonth
+              } else {
+                money = incomePerMonth
+              }
+              let items
+
+
+              switch (e[0]._index) {
+                case 0:
+                  items = money[e[0]._index].jan.items
+                  break
+                case 1:
+                  items = money[e[0]._index].feb.items
+                  break
+                case 2:
+                  items = money[e[0]._index].mar.items
+                  break
+                case 3:
+                  items = money[e[0]._index].apr.items
+                  break
+                case 4:
+                  items = money[e[0]._index].mai.items
+                  break
+                case 5:
+                  items = money[e[0]._index].jun.items
+                  break
+                case 6:
+                  items = money[e[0]._index].jul.items
+                  break
+                case 7:
+                  items = money[e[0]._index].aug.items
+                  break
+                case 8:
+                  items = money[e[0]._index].sep.items
+                  break
+                case 9:
+                  items = money[e[0]._index].oct.items
+                  break
+                case 10:
+                  items = money[e[0]._index].nov.items
+                  break
+                case 11:
+                  items = money[e[0]._index].nov.items
+                  break
+                default:
+                  break
+              }
+              setItems(items)
+            } catch (e) {
+              console.log('error chart', e)
+            }
+          }}
+        />
       ) : null}
+      {item ? <CustomizedDialogs title={item.name} items={item} handleClose={handleClose}/> : null}
     </Fragment>
   )
 }
