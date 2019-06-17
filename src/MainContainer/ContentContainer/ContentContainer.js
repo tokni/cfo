@@ -14,7 +14,9 @@ import GetInvoice from './Invoice/GetInvoice'
 import ProtectedRoute from '../../Helpers/ProtectedRoute'
 import Transaction from './Transaction/Transaction'
 import Tax from './Tax/Tax'
+import BalanceSheet from './BalanceSheet/BalanceSheet'
 import Balance from './Balance/Balance'
+
 
 
 import { Switch, Route } from 'react-router-dom'
@@ -69,6 +71,8 @@ export const ContentContainer = () => (
     />
     <ProtectedRoute path={`${process.env.PUBLIC_URL}/tax`} component={Tax} />
 
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={Balance} />
+    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={BalanceSheet} />
+    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balance`} component={Balance} />
+
   </Switch>
 )

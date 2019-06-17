@@ -69,6 +69,15 @@ const Logic = props => {
     }
   }
 
+  const addPayment = () => {
+    let payment = 0
+    
+    products.forEach(element => {
+      payment += element.price * element.quantity
+    })
+    return payment
+  }
+
   const handleDelete = index => {
     products.splice(index, 1)
   }
@@ -88,7 +97,8 @@ const Logic = props => {
           invoice_number: invoiceNumber,
           attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399', //hardcode
           description: description,
-          payment_due_date: dueDate,
+          payment_due: dueDate,
+          payment: addPayment() 
         },
       })
 

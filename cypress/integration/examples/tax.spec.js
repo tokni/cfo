@@ -7,7 +7,7 @@ context('End testing tax ...', () => {
   })
   describe('./Tax', () => {
     it('Visits CFO on localhost', async () => {
-     await cy.visit('http://localhost:3000/')
+      await cy.visit('http://localhost:3000/')
       cy.wait(1000)
     })
 
