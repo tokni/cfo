@@ -52,7 +52,7 @@ const GetBills = props => {
   return (
     <Fragment>
       {data.Bill ? (
-        <TableHelper array={data.Bill} update={update} delete={deleteBill} pay={payBill}/>
+        <TableHelper array={data.Bill} update={update} delete={deleteBill} pay={payBill} hideID={true}/>
       ) : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />

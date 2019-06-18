@@ -33,6 +33,7 @@ const TableHelper = props => {
     : null
 
   const [state] = useContext(Context)
+  const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
 
   // render tableheaders
@@ -40,10 +41,13 @@ const TableHelper = props => {
     if (header !== null) {
       return header.map((item, index) => {
         if (item === '__typename') return null // skip __typename colummns
-
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
-        return (
+        return props.hideID && item.match(filterId) ? (
+          <TableCell key={index} style={{display: 'none'}}>
+            {Language[state.locals][item] || item}
+          </TableCell>
+        ) : (
           <TableCell key={index}>
             {Language[state.locals][item] || item}
           </TableCell>
@@ -84,9 +88,15 @@ const TableHelper = props => {
               return (
                 <Fragment key={itemIndex}>
                   {item ? (
-                    <TableCell key={item.id}>
-                      {Language[state.locals][item.toLowerCase()] || item}
-                    </TableCell>
+                    props.hideID && header[itemIndex].match(filterId) ? (
+                      <TableCell key={item.id} style={{ display: 'none' }}>
+                        {Language[state.locals][item.toLowerCase()] || item}
+                      </TableCell>
+                    ) : (
+                      <TableCell key={item.id}>
+                        {Language[state.locals][item.toLowerCase()] || item}
+                      </TableCell>
+                    )
                   ) : (
                     <TableCell key={itemIndex}>
                       {row.account_numbers
@@ -108,11 +118,7 @@ const TableHelper = props => {
             })}
             {/* Only add update button if it was passed */}
             {props.accountNumbers ? getAccountNumbers(row) : null}
-            {props.pay
-              ? row.paid === false
-                ? pay(row)
-                : null
-              : null}
+            {props.pay ? (row.paid === false ? pay(row) : null) : null}
             {props.update
               ? props.pay
                 ? row.paid === false
@@ -131,12 +137,8 @@ const TableHelper = props => {
     }
   }
 
-
-  const pay = item =>{
-    return (
-      <TableCell>{React.cloneElement(props.pay, { ...item })}</TableCell>
-    )
-
+  const pay = item => {
+    return <TableCell>{React.cloneElement(props.pay, { ...item })}</TableCell>
   }
 
   const getAccountNumbers = ({ id, name }) => {

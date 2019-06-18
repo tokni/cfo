@@ -49,7 +49,7 @@ const GetTaxes = props => {
   return (
     <Fragment>
       {data ? (
-        <TableHelper array={data.Tax} update={update} delete={deleteTax} />
+        <TableHelper array={data.Tax} update={update} delete={deleteTax} hideID={true}/>
       ) : null}
     </Fragment>
   )
