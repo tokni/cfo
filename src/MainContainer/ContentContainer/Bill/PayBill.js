@@ -173,7 +173,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line -callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === true) {
                   return (
@@ -181,6 +180,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                }else{
+                  return null
                 }
               })
             ) : (
@@ -203,7 +204,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line array-callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === false) {
                   return (
@@ -211,6 +211,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                }else{
+                  return null
                 }
               })
             ) : (
