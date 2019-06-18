@@ -8,6 +8,7 @@ import { Edit } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { PUT_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
+import { PUT_INVOICE_PAY } from '../../../utils/Query/InvoiceQuery'
 import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
@@ -18,16 +19,18 @@ const styles = theme => ({
 
 const CreateTransaction = props => {
   const [open, setOpen] = useState(false)
-  const [debit_id, setDebitAccount] = useState('')
-  const [credit_id, setCreditAccount] = useState('')
-  const [payment, setPayment] = useState('')
-  const [type, setType] = useState('')
-  const [bill_id, setBill] = useState(null)
+  const [debit_id, setDebitAccount] = useState(props.debit_id)
+  const [credit_id, setCreditAccount] = useState(props.credit_id)
+  const [payment, setPayment] = useState(props.payment)
+  const [type, setType] = useState(props.type)
+  const [bill_id, setBill] = useState(props.bill_id)
   const [billDescription, setBillDescription] = useState('')
-  const [invoice_id, setInvoice] = useState(null)
+  const [invoice_id, setInvoice] = useState(props.invoice_id)
   const [invoiceDescription, setInvoiceDescription] = useState('')
   const postTransactionMutation = useMutation(PUT_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
+  const updateInvoiceMutation = useMutation(PUT_INVOICE_PAY)
+
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -58,13 +61,24 @@ const CreateTransaction = props => {
           invoice_id,
         },
       })
-      await updateBilltMutation({
-        variables: {
-          id: bill_id,
-          company_id: state.company.id,
-          paid: true,
-        },
-      })
+      if(bill_id !== null){
+        await updateBilltMutation({
+          variables: {
+            id: bill_id,
+            company_id: state.company.id,
+            paid: true,
+          },
+        })
+      }else{
+        await updateInvoiceMutation({
+          variables: {
+            id: invoice_id,
+            company_id: state.company.id,
+            paid: true
+          }
+        })
+      }
+      
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -80,6 +94,7 @@ const CreateTransaction = props => {
 
   return (
     <Fragment>
+      {console.log("props update trans ", props)}
       <Modal
         Icon={Edit}
         title="updatetransaction"
@@ -87,12 +102,13 @@ const CreateTransaction = props => {
         submit={onSubmit}
         close={handleClose}
       >
-        {/* invoice FIELD */}
+        {/* type FIELD */}
         <TextField
           autoFocus
           margin="dense"
           id="debit"
           label={Language[state.locals].type}
+          value={type || ''}
           type="text"
           fullWidth
           onChange={e => {
