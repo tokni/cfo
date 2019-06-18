@@ -6,14 +6,14 @@ context('End testing Balance Sheet ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./BalanceSheet', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/balancesheet')
       cy.wait(1000)
     })
 
-    it('go to balancesheet', () => {
-      cy.get('[name="balancesheet"]').click()
-    })
+    // it('go to balancesheet', () => {
+    //   cy.get('[name="balancesheet"]').click()
+    // })
 
     it('Show current balance sheet', () => {
       cy.get('[name="currentbalance"]').click()

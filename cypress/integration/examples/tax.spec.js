@@ -6,15 +6,15 @@ context('End testing tax ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Tax', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/tax')
       cy.wait(1000)
     })
 
-    it('go to tax', () => {
-      cy.wait(1000)
-      cy.get('[name="tax"]').click()
-    })
+    // it('go to tax', () => {
+    //   cy.wait(1000)
+    //   cy.get('[name="tax"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addtax"]').click()

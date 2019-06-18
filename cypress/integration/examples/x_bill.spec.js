@@ -6,14 +6,14 @@ context('End testing bills ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Bills', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/bills')
       cy.wait(1000)
     })
 
-    it('go to bills', () => {
-      cy.get('[name="bills"]').click()
-    })
+    // it('go to bills', () => {
+    //   cy.get('[name="bills"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addbill"]').click()
@@ -91,38 +91,38 @@ context('End testing bills ...', () => {
       cy.get('[name="cancel"]').click()
     })
 
-    it('open pay bill', () => {
-      cy.get('[name="paybill"]')
-        .children()
-        .click()
-    })
+    // it('open pay bill', () => {
+    //   cy.get('[name="paybill"]')
+    //     .children()
+    //     .click()
+    // })
 
-    it('fill form', () => {
-      cy.get('[id="type"]').type('Payment')
+    // it('fill form', () => {
+    //   cy.get('[id="type"]').type('Payment')
 
-      cy.get(
-        ':nth-child(3) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
-      ).click()
-      cy.contains('Assets').click()
+    //   cy.get(
+    //     ':nth-child(3) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
+    //   ).click()
+    //   cy.contains('Assets').click()
 
-      cy.get(
-        ':nth-child(4) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
-      ).click()
-      cy.contains('Debts').click()
-    })
+    //   cy.get(
+    //     ':nth-child(4) > .MuiInputBase-root-222 > .MuiSelect-root-202 > .MuiSelect-select-203'
+    //   ).click()
+    //   cy.contains('Debts').click()
+    // })
 
-    it('submit form', () => {
-      cy.get('[name="submit"]').click()
-    })
+    // it('submit form', () => {
+    //   cy.get('[name="submit"]').click()
+    // })
 
-    it('find paid bill', () => {
-      cy.contains('Name' && 'Yes')
-    })
+    // it('find paid bill', () => {
+    //   cy.contains('Name' && 'Yes')
+    // })
 
-    it('pay bill should be gone', () => {
-      cy.get('table tr')
-        .children()
-        .should('have.length', 21)
-    })
+    // it('pay bill should be gone', () => {
+    //   cy.get('table tr')
+    //     .children()
+    //     .should('have.length', 21)
+    // })
   })
 })

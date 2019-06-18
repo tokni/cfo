@@ -6,19 +6,18 @@ context('Testing products CRUD...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Products', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/products')
       cy.wait(1000)
     })
 
-    it('go to products', () => {
-      cy.get('[name="products"]').click()
-    })
+    // it('go to products', () => {
+    //   cy.get('[name="products"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addproduct"]').click()
-      cy.get('[name="cancel"]')
-      .click()
+      cy.get('[name="cancel"]').click()
     })
 
     it('open and submit modal', () => {

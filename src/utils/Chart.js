@@ -14,7 +14,7 @@ const Chart = props => {
   const [income, setIncome] = useState([])
   const [paymentsPerMonth, setPaymentsPerMOnth] = useState({})
   const [incomePerMonth, setIncomePerMOnth] = useState({})
-  
+
   // eslint-disable-next-line no-unused-vars
   const [open, setOpen] = useState(false)
   const [item, setItems] = useState(null)
@@ -148,7 +148,6 @@ const Chart = props => {
     monthsTotal.push(objectArray[1].feb.total)
     monthsTotal.push(objectArray[2].mar.total)
     monthsTotal.push(objectArray[3].apr.total)
-
     monthsTotal.push(objectArray[4].mai.total)
     monthsTotal.push(objectArray[5].jun.total)
     monthsTotal.push(objectArray[6].jul.total)
@@ -174,12 +173,11 @@ const Chart = props => {
     data.current = inputRef
   }, [data, props.invoices, props.bills, getArray])
 
-
-
   return (
     <Fragment>
       {props.invoices && props.bills ? (
         <Bar
+          name="kristmund"
           ref={inputRef}
           data={data}
           getElementAtEvent={e => {
@@ -192,7 +190,6 @@ const Chart = props => {
                 money = incomePerMonth
               }
               let items
-
 
               switch (e[0]._index) {
                 case 0:
@@ -241,7 +238,9 @@ const Chart = props => {
           }}
         />
       ) : null}
-      {item ? <CustomizedDialogs items={item} handleClose={handleClose}/> : null}
+      {item ? (
+        <CustomizedDialogs items={item} handleClose={handleClose} />
+      ) : null}
     </Fragment>
   )
 }

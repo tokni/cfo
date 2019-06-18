@@ -8,14 +8,13 @@ context('Deleting ...', () => {
   })
 
   describe('./Transactions', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
-      cy.wait(1000)
+    it('Visits CFO on localhost', () => {
+      cy.visit('/transactions')
     })
 
-    it('go to transactions', () => {
-      cy.get('[name="transactions"]').click('center')
-    })
+    // it('go to transactions', () => {
+    //   cy.get('[name="transactions"]').click('center')
+    // })
 
     it('delete transaction', () => {
       cy.get('[name="delete"]').click()
@@ -31,13 +30,13 @@ context('Deleting ...', () => {
 
   describe('./Invoice', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/invoice')
       cy.wait(300)
     })
 
-    it('go to invoice', () => {
-      cy.get('[name="invoice"]').click('center')
-    })
+    // it('go to invoice', () => {
+    //   cy.get('[name="invoice"]').click('center')
+    // })
 
     it('delete invoice', () => {
       cy.get('[name="delete"]').click()
@@ -53,13 +52,13 @@ context('Deleting ...', () => {
 
   describe('./Bills', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/bills')
       cy.wait(500)
     })
 
-    it('go to bills', () => {
-      cy.get('[name="bills"]').click('center')
-    })
+    // it('go to bills', () => {
+    //   cy.get('[name="bills"]').click('center')
+    // })
 
     it('delete bill', () => {
       cy.get('[name="delete"]').click()
@@ -75,13 +74,13 @@ context('Deleting ...', () => {
 
   describe('./Customers', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/customers')
       cy.wait(300)
     })
 
-    it('go to companies', () => {
-      cy.get('[name="customers"]').click('center')
-    })
+    // it('go to companies', () => {
+    //   cy.get('[name="customers"]').click('center')
+    // })
 
     it('delete customer', () => {
       cy.get('[name="delete"]').click()
@@ -96,13 +95,13 @@ context('Deleting ...', () => {
 
   describe('./Tax', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/tax')
       cy.wait(500)
     })
 
-    it('go to tax', () => {
-      cy.get('[name="tax"]').click('center')
-    })
+    // it('go to tax', () => {
+    //   cy.get('[name="tax"]').click('center')
+    // })
 
     it('delete tax', () => {
       cy.get('[name="delete"]').click('center', { multiple: true })
@@ -117,13 +116,13 @@ context('Deleting ...', () => {
 
   describe('./Products', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/products')
       cy.wait(300)
     })
 
-    it('go to products', () => {
-      cy.get('[name="products"]').click('center')
-    })
+    // it('go to products', () => {
+    //   cy.get('[name="products"]').click('center')
+    // })
 
     it('delete product', () => {
       cy.get('[name="delete"]')
@@ -140,13 +139,13 @@ context('Deleting ...', () => {
 
   describe('./Vendor', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/vendor')
       cy.wait(300)
     })
 
-    it('go to vendor', () => {
-      cy.get('[name="vendor"]').click('center')
-    })
+    // it('go to vendor', () => {
+    //   cy.get('[name="vendor"]').click('center')
+    // })
 
     it('delete vendor', () => {
       cy.get('[name="delete"]').click()
@@ -161,13 +160,13 @@ context('Deleting ...', () => {
   })
   describe('./Expense', () => {
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/expense')
       cy.wait(300)
     })
 
-    it('go to expense', () => {
-      cy.get('[name="expense"]').click('center')
-    })
+    // it('go to expense', () => {
+    //   cy.get('[name="expense"]').click('center')
+    // })
 
     it('delete expense', () => {
       cy.get('[name="delete"]').click()

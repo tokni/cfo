@@ -3,15 +3,6 @@ import Context from '../../../Context/Context'
 import Chart from '../../../utils/Chart'
 import { Typography } from '@material-ui/core'
 import Language from '../../../utils/language'
-<<<<<<< HEAD
-import GetBalanceSheets from './GetBalanceSheets'
-import GetAccountsType from '../Account/GetAccountsType'
-import Modal from '../../../Helpers/Modal'
-import { ArrowDropDown } from '../../../Helpers/Constants'
-import SnackBar from '../SnackBar/SnackBar'
-import CreateBalanceSheets from './CreateBalanceSheet'
-=======
->>>>>>> 9b73d12e3febe4302f55496ea5203ae9b946f619
 
 const Balance = () => {
   const [state] = useContext(Context)
@@ -53,33 +44,6 @@ const Balance = () => {
     return array
   }
 
-<<<<<<< HEAD
-  const printCurrentBalanceSheet = () => {
-    return (
-      <Fragment>
-        <Typography variant="h4" component="h1">
-          {Language[state.locals]['currentbalancesheet']}
-        </Typography>
-
-        <Typography variant="h5" component="h3">
-          {Language[state.locals]['assets']}
-        </Typography>
-        <GetAccountsType debit={true} />
-
-        <Typography name="total" component="p" align="center">
-          {Language[state.locals]['total']} : {assets}
-        </Typography>
-
-        <Typography variant="h5" component="h3">
-          {Language[state.locals]['liabilities']}
-        </Typography>
-
-        <GetAccountsType debit={false} />
-
-        <Typography name="total" component="p" align="center">
-          {Language[state.locals]['total']} : {liabilities}
-        </Typography>
-=======
   const getUnpaidInvoices = () => {
     const array = []
     if (state.company && state.company.Invoices) {
@@ -90,58 +54,12 @@ const Balance = () => {
       })
     }
     array.sort((a, b) => a.payment_due < b.payment_due)
->>>>>>> 9b73d12e3febe4302f55496ea5203ae9b946f619
 
     return array
   }
 
   return (
     <Fragment>
-<<<<<<< HEAD
-      {data ? (
-        data.Account ? (
-          <CreateBalanceSheets
-            liabilities={liabilities}
-            assets={assets}
-            accounts={data.Account}
-          />
-        ) : null
-      ) : null}
-
-      <Modal
-        Icon={ArrowDropDown}
-        title={Language[state.locals].showcurrentbalancesheet}
-        name="currentbalance"
-        submit={onSubmit}
-        close={handleClose}
-        tooltipTitle={Language[state.locals].showcurrentbalancesheet}
-      >
-        <TextField
-          autoFocus
-          margin="dense"
-          id="showcurrentbalancesheet"
-          name="dropdown"
-          value={showCurrent}
-          label={' '}
-          select
-          fullWidth
-          onChange={e => {
-            setShowCurrent(e.target.value)
-          }}
-        >
-          <option name="show" value={true}>
-            {Language[state.locals].show}
-          </option>
-          <option name="dontshow" value={false}>
-            {Language[state.locals].dontshow}
-          </option>
-        </TextField>
-      </Modal>
-
-      {showCurrent ? printCurrentBalanceSheet() : null}
-
-      <GetBalanceSheets />
-=======
       {/* <Chart
         invoices={getTransactions('invoices')}
         bills={getTransactions('bills')}
@@ -149,16 +67,18 @@ const Balance = () => {
         color_payment={'red'}
       /> */}
 
-      <Typography variant="h4" component="h1">
+      <Typography variant="h4" component="h1" data-cy="title">
         {Language[state.locals]['unpaidbillsandinvoices']}
       </Typography>
-      <Chart
-        invoices={getUnpaidInvoices()}
-        bills={getUnpaidBills()}
-        color_income={'blue'}
-        color_payment={'red'}
-      />
->>>>>>> 9b73d12e3febe4302f55496ea5203ae9b946f619
+      <div name={'canvas'}>
+        <Chart
+          name="bergur"
+          invoices={getUnpaidInvoices()}
+          bills={getUnpaidBills()}
+          color_income={'blue'}
+          color_payment={'red'}
+        />
+      </div>
     </Fragment>
   )
 }

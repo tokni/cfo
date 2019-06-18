@@ -7,13 +7,13 @@ context('Testing Language...', () => {
   })
   describe('Language', () => {
     it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+      await cy.visit('/overview')
     })
 
-    it('go to Overview', () => {
-      cy.wait(6000)
-      cy.get('[name="overview"]').click()
-    })
+    // it('go to Overview', () => {
+    //   cy.wait(6000)
+    //   cy.get('[name="overview"]').click()
+    // })
 
     it('change to german', () => {
       cy.get('[name="de"]').click()

@@ -6,22 +6,17 @@ context('End testing invoice ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Invoice', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/invoice')
       cy.wait(1000)
     })
 
-    it('go to invoice', () => {
-      cy.get('[name="invoice"]').click()
-    })
-
-    it('open and cancel modal', () => {
-      cy.get('[name="addinvoice"]').click()
-      cy.get('.MuiDialog-container-353').click('bottomRight')
-    })
+    // it('go to invoice', () => {
+    //   cy.get('[name="invoice"]').click()
+    // })
 
     it('open and submit modal', () => {
-      cy.get('[name="addinvoice"]').click()
+      cy.get('[data-cy="addinvoice"]').click()
     })
 
     it('Choose customer', () => {
@@ -47,9 +42,7 @@ context('End testing invoice ...', () => {
 
       cy.get('#price').type(5)
 
-      cy.get(
-        '.Form-container-405 > .MuiButtonBase-root-278 > .MuiButton-label-253'
-      ).click()
+      cy.get('[data-cy=addItem]').click()
 
       cy.contains('110')
     })
@@ -83,9 +76,7 @@ context('End testing invoice ...', () => {
     })
 
     it('Submit', () => {
-      cy.get(
-        '.MuiGrid-grid-lg-5-76 > .MuiPaper-root-110 > .MuiFab-root-340'
-      ).click()
+      cy.get('[data-cy=submit-form]').click()
     })
   })
 })

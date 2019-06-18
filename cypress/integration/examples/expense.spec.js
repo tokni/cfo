@@ -6,20 +6,19 @@ context('End testing expence CRUD ...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Expense', () => {
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
+    it('Visits CFO on localhost', () => {
+      cy.visit('/expense')
       cy.wait(1000)
     })
 
-    it('go to expence', () => {
-      cy.wait(6000)
-      cy.get('[name="expense"]').click()
-    })
+    // it('go to expence', () => {
+    //   cy.wait(6000)
+    //   cy.get('[name="expense"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addexpense"]').click()
-      cy.get('[name="cancel"]')
-      .click()
+      cy.get('[name="cancel"]').click()
     })
 
     it('open and submit modal', () => {

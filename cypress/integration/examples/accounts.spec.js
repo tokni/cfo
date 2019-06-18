@@ -8,15 +8,14 @@ context('End testing accounts CRUD...', () => {
   describe('./Accounts', () => {
     // localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
 
-    it('Visits CFO on localhost', async () => {
-      await cy.visit('http://localhost:3000/')
-      cy.wait(1000)
+    it('Visits CFO on localhost', () => {
+      cy.visit('/accounts')
     })
 
-    it('go to accounts', () => {
-      cy.wait(6000)
-      cy.get('[name="accounts"]').click()
-    })
+    // it('go to accounts', () => {
+    //   cy.wait(6000)
+    //   cy.get('[name="accounts"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addaccount"]').click()
