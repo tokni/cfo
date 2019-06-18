@@ -38,7 +38,6 @@ const GetBalanceSheets = props => {
   const getSheetRows = () => {
     return data.Balance_sheet.map(item => {
       if (item.date === date) {
-        console.log('assets ', item)
         return (
           <Fragment>
             <Typography variant="h5" component="h3">

@@ -214,7 +214,6 @@ const CreateTransaction = props => {
             setPayment(accumulatedPrice)
           }}
         >
-          {console.log('invoices', state.company.Invoices)}
           {state.company.Invoices ? (
             // eslint-disable-next-line array-callback-return
             state.company.Invoices.map((item, index) => {

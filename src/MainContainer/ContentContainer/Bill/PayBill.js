@@ -34,6 +34,7 @@ const PayBill = props => {
   const [open, setOpen] = useState(false)
   const [debit_id, setDebitAccount] = useState('')
   const [credit_id, setCreditAccount] = useState('')
+
   const [type, setType] = useState('')
   const bill_id = props.id
   const payment = props.payment
@@ -50,15 +51,15 @@ const PayBill = props => {
   const handleClose = () => {
     setDebitAccount('')
     setCreditAccount('')
-    // setBill('')
     if (state.company !== null) {
-      console.log('trans', state.company)
       setOpen(!open)
     }
     setMsg(false)
   }
 
   const onSubmit = async e => {
+    let debit
+    let credit
     e.preventDefault()
     if (
       debit_id !== '' &&
@@ -66,6 +67,15 @@ const PayBill = props => {
       payment !== '' &&
       bill_id !== ''
     ) {
+      await state.company.Accounts.forEach(element => {
+        if (element.id === debit_id) {
+          debit = element.balance
+        }
+        if (element.id === credit_id) {
+          credit = element.balance
+        }
+      })
+
       await postTransactionMutation({
         variables: {
           company_id: state.company.id,
@@ -88,7 +98,7 @@ const PayBill = props => {
         variables: {
           id: debit_id,
           company_id: state.company.id,
-          balance: props.payment,
+          balance: debit - props.payment,
         },
       })
       // update credit account
@@ -96,7 +106,7 @@ const PayBill = props => {
         variables: {
           id: credit_id,
           company_id: state.company.id,
-          balance: props.payment,
+          balance: credit + props.payment,
         },
       })
       setTimeout(() => {
@@ -163,7 +173,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line array-callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === true) {
                   return (
@@ -171,6 +180,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                } else {
+                  return null
                 }
               })
             ) : (
@@ -193,7 +204,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line array-callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === false) {
                   return (
@@ -201,6 +211,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                } else {
+                  return null
                 }
               })
             ) : (
