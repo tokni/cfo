@@ -108,11 +108,12 @@ const TableHelper = props => {
             })}
             {/* Only add update button if it was passed */}
             {props.accountNumbers ? getAccountNumbers(row) : null}
-            {props.payBill
+            {props.pay
               ? row.paid === false
-                ? payBillsRender(row)
+                ? pay(row)
                 : null
               : null}
+
             {props.update ? renderUpdate(row) : null}
             {props.delete ? renderDelete(row.id) : null}
             {props.deleteInvoiceMutation
@@ -124,10 +125,12 @@ const TableHelper = props => {
     }
   }
 
-  const payBillsRender = item => {
+
+  const pay = item =>{
     return (
-      <TableCell>{React.cloneElement(props.payBill, { ...item })}</TableCell>
+      <TableCell>{React.cloneElement(props.pay, { ...item })}</TableCell>
     )
+
   }
 
   const getAccountNumbers = ({ id, name }) => {
