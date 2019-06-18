@@ -60,6 +60,7 @@ const CreateCustomer = props => {
       <Fab
         onClick={handleClose}
         color="primary"
+        data-cy="addinvoice"
         name="addinvoice"
         aria-label="Add"
         className={classes.fab}

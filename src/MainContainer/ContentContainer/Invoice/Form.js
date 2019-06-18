@@ -203,6 +203,7 @@ const Form = props => {
             />
           </FormControl>
           <Button
+            data-cy="addItem"
             style={{ width: '15%' }}
             onClick={addProductHandler.bind(this)}
           >
@@ -288,7 +289,8 @@ const Form = props => {
         <Fab
           onClick={addQueryHandler}
           color="primary"
-          name='submit-invoice'
+          data-cy="submit-form"
+          name="submit-invoice"
           aria-label="Add"
           className={classes.fab}
         >

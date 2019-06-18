@@ -149,7 +149,7 @@ const PayBill = props => {
           <TextField
             autoFocus
             margin="dense"
-            id="debit"
+            id="type"
             label={Language[state.locals].type}
             type="text"
             fullWidth
@@ -180,7 +180,7 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
-                }else{
+                } else {
                   return null
                 }
               })
@@ -211,7 +211,7 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
-                }else{
+                } else {
                   return null
                 }
               })
@@ -221,10 +221,10 @@ const PayBill = props => {
           </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={onSubmit} color="primary">
+          <Button name="submit" onClick={onSubmit} color="primary">
             {Language[state.locals].add}
           </Button>
         </DialogActions>

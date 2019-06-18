@@ -6,15 +6,15 @@ context('End testing customers CRUD...', () => {
     localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
   })
   describe('./Customer', () => {
-    localStorage.setItem('sub', Cypress.env('REACT_APP_TEST_TOKEN'))
     it('Visits CFO on localhost', () => {
-      cy.visit('http://localhost:3000/')
+      cy.visit('/customers')
       cy.wait(200)
     })
 
-    it('go to customers', () => {
-      cy.get('[name="customers"]').click()
-    })
+    // it('go to customers', () => {
+    //   cy.wait(6000)
+    //   cy.get('[name="customers"]').click()
+    // })
 
     it('open and cancel modal', () => {
       cy.get('[name="addcustomer"]').click()
