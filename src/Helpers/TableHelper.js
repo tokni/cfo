@@ -114,7 +114,7 @@ const TableHelper = props => {
                 : null
               : null}
             {props.update
-              ? props.payBill
+              ? props.pay
                 ? row.paid === false
                   ? renderUpdate(row)
                   : null
