@@ -109,9 +109,9 @@ const Home = () => {
           <Grid
             style={{ paddingTop: 8, overflowX: 'auto' }}
             item
-            lg={11}
-            md={11}
-            sm={11}
+            lg={12}
+            md={12}
+            sm={12}
           >
             <Paper>
               <Balance />
