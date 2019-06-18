@@ -13,7 +13,7 @@ const StoreExpense = () => {
   })
 
   if (error) {
-    console.log('vedorn error', error)
+    console.log('vendor error', error)
     return error
   }
 
