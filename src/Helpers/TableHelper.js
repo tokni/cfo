@@ -113,8 +113,14 @@ const TableHelper = props => {
                 ? pay(row)
                 : null
               : null}
-
-            {props.update ? renderUpdate(row) : null}
+            {props.update
+              ? props.payBill
+                ? row.paid === false
+                  ? renderUpdate(row)
+                  : null
+                : renderUpdate(row)
+              : null}
+            {/* {props.update ? renderUpdate(row) : null} */}
             {props.delete ? renderDelete(row.id) : null}
             {props.deleteInvoiceMutation
               ? renderDeleteInvoiceMutation(row.id)

@@ -16,7 +16,7 @@ import GetAccountsType from '../Account/GetAccountsType'
 import Modal from '../../../Helpers/Modal'
 import { ArrowDropDown } from '../../../Helpers/Constants'
 import SnackBar from '../SnackBar/SnackBar'
-import CreateBalanceSheets from './CreateBalanceSheet';
+import CreateBalanceSheets from './CreateBalanceSheet'
 
 const BalanceSheet = () => {
   const [open, setOpen] = useState(false)
@@ -117,13 +117,21 @@ const BalanceSheet = () => {
   }
   return (
     <Fragment>
-     
-    { data ? data.Account ? <CreateBalanceSheets liabilities={liabilities} assets={assets} accounts={data.Account}/> : null : null}
-     
+      {data ? (
+        data.Account ? (
+          <CreateBalanceSheets
+            liabilities={liabilities}
+            assets={assets}
+            accounts={data.Account}
+          />
+        ) : null
+      ) : null}
+
       <Modal
         Icon={ArrowDropDown}
-        title={Language[state.locals].showcurrentbalancesheet}
+        title={'showcurrentbalancesheet'}
         submit={onSubmit}
+        name="currentbalance"
         close={handleClose}
         tooltipTitle={Language[state.locals].showcurrentbalancesheet}
       >
@@ -139,17 +147,13 @@ const BalanceSheet = () => {
             setShowCurrent(e.target.value)
           }}
         >
-          <option value={true}>
-            {Language[state.locals].show}
-          </option>
-          <option value={false}>
-            {Language[state.locals].dontshow}
-          </option>
+          <option value={true}>{Language[state.locals].show}</option>
+          <option value={false}>{Language[state.locals].dontshow}</option>
         </TextField>
       </Modal>
-   
+
       {showCurrent ? printCurrentBalanceSheet() : null}
-    
+
       <GetBalanceSheets />
     </Fragment>
   )
