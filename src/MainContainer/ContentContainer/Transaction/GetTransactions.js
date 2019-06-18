@@ -56,6 +56,7 @@ const GetTransactions = props => {
           array={data.Transaction}
           update={update}
           delete={deleteTransaction}
+          hideID={true}
         />
       ) : null}
     </Fragment>

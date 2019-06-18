@@ -50,7 +50,7 @@ const GetExpenses = props => {
   }
   return (
     <Fragment>
-      {data ? <TableHelper array={data.Expense} update={update} delete={deleteExpense}/> : null}
+      {data ? <TableHelper array={data.Expense} update={update} delete={deleteExpense} hideID={true}/> : null}
     </Fragment>
   )
 }

@@ -32,7 +32,7 @@ const GetCustomer = props => {
 
   return (
     <Fragment>
-      {data ? <TableHelper array={data.Customer} update={update} delete={deleteCustomer}/> : null}
+      {data ? <TableHelper array={data.Customer} update={update} delete={deleteCustomer} hideID={true}/> : null}
     </Fragment>
   )
 }
