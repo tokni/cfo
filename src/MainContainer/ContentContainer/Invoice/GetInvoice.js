@@ -8,6 +8,7 @@ import { DELETE_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
 import { withStyles, Dialog, Fab } from '@material-ui/core'
 import TableHelper from '../../../Helpers/TableHelper'
+import PayInvoice from './PayInvoice';
 
 const styles = theme => ({
   fab: {
@@ -34,6 +35,7 @@ const CreateCustomer = props => {
       company_id: state.company ? state.company.id : null,
     },
   })
+  const payInvoice = <PayInvoice/>
 
   const handleClose = () => {
     if (state.company !== null) {
@@ -79,6 +81,7 @@ const CreateCustomer = props => {
           array={data.Invoice}
           deleteInvoiceMutation={deleteInvoiceMutation}
           deleteOrderMutation={deleteOrderMutation}
+          pay={payInvoice}
         />
       ) : null}
     </Fragment>

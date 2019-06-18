@@ -8,6 +8,8 @@ import { Add } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
+import { PUT_INVOICE_PAY } from '../../../utils/Query/InvoiceQuery'
+
 import { withStyles, TextField } from '@material-ui/core'
 
 const styles = theme => ({
@@ -28,6 +30,8 @@ const CreateTransaction = props => {
   const [invoiceDescription, setInvoiceDescription] = useState('')
   const postTransactionMutation = useMutation(POST_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
+  const updateInvoiceMutation = useMutation(PUT_INVOICE_PAY)
+
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -64,13 +68,24 @@ const CreateTransaction = props => {
           invoice_id,
         },
       })
-      await updateBilltMutation({
-        variables: {
-          id: bill_id,
-          company_id: state.company.id,
-          paid: true,
-        },
-      })
+      if(bill_id !== null){
+        await updateBilltMutation({
+          variables: {
+            id: bill_id,
+            company_id: state.company.id,
+            paid: true,
+          },
+        })
+      }else{
+        await updateInvoiceMutation({
+          variables: {
+            id: invoice_id,
+            company_id: state.company.id,
+            paid: true
+          }
+        })
+      }
+     
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)

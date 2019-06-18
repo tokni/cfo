@@ -54,4 +54,21 @@ const DELETE_INVOICE = gql`
   }
 `
 
-export { POST_INVOICE, GET_INVOICES, DELETE_INVOICE }
+const PUT_INVOICE_PAY = gql`
+mutation putInvoice(
+  $id: uuid!
+  $company_id: uuid!
+  $paid: Boolean!
+) {
+  update_Invoice(
+    where: { company_id: { _eq: $company_id }, id: { _eq: $id } }
+    _set: {
+      paid: $paid
+    }
+  ) {
+    affected_rows
+  }
+}
+`
+
+export { POST_INVOICE, GET_INVOICES, DELETE_INVOICE,PUT_INVOICE_PAY }
