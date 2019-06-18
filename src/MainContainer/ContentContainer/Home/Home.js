@@ -8,7 +8,7 @@ import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 import { Typography } from '@material-ui/core'
 import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
-
+import Balance from '../Balance/Balance'
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
@@ -70,7 +70,7 @@ const Home = () => {
           style={{ color: '#001011', padding: 20 }}
         >
           <Grid item container justify="center">
-            <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
+            <Paper style={{ padding: 8, height: 700, overflowX: 'auto' }}>
               <Typography gutterBottom variant="title">
                 Standard license
               </Typography>
@@ -106,6 +106,17 @@ const Home = () => {
         </Grid>
         <Grid item lg={8} md={11} sm={11}>
           <Company />
+          <Grid
+            style={{ paddingTop: 8, overflowX: 'auto' }}
+            item
+            lg={11}
+            md={11}
+            sm={11}
+          >
+            <Paper>
+              <Balance />
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
     </Fragment>

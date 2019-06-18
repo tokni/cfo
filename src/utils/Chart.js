@@ -3,10 +3,13 @@ import React, {
   useRef,
   useEffect,
   useState,
+  useContext,
   useCallback,
 } from 'react'
 import { Bar } from 'react-chartjs-2'
 import CustomizedDialogs from '../Helpers/CustomizedDialogs'
+import Language from './language'
+import Context from '../Context/Context'
 
 const Chart = props => {
   const inputRef = useRef('chart')
@@ -14,6 +17,7 @@ const Chart = props => {
   const [income, setIncome] = useState([])
   const [paymentsPerMonth, setPaymentsPerMOnth] = useState({})
   const [incomePerMonth, setIncomePerMOnth] = useState({})
+  const [state] = useContext(Context)
 
   // eslint-disable-next-line no-unused-vars
   const [open, setOpen] = useState(false)
@@ -35,7 +39,7 @@ const Chart = props => {
     ],
     datasets: [
       {
-        label: 'Bills',
+        label: Language[state.locals].bills,
         fill: false,
         lineTension: 0.1,
         backgroundColor: props.color_payment,
@@ -47,7 +51,7 @@ const Chart = props => {
         data: payment,
       },
       {
-        label: 'Income',
+        label: Language[state.locals].income,
         fill: false,
         lineTension: 0.1,
         backgroundColor: props.color_income,
