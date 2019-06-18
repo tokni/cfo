@@ -98,7 +98,7 @@ const PayBill = props => {
         variables: {
           id: debit_id,
           company_id: state.company.id,
-          balance: debit + props.payment,
+          balance: debit - props.payment,
         },
       })
       // update credit account
@@ -106,7 +106,7 @@ const PayBill = props => {
         variables: {
           id: credit_id,
           company_id: state.company.id,
-          balance: credit - props.payment,
+          balance: credit + props.payment,
         },
       })
       setTimeout(() => {
