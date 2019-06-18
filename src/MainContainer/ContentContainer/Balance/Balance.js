@@ -30,6 +30,8 @@ const Balance = () => {
             date.setMonth(date.getMonth() + 3)
             break
           default:
+            date.setMonth(12)
+            date.setDate(31)
             break
         }
 
@@ -66,6 +68,8 @@ const Balance = () => {
               date.setMonth(date.getMonth() + 3)
               break
             default:
+              date.setMonth(12)
+              date.setDate(31)
               break
           }
 
@@ -103,6 +107,7 @@ const Balance = () => {
         <option value={'1m'}>1 {Language[state.locals].month}</option>
         <option value={'2m'}>2 {Language[state.locals].months}</option>
         <option value={'3m'}>3 {Language[state.locals].months}</option>
+        <option value={'rest'}>{Language[state.locals].all}</option>
       </TextField>
       <Chart
         invoices={getUnpaidInvoices()}
