@@ -4,7 +4,7 @@ import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
 import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
-import { Add } from '../../../Helpers/Constants'
+import { Edit } from '../../../Helpers/Constants'
 import { useMutation } from 'react-apollo-hooks'
 import { PUT_TAX } from '../../../utils/Query/TaxQuery'
 import { withStyles, TextField } from '@material-ui/core'
@@ -17,8 +17,8 @@ const styles = theme => ({
 
 const UpdateTax = props => {
   const [open, setOpen] = useState(false)
-  const [taxName, setTaxName] = useState('')
-  const [taxPercentage, setTaxPercentage] = useState('')
+  const [taxName, setTaxName] = useState(props.name)
+  const [taxPercentage, setTaxPercentage] = useState(props.tax_percentage)
 
   const postTaxMutation = useMutation(PUT_TAX)
   const [state] = useContext(Context)
@@ -38,6 +38,7 @@ const UpdateTax = props => {
         variables: {
           company_id: state.company.id,
           name: taxName,
+          id: props.id,
           tax_percentage: taxPercentage,
         },
       })
@@ -56,20 +57,20 @@ const UpdateTax = props => {
 
   return (
     <Fragment>
+      {console.log("props tax ", props)}
       <Modal
-        Icon={Add}
+        Icon={Edit}
         title="updatetax"
         text="fillformtoupdatetax"
         submit={onSubmit}
         close={handleClose}
       >
-        {/* name FIELD */}
+        {/* tax name FIELD */}
 
         <TextField
           autoFocus
           margin="dense"
           id="tax"
-          select
           value={taxName || ''}
           label={Language[state.locals].tax || ''}
           type="text"
@@ -82,10 +83,9 @@ const UpdateTax = props => {
           autoFocus
           margin="dense"
           id="taxPercentage"
-          select
           value={taxPercentage || ''}
           label={Language[state.locals].taxpercentage || ''}
-          type="text"
+          type="number"
           fullWidth
           onChange={e => {setTaxPercentage(e.target.value)}}
         >
