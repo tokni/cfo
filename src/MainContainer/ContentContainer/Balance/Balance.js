@@ -60,25 +60,15 @@ const Balance = () => {
 
   return (
     <Fragment>
-      {/* <Chart
-        invoices={getTransactions('invoices')}
-        bills={getTransactions('bills')}
-        color_income={'blue'}
-        color_payment={'red'}
-      /> */}
-
       <Typography variant="h4" component="h1" data-cy="title">
         {Language[state.locals]['unpaidbillsandinvoices']}
       </Typography>
-      <div name={'canvas'}>
-        <Chart
-          name="bergur"
-          invoices={getUnpaidInvoices()}
-          bills={getUnpaidBills()}
-          color_income={'blue'}
-          color_payment={'red'}
-        />
-      </div>
+      <Chart
+        invoices={getUnpaidInvoices()}
+        bills={getUnpaidBills()}
+        color_income={'blue'}
+        color_payment={'red'}
+      />
     </Fragment>
   )
 }

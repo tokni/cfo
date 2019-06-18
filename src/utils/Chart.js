@@ -177,7 +177,6 @@ const Chart = props => {
     <Fragment>
       {props.invoices && props.bills ? (
         <Bar
-          name="kristmund"
           ref={inputRef}
           data={data}
           getElementAtEvent={e => {
