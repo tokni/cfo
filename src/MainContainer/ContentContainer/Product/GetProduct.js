@@ -35,6 +35,7 @@ const GetProduct = props => {
           array={data.Product}
           update={update}
           delete={deleteProduct}
+          hideID={true}
         />
       ) : null}
     </Fragment>

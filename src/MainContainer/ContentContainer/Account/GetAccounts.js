@@ -47,7 +47,7 @@ const GetAccounts = () => {
   return (
     <Fragment>
       {data.Account ? (
-        <TableHelper array={data.Account} accountNumbers={accountNumbers} />
+        <TableHelper array={data.Account} accountNumbers={accountNumbers} hideID={true}/>
       ) : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />

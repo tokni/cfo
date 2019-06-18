@@ -41,6 +41,9 @@ const GET_INVOICES = gql`
       invoice_number
       paid
       attachment_id
+      Attachment{
+        name
+      }
       payment
     }
   }

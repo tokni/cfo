@@ -82,6 +82,7 @@ const CreateCustomer = props => {
           deleteInvoiceMutation={deleteInvoiceMutation}
           deleteOrderMutation={deleteOrderMutation}
           pay={payInvoice}
+          hideID={true}
         />
       ) : null}
     </Fragment>

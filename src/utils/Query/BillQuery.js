@@ -24,7 +24,6 @@ const GET_BILLS_SUBSCRIPTION = gql`
       paid
       Attachment {
         name
-        id
       }
       
     }
