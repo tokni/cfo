@@ -2,9 +2,9 @@ import Context from '../../Context/Context'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
 import MailIcon from '@material-ui/icons/Mail'
-import { MenuItems } from './MenuItems'
+import { MenuItems, NestedItems } from './MenuItems'
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   withStyles,
@@ -16,11 +16,17 @@ import {
   Grid,
   Divider,
   CssBaseline,
+  Collapse,
 } from '@material-ui/core'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 
 const drawerWidth = 240
 
 const styles = theme => ({
+  // nested: {
+  //   paddingLeft: theme.spacing(4),
+  // },
   roottop: {
     flexGrow: 1,
   },
@@ -36,6 +42,9 @@ const styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  nested: {
+    paddingLeft: '4em',
   },
   drawer: {
     width: drawerWidth,
@@ -54,6 +63,12 @@ const styles = theme => ({
 const SideDrawer = props => {
   const [state] = useContext(Context)
   const { classes } = props
+
+  const [open, setOpen] = useState(false)
+
+  const handleClick = () => {
+    setOpen(!open)
+  }
 
   return (
     <Grid item lg={3} md={6} sm={6}>
@@ -103,6 +118,59 @@ const SideDrawer = props => {
               ))}
             </List>
             <Divider />
+            <List component="div" disablePadding>
+              <ListItem button onClick={handleClick} button>
+                <ListItemIcon>
+                  <Dashboard />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Starred"
+                  name={'Sales'}
+                  primary={'Sales'}
+                />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {NestedItems().map((text, index) => (
+                    <Link
+                      key={index}
+                      to={`/${text
+                        .split(' ')
+                        .join('')
+                        .toLowerCase()}`}
+                    >
+                      <ListItem
+                        button
+                        key={index}
+                        button
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary="Starred"
+                          onClick={handleClick}
+                          name={text
+                            .split(' ')
+                            .join('')
+                            .toLowerCase()}
+                          primary={
+                            Language[state.locals][
+                              text
+                                .toLowerCase()
+                                .split(' ')
+                                .join('')
+                            ]
+                          }
+                        />
+                      </ListItem>
+                    </Link>
+                  ))}
+                </List>
+              </Collapse>
+            </List>
           </Drawer>
         </CssBaseline>
       </div>
