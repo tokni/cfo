@@ -147,7 +147,6 @@ const TableHelper = props => {
   }
 
   const deleteOrderAndInvoiceHandler = id => {
-    console.log('123, ', id)
     props.deleteOrderMutation({
       variables: {
         id: id,

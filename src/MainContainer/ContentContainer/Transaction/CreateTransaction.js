@@ -209,7 +209,7 @@ const CreateTransaction = props => {
           type="text"
           fullWidth
           onChange={e => {
-            setInvoiceDescription(e.target.value)
+            setInvoiceDescription(e.target.value.description)
             setInvoice(e.target.value.id)
 
             const accumulatedPrice = +e.target.value.Orders.map(

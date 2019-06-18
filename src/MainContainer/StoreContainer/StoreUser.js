@@ -22,8 +22,6 @@ const StoreUser = () => {
     }
     fetchData()
   }, [data.User, dispatch])
-  // console.log('data: ', JSON.stringify(data, null, 2))
-  // console.log('state: ', JSON.stringify(state, null, 2))
   return null
 }
 
