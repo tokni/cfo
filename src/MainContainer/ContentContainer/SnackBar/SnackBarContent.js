@@ -1,5 +1,5 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import classNames from 'classnames'
+// import classNames from 'classnames'
 import CloseIcon from '@material-ui/icons/Close'
 import ErrorIcon from '@material-ui/icons/Error'
 import InfoIcon from '@material-ui/icons/Info'
@@ -49,11 +49,11 @@ function SnackBarContent(props) {
 
   return (
     <SnackbarContent
-      className={classNames(classes[variant], className)}
+      // className={classNames(classes[variant], className)}
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.icon, classes.iconVariant)} />
+          {/* <Icon className={classNames(classes.icon, classes.iconVariant)} /> */}
           {message}
         </span>
       }
