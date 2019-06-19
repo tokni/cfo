@@ -15,6 +15,7 @@ import {
   List,
   Grid,
   Divider,
+  Hidden,
   CssBaseline,
   Collapse,
 } from '@material-ui/core'
@@ -74,104 +75,107 @@ const SideDrawer = props => {
     <Grid item lg={3} md={6} sm={6}>
       <div className={classes.root}>
         <CssBaseline>
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            style={{ backgroundColor: '#1100ee' }}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div
-              className={classes.toolbar}
-              style={{ backgroundColor: 'rgb(63, 81, 181)' }}
-            />
-            <List style={{ backgroundColor: '#DDDDDD' }}>
-              {MenuItems().map((text, index) => (
-                <Link
-                  key={index}
-                  to={`/${text
-                    .split(' ')
-                    .join('')
-                    .toLowerCase()}`}
-                >
-                  <ListItem button key={index}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      name={text
-                        .split(' ')
-                        .join('')
-                        .toLowerCase()}
-                      primary={
-                        Language[state.locals][
-                          text
-                            .toLowerCase()
-                            .split(' ')
-                            .join('')
-                        ]
-                      }
-                    />
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-            <Divider />
-            <List component="div" disablePadding>
-              <ListItem button onClick={handleClick} button>
-                <ListItemIcon>
-                  <Dashboard />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Starred"
-                  name={'Sales'}
-                  primary={'Sales'}
-                />
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {NestedItems().map((text, index) => (
-                    <Link
-                      key={index}
-                      to={`/${text
-                        .split(' ')
-                        .join('')
-                        .toLowerCase()}`}
-                    >
-                      <ListItem
-                        button
+          {/* only={['md', 'xs', 'sm']} */}
+          <Hidden smDown implementation="css">
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              style={{ backgroundColor: '#1100ee' }}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              <div
+                className={classes.toolbar}
+                style={{ backgroundColor: 'rgb(63, 81, 181)' }}
+              />
+              <List style={{ backgroundColor: '#DDDDDD' }}>
+                {MenuItems().map((text, index) => (
+                  <Link
+                    key={index}
+                    to={`/${text
+                      .split(' ')
+                      .join('')
+                      .toLowerCase()}`}
+                  >
+                    <ListItem button key={index}>
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                      </ListItemIcon>
+                      <ListItemText
+                        name={text
+                          .split(' ')
+                          .join('')
+                          .toLowerCase()}
+                        primary={
+                          Language[state.locals][
+                            text
+                              .toLowerCase()
+                              .split(' ')
+                              .join('')
+                          ]
+                        }
+                      />
+                    </ListItem>
+                  </Link>
+                ))}
+              </List>
+              <Divider />
+              <List component="div" disablePadding>
+                <ListItem button onClick={handleClick} button>
+                  <ListItemIcon>
+                    <Dashboard />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Starred"
+                    name={'Sales'}
+                    primary={'Sales'}
+                  />
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {NestedItems().map((text, index) => (
+                      <Link
                         key={index}
-                        button
-                        className={classes.nested}
+                        to={`/${text
+                          .split(' ')
+                          .join('')
+                          .toLowerCase()}`}
                       >
-                        <ListItemIcon>
-                          {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText
-                          primary="Starred"
-                          onClick={handleClick}
-                          name={text
-                            .split(' ')
-                            .join('')
-                            .toLowerCase()}
-                          primary={
-                            Language[state.locals][
-                              text
-                                .toLowerCase()
-                                .split(' ')
-                                .join('')
-                            ]
-                          }
-                        />
-                      </ListItem>
-                    </Link>
-                  ))}
-                </List>
-              </Collapse>
-            </List>
-          </Drawer>
+                        <ListItem
+                          button
+                          key={index}
+                          button
+                          className={classes.nested}
+                        >
+                          <ListItemIcon>
+                            {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Starred"
+                            onClick={handleClick}
+                            name={text
+                              .split(' ')
+                              .join('')
+                              .toLowerCase()}
+                            primary={
+                              Language[state.locals][
+                                text
+                                  .toLowerCase()
+                                  .split(' ')
+                                  .join('')
+                              ]
+                            }
+                          />
+                        </ListItem>
+                      </Link>
+                    ))}
+                  </List>
+                </Collapse>
+              </List>
+            </Drawer>
+          </Hidden>
         </CssBaseline>
       </div>
     </Grid>

@@ -44,7 +44,7 @@ const TableHelper = props => {
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
         return props.hideID && item.match(filterId) ? (
-          <TableCell key={index} style={{display: 'none'}}>
+          <TableCell key={index} style={{ display: 'none' }}>
             {Language[state.locals][item] || item}
           </TableCell>
         ) : (
@@ -104,7 +104,8 @@ const TableHelper = props => {
                             (account, accountNumbersIndex) => {
                               return (
                                 account.account_number +
-                                (index + 1 === row.account_numbers.length
+                                (accountNumbersIndex + 1 ===
+                                row.account_numbers.length
                                   ? ''
                                   : ' | ')
                               )
