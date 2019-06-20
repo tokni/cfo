@@ -6,10 +6,18 @@ import SnackBar from '../SnackBar/SnackBar'
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import TableHelper from '../../../Helpers/TableHelper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+// import { makeStyles } from '@material-ui/core/styles'
 
+// const useStyles = makeStyles(theme => ({
+//   progress: {
+//     margin: theme.spacing(2),
+//   },
+// }))
 const GetAccounts = () => {
   const [state] = useContext(Context)
   const accountNumbers = <AccountNumbers />
+  // const classes = useStyles()
   const { data, error, loading } = useSubscription(GET_SUBSCRIP_ACCOUNTS, {
     suspend: false,
     variables: {
@@ -18,7 +26,13 @@ const GetAccounts = () => {
   })
 
   if (loading) {
-    return <p>{Language[state.locals].loading}...</p>
+    return (
+      <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}>
+        <CircularProgress />
+        {Language[state.locals].loading}...
+      </div>
+    )
+    // return <p>{Language[state.locals].loading}...</p>
   }
 
   if (error) {
@@ -33,7 +47,11 @@ const GetAccounts = () => {
   return (
     <Fragment>
       {data.Account ? (
-        <TableHelper array={data.Account} accountNumbers={accountNumbers} hideID={true}/>
+        <TableHelper
+          array={data.Account}
+          accountNumbers={accountNumbers}
+          hideID={true}
+        />
       ) : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
