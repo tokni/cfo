@@ -32,13 +32,21 @@ const GetCompany = () => {
 
   return (
     <Paper>
-      <Grid item container sm={12}>
+      <Grid item container xl={12} lg={12} md={6} sm={4}>
         {state.companies
           ? state.companies.map((item, index) => {
               return (
-                <Grid item key={index} sm={3} style={{ padding: 30 }}>
+                <Grid
+                  item
+                  key={index}
+                  xl={4}
+                  lg={4}
+                  md={6}
+                  sm={6}
+                  style={{ padding: '2em' }}
+                >
                   <Paper
-                    style={{ height: 128 }}
+                    style={{ height: '8em', width: '8em' }}
                     onClick={clickHandler.bind(this, index)}
                   >
                     <Typography
@@ -62,7 +70,7 @@ const GetCompany = () => {
                     <Typography
                       align="left"
                       variant="body1"
-                      style={{ paddingLeft: 12 }}
+                      style={{ paddingLeft: '2em' }}
                     >
                       {item.mother_id
                         ? `Mother Company: ${handleMother(item.mother_id)}`

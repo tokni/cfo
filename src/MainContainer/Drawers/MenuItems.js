@@ -13,8 +13,6 @@ const MenuItems = () => {
     menu.push(Language['en'].companies)
   } else if (state.company) {
     menu.push(Language['en'].overview)
-    menu.push(Language['en'].bills)
-    menu.push(Language['en'].transactions)
     menu.push(Language['en'].tax)
     menu.push(Language['en'].accounts)
     menu.push(Language['en'].companies)
@@ -25,14 +23,18 @@ const MenuItems = () => {
   }
   return menu
 }
+const TransactionsItems = () => {
+  let menu = []
+  menu.push(Language['en'].transactions)
+  menu.push(Language['en'].invoice)
+  menu.push(Language['en'].bills)
+  return menu
+}
 const NestedItems = () => {
   let menu = []
-  menu.push(Language['en'].invoice)
   menu.push(Language['en'].customers)
   menu.push(Language['en'].products)
-  menu.push(Language['en'].balance)
-
   return menu
 }
 
-export { MenuItems, NestedItems }
+export { MenuItems, NestedItems, TransactionsItems }

@@ -1,7 +1,7 @@
 import Company from '../Company/GetCompany'
 import Context from '../../../Context/Context'
 import Grid from '@material-ui/core/Grid'
-import { Paper, Button } from '@material-ui/core'
+import { Paper, Button, ButtonGroup } from '@material-ui/core'
 import Attachment from '../../../Helpers/Attachment'
 import React, { useContext, Fragment } from 'react'
 import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
