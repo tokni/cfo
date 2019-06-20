@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react'
+import React, { useContext, Fragment, useState } from 'react'
 import Language from '../utils/language'
 import PropTypes from 'prop-types'
 import {
@@ -8,6 +8,8 @@ import {
   TableCell,
   TableHead,
   TableBody,
+  FormControlLabel,
+  Switch,
   Fab,
 } from '@material-ui/core'
 import { DeleteIcon } from '../Helpers/Constants'
@@ -33,6 +35,7 @@ const TableHelper = props => {
     : null
 
   const [state] = useContext(Context)
+  const [hideID, setHideID] = useState(true)
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
 
@@ -43,7 +46,7 @@ const TableHelper = props => {
         if (item === '__typename') return null // skip __typename colummns
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
-        return props.hideID && item.match(filterId) ? (
+        return hideID && item.match(filterId) ? (
           <TableCell key={index} style={{ display: 'none' }}>
             {Language[state.locals][item] || item}
           </TableCell>
@@ -88,7 +91,7 @@ const TableHelper = props => {
               return (
                 <Fragment key={itemIndex}>
                   {item ? (
-                    props.hideID && header[itemIndex].match(filterId) ? (
+                    hideID && header[itemIndex].match(filterId) ? (
                       <TableCell key={item.id} style={{ display: 'none' }}>
                         {Language[state.locals][item.toLowerCase()] || item}
                       </TableCell>
@@ -209,12 +212,29 @@ const TableHelper = props => {
     )
   }
   return (
-    <Table>
-      <TableHead>
-        <TableRow>{renderTableHeader()}</TableRow>
-      </TableHead>
-      <TableBody>{renderTableData()}</TableBody>
-    </Table>
+    <Fragment>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={state.checkedB}
+            onClick={() => {
+              setHideID(!hideID)
+            }}
+            value={hideID}
+            color="primary"
+          />
+        }
+        label={
+          hideID ? Language[state.locals].less : Language[state.locals].more
+        }
+      />
+      <Table>
+        <TableHead>
+          <TableRow>{renderTableHeader()}</TableRow>
+        </TableHead>
+        <TableBody>{renderTableData()}</TableBody>
+      </Table>
+    </Fragment>
   )
 }
 
