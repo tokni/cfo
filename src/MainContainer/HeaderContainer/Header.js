@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import SelectCompany from '../ContentContainer/Company/SelectCompany'
 import React, { useContext } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, Button, AppBar, Toolbar } from '@material-ui/core'
+import { Typography, Button, Hidden, AppBar, Toolbar } from '@material-ui/core'
 
 const styles = {
   root: {
@@ -36,23 +36,25 @@ const Header = props => {
   const { classes } = props
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            CFO
-          </Typography>
-          <SelectCompany />
-          {localStorage.getItem('sub') ? (
-            <Button name="login" onClick={logout} color="inherit">
-              {Language[state.locals].logout}
-            </Button>
-          ) : (
-            <Button name="login" onClick={login} color="inherit">
-              {Language[state.locals].login}
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
+      <Hidden only={['sm', 'xs']}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              CFO
+            </Typography>
+            <SelectCompany />
+            {localStorage.getItem('sub') ? (
+              <Button name="login" onClick={logout} color="inherit">
+                {Language[state.locals].logout}
+              </Button>
+            ) : (
+              <Button name="login" onClick={login} color="inherit">
+                {Language[state.locals].login}
+              </Button>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Hidden>
     </div>
   )
 }
