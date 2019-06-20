@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Switch,
   Fab,
+  TextField,
 } from '@material-ui/core'
 import { DeleteIcon } from '../Helpers/Constants'
 import Context from '../Context/Context'
@@ -38,6 +39,7 @@ const TableHelper = props => {
   const [state] = useContext(Context)
   const [hideID, setHideID] = useState(true)
   const [dir, setDir] = useState(false)
+  const [filter, setFilter] = useState('')
   const [col, setCol] = useState('id')
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
@@ -82,6 +84,10 @@ const TableHelper = props => {
     return 0
   }
 
+  const isBigEnough = value => {
+    return value['name'].match(new RegExp(filter, 'gi'))
+  }
+
   const stringFormatter = target => {
     return target.charAt(0).toLowerCase() + target.slice(1) // make first character lowercase for every item
   }
@@ -89,14 +95,15 @@ const TableHelper = props => {
   const renderTableData = () => {
     let arr = props.array
 
-    console.log(`test1 ${JSON.stringify(arr, null, 2)}`)
-
     arr.sort(compare)
 
-    console.log(`test2 ${JSON.stringify(arr, null, 2)}`)
+    arr.filter(isBigEnough)
+    arr = arr.filter(isBigEnough)
+    console.log(`test ${arr.filter(isBigEnough)}`)
 
     if (props.array !== undefined || props.array !== null) {
-      return props.array.map((row, index) => {
+      // return props.array.map((row, index) => {
+      return arr.map((row, index) => {
         delete row['__typename'] // delete __typename properties from array
         return (
           <TableRow key={index}>
@@ -244,6 +251,14 @@ const TableHelper = props => {
   }
   return (
     <Fragment>
+      <TextField
+        type={'text'}
+        label={'Search'}
+        value={filter}
+        onChange={e => {
+          setFilter(e.target.value)
+        }}
+      />
       <FormControlLabel
         control={
           <Switch
