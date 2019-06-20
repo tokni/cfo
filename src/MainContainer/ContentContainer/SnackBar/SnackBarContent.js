@@ -1,5 +1,5 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-// import classNames from 'classnames'
+import clsx from 'clsx'
 import CloseIcon from '@material-ui/icons/Close'
 import ErrorIcon from '@material-ui/icons/Error'
 import InfoIcon from '@material-ui/icons/Info'
@@ -8,7 +8,7 @@ import React from 'react'
 import WarningIcon from '@material-ui/icons/Warning'
 import { green, amber } from '@material-ui/core/colors'
 import { IconButton, SnackbarContent } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -17,7 +17,7 @@ const variantIcon = {
   info: InfoIcon,
 }
 
-const styles1 = theme => ({
+const useStyles1 = makeStyles(theme => ({
   success: {
     backgroundColor: green[600],
   },
@@ -35,25 +35,26 @@ const styles1 = theme => ({
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   message: {
     display: 'flex',
     alignItems: 'center',
   },
-})
+}))
 
 function SnackBarContent(props) {
-  const { classes, className, message, onClose, variant, ...other } = props
+  const classes = useStyles1()
+  const { className, message, onClose, variant, ...other } = props
   const Icon = variantIcon[variant]
 
   return (
     <SnackbarContent
-      // className={classNames(classes[variant], className)}
+      className={clsx(classes[variant], className)}
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
-          {/* <Icon className={classNames(classes.icon, classes.iconVariant)} /> */}
+          <Icon className={clsx(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }
@@ -81,4 +82,4 @@ SnackBarContent.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 }
 
-export default withStyles(styles1)(SnackBarContent)
+export default SnackBarContent
