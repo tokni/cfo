@@ -200,23 +200,24 @@ const SideDrawer = props => {
     <Grid item lg={3} md={6} sm={6}>
       <div className={classes.root}>
         <CssBaseline>
-          {/* only={['md', 'xs', 'sm']} */}
-          <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                className={classes.menuButton}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" noWrap>
-                C.FO
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <Hidden only={['lg', 'xl', 'md']}>
+            <AppBar position="fixed" className={classes.appBar}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  className={classes.menuButton}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                  C.FO
+                </Typography>
+              </Toolbar>
+            </AppBar>
+          </Hidden>
           <nav className={classes.drawer} aria-label="Mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
