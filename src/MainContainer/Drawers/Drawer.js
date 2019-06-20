@@ -5,7 +5,6 @@ import MailIcon from '@material-ui/icons/Mail'
 import { MenuItems, NestedItems, TransactionsItems, You } from './MenuItems'
 import PropTypes from 'prop-types'
 import React, { useContext, useState, Fragment } from 'react'
-import Header from '../HeaderContainer/Header'
 import { Link } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
 import {
@@ -201,8 +200,6 @@ const SideDrawer = props => {
     <Grid item lg={3} md={6} sm={6}>
       <div className={classes.root}>
         <CssBaseline>
-          {/* only={['md', 'xs', 'sm']} */}
-          {/* <Header /> */}
           <Hidden only={['lg', 'xl', 'md']}>
             <AppBar position="fixed" className={classes.appBar}>
               <Toolbar>
