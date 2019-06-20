@@ -13,21 +13,26 @@ const MenuItems = () => {
     menu.push(Language['en'].companies)
   } else if (state.company) {
     menu.push(Language['en'].overview)
-    menu.push(Language['en'].tax)
-    menu.push(Language['en'].accounts)
-    menu.push(Language['en'].companies)
-    menu.push(Language['en'].daybook)
-    menu.push(Language['en'].vendor)
-    menu.push(Language['en'].expense)
-    menu.push(Language['en'].balancesheet)
   }
   return menu
 }
+const You = () => {
+  let menu = []
+  menu.push(Language['en'].accounts)
+  menu.push(Language['en'].companies)
+  menu.push(Language['en'].tax)
+  menu.push(Language['en'].vendor)
+  menu.push(Language['en'].expense)
+  menu.push(Language['en'].daybook)
+  return menu
+}
+
 const TransactionsItems = () => {
   let menu = []
   menu.push(Language['en'].transactions)
   menu.push(Language['en'].invoice)
   menu.push(Language['en'].bills)
+  menu.push(Language['en'].balancesheet)
   return menu
 }
 const NestedItems = () => {
@@ -37,4 +42,4 @@ const NestedItems = () => {
   return menu
 }
 
-export { MenuItems, NestedItems, TransactionsItems }
+export { MenuItems, NestedItems, TransactionsItems, You }

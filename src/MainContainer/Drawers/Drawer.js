@@ -2,7 +2,7 @@ import Context from '../../Context/Context'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
 import MailIcon from '@material-ui/icons/Mail'
-import { MenuItems, NestedItems } from './MenuItems'
+import { MenuItems, NestedItems, TransactionsItems, You } from './MenuItems'
 import PropTypes from 'prop-types'
 import React, { useContext, useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
@@ -23,7 +23,7 @@ import {
   CssBaseline,
   Collapse,
 } from '@material-ui/core'
-import { makeStyles, useTheme, withTheme } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
@@ -44,6 +44,13 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+  },
+  foldable: {
+    backgroundColor: '#dddddd',
+  },
+  nested: {
+    paddingLeft: '3em',
+    backgroundColor: '#eeeeee',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -68,14 +75,67 @@ const SideDrawer = props => {
   const theme = useTheme()
 
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState({})
 
-  const handleClick = () => {
-    setOpen(!open)
+  const handleClick = name => {
+    console.log(`test ${name}: ${open[name]}`)
+    setOpen({ ...open, [name]: !open[name] })
   }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
+  }
+
+  const NestedMenu = (name, list) => {
+    return (
+      <Fragment>
+        <ListItem
+          className={classes.foldable}
+          button
+          onClick={handleClick.bind(this, name)}
+        >
+          <ListItemIcon>
+            <Dashboard />
+          </ListItemIcon>
+          <ListItemText primary={name} name={name} />
+          {open[name] ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={open[name]} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {list().map((text, index) => (
+              <Link
+                key={index}
+                to={`/${text
+                  .split(' ')
+                  .join('')
+                  .toLowerCase()}`}
+              >
+                <ListItem button key={index} className={classes.nested}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText
+                    onClick={handleClick}
+                    name={text
+                      .split(' ')
+                      .join('')
+                      .toLowerCase()}
+                    primary={
+                      Language[state.locals][
+                        text
+                          .toLowerCase()
+                          .split(' ')
+                          .join('')
+                      ]
+                    }
+                  />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </Collapse>
+      </Fragment>
+    )
   }
 
   const drawer = () => {
@@ -117,55 +177,21 @@ const SideDrawer = props => {
           ))}
         </List>
         <Divider />
-        <List component="div" disablePadding>
-          <ListItem button onClick={handleClick} button>
-            <ListItemIcon>
-              <Dashboard />
-            </ListItemIcon>
-            <ListItemText primary="Starred" name={'Sales'} primary={'Sales'} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {NestedItems().map((text, index) => (
-                <Link
-                  key={index}
-                  to={`/${text
-                    .split(' ')
-                    .join('')
-                    .toLowerCase()}`}
-                >
-                  <ListItem
-                    button
-                    key={index}
-                    button
-                    className={classes.nested}
-                  >
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <Dashboard /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Starred"
-                      onClick={handleClick}
-                      name={text
-                        .split(' ')
-                        .join('')
-                        .toLowerCase()}
-                      primary={
-                        Language[state.locals][
-                          text
-                            .toLowerCase()
-                            .split(' ')
-                            .join('')
-                        ]
-                      }
-                    />
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-          </Collapse>
-        </List>
+        {state.company ? (
+          <List component="div" disablePadding>
+            {NestedMenu(Language[state.locals].company, You)}
+          </List>
+        ) : null}
+        {state.company ? (
+          <List component="div" disablePadding>
+            {NestedMenu(Language[state.locals].transactions, TransactionsItems)}
+          </List>
+        ) : null}
+        {state.company ? (
+          <List component="div" disablePadding>
+            {NestedMenu(Language[state.locals].sales, NestedItems)}
+          </List>
+        ) : null}
       </Fragment>
     )
   }
