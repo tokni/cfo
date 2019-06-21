@@ -73,19 +73,43 @@ const TableHelper = props => {
   }
 
   const compare = (a, b) => {
-    if (a[col] < b[col]) {
-      return dir ? -1 : 1
-      //  return -1
+    if (typeof a[col] === 'number') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (a.Vendor) {
+      if (a.Vendor.name.toLowerCase() < b.Vendor.name.toLowerCase()) {
+        return dir ? -1 : 1
+      } else if (a.Vendor.name.toLowerCase() > b.Vendor.name.toLowerCase()) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'boolean') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'string') {
+      if (a[col].toLowerCase() < b[col].toLowerCase()) {
+        return dir ? -1 : 1
+      }
+      if (a[col].toLowerCase() > b[col].toLowerCase()) {
+        return dir ? 1 : -1
+      }
     }
-    if (a[col] > b[col]) {
-      return dir ? 1 : -1
-      // return 1
-    }
+
     return 0
   }
 
-  const isBigEnough = value => {
-    return value['name'].match(new RegExp(filter, 'gi'))
+  const searchValue = value => {
+    if (value['name']) return value['name'].match(new RegExp(filter, 'gi'))
+    if (value['Vendor']['name'])
+      return value['Vendor']['name'].match(new RegExp(filter, 'gi'))
+    return value
   }
 
   const stringFormatter = target => {
@@ -94,15 +118,10 @@ const TableHelper = props => {
   // render the data for every table
   const renderTableData = () => {
     let arr = props.array
-
     arr.sort(compare)
-
-    arr.filter(isBigEnough)
-    arr = arr.filter(isBigEnough)
-    console.log(`test ${arr.filter(isBigEnough)}`)
+    arr = arr.filter(searchValue)
 
     if (props.array !== undefined || props.array !== null) {
-      // return props.array.map((row, index) => {
       return arr.map((row, index) => {
         delete row['__typename'] // delete __typename properties from array
         return (
