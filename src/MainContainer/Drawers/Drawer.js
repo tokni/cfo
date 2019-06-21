@@ -201,7 +201,7 @@ const SideDrawer = props => {
       <div className={classes.root}>
         <CssBaseline>
           {/* only={['md', 'xs', 'sm']} */}
-          <AppBar position="fixed" className={classes.appBar}>
+          {/* <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
               <IconButton
                 color="inherit"
@@ -216,7 +216,7 @@ const SideDrawer = props => {
                 C.FO
               </Typography>
             </Toolbar>
-          </AppBar>
+          </AppBar> */}
           <nav className={classes.drawer} aria-label="Mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">

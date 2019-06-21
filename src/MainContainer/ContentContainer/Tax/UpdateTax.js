@@ -57,7 +57,6 @@ const UpdateTax = props => {
 
   return (
     <Fragment>
-      {console.log("props tax ", props)}
       <Modal
         Icon={Edit}
         title="updatetax"
