@@ -271,8 +271,9 @@ const TableHelper = props => {
   return (
     <Fragment>
       <TextField
+        style={{ left: '3em', paddingRight: '5em' }}
         type={'text'}
-        label={'Search'}
+        label={Language[state.locals].search}
         value={filter}
         onChange={e => {
           setFilter(e.target.value)
