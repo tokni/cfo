@@ -7,10 +7,12 @@ import {
   TableRow,
   TableCell,
   TableHead,
+  TableSortLabel,
   TableBody,
   FormControlLabel,
   Switch,
   Fab,
+  TextField,
 } from '@material-ui/core'
 import { DeleteIcon } from '../Helpers/Constants'
 import Context from '../Context/Context'
@@ -36,6 +38,9 @@ const TableHelper = props => {
 
   const [state] = useContext(Context)
   const [hideID, setHideID] = useState(true)
+  const [dir, setDir] = useState(false)
+  const [filter, setFilter] = useState('')
+  const [col, setCol] = useState('id')
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
 
@@ -52,11 +57,59 @@ const TableHelper = props => {
           </TableCell>
         ) : (
           <TableCell key={index}>
-            {Language[state.locals][item] || item}
+            <TableSortLabel
+              direction={dir ? 'asc' : 'desc'}
+              onClick={() => {
+                setDir(!dir)
+                setCol(item)
+              }}
+            >
+              {Language[state.locals][item] || item}
+            </TableSortLabel>
           </TableCell>
         )
       })
     }
+  }
+
+  const compare = (a, b) => {
+    if (typeof a[col] === 'number') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (a.Vendor) {
+      if (a.Vendor.name.toLowerCase() < b.Vendor.name.toLowerCase()) {
+        return dir ? -1 : 1
+      } else if (a.Vendor.name.toLowerCase() > b.Vendor.name.toLowerCase()) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'boolean') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'string') {
+      if (a[col].toLowerCase() < b[col].toLowerCase()) {
+        return dir ? -1 : 1
+      }
+      if (a[col].toLowerCase() > b[col].toLowerCase()) {
+        return dir ? 1 : -1
+      }
+    }
+
+    return 0
+  }
+
+  const searchValue = value => {
+    if (value['name']) return value['name'].match(new RegExp(filter, 'gi'))
+    if (value['Vendor']['name'])
+      return value['Vendor']['name'].match(new RegExp(filter, 'gi'))
+    return value
   }
 
   const stringFormatter = target => {
@@ -64,8 +117,12 @@ const TableHelper = props => {
   }
   // render the data for every table
   const renderTableData = () => {
+    let arr = props.array
+    arr.sort(compare)
+    arr = arr.filter(searchValue)
+
     if (props.array !== undefined || props.array !== null) {
-      return props.array.map((row, index) => {
+      return arr.map((row, index) => {
         delete row['__typename'] // delete __typename properties from array
         return (
           <TableRow key={index}>
@@ -213,6 +270,15 @@ const TableHelper = props => {
   }
   return (
     <Fragment>
+      <TextField
+        style={{ left: '3em', paddingRight: '5em' }}
+        type={'text'}
+        label={Language[state.locals].search}
+        value={filter}
+        onChange={e => {
+          setFilter(e.target.value)
+        }}
+      />
       <FormControlLabel
         control={
           <Switch
