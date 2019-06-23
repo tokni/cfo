@@ -45,7 +45,7 @@ const TableHelper = props => {
   const [hideID, setHideID] = useState(true)
   const [dir, setDir] = useState(false)
   const [filter, setFilter] = useState('')
-  const [searchCol, setSearchCol] = useState('id')
+  const [searchCol, setSearchCol] = useState(header ? header[0] : '')
   const [col, setCol] = useState('id')
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
@@ -112,6 +112,9 @@ const TableHelper = props => {
   }
 
   const searchValue = value => {
+    if (value['__typename']) delete value['__typename']
+
+    // if (value[searchCol]) {
     if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
       return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
     } else if (typeof value[searchCol] === 'number') {
@@ -121,6 +124,7 @@ const TableHelper = props => {
       return null
     }
     return value[searchCol].match(new RegExp(filter, 'gi'))
+    // }
   }
 
   const stringFormatter = target => {
