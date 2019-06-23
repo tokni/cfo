@@ -8,8 +8,13 @@ import {
   TableCell,
   TableHead,
   TableSortLabel,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  NativeSelect,
   TableBody,
   FormControlLabel,
+  Input,
   Switch,
   Fab,
   TextField,
@@ -40,6 +45,7 @@ const TableHelper = props => {
   const [hideID, setHideID] = useState(true)
   const [dir, setDir] = useState(false)
   const [filter, setFilter] = useState('')
+  const [searchCol, setSearchCol] = useState(header ? header[0] : '')
   const [col, setCol] = useState('id')
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
@@ -106,10 +112,19 @@ const TableHelper = props => {
   }
 
   const searchValue = value => {
-    if (value['name']) return value['name'].match(new RegExp(filter, 'gi'))
-    if (value['Vendor']['name'])
-      return value['Vendor']['name'].match(new RegExp(filter, 'gi'))
-    return value
+    if (value['__typename']) delete value['__typename']
+
+    // if (value[searchCol]) {
+    if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
+      return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
+    } else if (typeof value[searchCol] === 'number') {
+      const a = value[searchCol] + ''
+      return a.indexOf(filter) > -1
+    } else if (typeof value[searchCol] === 'boolean') {
+      return null
+    }
+    return value[searchCol].match(new RegExp(filter, 'gi'))
+    // }
   }
 
   const stringFormatter = target => {
@@ -279,6 +294,25 @@ const TableHelper = props => {
           setFilter(e.target.value)
         }}
       />
+      <FormControl>
+        <InputLabel htmlFor="search-col-helper"> </InputLabel>
+        <NativeSelect
+          onChange={e => {
+            setSearchCol(e.target.value)
+          }}
+          input={<Input name="col" id="search-col-helper" />}
+        >
+          {header
+            ? header.map(item => {
+                if (item === '__typename') return null
+                return <option value={item}>{item}</option>
+              })
+            : null}
+        </NativeSelect>
+        <FormHelperText>{`${Language[state.locals].searchingby} ${Language[
+          state.locals
+        ][searchCol] || searchCol}`}</FormHelperText>
+      </FormControl>
       <FormControlLabel
         control={
           <Switch

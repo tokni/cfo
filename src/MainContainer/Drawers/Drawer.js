@@ -78,7 +78,6 @@ const SideDrawer = props => {
   const [open, setOpen] = useState({})
 
   const handleClick = name => {
-    console.log(`test ${name}: ${open[name]}`)
     setOpen({ ...open, [name]: !open[name] })
   }
 
