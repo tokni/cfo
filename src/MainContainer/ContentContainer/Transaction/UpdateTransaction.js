@@ -94,7 +94,6 @@ const CreateTransaction = props => {
 
   return (
     <Fragment>
-      {console.log("props update trans ", props)}
       <Modal
         Icon={Edit}
         title="updatetransaction"
