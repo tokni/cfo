@@ -4,6 +4,7 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
   subscription($company_id: uuid!) {
     Account(where: { company_id: { _eq: $company_id } }) {
       id
+      type
       name
       debit
       balance

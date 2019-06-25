@@ -99,6 +99,8 @@ const Language = {
     tax: 'Tax',
     transactions: 'Transactions',
     type: 'Type',
+    type_info:
+      'To find all accounts in a specific range, type start number, hyphen and end number. Example: 4002-4021',
     total: 'Total',
     yes: 'Yes',
     unpaidbillsandinvoices: 'Unpaid bills and invoices',
@@ -213,6 +215,8 @@ const Language = {
     sum: 'Peningaupphædd ',
     tax: 'Skattur',
     type: 'Slag',
+    type_info:
+      'Skriva kontu slag fyri at finna tað. Fyri at leita eftir eini røð av kontum, skriva byrjanar tal, bindustriku og so endatal. Dømi: 4000-4023',
     transactions: 'Flytingar',
     total: 'Samantalt',
     unpaidbillsandinvoices: 'Ógoldnar rokningar og fakturar',
@@ -338,6 +342,8 @@ const Language = {
     sum: 'Summe',
     tax: 'Besteuern',
     type: 'Art',
+    type_info:
+      'Geben Sie Startnummer, Bindestrich und Endnummer ein, um alle Konten in einem bestimmten Bereich zu suchen. Beispiel: 4002-4021',
     transactions: 'Transaktionen',
     total: 'Gesamt',
     update: 'Aktualisieren',
