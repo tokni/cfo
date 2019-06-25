@@ -6,7 +6,6 @@ import { MainContainer } from './MainContainer/MainContainer'
 import './App.css'
 
 const App = props => {
-
   const auth = new Auth()
 
   useEffect(() => {
