@@ -7,6 +7,8 @@ import {
   TableRow,
   TableCell,
   TableHead,
+  Tooltip,
+  Typography,
   TableSortLabel,
   FormControl,
   FormHelperText,
@@ -113,18 +115,23 @@ const TableHelper = props => {
 
   const searchValue = value => {
     if (value['__typename']) delete value['__typename']
+    if (typeof value[searchCol] === 'object') return null
 
-    // if (value[searchCol]) {
+    console.log(`TYPE is:  ${typeof value[searchCol]}`)
     if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
       return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
     } else if (typeof value[searchCol] === 'number') {
       const a = value[searchCol] + ''
-      return a.indexOf(filter) > -1
+      if (filter.match(/\d-\d/)) {
+        const fromto = filter.split('-')
+        if (value[searchCol] >= fromto[0] && value[searchCol] <= fromto[1])
+          return a
+        return null
+      } else return a.indexOf(filter) > -1
     } else if (typeof value[searchCol] === 'boolean') {
       return null
     }
     return value[searchCol].match(new RegExp(filter, 'gi'))
-    // }
   }
 
   const stringFormatter = target => {
@@ -285,15 +292,36 @@ const TableHelper = props => {
   }
   return (
     <Fragment>
-      <TextField
-        style={{ left: '3em', paddingRight: '5em' }}
-        type={'text'}
-        label={Language[state.locals].search}
-        value={filter}
-        onChange={e => {
-          setFilter(e.target.value)
-        }}
-      />
+      <Tooltip
+        enterDelay={1000}
+        leaveDelay={500}
+        disableHoverListener={
+          Language[state.locals][searchCol + '_info'] ? false : true
+        }
+        disableFocusListener={true}
+        disableTouchListener={true}
+        title={
+          Language[state.locals][searchCol + '_info'] ? (
+            <Fragment>
+              <Typography color="inherit">
+                {Language[state.locals][searchCol] || searchCol}
+              </Typography>
+              <em>{Language[state.locals][searchCol + '_info']}</em>
+            </Fragment>
+          ) : null
+        }
+        interactive
+      >
+        <TextField
+          style={{ left: '3em', paddingRight: '5em' }}
+          type={'text'}
+          label={Language[state.locals].search}
+          value={filter}
+          onChange={e => {
+            setFilter(e.target.value)
+          }}
+        />
+      </Tooltip>
       <FormControl>
         <InputLabel htmlFor="search-col-helper"> </InputLabel>
         <NativeSelect
@@ -305,7 +333,11 @@ const TableHelper = props => {
           {header
             ? header.map(item => {
                 if (item === '__typename') return null
-                return <option value={item}>{item}</option>
+                return (
+                  <option value={item}>
+                    {Language[state.locals][item] || item}
+                  </option>
+                )
               })
             : null}
         </NativeSelect>
