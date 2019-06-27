@@ -1,5 +1,5 @@
 import Auth from './Auth/Auth'
-import React, { Fragment, useEffect, useCallback, useState } from 'react'
+import React, { Fragment, useEffect, useCallback } from 'react'
 import { client } from '../src/utils/apollo'
 import { ApolloProvider } from 'react-apollo-hooks'
 import { MainContainer } from './MainContainer/MainContainer'
