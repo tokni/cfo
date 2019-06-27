@@ -7,43 +7,27 @@ import './App.css'
 
 const App = props => {
   const auth = new Auth()
-  const [isTimedOut, setTimedOut] = useState(false)
-  const tle = new Date()
-  // tle.setSeconds(5000)
-  // console.log("time ", new Date().getTime())
-  // console.log("tle ", tle.getTime())
-
-  const resetTimer = useCallback(() => {
-    //  setTimeout(logIdleUserOut, new Date().getTime() < tle.getTime())
-    console.log('clicked')    
-    setTimeout(function() {
-      setTimedOut(true)
-      console.log('logged out')
-    },900000 + new Date().getTime())
-  }, [])
+  const shouldAuthenticate = useCallback(() => {
+    if (auth.isAuthenticated()) {
+      auth.renewToken()
+    } else if (!auth.isAuthenticated() && localStorage.getItem('sub')) {
+      auth.logout()
+    } else {
+      auth.handleAuthentication()
+    }
+  }, [auth])
 
   useEffect(() => {
-    auth.handleAuthentication()
-
-    window.addEventListener('mousedown', resetTimer)
-    // document.addEventListener('onmousedown', resetTimer)
-    window.addEventListener('onclick', resetTimer)
-
-    window.addEventListener('onkeypress', resetTimer)
-
-
-    if(isTimedOut && auth.isAuthenticated()){
-      auth.logout()
-    }
+    window.addEventListener('mousedown', shouldAuthenticate)
+    window.addEventListener('keydown', shouldAuthenticate)
+    window.addEventListener('click', shouldAuthenticate)
 
     return () => {
-      console.log('Cleaned up')
-      window.removeEventListener('mousedown', resetTimer)
-      window.removeEventListener('onclick', resetTimer)
-      window.removeEventListener('onkeypress', resetTimer)
-      // window.removeEventListener("mousedown", resetTimer);
+      window.removeEventListener('keydown', shouldAuthenticate)
+      window.removeEventListener('click', shouldAuthenticate)
+      window.removeEventListener('mousedown', shouldAuthenticate)
     }
-  }, [auth, resetTimer, isTimedOut])
+  }, [shouldAuthenticate])
 
   return (
     <Fragment>
