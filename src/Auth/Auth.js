@@ -28,7 +28,6 @@ class Auth {
     localStorage.removeItem('sub')
     localStorage.removeItem('isLoggedIn')
 
-
     this.accessToken = null
     this.idToken = null
 
@@ -58,13 +57,11 @@ class Auth {
     localStorage.setItem('idToken', authResult.idToken)
   }
 
-
   handleAuthentication = () => {
     this.auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        window.location.reload();
-
+        window.location.reload()
       } else if (err) {
         console.log('Handle Authentication error', err)
       }

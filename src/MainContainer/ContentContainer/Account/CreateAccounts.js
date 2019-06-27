@@ -23,6 +23,7 @@ const styles = theme => ({
 const CreateAccount = props => {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
+  const [type, setType] = useState(0)
   const [debit, setDebit] = useState(true)
   const [balance, setBalance] = useState(0)
   const createAccountMutation = useMutation(POST_ACCOUNT)
@@ -33,6 +34,7 @@ const CreateAccount = props => {
   const handleClose = () => {
     setName(null)
     setBalance(0)
+    setType(0)
     setDebit(true)
     if (state.company !== null) {
       setOpen(!open)
@@ -41,11 +43,12 @@ const CreateAccount = props => {
   }
 
   const onSubmit = e => {
-    if (name !== null) {
+    if (name !== null && type !== 0) {
       createAccountMutation({
         variables: {
           name,
           balance,
+          type,
           debit,
           company_id: state.company.id,
         },
@@ -114,6 +117,39 @@ const CreateAccount = props => {
           </option>
           <option key={2} value={false}>
             Credit
+          </option>
+        </TextField>
+        <TextField
+          select
+          margin="dense"
+          id="type"
+          label={Language[state.locals].type}
+          fullWidth
+          value={type}
+          onChange={e => {
+            setType(e.target.value)
+          }}
+        >
+          <option key={1} value={1}>
+            Assets
+          </option>
+          <option key={2} value={2}>
+            Liabillities
+          </option>
+          <option key={3} value={3}>
+            Owner's Equity
+          </option>
+          <option key={4} value={4}>
+            Revenues
+          </option>
+          <option key={5} value={5}>
+            Cost of goods Sold
+          </option>
+          <option key={6} value={6}>
+            Expenses
+          </option>
+          <option key={7} value={7}>
+            Other
           </option>
         </TextField>
       </Modal>
