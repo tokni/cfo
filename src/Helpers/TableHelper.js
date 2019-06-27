@@ -7,10 +7,17 @@ import {
   TableRow,
   TableCell,
   TableHead,
+  TableSortLabel,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  NativeSelect,
   TableBody,
   FormControlLabel,
+  Input,
   Switch,
   Fab,
+  TextField,
 } from '@material-ui/core'
 import { DeleteIcon } from '../Helpers/Constants'
 import Context from '../Context/Context'
@@ -36,6 +43,10 @@ const TableHelper = props => {
 
   const [state] = useContext(Context)
   const [hideID, setHideID] = useState(true)
+  const [dir, setDir] = useState(false)
+  const [filter, setFilter] = useState('')
+  const [searchCol, setSearchCol] = useState(header ? header[0] : '')
+  const [col, setCol] = useState('id')
   const filterId = /(\w+_id)|(^id$)$/i
   const { classes } = props
 
@@ -52,11 +63,68 @@ const TableHelper = props => {
           </TableCell>
         ) : (
           <TableCell key={index}>
-            {Language[state.locals][item] || item}
+            <TableSortLabel
+              direction={dir ? 'asc' : 'desc'}
+              onClick={() => {
+                setDir(!dir)
+                setCol(item)
+              }}
+            >
+              {Language[state.locals][item] || item}
+            </TableSortLabel>
           </TableCell>
         )
       })
     }
+  }
+
+  const compare = (a, b) => {
+    if (typeof a[col] === 'number') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (a.Vendor) {
+      if (a.Vendor.name.toLowerCase() < b.Vendor.name.toLowerCase()) {
+        return dir ? -1 : 1
+      } else if (a.Vendor.name.toLowerCase() > b.Vendor.name.toLowerCase()) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'boolean') {
+      if (a[col] < b[col]) {
+        return dir ? -1 : 1
+      }
+      if (a[col] > b[col]) {
+        return dir ? 1 : -1
+      }
+    } else if (typeof a[col] === 'string') {
+      if (a[col].toLowerCase() < b[col].toLowerCase()) {
+        return dir ? -1 : 1
+      }
+      if (a[col].toLowerCase() > b[col].toLowerCase()) {
+        return dir ? 1 : -1
+      }
+    }
+
+    return 0
+  }
+
+  const searchValue = value => {
+    if (value['__typename']) delete value['__typename']
+
+    // if (value[searchCol]) {
+    if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
+      return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
+    } else if (typeof value[searchCol] === 'number') {
+      const a = value[searchCol] + ''
+      return a.indexOf(filter) > -1
+    } else if (typeof value[searchCol] === 'boolean') {
+      return null
+    }
+    return value[searchCol].match(new RegExp(filter, 'gi'))
+    // }
   }
 
   const stringFormatter = target => {
@@ -64,8 +132,12 @@ const TableHelper = props => {
   }
   // render the data for every table
   const renderTableData = () => {
+    let arr = props.array
+    arr.sort(compare)
+    arr = arr.filter(searchValue)
+
     if (props.array !== undefined || props.array !== null) {
-      return props.array.map((row, index) => {
+      return arr.map((row, index) => {
         delete row['__typename'] // delete __typename properties from array
         return (
           <TableRow key={index}>
@@ -213,6 +285,34 @@ const TableHelper = props => {
   }
   return (
     <Fragment>
+      <TextField
+        style={{ left: '3em', paddingRight: '5em' }}
+        type={'text'}
+        label={Language[state.locals].search}
+        value={filter}
+        onChange={e => {
+          setFilter(e.target.value)
+        }}
+      />
+      <FormControl>
+        <InputLabel htmlFor="search-col-helper"> </InputLabel>
+        <NativeSelect
+          onChange={e => {
+            setSearchCol(e.target.value)
+          }}
+          input={<Input name="col" id="search-col-helper" />}
+        >
+          {header
+            ? header.map(item => {
+                if (item === '__typename') return null
+                return <option value={item}>{item}</option>
+              })
+            : null}
+        </NativeSelect>
+        <FormHelperText>{`${Language[state.locals].searchingby} ${Language[
+          state.locals
+        ][searchCol] || searchCol}`}</FormHelperText>
+      </FormControl>
       <FormControlLabel
         control={
           <Switch

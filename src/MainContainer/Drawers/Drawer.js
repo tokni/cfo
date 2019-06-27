@@ -78,7 +78,6 @@ const SideDrawer = props => {
   const [open, setOpen] = useState({})
 
   const handleClick = name => {
-    console.log(`test ${name}: ${open[name]}`)
     setOpen({ ...open, [name]: !open[name] })
   }
 
@@ -217,6 +216,24 @@ const SideDrawer = props => {
               </Typography>
             </Toolbar>
           </AppBar> */}
+          <Hidden only={['lg', 'xl', 'md']}>
+            <AppBar position="fixed" className={classes.appBar}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  className={classes.menuButton}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                  C.FO
+                </Typography>
+              </Toolbar>
+            </AppBar>
+          </Hidden>
           <nav className={classes.drawer} aria-label="Mailbox folders">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">

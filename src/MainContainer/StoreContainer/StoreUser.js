@@ -4,7 +4,6 @@ import { useQuery } from 'react-apollo-hooks'
 import { GET_USER } from '../../utils/Query/UserQuery'
 
 const StoreUser = () => {
-  // console.log('sub from StoreUser: ', localStorage.getItem('sub'))
   const { data } = useQuery(GET_USER, {
     variables: {
       token: localStorage.getItem('sub'),

@@ -74,9 +74,10 @@ const UpdateTax = props => {
           label={Language[state.locals].tax || ''}
           type="text"
           fullWidth
-          onChange={e => {setTaxName(e.target.value)}}
-        >
-        </TextField>
+          onChange={e => {
+            setTaxName(e.target.value)
+          }}
+        />
         {/* percentage field */}
         <TextField
           autoFocus
@@ -86,18 +87,25 @@ const UpdateTax = props => {
           label={Language[state.locals].taxpercentage || ''}
           type="number"
           fullWidth
-          onChange={e => {setTaxPercentage(e.target.value)}}
-        >
-        </TextField>
+          onChange={e => {
+            setTaxPercentage(e.target.value)
+          }}
+        />
       </Modal>
       {msg === true ? (
         msg === true && msgSuccess === true ? (
           <SnackBar
-            message={Language[state.locals].tax + Language[state.locals].updatedsuccesfully}
+            message={
+              Language[state.locals].tax +
+              Language[state.locals].updatedsuccesfully
+            }
             state={'success'}
           />
         ) : (
-          <SnackBar message={Language[state.locals].fieldsarerequired} state={'error'} />
+          <SnackBar
+            message={Language[state.locals].fieldsarerequired}
+            state={'error'}
+          />
         )
       ) : null}
     </Fragment>

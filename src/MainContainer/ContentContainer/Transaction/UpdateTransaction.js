@@ -61,7 +61,7 @@ const CreateTransaction = props => {
           invoice_id,
         },
       })
-      if(bill_id !== null){
+      if (bill_id !== null) {
         await updateBilltMutation({
           variables: {
             id: bill_id,
@@ -69,16 +69,16 @@ const CreateTransaction = props => {
             paid: true,
           },
         })
-      }else{
+      } else {
         await updateInvoiceMutation({
           variables: {
             id: invoice_id,
             company_id: state.company.id,
-            paid: true
-          }
+            paid: true,
+          },
         })
       }
-      
+
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
