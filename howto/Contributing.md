@@ -1,6 +1,6 @@
 # Contributing
 
-**_if your going to use social login_** [**click here**](Social.md)
+**_if you are going to use social login_** [**click here**](Social.md)
 
 If there is an issue you want to solve, or you want to add a feature to this project, you can easily become a part of this community. Below is an guide on how to make a clean pull request, made by [**MarcDiethelm**](https://gist.github.com/MarcDiethelm/7303312)
 
