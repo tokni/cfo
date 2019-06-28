@@ -357,7 +357,7 @@ const TableHelper = props => {
           />
         }
         label={
-          hideID ? Language[state.locals].less : Language[state.locals].more
+          hideID ? Language[state.locals].more : Language[state.locals].less
         }
       />
       <Table>
