@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react'
+
+const Callback = () => {
 
 
-const Callback = () =>  {
   return (
     <div className="container">
       <h1>Hello from callback</h1>
     </div>
-  );
+  )
 }
 
-export default Callback;
+export default Callback
