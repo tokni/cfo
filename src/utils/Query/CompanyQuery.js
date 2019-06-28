@@ -113,6 +113,7 @@ const GET_SUBSCRIP_COMPANY = gql`
         debit
         company_id
         balance
+        type
       }
       Transactions{
         payment

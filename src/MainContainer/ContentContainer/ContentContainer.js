@@ -20,6 +20,7 @@ import Balance from './Balance/Balance'
 
 
 import { Switch, Route } from 'react-router-dom'
+import Operations from './Operations/Operations';
 
 export const ContentContainer = () => (
   <Switch>
@@ -73,6 +74,8 @@ export const ContentContainer = () => (
 
     <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={BalanceSheet} />
     <ProtectedRoute path={`${process.env.PUBLIC_URL}/balance`} component={Balance} />
+
+    <ProtectedRoute path={`${process.env.PUBLIC_URL}/operations`} component={Operations} />
 
   </Switch>
 )

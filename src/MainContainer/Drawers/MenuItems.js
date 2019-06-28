@@ -33,6 +33,8 @@ const TransactionsItems = () => {
   menu.push(Language['en'].invoice)
   menu.push(Language['en'].bills)
   menu.push(Language['en'].balancesheet)
+  menu.push(Language['en'].operations)
+
   return menu
 }
 const NestedItems = () => {
