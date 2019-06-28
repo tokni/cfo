@@ -59,6 +59,7 @@ const CreateCompany = props => {
           autoFocus
           margin="dense"
           id="name"
+          variant="outlined"
           label="Company name"
           type="text"
           fullWidth
@@ -69,6 +70,7 @@ const CreateCompany = props => {
         <TextField
           margin="dense"
           id="mother_id"
+          variant="outlined"
           label="Mother ID"
           type="text"
           fullWidth

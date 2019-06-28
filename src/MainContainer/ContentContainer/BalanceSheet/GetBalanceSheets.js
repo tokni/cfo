@@ -4,7 +4,7 @@ import Language from '../../../utils/language'
 import { useSubscription } from 'react-apollo-hooks'
 import { GET_BALANCE_SHEETS } from '../../../utils/Query/BalanceSheetQuery'
 import TableHelper from '../../../Helpers/TableHelper'
-import { Typography, TextField } from '@material-ui/core'
+import { Typography, TextField, MenuItem } from '@material-ui/core'
 import Modal from '../../../Helpers/Modal'
 import { DateRange } from '../../../Helpers/Constants'
 
@@ -79,6 +79,7 @@ const GetBalanceSheets = props => {
           margin="dense"
           id="showpreviousbalancesheets"
           value={date || ''}
+          variant="outlined"
           label={date}
           select
           fullWidth
@@ -90,23 +91,22 @@ const GetBalanceSheets = props => {
             data.Balance_sheet ? (
               data.Balance_sheet.map((item, index) => {
                 return (
-                  <option key={index} value={item.date}>
+                  <MenuItem key={index} value={item.date}>
                     {item.date}
-                  </option>
+                  </MenuItem>
                 )
               })
             ) : (
-              <option value={null}>
+              <MenuItem disabled value={null}>
                 {Language[state.locals].choosebalance}
-              </option>
+              </MenuItem>
             )
           ) : (
-            <option value={null}>
-              {' '}
+            <MenuItem disabled value={null}>
               {Language[state.locals].choosebalance}
-            </option>
+            </MenuItem>
           )}
-          <option value={null}>{Language[state.locals].clear}</option>
+          <MenuItem value={null}>{Language[state.locals].clear}</MenuItem>
         </TextField>
       </Modal>
 
