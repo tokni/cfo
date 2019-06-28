@@ -70,6 +70,7 @@ const CreateCustomer = props => {
           autoFocus
           margin="dense"
           id="name"
+          variant="outlined"
           label={Language[state.locals].name}
           type="text"
           fullWidth

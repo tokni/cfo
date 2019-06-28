@@ -73,6 +73,7 @@ const CreateVendor = props => {
           focus
           margin="dense"
           id="name"
+          variant="outlined"
           label={Language[state.locals].name}
           value={name}
           type="text"

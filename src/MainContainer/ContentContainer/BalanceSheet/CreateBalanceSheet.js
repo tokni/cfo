@@ -36,10 +36,10 @@ const CreateBalanceSheets = props => {
       let object = {}
       if (debit) {
         if (element.debit) {
-        
           object.name = element.name
           object.balance = element.balance
-          object.balance_sheet_id = result.data.insert_Balance_sheet.returning[0].id
+          object.balance_sheet_id =
+            result.data.insert_Balance_sheet.returning[0].id
 
           container.push(object)
         }
@@ -47,7 +47,8 @@ const CreateBalanceSheets = props => {
         if (!element.debit) {
           object.name = element.name
           object.balance = element.balance
-          object.balance_sheet_id = result.data.insert_Balance_sheet.returning[0].id
+          object.balance_sheet_id =
+            result.data.insert_Balance_sheet.returning[0].id
           container.push(object)
         }
       }
@@ -97,8 +98,9 @@ const CreateBalanceSheets = props => {
           autoFocus
           margin="dense"
           id="balancedate"
-          value={date || ''}
-          label={'date' || ''}
+          value={date || Date.now()}
+          variant="outlined"
+          label={Language[state.locals].date || '_date'}
           type="date"
           fullWidth
           onChange={e => {

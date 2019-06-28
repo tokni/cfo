@@ -9,7 +9,7 @@ import React, {
 import Context from '../../../Context/Context'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import { useSubscription } from 'react-apollo-hooks'
-import { Typography, TextField } from '@material-ui/core'
+import { Typography, TextField, MenuItem } from '@material-ui/core'
 import Language from '../../../utils/language'
 import GetBalanceSheets from './GetBalanceSheets'
 import GetAccountsType from '../Account/GetAccountsType'
@@ -140,6 +140,7 @@ const BalanceSheet = () => {
           margin="dense"
           id="showcurrentbalancesheet"
           value={showCurrent}
+          variant="outlined"
           label={' '}
           select
           fullWidth
@@ -147,8 +148,8 @@ const BalanceSheet = () => {
             setShowCurrent(e.target.value)
           }}
         >
-          <option value={true}>{Language[state.locals].show}</option>
-          <option value={false}>{Language[state.locals].dontshow}</option>
+          <MenuItem value={true}>{Language[state.locals].show}</MenuItem>
+          <MenuItem value={false}>{Language[state.locals].dontshow}</MenuItem>
         </TextField>
       </Modal>
 

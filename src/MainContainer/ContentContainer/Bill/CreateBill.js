@@ -13,7 +13,7 @@ import { CREATE_BILL } from '../../../utils/Query/BillQuery'
 
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField } from '@material-ui/core'
+import { withStyles, TextField, MenuItem } from '@material-ui/core'
 import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 
 const styles = theme => ({
@@ -154,6 +154,7 @@ const CreateBill = props => {
         <TextField
           select
           margin="dense"
+          variant="outlined"
           value={vendor_id || ''}
           id="vendor"
           label={Language[state.locals].vendor}
@@ -165,9 +166,9 @@ const CreateBill = props => {
           {vendors
             ? vendors.map((item, index) => {
                 return index <= vendors.length ? (
-                  <option key={index} value={item.id}>
+                  <MenuItem key={index} value={item.id}>
                     {item.name}
-                  </option>
+                  </MenuItem>
                 ) : null
               })
             : null}
@@ -177,6 +178,7 @@ const CreateBill = props => {
           margin="dense"
           value={expense_id || ''}
           id="expense"
+          variant="outlined"
           label={Language[state.locals].expense}
           fullWidth
           onChange={e => {
@@ -186,19 +188,22 @@ const CreateBill = props => {
           {expenses ? (
             expenses.map((item, index) => {
               return (
-                <option key={index} value={item.id}>
+                <MenuItem key={index} value={item.id}>
                   {item.name}
-                </option>
+                </MenuItem>
               )
             })
           ) : (
-            <option value="">empty</option>
+            <MenuItem disabled value="">
+              empty
+            </MenuItem>
           )}
         </TextField>
 
         <TextField
           margin="dense"
           id="description"
+          variant="outlined"
           label={Language[state.locals].description}
           value={description || ''}
           type="text"
@@ -211,6 +216,7 @@ const CreateBill = props => {
         <TextField
           margin="dense"
           id="payment"
+          variant="outlined"
           label={Language[state.locals].payment}
           value={payment || ''}
           type="number"
@@ -223,6 +229,7 @@ const CreateBill = props => {
           select
           margin="dense"
           id="tax"
+          variant="outlined"
           label={Language[state.locals].tax}
           value={tax_id || ''}
           fullWidth
@@ -233,20 +240,24 @@ const CreateBill = props => {
           {taxes ? (
             taxes.map((item, index) => {
               return (
-                <option key={index} value={item.id}>
+                <MenuItem key={index} value={item.id}>
                   {item.name + ' %' + item.tax_percentage * 100}
-                </option>
+                </MenuItem>
               )
             })
           ) : (
-            <option value={''}>No tax created</option>
+            <MenuItem disabled value={''}>
+              No tax created
+            </MenuItem>
           )}
         </TextField>
 
         <TextField
           margin="dense"
           id="tax"
-          value={date_bill_received || ''}
+          variant="outlined"
+          label={Language[state.locals].date_bill_received}
+          value={date_bill_received || Date.now()}
           type="date"
           fullWidth
           onChange={e => {
@@ -256,8 +267,9 @@ const CreateBill = props => {
         <TextField
           margin="dense"
           id="payment_due"
+          variant="outlined"
           label={Language[state.locals].payment_due}
-          value={payment_due || ''}
+          value={payment_due || Date.now()}
           type="date"
           fullWidth
           onChange={e => {

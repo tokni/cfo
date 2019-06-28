@@ -10,7 +10,7 @@ import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
 import { PUT_INVOICE_PAY } from '../../../utils/Query/InvoiceQuery'
 
-import { withStyles, TextField } from '@material-ui/core'
+import { withStyles, TextField, MenuItem } from '@material-ui/core'
 
 const styles = theme => ({
   extendedIcon: {
@@ -68,7 +68,7 @@ const CreateTransaction = props => {
           invoice_id,
         },
       })
-      if(bill_id !== null){
+      if (bill_id !== null) {
         await updateBilltMutation({
           variables: {
             id: bill_id,
@@ -76,16 +76,16 @@ const CreateTransaction = props => {
             paid: true,
           },
         })
-      }else{
+      } else {
         await updateInvoiceMutation({
           variables: {
             id: invoice_id,
             company_id: state.company.id,
-            paid: true
-          }
+            paid: true,
+          },
         })
       }
-     
+
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -113,6 +113,7 @@ const CreateTransaction = props => {
           autoFocus
           margin="dense"
           id="debit"
+          variant="outlined"
           label={Language[state.locals].type}
           type="text"
           fullWidth
@@ -123,11 +124,11 @@ const CreateTransaction = props => {
 
         {/* DEBIT FIELD */}
         <TextField
-          autoFocus
           select
           margin="dense"
           id="debit"
           value={debit_id || ''}
+          variant="outlined"
           label={Language[state.locals].debit}
           type="text"
           fullWidth
@@ -135,29 +136,33 @@ const CreateTransaction = props => {
             setDebitAccount(e.target.value)
           }}
         >
-          {state.company ? state.company.Accounts ? (
-            // eslint-disable-next-line array-callback-return
-            state.company.Accounts.map((item, index) => {
-              if (item.debit === true) {
-                return (
-                  <option key={index} value={item.id}>
-                    {item.name}
-                  </option>
-                )
-              }
-            })
+          {state.company ? (
+            state.company.Accounts ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Accounts.map((item, index) => {
+                if (item.debit === true) {
+                  return (
+                    <MenuItem key={index} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  )
+                }
+              })
+            ) : (
+              <MenuItem disabled>empty</MenuItem>
+            )
           ) : (
-            <option>empty</option>
-           ) : <option>empty</option>}
+            <MenuItem disabled>empty</MenuItem>
+          )}
         </TextField>
 
         {/* CREDIT FIELD */}
         <TextField
-          autoFocus
           margin="dense"
           id="credit"
           select
           value={credit_id || ''}
+          variant="outlined"
           label={Language[state.locals].credit || ''}
           type="text"
           fullWidth
@@ -165,30 +170,34 @@ const CreateTransaction = props => {
             setCreditAccount(e.target.value)
           }}
         >
-          {state.company ? state.company.Accounts ? (
-            // eslint-disable-next-line array-callback-return
-            state.company.Accounts.map((item, index) => {
-              if (item.debit === false) {
-                return (
-                  <option key={index} value={item.id}>
-                    {item.name}
-                  </option>
-                )
-              }
-            })
+          {state.company ? (
+            state.company.Accounts ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Accounts.map((item, index) => {
+                if (item.debit === false) {
+                  return (
+                    <MenuItem key={index} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  )
+                }
+              })
+            ) : (
+              <MenuItem disabled>empty</MenuItem>
+            )
           ) : (
-            <option>empty</option>
-          ): (<option>empty</option>)}
+            <MenuItem disabled>empty</MenuItem>
+          )}
         </TextField>
 
         {/* Bill FIELD */}
 
         <TextField
-          autoFocus
           margin="dense"
           id="bill"
           select
           value={billDescription || ''}
+          variant="outlined"
           label={Language[state.locals].bill || ''}
           type="text"
           fullWidth
@@ -198,33 +207,37 @@ const CreateTransaction = props => {
             setPayment(e.target.value.payment)
           }}
         >
-          {state.company ? state.company.Bills ? (
-            // eslint-disable-next-line array-callback-return
-            state.company.Bills.map((item, index) => {
-              return (
-                <option key={index} value={item}>
-                  {item.description}
-                </option>
-              )
-            })
+          {state.company ? (
+            state.company.Bills ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Bills.map((item, index) => {
+                return (
+                  <MenuItem key={index} value={item}>
+                    {item.description}
+                  </MenuItem>
+                )
+              })
+            ) : (
+              <MenuItem disabled>empty</MenuItem>
+            )
           ) : (
-            <option>empty</option>
-          ) : <option>empty</option>}
+            <MenuItem disabled>empty</MenuItem>
+          )}
         </TextField>
 
         {/* invoice FIELD */}
 
         <TextField
-          autoFocus
           margin="dense"
           id="invoice"
           select
           value={invoiceDescription || ''}
+          variant="outlined"
           label={Language[state.locals].invoice || ''}
           type="text"
           fullWidth
           onChange={e => {
-            setInvoiceDescription(e.target.value.description)
+            setInvoiceDescription(e.target.value)
             setInvoice(e.target.value.id)
 
             const accumulatedPrice = +e.target.value.Orders.map(
@@ -235,19 +248,21 @@ const CreateTransaction = props => {
             setPayment(accumulatedPrice)
           }}
         >
-          {state.company ? state.company.Invoices ? (
-            // eslint-disable-next-line array-callback-return
-            state.company.Invoices.map((item, index) => {
-              return (
-                <option key={index} value={item}>
-                  {item.description}
-                </option>
-              )
-            })
+          {state.company ? (
+            state.company.Invoices ? (
+              // eslint-disable-next-line array-callback-return
+              state.company.Invoices.map((item, index) => {
+                return (
+                  <MenuItem key={index} value={item}>
+                    {item.description}
+                  </MenuItem>
+                )
+              })
+            ) : (
+              <MenuItem disabled>empty</MenuItem>
+            )
           ) : (
-            <option>empty</option>
-          ): (
-            <option>empty</option>
+            <MenuItem disabled>empty</MenuItem>
           )}
         </TextField>
       </Modal>
