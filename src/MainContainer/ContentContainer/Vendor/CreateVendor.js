@@ -69,6 +69,7 @@ const CreateVendor = props => {
         close={handleClose}
       >
         <TextField
+          autoFocus
           focus
           margin="dense"
           id="name"
