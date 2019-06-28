@@ -19,12 +19,14 @@ const GET_SUBSCRIP_ACCOUNTS = gql`
 `
 
 const GET_ACCOUNTS_NAME_BALANCE = gql`
-subscription getAccountNamesBalances($company_id: uuid!, $debit: Boolean) {
-  Account(where: {company_id: {_eq: $company_id}, debit: {_eq: $debit}}) {
-    name
-    balance
+  subscription getAccountNamesBalances($company_id: uuid!, $debit: Boolean) {
+    Account(
+      where: { company_id: { _eq: $company_id }, debit: { _eq: $debit } }
+    ) {
+      name
+      balance
+    }
   }
-}
 `
 
 const GET_SUBSCRIP_ACCOUNT = gql`
@@ -73,6 +75,7 @@ const POST_ACCOUNT = gql`
   mutation createAccount(
     $name: String!
     $balance: numeric!
+    $type: Int!
     $debit: Boolean!
     $company_id: uuid!
   ) {
@@ -80,6 +83,7 @@ const POST_ACCOUNT = gql`
       objects: {
         name: $name
         balance: $balance
+        type: $type
         debit: $debit
         company_id: $company_id
       }
@@ -106,5 +110,5 @@ export {
   POST_ACCOUNT,
   PUT_ACCOUNT_NUMBERS,
   PUT_ACCOUNT_BALANCE,
-  GET_ACCOUNTS_BY_TYPE
+  GET_ACCOUNTS_BY_TYPE,
 }
