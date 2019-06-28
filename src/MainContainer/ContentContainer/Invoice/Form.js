@@ -7,11 +7,9 @@ import Logic from './Logic'
 
 import {
   TextField,
-  Select,
   MenuItem,
   Input,
   Button,
-  InputLabel,
   Tooltip,
   FormControl,
   withStyles,
