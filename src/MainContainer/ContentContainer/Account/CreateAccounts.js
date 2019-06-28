@@ -2,13 +2,13 @@ import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import Modal from '../../../Helpers/Modal'
 import PropTypes from 'prop-types'
-import React, { Fragment, useState, useContext } from 'react'
+import React, { Fragment, useState, useContext, useRef } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { Add } from '../../../Helpers/Constants'
 import { POST_ACCOUNT } from '../../../utils/Query/AccountQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField } from '@material-ui/core'
+import { withStyles, TextField, MenuItem } from '@material-ui/core'
 
 const styles = theme => ({
   fab: {
@@ -21,10 +21,11 @@ const styles = theme => ({
 })
 
 const CreateAccount = props => {
+  const refType = useRef()
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [type, setType] = useState(0)
-  const [debit, setDebit] = useState(true)
+  const [debit, setDebit] = useState(-1)
   const [balance, setBalance] = useState(0)
   const createAccountMutation = useMutation(POST_ACCOUNT)
   const [state] = useContext(Context)
@@ -35,7 +36,7 @@ const CreateAccount = props => {
     setName(null)
     setBalance(0)
     setType(0)
-    setDebit(true)
+    setDebit(-1)
     if (state.company !== null) {
       setOpen(!open)
     }
@@ -58,12 +59,13 @@ const CreateAccount = props => {
         setMsg(true)
       }, 1000)
     } else {
+      refType.current.focus()
       setTimeout(() => {
         setMsgSuccess(false)
         setMsg(true)
       }, 1000)
     }
-    handleClose()
+    // handleClose()
   }
 
   return (
@@ -81,6 +83,7 @@ const CreateAccount = props => {
           margin="dense"
           id="name"
           name="name"
+          variant="outlined"
           label={Language[state.locals].name}
           type="text"
           fullWidth
@@ -89,10 +92,10 @@ const CreateAccount = props => {
           }}
         />{' '}
         <TextField
-          autoFocus
           margin="dense"
           id="balance"
           label="Balance"
+          variant="outlined"
           value={balance}
           type="number"
           fullWidth
@@ -101,56 +104,67 @@ const CreateAccount = props => {
           }}
         />
         <TextField
-          autoFocus
           select
           margin="dense"
+          variant="outlined"
           id="debit"
           label="Debit / Credit"
           fullWidth
+          required
           value={debit}
           onChange={e => {
             setDebit(e.target.value)
           }}
         >
-          <option key={1} value={true}>
+          <option style={{ textAlign: 'center' }} disabled key={-1} value={-1}>
+            {Language[state.locals].choosetype}
+          </option>
+          <MenuItem key={1} value={true}>
             Debit
-          </option>
-          <option key={2} value={false}>
+          </MenuItem>
+          <MenuItem key={2} value={false}>
             Credit
-          </option>
+          </MenuItem>
         </TextField>
         <TextField
+          ref={refType}
           select
+          variant="outlined"
           margin="dense"
           id="type"
-          label={Language[state.locals].type}
+          required
+          label={Language[state.locals].type || 'Type'}
           fullWidth
           value={type}
           onChange={e => {
             setType(e.target.value)
           }}
         >
-          <option key={1} value={1}>
-            Assets
+          <option style={{ textAlign: 'center' }} disabled key={0} value={0}>
+            {Language[state.locals].choosetype}
           </option>
-          <option key={2} value={2}>
-            Liabillities
-          </option>
-          <option key={3} value={3}>
-            Owner's Equity
-          </option>
-          <option key={4} value={4}>
-            Revenues
-          </option>
-          <option key={5} value={5}>
-            Cost of goods Sold
-          </option>
-          <option key={6} value={6}>
-            Expenses
-          </option>
-          <option key={7} value={7}>
-            Other
-          </option>
+          <hr />
+          <MenuItem key={1} value={1}>
+            {Language[state.locals].sales}
+          </MenuItem>
+          <MenuItem key={2} value={2}>
+            {Language[state.locals].assets}
+          </MenuItem>
+          <MenuItem key={3} value={3}>
+            {Language[state.locals].debts}
+          </MenuItem>
+          <MenuItem key={4} value={4}>
+            {Language[state.locals].contributionmargin}
+          </MenuItem>
+          <MenuItem key={5} value={5}>
+            {Language[state.locals].earningscontributions}
+          </MenuItem>
+          <MenuItem key={6} value={6}>
+            {Language[state.locals].wage}
+          </MenuItem>
+          <MenuItem key={7} value={7}>
+            {Language[state.locals].other}
+          </MenuItem>
         </TextField>
       </Modal>
       {msg === true ? (
