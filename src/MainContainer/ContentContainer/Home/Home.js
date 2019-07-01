@@ -97,6 +97,10 @@ const Home = () => {
           <Paper>
             <Balance />
           </Paper>
+          <Paper>
+            Test 1 2 3 ...
+            <pre>{JSON.stringify(state.accounting_year, null, 2)}</pre>
+          </Paper>
         </Grid>
       </Grid>
     </Fragment>

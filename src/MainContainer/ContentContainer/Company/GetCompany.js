@@ -22,17 +22,16 @@ const GetCompany = () => {
       index: index,
     })
 
-    try{
-
+    try {
       storeActiveCompany({
         variables: {
-        user_id: state.user.id,
-        current_company: index.toString(),
-      },
-    })
-  }catch(e){
-    console.log(`Error: ${e.error}`)
-  }
+          user_id: state.user.id,
+          current_company: index.toString(),
+        },
+      })
+    } catch (e) {
+      console.log(`Error: ${e.error}`)
+    }
   }
 
   return (
