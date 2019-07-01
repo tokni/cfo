@@ -117,7 +117,6 @@ const TableHelper = props => {
     if (value['__typename']) delete value['__typename']
     if (typeof value[searchCol] === 'object') return null
 
-    console.log(`TYPE is:  ${typeof value[searchCol]}`)
     if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
       return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
     } else if (typeof value[searchCol] === 'number') {
