@@ -1,7 +1,7 @@
 import Company from '../Company/GetCompany'
 import Context from '../../../Context/Context'
 import Grid from '@material-ui/core/Grid'
-import { Paper, Button } from '@material-ui/core'
+import { Paper, Button, Typography } from '@material-ui/core'
 import Attachment from '../../../Helpers/Attachment'
 import React, { useContext, Fragment } from 'react'
 import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
@@ -78,6 +78,14 @@ const Home = () => {
 
           <input type="file" onChange={handleFile} />
         </Grid>
+        <Grid item lg={12} xl={12} xs={12} md={12} sm={12}>
+          <Paper>
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
+              Accountung Year
+            </Typography>
+            <pre>{JSON.stringify(state.accounting_year, null, 2)}</pre>
+          </Paper>
+        </Grid>
         <Grid
           item
           lg={6}
@@ -96,10 +104,6 @@ const Home = () => {
         >
           <Paper>
             <Balance />
-          </Paper>
-          <Paper>
-            Test 1 2 3 ...
-            <pre>{JSON.stringify(state.accounting_year, null, 2)}</pre>
           </Paper>
         </Grid>
       </Grid>

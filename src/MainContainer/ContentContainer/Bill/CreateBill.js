@@ -10,6 +10,7 @@ import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
 import { Add } from '../../../Helpers/Constants'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+import { POST_MVG } from '../../../utils/Query/MVG'
 
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -43,6 +44,7 @@ const CreateBill = props => {
   const [file, setFile] = useState(null)
 
   const createBilltMutation = useMutation(CREATE_BILL)
+  const createMvgMutation = useMutation(POST_MVG)
   const postAttachment = useMutation(POST_ATTACHMENT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
@@ -73,11 +75,9 @@ const CreateBill = props => {
       date_bill_received !== null &&
       payment_due !== null
     ) {
-      if (
-        process.env.NODE_ENV !== 'test' &&
-        process.env.NODE_ENV !== 'development'
-      ) {
-        console.log('env is: ', process.env.NODE_ENV)
+      if (process.env.NODE_ENV !== 'test') {
+        // && process.env.NODE_ENV !== 'development
+        // console.log('env is: ', process.env.NODE_ENV)
         Object.defineProperty(file, 'name', {
           writable: true,
           value: Date.now() + '_' + file.name,
@@ -85,6 +85,7 @@ const CreateBill = props => {
         const s3 = new Attachment({ type: 'bill' }).upload(file)
         const name = file.name
         let attachmentId
+        let billId
         s3.then(async path => {
           attachmentId = await postAttachment({
             variables: {
@@ -93,22 +94,34 @@ const CreateBill = props => {
               path: path,
             },
           })
-        }).then(() => {
-          createBilltMutation({
-            variables: {
-              vendor_id,
-              expense_id,
-              description,
-              tax_id,
-              payment,
-              date_bill_received,
-              payment_due,
-              attachment_id:
-                attachmentId.data.insert_Attachment.returning[0].id,
-              company_id: state.company.id,
-            },
-          })
         })
+          .then(async () => {
+            billId = await createBilltMutation({
+              variables: {
+                vendor_id,
+                expense_id,
+                description,
+                tax_id: tax_id.id,
+                payment,
+                date_bill_received,
+                payment_due,
+                attachment_id:
+                  attachmentId.data.insert_Attachment.returning[0].id,
+                company_id: state.company.id,
+              },
+            })
+          })
+          .then(() => {
+            createMvgMutation({
+              variables: {
+                outgoing: false,
+                rate: tax_id.tax_percentage,
+                amount: payment * 0.2,
+                fk_id: billId.data.insert_Bill.returning[0].id,
+                accounting_year_id: state.accounting_year.id,
+              },
+            })
+          })
       } else if (
         process.env.NODE_ENV === 'test' ||
         process.env.NODE_ENV === 'development'
@@ -118,7 +131,7 @@ const CreateBill = props => {
             vendor_id,
             expense_id,
             description,
-            tax_id,
+            tax_id: tax_id.id,
             payment,
             date_bill_received,
             payment_due,
@@ -240,7 +253,7 @@ const CreateBill = props => {
           {taxes ? (
             taxes.map((item, index) => {
               return (
-                <MenuItem key={index} value={item.id}>
+                <MenuItem key={index} value={item}>
                   {item.name + ' %' + item.tax_percentage * 100}
                 </MenuItem>
               )
