@@ -78,7 +78,13 @@ const Home = () => {
 
           <input type="file" onChange={handleFile} />
         </Grid>
-        <Grid item lg={6} md={6} sm={11}>
+        <Grid
+          item
+          lg={6}
+          md={6}
+          sm={11}
+          style={{ maxHeight: '56em', overflowY: 'scroll' }}
+        >
           <Company />
         </Grid>
         <Grid
