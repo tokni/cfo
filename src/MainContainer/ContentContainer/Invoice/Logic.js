@@ -6,6 +6,7 @@ import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
 import { POST_INVOICE } from '../../../utils/Query/InvoiceQuery'
 import { POST_ORDER } from '../../../utils/Query/OrderQuery'
 import { useSubscription, useMutation } from 'react-apollo-hooks'
+import { POST_MVG } from '../../../utils/Query/MVG'
 
 const Logic = props => {
   const [description, setDescription] = useState('')
@@ -13,6 +14,8 @@ const Logic = props => {
   const [created, setCreated] = useState(Date.now())
   const [quantity, setQuantity] = useState(null)
   const [price, setPrice] = useState(null)
+  // const [mvg, setMvg] = useState(null)
+  const [isMvg, setIsMvg] = useState(false)
   const [account, setAccount] = useState(null)
   const [invoiceNumber, setInvoiceNumber] = useState(null)
   const [product, setProduct] = useState('')
@@ -21,6 +24,7 @@ const Logic = props => {
   const [state] = useContext(Context)
   const mutateInvoice = useMutation(POST_INVOICE)
   const mutateOrder = useMutation(POST_ORDER)
+  const createMvgMutation = useMutation(POST_MVG)
 
   const { data } = useSubscription(GET_PRODUCTS, {
     suspend: false,
@@ -59,8 +63,20 @@ const Logic = props => {
 
   const addProductHandler = () => {
     if (product && quantity && price) {
-      products.push({ product: product, quantity: quantity, price: price })
+      let mvgShouldBe
+      if (isMvg) {
+        mvgShouldBe = price * quantity * 0.25
+        setIsMvg(!isMvg)
+      }
+
+      products.push({
+        product: product,
+        quantity: quantity,
+        price: price,
+        mvg: mvgShouldBe,
+      })
       props.fetcher('products', products)
+
       setProduct('')
       setQuantity(null)
       setPrice(null)
@@ -71,7 +87,7 @@ const Logic = props => {
 
   const addPayment = () => {
     let payment = 0
-    
+
     products.forEach(element => {
       payment += element.price * element.quantity
     })
@@ -98,12 +114,14 @@ const Logic = props => {
           attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399', //hardcode
           description: description,
           payment_due: dueDate,
-          payment: addPayment() 
+          payment: addPayment(),
         },
       })
 
       if (result) {
+        let mvgTotal = 0
         products.map((product, index) => {
+          mvgTotal += product.mvg || 0
           return mutateOrder({
             variables: {
               invoice_id: result.data.insert_Invoice.returning[0].id,
@@ -113,6 +131,18 @@ const Logic = props => {
             },
           })
         })
+
+        // POST MVG
+        await createMvgMutation({
+          variables: {
+            outgoing: true,
+            rate: 0.25,
+            amount: mvgTotal,
+            fk_id: result.data.insert_Invoice.returning[0].id,
+            accounting_year_id: state.accounting_year.id,
+          },
+        })
+
         props.handleClose()
       }
     } else {
@@ -141,11 +171,13 @@ const Logic = props => {
     setDueDate,
     setCreated,
     setInvoiceNumber,
+    setIsMvg,
     account,
     created,
     state,
     customer,
     invoiceNumber,
+    isMvg,
     products,
   }
 }

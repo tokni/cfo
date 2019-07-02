@@ -78,6 +78,7 @@ const CreateTax = props => {
           margin="dense"
           id="tax"
           value={taxName || ''}
+          variant="outlined"
           label={Language[state.locals].tax || ''}
           type="text"
           fullWidth
@@ -90,6 +91,7 @@ const CreateTax = props => {
           margin="dense"
           id="taxPercentage"
           value={taxPercentage || ''}
+          variant="outlined"
           label={Language[state.locals].taxpercentage || '%'}
           type="number"
           fullWidth

@@ -1,20 +1,20 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Language from '../../../utils/language'
-import { DeleteIcon } from '../../../Helpers/Constants'
+import { DeleteIcon, MVGOff, MVGOn } from '../../../Helpers/Constants'
 import AddIcon from '@material-ui/icons/Add'
 import Logic from './Logic'
 
 import {
   TextField,
-  Select,
   MenuItem,
   Input,
   Button,
-  InputLabel,
   Tooltip,
   FormControl,
   withStyles,
+  FormControlLabel,
+  Checkbox,
   Table,
   Fab,
   TableBody,
@@ -57,9 +57,11 @@ const Form = props => {
     setDueDate,
     setCreated,
     setInvoiceNumber,
+    setIsMvg,
     account,
     created,
     invoiceNumber,
+    isMVG,
     products,
     product,
     price,
@@ -75,15 +77,13 @@ const Form = props => {
   return (
     <Fragment>
       <form>
-        <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="customer-helper">
-            {Language[state.locals].customer}
-            {': '}
-          </InputLabel>
-          <Select
+        <FormControl className={classes.formControl}>
+          <TextField
             required
+            select
             value={customer || ''}
             onChange={handleCustomerChange}
+            variant="outlined"
             label="Kundi"
             placeholder="Vel ein kunda"
             input={<Input name="kundi1" id="customer-helper" />}
@@ -97,11 +97,13 @@ const Form = props => {
                   )
                 })
               : null}
-          </Select>
+          </TextField>
         </FormControl>
         <br />
         <FormControl variant="filled" className={classes.formControl}>
           <TextField
+            required
+            variant="outlined"
             label={Language[state.locals].invoicenumber}
             value={invoiceNumber || ''}
             placeholder="e.g. F431"
@@ -151,14 +153,13 @@ const Form = props => {
             variant="filled"
             style={{ width: '30%' }}
           >
-            <InputLabel htmlFor="product-helper">
-              {Language[state.locals].product}
-              {': '}
-            </InputLabel>
-            <Select
+            <TextField
+              required
+              select
               value={product || ''}
               onChange={handleProductChange}
-              label="Vvøru"
+              variant="outlined"
+              label={Language[state.locals].product}
               input={<Input name="Product1" id="product-helper" />}
             >
               {data
@@ -170,7 +171,7 @@ const Form = props => {
                     )
                   })
                 : null}
-            </Select>
+            </TextField>
           </FormControl>
           <FormControl
             className={classes.textField}
@@ -178,8 +179,10 @@ const Form = props => {
             style={{ width: '20%', paddingLeft: 10 }}
           >
             <TextField
+              required
               type="number"
               id="quantity"
+              variant="outlined"
               label={Language[state.locals].quantity}
               value={quantity ? quantity : ''}
               onChange={e => {
@@ -193,8 +196,10 @@ const Form = props => {
             style={{ width: '30%', paddingLeft: 10 }}
           >
             <TextField
+              required
               type="number"
               id="price"
+              variant="outlined"
               label={Language[state.locals].price}
               value={price ? price : ''}
               onChange={e => {
@@ -202,6 +207,20 @@ const Form = props => {
               }}
             />
           </FormControl>
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<MVGOff />}
+                checkedIcon={<MVGOn color="primary" />}
+                value={isMVG}
+                onChange={() => {
+                  setIsMvg(!isMVG)
+                }}
+              />
+            }
+            label="mvg"
+            labelPlacement="bottom"
+          />
           <Button
             data-cy="addItem"
             style={{ width: '15%' }}
@@ -211,12 +230,13 @@ const Form = props => {
           </Button>
         </div>
         <br />
-        <br />
+        {/* <br />
         <InputLabel>{Language[state.locals].invoicecreated}</InputLabel>
-        <br />
+        <br /> */}
         <TextField
-          autoFocus
+          required
           margin="dense"
+          variant="outlined"
           label={Language[state.locals].invoicecreated}
           value={created || ''}
           fullWidth
@@ -226,12 +246,13 @@ const Form = props => {
             props.fetcher('created', e.target.value)
           }}
         />
-        <br />
+        {/* <br />
         <InputLabel>{Language[state.locals].invoicedue}</InputLabel>
-        <br />
+        <br /> */}
         <TextField
-          autoFocus
+          required
           margin="dense"
+          variant="outlined"
           label={Language[state.locals].payment_due}
           fullWidth
           value={dueDate || ''}
@@ -250,6 +271,7 @@ const Form = props => {
             rows="4"
             fullWidth
             id="description"
+            variant="outlined"
             label={Language[state.locals].description}
             value={description}
             placeholder="Rokning fyri at verða kundi hjá okkum"
@@ -262,15 +284,13 @@ const Form = props => {
         <br />
         <br />
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="account-helper">
-            {Language[state.locals].account}
-            {': '}
-          </InputLabel>
-          <Select
+          <TextField
+            select
             required
             value={account || ''}
             onChange={handleAccountChange}
-            label="Konta"
+            variant="outlined"
+            label={Language[state.locals].account}
             input={<Input name="kundi1" id="account-helper" />}
           >
             {accountData.data
@@ -282,7 +302,7 @@ const Form = props => {
                   )
                 })
               : null}
-          </Select>
+          </TextField>
         </FormControl>
       </form>
       <Tooltip title="Add invoice">

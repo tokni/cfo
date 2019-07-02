@@ -69,9 +69,12 @@ const CreateExpense = props => {
         close={handleClose}
       >
         <TextField
+          autoFocus
           focus
           margin="dense"
           id="name"
+          required
+          variant="outlined"
           label={Language[state.locals].name}
           value={name}
           type="text"
