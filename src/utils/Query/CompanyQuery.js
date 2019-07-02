@@ -121,6 +121,16 @@ const GET_SUBSCRIP_COMPANY = gql`
         invoice_id
         bill_id
         time_stamp
+        Account{
+          name
+          balance
+          type
+        }
+        accountByDebitId{
+          name
+          balance
+          type
+        }
       }
     }
   }
