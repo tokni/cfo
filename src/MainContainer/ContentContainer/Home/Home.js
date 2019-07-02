@@ -81,9 +81,18 @@ const Home = () => {
         <Grid item lg={12} xl={12} xs={12} md={12} sm={12}>
           <Paper>
             <Typography variant="h4" style={{ textAlign: 'center' }}>
-              Accountung Year
+              Accounting Year
             </Typography>
-            <pre>{JSON.stringify(state.accounting_year, null, 2)}</pre>
+            <pre
+              style={{
+                background:
+                  'linear-gradient(to right bottom, #A30000, #0004a1)',
+                WebkitTextFillColor: 'transparent',
+                WebkitBackgroundClip: 'text',
+              }}
+            >
+              {JSON.stringify(state.accounting_year, null, 2)}
+            </pre>
           </Paper>
         </Grid>
         <Grid

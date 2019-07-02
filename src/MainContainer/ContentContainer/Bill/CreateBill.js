@@ -75,7 +75,10 @@ const CreateBill = props => {
       date_bill_received !== null &&
       payment_due !== null
     ) {
-      if (process.env.NODE_ENV !== 'test') {
+      if (
+        process.env.NODE_ENV !== 'test' &&
+        process.env.NODE_ENV !== 'development'
+      ) {
         // && process.env.NODE_ENV !== 'development
         // console.log('env is: ', process.env.NODE_ENV)
         Object.defineProperty(file, 'name', {
@@ -126,7 +129,8 @@ const CreateBill = props => {
         process.env.NODE_ENV === 'test' ||
         process.env.NODE_ENV === 'development'
       ) {
-        createBilltMutation({
+        let dev_billId
+        dev_billId = await createBilltMutation({
           variables: {
             vendor_id,
             expense_id,
@@ -137,6 +141,15 @@ const CreateBill = props => {
             payment_due,
             attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
             company_id: state.company.id,
+          },
+        })
+        await createMvgMutation({
+          variables: {
+            outgoing: false,
+            rate: tax_id.tax_percentage,
+            amount: payment * tax_id.tax_percentage,
+            fk_id: dev_billId.data.insert_Bill.returning[0].id,
+            accounting_year_id: state.accounting_year.id,
           },
         })
       }
