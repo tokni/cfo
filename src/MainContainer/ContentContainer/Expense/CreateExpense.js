@@ -73,6 +73,7 @@ const CreateExpense = props => {
           focus
           margin="dense"
           id="name"
+          required
           variant="outlined"
           label={Language[state.locals].name}
           value={name}
