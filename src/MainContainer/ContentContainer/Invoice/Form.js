@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Language from '../../../utils/language'
-import { DeleteIcon } from '../../../Helpers/Constants'
+import { DeleteIcon, MVGOff, MVGOn } from '../../../Helpers/Constants'
 import AddIcon from '@material-ui/icons/Add'
 import Logic from './Logic'
 
@@ -13,6 +13,8 @@ import {
   Tooltip,
   FormControl,
   withStyles,
+  FormControlLabel,
+  Checkbox,
   Table,
   Fab,
   TableBody,
@@ -55,9 +57,11 @@ const Form = props => {
     setDueDate,
     setCreated,
     setInvoiceNumber,
+    setIsMvg,
     account,
     created,
     invoiceNumber,
+    isMVG,
     products,
     product,
     price,
@@ -203,6 +207,20 @@ const Form = props => {
               }}
             />
           </FormControl>
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<MVGOff />}
+                checkedIcon={<MVGOn color="primary" />}
+                value={isMVG}
+                onChange={() => {
+                  setIsMvg(!isMVG)
+                }}
+              />
+            }
+            label="mvg"
+            labelPlacement="bottom"
+          />
           <Button
             data-cy="addItem"
             style={{ width: '15%' }}
