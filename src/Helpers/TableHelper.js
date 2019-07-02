@@ -114,23 +114,28 @@ const TableHelper = props => {
   }
 
   const searchValue = value => {
-    if (value['__typename']) delete value['__typename']
-    if (typeof value[searchCol] === 'object') return null
+    try {
+      if (value['__typename']) delete value['__typename']
+      if (typeof value[searchCol] === 'object') return null
 
-    if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
-      return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
-    } else if (typeof value[searchCol] === 'number') {
-      const a = value[searchCol] + ''
-      if (filter.match(/\d-\d/)) {
-        const fromto = filter.split('-')
-        if (value[searchCol] >= fromto[0] && value[searchCol] <= fromto[1])
-          return a
+      if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
+        return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
+      } else if (typeof value[searchCol] === 'number') {
+        const a = value[searchCol] + ''
+        if (filter.match(/\d-\d/)) {
+          const fromto = filter.split('-')
+          if (value[searchCol] >= fromto[0] && value[searchCol] <= fromto[1])
+            return a
+          return null
+        } else return a.indexOf(filter) > -1
+      } else if (typeof value[searchCol] === 'boolean') {
         return null
-      } else return a.indexOf(filter) > -1
-    } else if (typeof value[searchCol] === 'boolean') {
-      return null
+      }
+      return value[searchCol].match(new RegExp(filter, 'gi'))
+    } catch (err) {
+      console.log(`Error ${err}`)
+      return value
     }
-    return value[searchCol].match(new RegExp(filter, 'gi'))
   }
 
   const stringFormatter = target => {
