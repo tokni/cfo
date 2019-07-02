@@ -33,6 +33,7 @@ const Demo = props => {
   const [state] = useContext(Context)
   const { classes } = props
   let total = 0
+  let totalMvg = 0
 
   // <AllowedOrigin>127.0.0.1:3000</AllowedOrigin>
   // <AllowedOrigin>http://localhost:3000</AllowedOrigin>
@@ -178,9 +179,17 @@ const Demo = props => {
                           <TableCell>{item.product.name}</TableCell>
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
-                          <TableCell>{item.price * item.quantity}</TableCell>
+                          <TableCell>
+                            {item.price * item.quantity}
+                            {item.mvg
+                              ? '(' +
+                                (item.price * item.quantity + item.mvg) +
+                                ' v/ mvg)'
+                              : null}
+                          </TableCell>
                           <TableCell style={{ display: 'none' }}>
                             {(total += item.price * item.quantity)}
+                            {(totalMvg += item.mvg || 0)}
                           </TableCell>
                         </TableRow>
                       )
@@ -188,6 +197,12 @@ const Demo = props => {
                   : null}
                 <TableRow>
                   <TableCell rowSpan={2} colSpan={2} />
+                  <TableCell>
+                    {Language[state.locals].mvg || 'mvg in total:'}:{' '}
+                  </TableCell>
+                  <TableCell> {totalMvg} </TableCell>
+                </TableRow>
+                <TableRow>
                   <TableCell>{Language[state.locals].sum}: </TableCell>
                   <TableCell> {total} </TableCell>
                 </TableRow>

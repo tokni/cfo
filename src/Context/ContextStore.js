@@ -18,6 +18,7 @@ ContextStore.propTypes = {
 
 const initialState = {
   locals: 'fo',
+  accounting_year: null,
   companies: null,
   company: null,
   company_index: 0,
@@ -27,6 +28,10 @@ const initialState = {
 const reducer = createReducer(initialState, {
   reset: () => initialState,
 
+  set_accounting_year: (state, action) => ({
+    ...state,
+    accounting_year: action.accounting_year,
+  }),
   set_companies: (state, action) => ({
     ...state,
     companies: action.companies,

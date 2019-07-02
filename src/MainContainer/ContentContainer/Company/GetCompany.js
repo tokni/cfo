@@ -22,12 +22,16 @@ const GetCompany = () => {
       index: index,
     })
 
-    storeActiveCompany({
-      variables: {
-        user_id: state.user.id,
-        current_company: index.toString(),
-      },
-    })
+    try {
+      storeActiveCompany({
+        variables: {
+          user_id: state.user.id,
+          current_company: index.toString(),
+        },
+      })
+    } catch (e) {
+      console.log(`Error: ${e.error}`)
+    }
   }
 
   return (
@@ -46,7 +50,11 @@ const GetCompany = () => {
                   style={{ padding: '2em' }}
                 >
                   <Paper
-                    style={{ height: '8em', width: '8em' }}
+                    style={{
+                      height: '8em',
+                      textAlign: 'center',
+                      width: '8em',
+                    }}
                     onClick={clickHandler.bind(this, index)}
                   >
                     <Typography
@@ -54,14 +62,19 @@ const GetCompany = () => {
                         parseInt(index) === parseInt(state.company_index)
                           ? {
                               backgroundColor: '#11DF32',
+                              textAlign: 'center',
                               color: '#ffffff',
                               fontWeight: 'bolder',
                             }
-                          : { backgroundColor: '#1100Af', color: '#ffffff' }
+                          : {
+                              textAlign: 'center',
+                              backgroundColor: '#1100Af',
+                              color: '#ffffff',
+                            }
                       }
                       align="center"
                       variant="title"
-                      aria-label="Menu"
+                      // aria-label="Menu"
                       color="inherit"
                     >
                       {item.name}
