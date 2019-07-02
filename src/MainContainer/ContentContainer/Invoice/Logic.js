@@ -14,7 +14,7 @@ const Logic = props => {
   const [created, setCreated] = useState(Date.now())
   const [quantity, setQuantity] = useState(null)
   const [price, setPrice] = useState(null)
-  const [mvg, setMvg] = useState(null)
+  // const [mvg, setMvg] = useState(null)
   const [isMvg, setIsMvg] = useState(false)
   const [account, setAccount] = useState(null)
   const [invoiceNumber, setInvoiceNumber] = useState(null)
@@ -65,19 +65,9 @@ const Logic = props => {
     if (product && quantity && price) {
       let mvgShouldBe
       if (isMvg) {
-        console.log(`is mvg: ${isMvg}`)
         mvgShouldBe = price * quantity * 0.25
-        console.log(`mvg should be: ${mvgShouldBe}`)
-
-        setMvg(mvgShouldBe)
-        console.log(`mvg: ${mvg}`)
-
         setIsMvg(!isMvg)
-        console.log(`is mvg 2: ${isMvg}`)
       }
-
-      // setIsMvg(!isMvg)
-      console.log(`is mvg 2: ${isMvg}`)
 
       products.push({
         product: product,
@@ -90,8 +80,6 @@ const Logic = props => {
       setProduct('')
       setQuantity(null)
       setPrice(null)
-      // setIsMvg(false)
-      setMvg(0)
     } else {
       console.log('field is missing...')
     }
