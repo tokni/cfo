@@ -10,6 +10,12 @@ const Language = {
     timerate: 'Time rate',
     goods: 'Goods',
     loan: 'Loan',
+    accountingyear: 'Accounting year',
+    from: 'From',
+    to: 'To',
+    addaccountingyear: 'Add accounting year',
+    accuntingyeardetailed:
+      'Create a new accounting year by pressing on the add icon. The year will appear in a list in the middle. The active year is shown to the right.',
     electricity: 'Electricity',
     oil: 'Oil',
     rent: 'Rent',
@@ -152,6 +158,14 @@ const Language = {
     rent: 'Leiga',
     salary: 'Fastar lønir',
     ownersequity: 'Eginpeningur',
+
+    accountingyear: 'Fíggjarár',
+    from: 'Frá',
+    to: 'Til',
+    addaccountingyear: 'Skap nýtt fíggjarár',
+    accuntingyeardetailed:
+      'Fyri at kunna verða aktivur, mást tú hava eitt fíggjarár at arbeiða innanfyri. Trýst á knøttin omanfyri fyri at skapa eitt nýtt fíggjarár. Í miðuni er ein listi yvir tíni fíggjarár, tað ovast er tað nýggjasta. Uttast til høgru sæst tað virkna fíggjarárið',
+
     accept: 'Góðkenn',
     addaccount: 'Legg kontu avtrat',
     addaccountnumber: 'Legg kontu nummar avtrat',
@@ -291,6 +305,12 @@ const Language = {
     rent: 'Miete',
     salary: 'Gehalt',
     ownersequity: 'Eigenkapital',
+    accountingyear: 'Rechnungsjahr',
+    from: 'von',
+    to: 'bis',
+    addaccountingyear: 'Hinzufügen Rechnungsjahr',
+    accuntingyeardetailed:
+      'Erstellen Sie ein neues Rechnungsjahr, indem Sie auf das Symbol hinzufügen. Das Jahr wird in der Mitte in einer Liste erscheinen. Das aktive Jahr wird rechts angezeigt.',
     accept: 'Akzeptieren',
     addaccount: 'Konto hinzufügen',
     addaccountnumber: 'Konto nummer hinzufügen',
