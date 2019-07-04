@@ -38,6 +38,11 @@ const SelectCompany = props => {
       index: event.target.value,
     })
 
+    dispatch({
+      type: 'set_accounting_year_index',
+      accounting_year_index: 0,
+    })
+
     storeActiveCompany({
       variables: {
         user_id: state.user.id,
