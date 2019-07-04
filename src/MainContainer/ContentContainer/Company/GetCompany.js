@@ -22,6 +22,11 @@ const GetCompany = () => {
       index: index,
     })
 
+    dispatch({
+      type: 'set_accounting_year_index',
+      accounting_year_index: 0,
+    })
+
     try {
       storeActiveCompany({
         variables: {
@@ -73,7 +78,7 @@ const GetCompany = () => {
                             }
                       }
                       align="center"
-                      variant="title"
+                      variant="h5"
                       // aria-label="Menu"
                       color="inherit"
                     >
