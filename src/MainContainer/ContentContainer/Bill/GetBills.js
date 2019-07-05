@@ -34,13 +34,27 @@ const GetBills = props => {
     },
   })
   const update = <UpdateBill />
-  const payBill = <PayBill/>
-
+  const payBill = <PayBill />
 
   if (loading) {
     return <p>{Language[state.locals].loading}...</p>
   }
 
+  let newArr = null
+  try {
+    if (data) {
+      const from = new Date(
+        state.accounting_year[state.accounting_year_index].from
+      )
+      const to = new Date(state.accounting_year[state.accounting_year_index].to)
+      newArr = data.Bill.filter(
+        obj =>
+          new Date(obj.payment_due) >= from && new Date(obj.payment_due) <= to
+      )
+    }
+  } catch (e) {
+    console.log(`trying data....`)
+  }
   if (error) {
     return (
       <SnackBar
@@ -52,7 +66,13 @@ const GetBills = props => {
   return (
     <Fragment>
       {data.Bill ? (
-        <TableHelper array={data.Bill} update={update} delete={deleteBill} pay={payBill} hideID={true}/>
+        <TableHelper
+          array={newArr ? newArr : []}
+          update={update}
+          delete={deleteBill}
+          pay={payBill}
+          hideID={true}
+        />
       ) : null}
       {state.company === null ? (
         <SnackBar message={'select company first'} state={'warning'} />
