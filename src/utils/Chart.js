@@ -234,6 +234,8 @@ const Chart = props => {
                 default:
                   break
               }
+              console.log("type items", items);
+              
               setItems(items)
             } catch (e) {
               console.log('error chart', e)
@@ -241,6 +243,8 @@ const Chart = props => {
           }}
         />
       ) : null}
+      {console.log("item ", item)}
+      }
       {item ? (
         <CustomizedDialogs items={item} handleClose={handleClose} />
       ) : null}

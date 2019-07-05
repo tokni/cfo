@@ -11,178 +11,287 @@ import { Typography } from '@material-ui/core'
 
 const Operations = () => {
   const [state] = useContext(Context)
+  const [transactions, setTransactions] = useState(null)
 
   const [sale, setSale] = useState(0)
   const latestSale = useRef(sale)
-  const [sales, setSales] = useState(0)
 
-  const [transactions, setTransactions] = useState(null)
+  const [sales, setSales] = useState([])
+  const latestSales = useRef(sales)
+  
 
   const [steadyExpenses, setSteadyExpenses] = useState([])
+  const latestSteadyExpenses = useRef(steadyExpenses)
+
   const [variableExpenses, setVariableExpenses] = useState([])
+  const latestVariableExpenses = useRef(variableExpenses)
+
   const [interests, setInterests] = useState([])
-  const [interest, setInterest] = useState(0)
+  const latestInterests = useRef(interests)
+
   const [depreciations, setDepreciations] = useState([])
-  const [depreciation, setDepreciation] = useState(0)
+  const latestDepriciations = useRef(depreciations)
+
   const [resultBeforeInterests, setResultBeforeInterests] = useState(0)
+  const latestResultBeforeInterests = useRef(resultBeforeInterests)
+
   const [resultAfterInterests, setResultAfterInterests] = useState(0)
+  const latestResultAfterInterests = useRef(resultBeforeInterests)
+
   const [taxes, setTaxes] = useState([])
+
   const [tax, setTax] = useState(0)
+
   const [bruttoIncome, setBruttoIncome] = useState(0)
+  const latestBruttoIncome = useRef(bruttoIncome)
+
   const [contributionMargin, setContributionMargin] = useState(0)
+  const latestContributionMargin = useRef(contributionMargin)
+
   const [operatingSurplus, setOperatingSurplus] = useState(0)
+  const latestOperatingSurplus = useRef(operatingSurplus)
 
   const calculateSale = useCallback(() => {
+    console.log('calculate sale')
+    let total = 0
     try {
-      return setSale(
-        transactions.reduce(
-          function(total, currentValue) {
-            // let date = new Date(currentValue.time_stamp).getFullYear
-            if (
-              currentValue.bill_id === null &&
-              currentValue.accountByDebitId.type >= 1000 &&
-              currentValue.accountByDebitId.type < 2000
-            ) {
-              total += currentValue.payment
-            }
-            return parseFloat(total)
-          },
-          [latestSale.current]
-        )
-      )
+      latestSales.current.forEach(currentValue => {
+        // let date = new Date(currentValue.time_stamp).getFullYear
+
+        total += currentValue.payment
+      })
+      latestSale.current = total
+      return total
     } catch (e) {
       console.log('error ', e)
     }
-  }, [latestSale, transactions])
+  }, [])
 
   const getVariableExpenses = useCallback(() => {
     try {
-      transactions.reduce(function(total, currentValue) {
+      // return setVariableExpenses(
+      let newArr = [...latestVariableExpenses.current]
+      // setVariableExpenses(
+
+      transactions.forEach(currentTransaction => {
         // let date = new Date(currentValue.time_stamp).getFullYear()
         if (
           /*date <= new Date().getFullYear &&*/
-          currentValue.Account.type >= 3000 && currentValue.Account.type < 4000 && currentValue.Account && currentValue.bill_id !== null
+          currentTransaction.accountByDebitId.type >= 3000 &&
+          currentTransaction.accountByDebitId.type < 4000 &&
+          currentTransaction.accountByDebitId &&
+          currentTransaction.bill_id !== null
         ) {
-          if (variableExpenses.length === 0) {
-            variableExpenses.push(currentValue)
+          newArr.sort(
+            (a, b) => a.accountByDebitId.name < b.accountByDebitId.name
+          )
+          if (newArr.length < 2) {
+            newArr.push(currentTransaction)
           } else {
-            variableExpenses.forEach(expense => {
-              if (currentValue.Account.name === expense.Account.name) {
-                variableExpenses.payment += currentValue.payment
-              } else {
-                variableExpenses.push(currentValue)
-              }
-            })
-          }
-          
-        }
-        console.log("var ", variableExpenses);
+            newArr.push(currentTransaction)
+            for (let index = 1; index < newArr.length; index++) {
+              const element = newArr[index]
+              let previousElement = newArr[index - 1]
+              if (
+                element.accountByDebitId.type ===
+                previousElement.accountByDebitId.type
+              ) {
+                previousElement.payment =
+                  element.payment + previousElement.payment
 
-        return variableExpenses
+                newArr.splice(index, 1)
+              } else {
+                newArr.push(element)
+              }
+            }
+          }
+        }
       })
+
+      if (
+        newArr[newArr.length - 2].accountByDebitId.type ===
+        newArr[newArr.length - 1].accountByDebitId.type
+      ) {
+        newArr[newArr.length - 2].payment += newArr[newArr.length - 1].payment
+        newArr.splice(newArr.length - 1, 1)
+      }
+
+      console.log('var array ', newArr)
+      latestVariableExpenses.current = newArr
+      return newArr
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
-  }, [variableExpenses, transactions])
+  }, [transactions])
 
   const calculateContributionMargin = useCallback(() => {
     let tmpMargin = 0
+    try {
+      latestSteadyExpenses.current.forEach(element => {
+        tmpMargin += element.payment
+      })
+    } catch (error) {}
 
-    variableExpenses.forEach(element => {
-      tmpMargin += element.payment
-    })
-    tmpMargin = bruttoIncome - tmpMargin
-    setContributionMargin(tmpMargin)
-  }, [variableExpenses, bruttoIncome])
+    tmpMargin = latestBruttoIncome.current - tmpMargin
+
+    return tmpMargin
+  }, [])
 
   const getSteadyExpenses = useCallback(() => {
     try {
-      transactions.reduce(function(total, currentValue) {
+      let newArr = [...latestSteadyExpenses.current]
+
+      transactions.forEach(currentTransaction => {
         // let date = new Date(currentValue.time_stamp).getFullYear()
         if (
           /*date <= new Date().getFullYear &&*/
-          currentValue.Account.type >= 4000 &&
-          currentValue.Account.type < 5000
+          currentTransaction.accountByDebitId.type >= 4000 &&
+          currentTransaction.accountByDebitId.type < 5000 &&
+          currentTransaction.accountByDebitId &&
+          currentTransaction.bill_id !== null
         ) {
-          if (steadyExpenses.length === 0) {
-            steadyExpenses.push(currentValue)
+          newArr.sort(
+            (a, b) => a.accountByDebitId.name < b.accountByDebitId.name
+          )
+          if (newArr.length < 2) {
+            newArr.push(currentTransaction)
           } else {
-            steadyExpenses.forEach(expense => {
-              if (currentValue.Account.name === expense.Account.name) {
-                steadyExpenses.payment += currentValue.payment
+            newArr.push(currentTransaction)
+            for (let index = 1; index < newArr.length; index++) {
+              const element = newArr[index]
+              let previousElement = newArr[index - 1]
+              if (
+                element.accountByDebitId.type ===
+                previousElement.accountByDebitId.type
+              ) {
+                previousElement.accountByDebitId.payment =
+                  element.payment + previousElement.payment
+
+                newArr.splice(index, 1)
               } else {
-                steadyExpenses.push(currentValue)
+                newArr.push(element)
               }
-            })
+            }
           }
         }
       })
+
+      if (
+        newArr[newArr.length - 2].accountByDebitId.type ===
+        newArr[newArr.length - 1].accountByDebitId.type
+      ) {
+        newArr[newArr.length - 2].payment += newArr[newArr.length - 1].payment
+        newArr.splice(newArr.length - 1, 1)
+      }
+      latestSteadyExpenses.current = newArr
+
+      return newArr
     } catch (e) {
       console.log(e)
     }
-  }, [steadyExpenses, transactions])
+  }, [transactions])
 
-  const printExpenses = expenses => {
-    return expenses.map((item, index) => {
-      return (
-        <Typography key={index} variant="h4" component="h1" data-cy="title">
-          {item.Account.type + ' ' + item.Account.name} : {item.payment}
-        </Typography>
-      )
-    })
+  const PrintExpenses = expenses => {
+    try {
+      return expenses.expenses.map((item, index) => {
+        return (
+          <Typography variant="h4" component="h1" data-cy="title">
+            {item.accountByDebitId.name + ' ' + item.payment}
+          </Typography>
+        )
+      })
+    } catch (error) {
+      console.log('print error ', error)
+
+      return <p>Error</p>
+    }
   }
 
   const calculateOperatingSurplus = useCallback(() => {
     let tmpSurplus = 0
+    try {
+      latestSteadyExpenses.current.forEach(element => {
+        tmpSurplus += element.payment
+      })
+    } catch (error) {}
+    tmpSurplus = latestContributionMargin.current - tmpSurplus
 
-    steadyExpenses.forEach(element => {
-      tmpSurplus += element.payment
-    })
-    tmpSurplus = contributionMargin - tmpSurplus
-    setOperatingSurplus(tmpSurplus)
-  }, [steadyExpenses, contributionMargin])
+    latestOperatingSurplus.current = tmpSurplus
+    return tmpSurplus
+  }, [])
 
   const calculateBruttoIncome = useCallback(() => {
     let tmpExpense = 0
-    variableExpenses.forEach(element => {
-      tmpExpense += element.payment
-    })
+    let tmpBruttoIncome = 0
 
-    
+    try {
+      latestVariableExpenses.current.forEach(element => {
+        tmpExpense += element.payment
+      })
 
-    let tmpBruttoIncome = sale - tmpExpense
+      tmpBruttoIncome = latestSale.current - tmpExpense
+    } catch (error) {
+      console.log('brutto income error', error)
+    }
 
-    setBruttoIncome(tmpBruttoIncome)
-  }, [variableExpenses, setBruttoIncome, sale])
+    latestBruttoIncome.current = tmpBruttoIncome
+    return tmpBruttoIncome
+  }, [])
 
   const calculateDepreciation = useCallback(() => {
     try {
-      transactions.reduce(function(total, currentValue) {
+      let depreciationsArray = [...latestDepriciations.current]
+
+      transactions.forEach(currentTransaction => {
         // let date = new Date(currentValue.time_stamp).getFullYear()
         if (
-          currentValue.Account.type !== null &&
           /*date <= new Date().getFullYear &&*/
-          currentValue.Account.type >= 8000 &&
-          currentValue.Account.type < 9000
+          currentTransaction.accountByDebitId.type >= 4000 &&
+          currentTransaction.accountByDebitId.type < 5000 &&
+          currentTransaction.accountByDebitId &&
+          currentTransaction.bill_id !== null
         ) {
-          if (depreciations.length === 0) {
-            depreciations.push(currentValue)
+          depreciationsArray.sort(
+            (a, b) => a.accountByDebitId.name < b.accountByDebitId.name
+          )
+          if (depreciationsArray.length < 2) {
+            depreciationsArray.push(currentTransaction)
           } else {
-            depreciations.forEach(expense => {
-              if (currentValue.Account.name === expense.Account.name) {
-                depreciations.payment += currentValue.payment
+            depreciationsArray.push(currentTransaction)
+            for (let index = 1; index < depreciationsArray.length; index++) {
+              const element = depreciationsArray[index]
+              let previousElement = depreciationsArray[index - 1]
+              if (
+                element.accountByDebitId.type ===
+                previousElement.accountByDebitId.type
+              ) {
+                previousElement.accountByDebitId.payment =
+                  element.payment + previousElement.payment
+
+                depreciationsArray.splice(index, 1)
               } else {
-                depreciations.push(currentValue)
+                depreciationsArray.push(element)
               }
-            })
+            }
           }
         }
-        return depreciations
       })
+
+      if (
+        depreciationsArray[depreciationsArray.length - 2].accountByDebitId
+          .type ===
+        depreciationsArray[depreciationsArray.length - 1].accountByDebitId.type
+      ) {
+        depreciationsArray[depreciationsArray.length - 2].payment +=
+          depreciationsArray[depreciationsArray.length - 1].payment
+        depreciationsArray.splice(depreciationsArray.length - 1, 1)
+      }
+      latestSteadyExpenses.current = depreciationsArray
+      return depreciationsArray
     } catch (e) {
       console.log(e)
     }
-  }, [depreciations, transactions])
+  }, [transactions])
 
   const calculateInterests = useCallback(() => {
     try {
@@ -206,6 +315,7 @@ const Operations = () => {
             })
           }
         }
+        latestInterests.current = interests
         return interests
       })
     } catch (e) {
@@ -242,76 +352,105 @@ const Operations = () => {
   }
 
   const calculateResultBeforeInterests = useCallback(() => {
-    let tmpResult = operatingSurplus
+    let tmpResult = 0
 
-    depreciations.forEach(element => {
-      tmpResult = operatingSurplus - element.payment
+    latestDepriciations.current.forEach(element => {
+      tmpResult = latestOperatingSurplus.current - element.payment
     })
 
-    setResultBeforeInterests(tmpResult)
-  }, [depreciations, operatingSurplus])
+    latestResultBeforeInterests.current = tmpResult
+    return tmpResult
+  }, [])
 
   const calculateAfterInterests = useCallback(() => {
-    let tmpAfterInterestsResult = resultBeforeInterests
+    let tmpAfterInterestsResult = 0
 
-    interests.forEach(element => {
-      tmpAfterInterestsResult = resultBeforeInterests - element.payment
-    })
+    try {
+      latestInterests.current.forEach(element => {
+        tmpAfterInterestsResult =
+          latestResultAfterInterests.current - element.payment
+      })
+    } catch (error) {}
 
-    setResultAfterInterests(tmpAfterInterestsResult)
-  }, [interests, resultBeforeInterests])
+    latestResultAfterInterests.current = tmpAfterInterestsResult
+    return tmpAfterInterestsResult
+  }, [])
 
   const getSales = useCallback(() => {
     try {
-      transactions.reduce(function(total, currentValue) {
+      let tmpSales = [...latestSales.current]
+      transactions.forEach(currentTransaction => {
         // let date = new Date(currentValue.time_stamp).getFullYear()
         if (
-          currentValue.accountByDebitId.type !== null && currentValue.bill_id === null
           /*date <= new Date().getFullYear &&*/
+          currentTransaction.accountByDebitId.type >= 1000 &&
+          currentTransaction.accountByDebitId.type < 2000 &&
+          currentTransaction.accountByDebitId &&
+          currentTransaction.invoice_id !== null
         ) {
-          if (sales.length === 0) {
-            sales.push(currentValue)
+          tmpSales.sort(
+            (a, b) => a.accountByDebitId.name < b.accountByDebitId.name
+          )
+          if (tmpSales.length < 2) {
+            tmpSales.push(currentTransaction)
           } else {
-            sales.forEach(expense => {
-              if (currentValue.Account.name === expense.Account.name) {
-                sales.payment += currentValue.payment
+            tmpSales.push(currentTransaction)
+            for (let index = 1; index < tmpSales.length; index++) {
+              const element = tmpSales[index]
+              let previousElement = tmpSales[index - 1]
+              if (
+                element.accountByDebitId.type ===
+                previousElement.accountByDebitId.type
+              ) {
+                previousElement.payment =
+                  element.payment + previousElement.payment
+
+                tmpSales.splice(index, 1)
               } else {
-                sales.push(currentValue)
+                tmpSales.push(element)
               }
-            })
+            }
           }
         }
-        return sales
       })
-    } catch (e) {
-      console.log(e)
-    }
+      if (
+        tmpSales[tmpSales.length - 2].accountByDebitId.type ===
+        tmpSales[tmpSales.length - 1].accountByDebitId.type
+      ) {
+        tmpSales[tmpSales.length - 2].payment +=
+          tmpSales[tmpSales.length - 1].payment
+        tmpSales.splice(tmpSales.length - 1, 1)
+      }
 
-  }, [transactions, sales])
+      latestSales.current = tmpSales
+      return tmpSales
+    } catch (e) {
+      // console.log(e)
+    }
+  }, [transactions])
 
   useEffect(() => {
     setTransactions(state.company ? state.company.Transactions : null)
-    calculateSale()
-    getSales()    
 
-    getVariableExpenses()
-    getSteadyExpenses()
-    getVariableExpenses()
-    calculateBruttoIncome()
-    calculateContributionMargin()
-    calculateOperatingSurplus()
-    calculateDepreciation()
-    calculateResultBeforeInterests()
-    calculateInterests()
-    calculateAfterInterests()
+    setSales(getSales())
+    setSale(calculateSale())
+    setSteadyExpenses(getSteadyExpenses())
+    setVariableExpenses(getVariableExpenses())
+    setBruttoIncome(calculateBruttoIncome())
+    setContributionMargin(calculateContributionMargin())
+    setOperatingSurplus(calculateOperatingSurplus())
+    setDepreciations(calculateDepreciation())
+    setInterests(calculateInterests())
+    setResultBeforeInterests(calculateResultBeforeInterests())
+    setResultAfterInterests(calculateAfterInterests())
   }, [
-    calculateSale,
-    getSales,
     transactions,
     state.company,
+    calculateSale,
+    getSales,
+    getSteadyExpenses,
     getVariableExpenses,
     calculateBruttoIncome,
-    getSteadyExpenses,
     calculateContributionMargin,
     calculateOperatingSurplus,
     calculateDepreciation,
@@ -322,32 +461,42 @@ const Operations = () => {
 
   return (
     <Fragment>
-      {/* {printExpenses(sales)} */}
+      <p>dfgfdgfd</p>
+      <p>dfgfdgfd</p>
       <Typography variant="h4" component="h1" data-cy="title">
-        Total Sale: {sale} 
+        Total Sale: {sale}
       </Typography>
-      {printExpenses(variableExpenses)}
+      VØRUFORBRÙK SKAL ROKNAST
       <Typography variant="h4" component="h1" data-cy="title">
-        Brutto Income: {bruttoIncome}
+        ROKNAR variableExpenses, skal brúka VØRUFORBRÙK Brutto Income:{' '}
+        {bruttoIncome}
       </Typography>
+      <PrintExpenses expenses={variableExpenses} />
+      
       <Typography variant="h4" component="h1" data-cy="title">
         Contribution Margin: {contributionMargin}
       </Typography>
-      {printExpenses(steadyExpenses)}
+      <PrintExpenses expenses={steadyExpenses} />
+      <Typography variant="h4" component="h1" data-cy="title">
+        : {operatingSurplus}
+      </Typography>
+      <PrintExpenses expenses={depreciations} />
       <Typography variant="h4" component="h1" data-cy="title">
         Operating Surplus: {operatingSurplus}
       </Typography>
-      {printExpenses(depreciations)}
+      <PrintExpenses expenses={depreciations} />
+
       <Typography variant="h4" component="h1" data-cy="title">
         Result before interest: {resultBeforeInterests}
       </Typography>
-      {printExpenses(interests)}
+      <PrintExpenses expenses={interests} />
+
       <Typography variant="h4" component="h1" data-cy="title">
         Result before taxes: {resultAfterInterests}
       </Typography>
-      {printExpenses(taxes)}
+      <PrintExpenses expenses={taxes} />
       <Typography variant="h4" component="h1" data-cy="title">
-        Result after taxes: {resultAfterInterests-(resultAfterInterests * 0.18)}
+        Result after taxes: {resultAfterInterests - resultAfterInterests * 0.18}
       </Typography>
     </Fragment>
   )
