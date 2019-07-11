@@ -1,4 +1,4 @@
-import StoreAccountingYear from './StoreAccountingYear'
+// import StoreAccountingYear from './StoreAccountingYear'
 import StoreCompanies from './StoreCompanies'
 import StoreUser from './StoreUser'
 import StorePreferences from './StorePreferences'
@@ -15,7 +15,7 @@ const StoreContainer = props => {
       <StoreUser />
       <StoreCompanies />
       <StorePreferences />
-      <StoreAccountingYear />
+      {/* <StoreAccountingYear /> */}
     </Fragment>
   )
 }
