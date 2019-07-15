@@ -45,8 +45,10 @@ const Operations = () => {
         const trans = JSON.parse(JSON.stringify(transactions))
 
         trans.forEach(currentTransaction => {
-          // let date = new Date(currentValue.time_stamp).getFullYear()
           let transObject = currentTransaction
+          let date = new Date(transObject.time_stamp).getFullYear()
+          console.log("date ", state.accounting_year);
+          
           if (
             /*date <= new Date().getFullYear &&*/
             transObject.accountByDebitId.type >= lowerBound &&
