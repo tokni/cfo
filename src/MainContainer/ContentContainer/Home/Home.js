@@ -9,9 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core'
-import Attachment from '../../../Helpers/Attachment'
 import React, { useContext, Fragment } from 'react'
-import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
 import Balance from '../Balance/Balance'
@@ -20,7 +18,6 @@ import Language from '../../../utils/language'
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
-  const postAttachment = useMutation(POST_ATTACHMENT)
 
   const handleClicker = locals => {
     MutateLocals({
