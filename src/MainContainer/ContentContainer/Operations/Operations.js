@@ -39,11 +39,6 @@ const Operations = () => {
   const [operatingSurplus, setOperatingSurplus] = useState(0)
 
   const inRange = useCallback((date, index) => {
-    console.log("date index ", date);
-    console.log("date index ", new Date(date) <= new Date(state.accounting_year[index].to) &&
-    new Date(date) >= new Date(state.accounting_year[index].from));
-
-    
     return (
       new Date(date) <= new Date(state.accounting_year[index].to) &&
       new Date(date) >= new Date(state.accounting_year[index].from)
