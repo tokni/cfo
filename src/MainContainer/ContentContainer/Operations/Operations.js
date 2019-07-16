@@ -226,7 +226,7 @@ const Operations = () => {
 
     calculateSale(getType(1000, 2000))
     setVariableExpenses(getType(3000, 3900))
-    setSaleRelatedExpenses(getType(3900, 400))
+    setSaleRelatedExpenses(getType(3900, 4000))
     setSteadyExpenses(getType(4000, 5000))
     setDepreciations(getType(9000, 10000))
     setInterests(getType(8000, 9000))
