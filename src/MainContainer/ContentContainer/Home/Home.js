@@ -9,9 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core'
-import Attachment from '../../../Helpers/Attachment'
 import React, { useContext, Fragment } from 'react'
-import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
 import Balance from '../Balance/Balance'
@@ -20,7 +18,6 @@ import Language from '../../../utils/language'
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
-  const postAttachment = useMutation(POST_ATTACHMENT)
 
   const handleClicker = locals => {
     MutateLocals({
@@ -36,24 +33,6 @@ const Home = () => {
     })
   }
 
-  const handleFile = e => {
-    let file = e.target.files[0]
-    Object.defineProperty(file, 'name', {
-      writable: true,
-      value: Date.now() + '_' + file.name,
-    })
-    const s3 = new Attachment({ type: 'home' }).upload(file)
-    const name = file.name
-    s3.then(path => {
-      postAttachment({
-        variables: {
-          company_id: state.company.id,
-          name: name,
-          path: path,
-        },
-      })
-    })
-  }
 
   const handleChange = idx => {
     dispatch({
@@ -164,8 +143,6 @@ const Home = () => {
           >
             DE
           </Button>
-
-          <input type="file" onChange={handleFile} />
         </Grid>
         <AccountingYear />
         <Grid
