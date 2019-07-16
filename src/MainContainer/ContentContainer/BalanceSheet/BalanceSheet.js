@@ -63,7 +63,7 @@ const BalanceSheet = () => {
   useEffect(() => {
     calculateTotalAssets()
     calculateTotalLiability()
-  }, [calculateTotalAssets, assets, calculateTotalLiability, liabilities])
+  }, [calculateTotalAssets, calculateTotalLiability])
 
   const handleClose = props => {
     if (state.company) {
