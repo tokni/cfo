@@ -36,24 +36,6 @@ const Home = () => {
     })
   }
 
-  const handleFile = e => {
-    let file = e.target.files[0]
-    Object.defineProperty(file, 'name', {
-      writable: true,
-      value: Date.now() + '_' + file.name,
-    })
-    const s3 = new Attachment({ type: 'home' }).upload(file)
-    const name = file.name
-    s3.then(path => {
-      postAttachment({
-        variables: {
-          company_id: state.company.id,
-          name: name,
-          path: path,
-        },
-      })
-    })
-  }
 
   const handleChange = idx => {
     dispatch({
@@ -164,8 +146,6 @@ const Home = () => {
           >
             DE
           </Button>
-
-          <input type="file" onChange={handleFile} />
         </Grid>
         <AccountingYear />
         <Grid
