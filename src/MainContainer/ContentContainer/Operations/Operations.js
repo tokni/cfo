@@ -38,23 +38,31 @@ const Operations = () => {
 
   const [operatingSurplus, setOperatingSurplus] = useState(0)
 
+  const inRange = useCallback((date, index) => {
+    console.log("date index ", date);
+    console.log("date index ", new Date(date) <= new Date(state.accounting_year[index].to) &&
+    new Date(date) >= new Date(state.accounting_year[index].from));
+
+    
+    return (
+      new Date(date) <= new Date(state.accounting_year[index].to) &&
+      new Date(date) >= new Date(state.accounting_year[index].from)
+    )
+  },[state.accounting_year])
+
   const getType = useCallback(
-    (lowerBound, upperBound, invoice) => {
+    (lowerBound, upperBound) => {
       try {
         let newArr = []
         const trans = JSON.parse(JSON.stringify(transactions))
 
         trans.forEach(currentTransaction => {
           let transObject = currentTransaction
-          let date = new Date(transObject.time_stamp).getFullYear()
-          console.log("date ", state.accounting_year);
-          
           if (
             /*date <= new Date().getFullYear &&*/
             transObject.accountByDebitId.type >= lowerBound &&
-            transObject.accountByDebitId.type < upperBound &&
-            transObject.accountByDebitId &&
-            invoice !== null
+            transObject.accountByDebitId.type < upperBound
+            && inRange(transObject.time_stamp, state.accounting_year_index) 
           ) {
             newArr.push(transObject)
           }
@@ -92,7 +100,7 @@ const Operations = () => {
         console.log(e)
       }
     },
-    [transactions]
+    [transactions, state.accounting_year_index, inRange]
   )
 
   const calculateSale = useCallback(typeArray => {
@@ -220,13 +228,14 @@ const Operations = () => {
         ? JSON.parse(JSON.stringify(state.company.Transactions))
         : null
     )
-    calculateSale(getType(1000, 2000, true))
-    setVariableExpenses(getType(3000, 3900, false))
-    setSaleRelatedExpenses(getType(3900, 400, false))
-    setSteadyExpenses(getType(4000, 5000, false))
-    setDepreciations(getType(9000, 10000, false))
-    setInterests(getType(8000, 9000, false))
-    setTaxes(getType(10000, 11000, false))
+
+    calculateSale(getType(1000, 2000))
+    setVariableExpenses(getType(3000, 3900))
+    setSaleRelatedExpenses(getType(3900, 400))
+    setSteadyExpenses(getType(4000, 5000))
+    setDepreciations(getType(9000, 10000))
+    setInterests(getType(8000, 9000))
+    setTaxes(getType(10000, 11000))
     setBruttoIncome(calculateBruttoIncome())
     setContributionMargin(calculateContributionMargin())
     setOperatingSurplus(calculateOperatingSurplus())
