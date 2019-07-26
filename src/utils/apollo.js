@@ -6,7 +6,6 @@ import { ApolloClient } from 'apollo-boost'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { fetch } from 'isomorphic-fetch'
-
 import ws from 'ws'
 
 if (process.env.NODE_ENV === 'test') {
@@ -22,7 +21,9 @@ const http = new HttpLink({
   },
   fetch,
 })
+
 const wsForNode = typeof window === 'undefined' ? ws : null
+
 const wsClient = new SubscriptionClient(
   'wss://cfo-foeroyar.herokuapp.com/v1alpha1/graphql',
   {
@@ -51,4 +52,4 @@ const link = new split(
   http
 )
 
-export const client = new ApolloClient({ link, cache: new InMemoryCache() })
+export const client = new ApolloClient({ link, cache: new InMemoryCache({addTypename: false}) })
