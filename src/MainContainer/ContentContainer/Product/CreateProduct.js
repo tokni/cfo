@@ -63,12 +63,14 @@ const CreateProduct = props => {
         title="addproduct"
         text="fillformtoaddproduct"
         submit={onSubmit}
+        name="addproduct"
         close={handleClose}
       >
         <TextField
           autoFocus
           margin="dense"
           id="name"
+          variant="outlined"
           label={Language[state.locals].name}
           type="text"
           fullWidth

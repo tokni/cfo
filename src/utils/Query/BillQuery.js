@@ -8,7 +8,7 @@ const GET_BILLS_SUBSCRIPTION = gql`
         name
         id
       }
-      Vendor{
+      Vendor {
         name
         id
       }
@@ -24,9 +24,7 @@ const GET_BILLS_SUBSCRIPTION = gql`
       paid
       Attachment {
         name
-        id
       }
-      
     }
   }
 `
@@ -57,6 +55,9 @@ const CREATE_BILL = gql`
       }
     ) {
       affected_rows
+      returning {
+        id
+      }
     }
   }
 `
@@ -92,29 +93,28 @@ const PUT_BILL = gql`
   }
 `
 const PUT_BILL_PAY = gql`
-mutation putBill(
-  $id: uuid!
-  $company_id: uuid!
-  $paid: Boolean!
-) {
-  update_Bill(
-    where: { company_id: { _eq: $company_id }, id: { _eq: $id } }
-    _set: {
-      paid: $paid
+  mutation putBill($id: uuid!, $company_id: uuid!, $paid: Boolean!) {
+    update_Bill(
+      where: { company_id: { _eq: $company_id }, id: { _eq: $id } }
+      _set: { paid: $paid }
+    ) {
+      affected_rows
     }
-  ) {
-    affected_rows
   }
-}
 `
-
 
 const DELETE_BILL = gql`
-mutation deleteBill($id: uuid!) {
-  delete_Bill(where: { id: { _eq: $id } }) {
-    affected_rows
+  mutation deleteBill($id: uuid!) {
+    delete_Bill(where: { id: { _eq: $id } }) {
+      affected_rows
+    }
   }
-}
 `
 
-export { GET_BILLS_SUBSCRIPTION, CREATE_BILL, PUT_BILL, DELETE_BILL, PUT_BILL_PAY }
+export {
+  GET_BILLS_SUBSCRIPTION,
+  CREATE_BILL,
+  PUT_BILL,
+  DELETE_BILL,
+  PUT_BILL_PAY,
+}

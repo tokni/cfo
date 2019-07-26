@@ -11,6 +11,7 @@ import {
   DialogTitle,
   Button,
   Fab,
+  Tooltip,
 } from '@material-ui/core'
 
 const styles = theme => ({
@@ -40,14 +41,18 @@ const Modal = (props, { children }) => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleClose}
-        color="primary"
-        // aria-label="Add"
-        className={classes.fab}
-      >
-        <props.Icon />
-      </Fab>
+      <Tooltip title={props.tooltipTitle || ''}>
+        <Fab
+          onClick={handleClose}
+          name={props.name}
+          color="primary"
+          // aria-label="Add"
+          className={classes.fab}
+        >
+          <props.Icon />
+        </Fab>
+      </Tooltip>
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -63,11 +68,11 @@ const Modal = (props, { children }) => {
           {props.children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={handleSubmit} color="primary">
-            {Language[state.locals].add}
+          <Button name="submit" onClick={handleSubmit} color="primary">
+            {Language[state.locals].accept}
           </Button>
         </DialogActions>
       </Dialog>

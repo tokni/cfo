@@ -46,7 +46,7 @@ const GetVendors = props => {
     )
   }
   return (
-    <Fragment>{data ? <TableHelper array={data.Vendor} update={update} delete={deleteVendor}/> : null}</Fragment>
+    <Fragment>{data ? <TableHelper array={data.Vendor} update={update} delete={deleteVendor} hideID={true}/> : null}</Fragment>
   )
 }
 

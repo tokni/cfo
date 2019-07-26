@@ -7,6 +7,7 @@ import SnackBar from '../SnackBar/SnackBar'
 import { useMutation } from 'react-apollo-hooks'
 import { POST_TRANSACTION } from '../../../utils/Query/TransactionQuery'
 import { PUT_BILL_PAY } from '../../../utils/Query/BillQuery'
+import { PUT_ACCOUNT_BALANCE } from '../../../utils/Query/AccountQuery'
 import {
   withStyles,
   Dialog,
@@ -33,13 +34,16 @@ const PayBill = props => {
   const [open, setOpen] = useState(false)
   const [debit_id, setDebitAccount] = useState('')
   const [credit_id, setCreditAccount] = useState('')
+
   const [type, setType] = useState('')
   const bill_id = props.id
   const payment = props.payment
-  
+
   const { classes } = props
   const postTransactionMutation = useMutation(POST_TRANSACTION)
   const updateBilltMutation = useMutation(PUT_BILL_PAY)
+  const updateAccountBalanceMutation = useMutation(PUT_ACCOUNT_BALANCE)
+
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -47,15 +51,15 @@ const PayBill = props => {
   const handleClose = () => {
     setDebitAccount('')
     setCreditAccount('')
-    // setBill('')
     if (state.company !== null) {
-      console.log('trans', state.company)
       setOpen(!open)
     }
     setMsg(false)
   }
 
   const onSubmit = async e => {
+    let debit
+    let credit
     e.preventDefault()
     if (
       debit_id !== '' &&
@@ -63,6 +67,15 @@ const PayBill = props => {
       payment !== '' &&
       bill_id !== ''
     ) {
+      await state.company.Accounts.forEach(element => {
+        if (element.id === debit_id) {
+          debit = element.balance
+        }
+        if (element.id === credit_id) {
+          credit = element.balance
+        }
+      })
+
       await postTransactionMutation({
         variables: {
           company_id: state.company.id,
@@ -78,6 +91,22 @@ const PayBill = props => {
           id: bill_id,
           company_id: state.company.id,
           paid: true,
+        },
+      })
+      // update Debit account
+      await updateAccountBalanceMutation({
+        variables: {
+          id: debit_id,
+          company_id: state.company.id,
+          balance: debit - props.payment,
+        },
+      })
+      // update credit account
+      await updateAccountBalanceMutation({
+        variables: {
+          id: credit_id,
+          company_id: state.company.id,
+          balance: credit + props.payment,
         },
       })
       setTimeout(() => {
@@ -116,11 +145,11 @@ const PayBill = props => {
             {Language[state.locals].fillformtoaddtransaction}
           </DialogContentText>
 
-      {/* invoice FIELD */}
-      <TextField
+          {/* invoice FIELD */}
+          <TextField
             autoFocus
             margin="dense"
-            id="debit"
+            id="type"
             label={Language[state.locals].type}
             type="text"
             fullWidth
@@ -128,7 +157,7 @@ const PayBill = props => {
               setType(e.target.value)
             }}
           />
-          
+
           {/* DEBIT FIELD */}
           <TextField
             autoFocus
@@ -144,7 +173,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line array-callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === true) {
                   return (
@@ -152,6 +180,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                } else {
+                  return null
                 }
               })
             ) : (
@@ -174,7 +204,6 @@ const PayBill = props => {
             }}
           >
             {state.company.Accounts ? (
-              // eslint-disable-next-line array-callback-return
               state.company.Accounts.map((item, index) => {
                 if (item.debit === false) {
                   return (
@@ -182,6 +211,8 @@ const PayBill = props => {
                       {item.name}
                     </option>
                   )
+                } else {
+                  return null
                 }
               })
             ) : (
@@ -190,10 +221,10 @@ const PayBill = props => {
           </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button name="cancel" onClick={handleClose} color="primary">
             {Language[state.locals].cancel}
           </Button>
-          <Button onClick={onSubmit} color="primary">
+          <Button name="submit" onClick={onSubmit} color="primary">
             {Language[state.locals].add}
           </Button>
         </DialogActions>

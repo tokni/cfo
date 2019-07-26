@@ -62,6 +62,7 @@ const CreateCustomer = props => {
         Icon={Add}
         title="addcustomer"
         text="fill"
+        name="addcustomer"
         submit={onSubmit}
         close={handleClose}
       >
@@ -69,6 +70,7 @@ const CreateCustomer = props => {
           autoFocus
           margin="dense"
           id="name"
+          variant="outlined"
           label={Language[state.locals].name}
           type="text"
           fullWidth

@@ -1,3 +1,4 @@
+import Attachment from '../../../Helpers/Attachment'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import Modal from '../../../Helpers/Modal'
@@ -9,9 +10,12 @@ import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
 import { Add } from '../../../Helpers/Constants'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
+import { POST_MVG } from '../../../utils/Query/MVG'
+
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField, InputLabel } from '@material-ui/core'
+import { withStyles, TextField, MenuItem } from '@material-ui/core'
+import { POST_ATTACHMENT } from '../../../utils/Query/AttachmentQuery'
 
 const styles = theme => ({
   fab: {
@@ -37,9 +41,11 @@ const CreateBill = props => {
   const [payment, setPayment] = useState(0)
   const [date_bill_received, setDate_bill_received] = useState(null)
   const [payment_due, setPayment_due] = useState(null)
-  const [attachment_id, setAttachment_id] = useState('')
+  const [file, setFile] = useState(null)
 
   const createBilltMutation = useMutation(CREATE_BILL)
+  const createMvgMutation = useMutation(POST_MVG)
+  const postAttachment = useMutation(POST_ATTACHMENT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
   const [msgSuccess, setMsgSuccess] = useState(true)
@@ -52,15 +58,14 @@ const CreateBill = props => {
     setPayment(0)
     setDate_bill_received(null)
     setPayment_due(null)
-    setAttachment_id('')
-
+    setFile(null)
     if (state.company) {
       setOpen(!open)
     }
     setMsg(false)
   }
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     if (
       state.vendor_id !== '' &&
       state.expense_id !== '' &&
@@ -68,22 +73,87 @@ const CreateBill = props => {
       tax_id !== '' &&
       payment !== 0 &&
       date_bill_received !== null &&
-      payment_due !== null &&
-      attachment_id !== ''
+      payment_due !== null
     ) {
-      createBilltMutation({
-        variables: {
-          vendor_id,
-          expense_id,
-          description,
-          tax_id,
-          payment,
-          date_bill_received,
-          payment_due,
-          attachment_id,
-          company_id: state.company.id,
-        },
-      })
+      if (
+        process.env.NODE_ENV !== 'test' &&
+        process.env.NODE_ENV !== 'development'
+      ) {
+        // && process.env.NODE_ENV !== 'development
+        // console.log('env is: ', process.env.NODE_ENV)
+        Object.defineProperty(file, 'name', {
+          writable: true,
+          value: Date.now() + '_' + file.name,
+        })
+        const s3 = new Attachment({ type: 'bill' }).upload(file)
+        const name = file.name
+        let attachmentId
+        let billId
+        s3.then(async path => {
+          attachmentId = await postAttachment({
+            variables: {
+              company_id: state.company.id,
+              name: name,
+              path: path,
+            },
+          })
+        })
+          .then(async () => {
+            billId = await createBilltMutation({
+              variables: {
+                vendor_id,
+                expense_id,
+                description,
+                tax_id: tax_id.id,
+                payment,
+                date_bill_received,
+                payment_due,
+                attachment_id:
+                  attachmentId.data.insert_Attachment.returning[0].id,
+                company_id: state.company.id,
+              },
+            })
+          })
+          .then(() => {
+            createMvgMutation({
+              variables: {
+                outgoing: false,
+                rate: tax_id.tax_percentage,
+                amount: payment * 0.2,
+                fk_id: billId.data.insert_Bill.returning[0].id,
+                accounting_year_id: state.accounting_year.id,
+              },
+            })
+          })
+      } else if (
+        process.env.NODE_ENV === 'test' ||
+        process.env.NODE_ENV === 'development'
+      ) {
+        let dev_billId
+        dev_billId = await createBilltMutation({
+          variables: {
+            vendor_id,
+            expense_id,
+            description,
+            tax_id: tax_id.id,
+            payment,
+            date_bill_received,
+            payment_due,
+            attachment_id: 'c28dfb73-64c2-4d65-a8cf-f5698f4a3399',
+            company_id: state.company.id,
+          },
+        })
+        await createMvgMutation({
+          variables: {
+            outgoing: false,
+            rate: tax_id.tax_percentage,
+            amount: payment * tax_id.tax_percentage,
+            fk_id: dev_billId.data.insert_Bill.returning[0].id,
+            accounting_year_id: state.accounting_year.id,
+          },
+        })
+      }
+
       setTimeout(() => {
         setMsgSuccess(true)
         setMsg(true)
@@ -103,12 +173,14 @@ const CreateBill = props => {
         Icon={Add}
         title="addbill"
         text="fillformtoaddbill"
+        name="addbill"
         submit={onSubmit}
         close={handleClose}
       >
         <TextField
           select
           margin="dense"
+          variant="outlined"
           value={vendor_id || ''}
           id="vendor"
           label={Language[state.locals].vendor}
@@ -117,25 +189,22 @@ const CreateBill = props => {
             setVendor_id(e.target.value)
           }}
         >
-          {vendors ? (
-            vendors.map((item, index) => {
-              return (
-                <option key={index} value={item.id}>
-                  {item.name}
-                </option>
-              )
-            })
-          ) : (
-            <option>no vendors created</option>
-          )}
+          {vendors
+            ? vendors.map((item, index) => {
+                return index <= vendors.length ? (
+                  <MenuItem key={index} value={item.id}>
+                    {item.name}
+                  </MenuItem>
+                ) : null
+              })
+            : null}
         </TextField>
-
         <TextField
-          autoFocus
           select
           margin="dense"
           value={expense_id || ''}
           id="expense"
+          variant="outlined"
           label={Language[state.locals].expense}
           fullWidth
           onChange={e => {
@@ -145,21 +214,24 @@ const CreateBill = props => {
           {expenses ? (
             expenses.map((item, index) => {
               return (
-                <option key={index} value={item.id}>
+                <MenuItem key={index} value={item.id}>
                   {item.name}
-                </option>
+                </MenuItem>
               )
             })
           ) : (
-            <option>empty</option>
+            <MenuItem disabled value="">
+              empty
+            </MenuItem>
           )}
         </TextField>
 
         <TextField
-          autoFocus
           margin="dense"
           id="description"
+          variant="outlined"
           label={Language[state.locals].description}
+          value={description || ''}
           type="text"
           fullWidth
           onChange={e => {
@@ -168,11 +240,11 @@ const CreateBill = props => {
         />
 
         <TextField
-          focus
           margin="dense"
           id="payment"
+          variant="outlined"
           label={Language[state.locals].payment}
-          value={payment}
+          value={payment || ''}
           type="number"
           fullWidth
           onChange={e => {
@@ -180,10 +252,10 @@ const CreateBill = props => {
           }}
         />
         <TextField
-          autoFocus
           select
           margin="dense"
           id="tax"
+          variant="outlined"
           label={Language[state.locals].tax}
           value={tax_id || ''}
           fullWidth
@@ -194,51 +266,46 @@ const CreateBill = props => {
           {taxes ? (
             taxes.map((item, index) => {
               return (
-                <option key={index} value={item.id}>
+                <MenuItem key={index} value={item}>
                   {item.name + ' %' + item.tax_percentage * 100}
-                </option>
+                </MenuItem>
               )
             })
           ) : (
-            <option>No tax created</option>
+            <MenuItem disabled value={''}>
+              No tax created
+            </MenuItem>
           )}
         </TextField>
 
-        <InputLabel>{Language[state.locals].billreceived}</InputLabel>
         <TextField
-          autoFocus
           margin="dense"
           id="tax"
-          value={date_bill_received}
+          variant="outlined"
+          label={Language[state.locals].date_bill_received}
+          value={date_bill_received || Date.now()}
           type="date"
           fullWidth
           onChange={e => {
             setDate_bill_received(e.target.value)
           }}
         />
-        <InputLabel>{Language[state.locals].paymentdue}</InputLabel>
         <TextField
-          autoFocus
           margin="dense"
           id="payment_due"
+          variant="outlined"
           label={Language[state.locals].payment_due}
-          value={payment_due}
+          value={payment_due || Date.now()}
           type="date"
           fullWidth
           onChange={e => {
             setPayment_due(e.target.value)
           }}
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          id="attachment"
-          label={Language[state.locals].attachment}
-          value={attachment_id}
-          type="text"
-          fullWidth
+        <input
+          type="file"
           onChange={e => {
-            setAttachment_id(e.target.value)
+            setFile(e.target.files[0])
           }}
         />
       </Modal>

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const GET_VENDOR = gql`
-  query($company_id: uuid!) {
+  subscription($company_id: uuid!) {
     Vendor(where: { company_id: { _eq: $company_id } }) {
       id
       name
@@ -47,5 +47,10 @@ const POST_VENDOR = gql`
   }
 `
 
-
-export { GET_VENDOR, GET_VENDOR_SUBSCRIPTION, DELETE_VENDOR, PUT_VENDOR, POST_VENDOR }
+export {
+  GET_VENDOR,
+  GET_VENDOR_SUBSCRIPTION,
+  DELETE_VENDOR,
+  PUT_VENDOR,
+  POST_VENDOR,
+}

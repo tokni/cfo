@@ -1,12 +1,20 @@
 import Company from '../Company/GetCompany'
 import Context from '../../../Context/Context'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import {
+  Paper,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core'
 import React, { useContext, Fragment } from 'react'
-import { Typography } from '@material-ui/core'
 import { SET_LOCALS } from '../../../utils/Query/PreferenceQuery'
 import { useMutation } from 'react-apollo-hooks'
-
+import Balance from '../Balance/Balance'
+import CreateAccountingYear from '../AccountingYear/CreateAccountingYear'
+import Language from '../../../utils/language'
 const Home = () => {
   const [state, dispatch] = useContext(Context)
   const MutateLocals = useMutation(SET_LOCALS)
@@ -25,62 +33,137 @@ const Home = () => {
     })
   }
 
-  const handleFile = e => {
-    console.log('file name: ', e.target.files[0].name)
+
+  const handleChange = idx => {
+    dispatch({
+      type: 'set_accounting_year_index',
+      accounting_year_index: idx,
+    })
   }
-  return (
-    <Fragment>
-      <button onClick={handleClicker.bind(this, 'en')}>EN</button>
-      <button onClick={handleClicker.bind(this, 'fo')}>FO</button>
 
-      <input type="file" onChange={handleFile} />
-
-      <button onClick={handleClicker.bind(this, 'de')}>DE</button>
-      <Grid item container spacing={8} lg={12}>
-        <Grid
-          item
-          lg={3}
-          md={9}
-          sm={12}
-          style={{ color: '#001011', padding: 20 }}
+  const AccountingYear = () => (
+    <Grid item lg={12} xl={12} xs={12} md={12} sm={12}>
+      <Paper>
+        <Typography
+          variant="h4"
+          style={{
+            textAlign: 'center',
+            backgroundColor: '#EEEEEE',
+            borderBottom: 'solid 1px #888888',
+          }}
         >
-          <Grid item container justify="center">
-            <Paper style={{ padding: 8, height: 400, overflowX: 'auto' }}>
-              <Typography gutterBottom variant="title">
-                Standard license
-              </Typography>
-              <Typography gutterBottom variant="body1">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Typography>
-              <Typography gutterBottom variant="title">
-                Why do we use it?
-              </Typography>
-              <Typography variant="body1">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English. Many
-                desktop publishing packages and web page editors now use Lorem
-                Ipsum as their default model text, and a search for 'lorem
-                ipsum' will uncover many web sites still in their infancy.
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose (injected humour and the like).
-              </Typography>
-            </Paper>
+          {Language[state.locals].accountingyear}
+        </Typography>
+        <Grid container>
+          <Grid item lg={4} xl={4} xs={12} md={6} sm={12}>
+            <Typography style={{ padding: '1em' }}>
+              {Language[state.locals].accuntingyeardetailed}
+            </Typography>
+            <CreateAccountingYear />
+          </Grid>
+          <Grid item lg={5} xl={5} xs={12} md={6} sm={12}>
+            <List style={{ width: '90%', maxHeight: '12em', overflow: 'auto' }}>
+              {state.accounting_year
+                ? state.accounting_year.map((item, index) => {
+                    return (
+                      <ListItem
+                        style={
+                          state.accounting_year_index === index
+                            ? { backgroundColor: 'rgba(63, 81, 181, 0.13)' }
+                            : null
+                        }
+                        button
+                        key={index}
+                        onClick={handleChange.bind(this, index)}
+                      >
+                        <ListItemText style={{ color: 'inherit' }}>
+                          {item.name}
+                        </ListItemText>
+                        <ListItemText
+                          style={{ textAlign: 'right', color: 'inherit' }}
+                        >
+                          {'(' + item.from + ' - ' + item.to + ')'}
+                        </ListItemText>
+                      </ListItem>
+                    )
+                  })
+                : null}
+            </List>
+          </Grid>
+          <Grid item lg={3} xl={3} xs={12} md={12} sm={12}>
+            <Typography variant="h5">
+              {state.accounting_year && state.accounting_year[0]
+                ? state.accounting_year[state.accounting_year_index].name
+                : null}
+            </Typography>
+            <Typography>
+              {Language[state.locals].from + ' '}
+              {state.accounting_year && state.accounting_year[0]
+                ? state.accounting_year[state.accounting_year_index].from
+                : null}
+            </Typography>
+            <Typography>
+              {Language[state.locals].to + ' '}
+              {state.accounting_year && state.accounting_year[0]
+                ? state.accounting_year[state.accounting_year_index].to
+                : null}
+            </Typography>
           </Grid>
         </Grid>
-        <Grid item lg={8} md={11} sm={11}>
+      </Paper>
+    </Grid>
+  )
+
+  return (
+    <Fragment>
+      <Grid item container spacing={8} lg={12} md={12}>
+        <Grid style={{ padding: '3em' }} item lg={12} md={12} sm={12}>
+          <Button
+            variant="outlined"
+            color="primary"
+            name="en"
+            onClick={handleClicker.bind(this, 'en')}
+          >
+            EN
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            name="fo"
+            onClick={handleClicker.bind(this, 'fo')}
+          >
+            FO
+          </Button>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            name="de"
+            onClick={handleClicker.bind(this, 'de')}
+          >
+            DE
+          </Button>
+        </Grid>
+        <AccountingYear />
+        <Grid
+          item
+          lg={6}
+          md={6}
+          sm={11}
+          style={{ maxHeight: '56em', overflowY: 'scroll' }}
+        >
           <Company />
+        </Grid>
+        <Grid
+          style={{ paddingTop: 8, overflowX: 'auto' }}
+          item
+          lg={6}
+          md={6}
+          sm={12}
+        >
+          <Paper>
+            <Balance />
+          </Paper>
         </Grid>
       </Grid>
     </Fragment>

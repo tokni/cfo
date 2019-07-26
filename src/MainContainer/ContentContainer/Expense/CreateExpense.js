@@ -64,13 +64,17 @@ const CreateExpense = props => {
         Icon={Add}
         title="addexpense"
         text="fillformtoupdateexpense"
+        name="addexpense"
         submit={onSubmit}
         close={handleClose}
       >
         <TextField
+          autoFocus
           focus
           margin="dense"
           id="name"
+          required
+          variant="outlined"
           label={Language[state.locals].name}
           value={name}
           type="text"
