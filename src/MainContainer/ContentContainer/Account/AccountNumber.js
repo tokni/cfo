@@ -14,7 +14,7 @@ const AccountNumber = props => {
   const ACCOUNT_NUBER_REGEX = /^[0-9]{4}[-][0-9]{3}[.][0-9]{3}[.][0-9]{1}$/
   const putAccountNumbers = useMutation(PUT_ACCOUNT_NUMBERS)
   const [accountNumber, setAccountNumber] = useState('')
-  const [accountNumbers] = useState(Array)
+  const [accountNumbers] = useState([])
   const [name, setName] = useState('')
   const [open, setOpen] = useState(false)
   const [state] = useContext(Context)

@@ -76,7 +76,7 @@ class Auth {
     this.auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        window.location.reload()
+        // window.location.reload()
       } else if (err) {
         console.log('Handle Authentication error', err)
       }

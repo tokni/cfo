@@ -17,10 +17,8 @@ import Tax from './Tax/Tax'
 import BalanceSheet from './BalanceSheet/BalanceSheet'
 import Balance from './Balance/Balance'
 
-
-
 import { Switch, Route } from 'react-router-dom'
-import Operations from './Operations/Operations';
+import Operations from './Operations/Operations'
 
 export const ContentContainer = props => (
   <Switch>
@@ -28,55 +26,48 @@ export const ContentContainer = props => (
       path={`${process.env.PUBLIC_URL}/overview`}
       component={Home}
       auth={props.auth}
-
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/invoice`}
       component={GetInvoice}
       auth={props.auth}
-
-/>
+    />
     <Route path={`${process.env.PUBLIC_URL}/callback`} component={Callback} />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/accounts`}
       component={Account}
       auth={props.auth}
-
-/>
+    />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/addcompany`}
       component={CreateCompany}
       auth={props.auth}
-
-/>
+    />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/companies`}
       component={Company}
       auth={props.auth}
-
-/>
+    />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/daybook`}
       component={DayBook}
       auth={props.auth}
-
-/>
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/bills`} component={Bill} 
+    />
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/bills`}
+      component={Bill}
       auth={props.auth}
-    
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/products`}
       component={Products}
       auth={props.auth}
-
-/>
+    />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/customers`}
       component={Customers}
       auth={props.auth}
-
-/>
+    />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/vendor`}
       component={Vendor}
@@ -92,20 +83,27 @@ export const ContentContainer = props => (
       component={Transaction}
       auth={props.auth}
     />
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/tax`} component={Tax}
-      auth={props.auth}    />
-
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={BalanceSheet}
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/tax`}
+      component={Tax}
       auth={props.auth}
-      />
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balance`} component={Balance} 
-      auth={props.auth}
-      />
-
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/operations`} component={Operations} 
-      auth={props.auth}
-    
     />
 
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/balancesheet`}
+      component={BalanceSheet}
+      auth={props.auth}
+    />
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/balance`}
+      component={Balance}
+      auth={props.auth}
+    />
+
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/operations`}
+      component={Operations}
+      auth={props.auth}
+    />
   </Switch>
 )
