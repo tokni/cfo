@@ -16,7 +16,7 @@ export const MainContainer = props => (
         <Drawer />
       </Grid>
       <Grid item lg={9} md={8} sm={7}>
-        <ContentContainer auth={props.auth}/>
+        <ContentContainer />
       </Grid>
     </Grid>
   </Fragment>
