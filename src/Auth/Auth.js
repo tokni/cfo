@@ -70,6 +70,7 @@ class Auth {
     localStorage.setItem('accessToken', authResult.accessToken)
     localStorage.setItem('sub', sub)
     localStorage.setItem('idToken', authResult.idToken)
+    this.renewToken()
   }
 
   handleAuthentication = () => {

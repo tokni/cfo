@@ -1,13 +1,15 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import Auth from '../Auth/Auth'
+
 
 const ProtectedRoute = (props, { component: Component, ...rest }) => {
-  
+  const auth = new Auth()
   return (
     <Route
       {...rest}
       render={props => {
-        if (props.auth.isAuthenticated()) {
+        if (auth.isAuthenticated()) {
           return <Component {...props} />
         } else {
           return <Redirect to="/callback" />

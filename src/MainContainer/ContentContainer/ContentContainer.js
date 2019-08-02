@@ -25,7 +25,6 @@ export const ContentContainer = props => (
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/overview`}
       component={Home}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/invoice`}
@@ -36,74 +35,60 @@ export const ContentContainer = props => (
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/accounts`}
       component={Account}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/addcompany`}
       component={CreateCompany}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/companies`}
       component={Company}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/daybook`}
       component={DayBook}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/bills`}
       component={Bill}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/products`}
       component={Products}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/customers`}
       component={Customers}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/vendor`}
       component={Vendor}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/expense`}
       component={Expense}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/transactions`}
       component={Transaction}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/tax`}
       component={Tax}
-      auth={props.auth}
     />
 
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/balancesheet`}
       component={BalanceSheet}
-      auth={props.auth}
     />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/balance`}
       component={Balance}
-      auth={props.auth}
     />
 
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/operations`}
       component={Operations}
-      auth={props.auth}
     />
   </Switch>
 )
