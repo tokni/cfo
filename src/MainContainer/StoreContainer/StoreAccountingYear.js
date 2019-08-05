@@ -7,10 +7,11 @@ const StoreAccountingYear = () => {
   const [state, dispatch] = useContext(Context)
 
   const { data } = useSubscription(GET_ALL_ACCOUNTING_YEAR, {
+    
     variables: {
-      company_id: state.companies
-        ? state.companies[state.company_index].id
-        : null,
+      company_id: state.company
+        ?  state.company.id
+        : null
     },
   })
 
