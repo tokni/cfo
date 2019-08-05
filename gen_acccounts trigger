@@ -1,0 +1,95 @@
+      DECLARE active_company UUID;
+      BEGIN
+       SELECT a.id INTO active_company FROM "Company" a
+          order by time_created desc limit 1;
+        
+        -- 1000 to 2000
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+        VALUES
+          ('salewvat', 1000, false, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+        VALUES
+          ('salewovat', 1001, false, 0, active_company);
+        
+        -- 2000 to 3000
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('buildings', 2000, true, 0, active_company);
+
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('vehicles', 2001, true, 0, active_company);
+
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('furniture', 2002, true, 0, active_company);
+
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('storage', 2003, true, 0, active_company);
+
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('cash', 2004, true, 0, active_company);
+        
+       -- 3000 to 4000 
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('timerate', 3000, false, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('goods', 3001, false, 0, active_company);
+    
+        -- 4000 to 5000 Fastir kostnaðir
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('loan', 4001, true, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('electricity', 4002, true, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('oil', 4003, true, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('rent', 4004, true, 0, active_company);
+
+        INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('salary', 4005, true, 0, active_company);
+
+       -- 6000 to 7000
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('ownersequity', 6001, true, 0, active_company);
+
+       -- 8000 to 9000
+       INSERT INTO "Account"
+          (name, type, debit, balance, company_id)
+       VALUES
+          ('interest', 8001, true, 0, active_company);
+
+       
+      RETURN NEW;
+
+      END;
