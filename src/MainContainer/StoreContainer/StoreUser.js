@@ -13,13 +13,13 @@ const StoreUser = () => {
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
   useEffect(() => {
-    async function fetchData() {
+    async function storeData() {
       await dispatch({
         type: 'load_user',
         user: data.User,
       })
     }
-    fetchData()
+    storeData()
   }, [data.User, dispatch])
   return null
 }
