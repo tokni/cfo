@@ -1,12 +1,12 @@
 import CreateProduct from './CreateProduct'
-import GetProduct from './GetProduct'
+import GetProducts from './GetProducts'
 import React, { Fragment } from 'react'
 
 const Products = () => {
   return (
     <Fragment>
       <CreateProduct />
-      <GetProduct />
+      <GetProducts />
     </Fragment>
   )
 }
