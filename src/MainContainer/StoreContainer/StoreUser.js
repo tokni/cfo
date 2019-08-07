@@ -14,7 +14,6 @@ const StoreUser = () => {
   const [state, dispatch] = useContext(Context)
   useEffect(() => {
 
-    console.log("data ", data.User);
     
     async function storeData() {
       await dispatch({
