@@ -1,9 +1,8 @@
 import Account from './Account/Account'
 import Callback from '../../Callback'
 import Company from './Company/Company'
-import CreateCompany from './Company/CreateCompany'
 import Customers from './Customer/Customer'
-import DayBook from './DayBook/DayBook'
+// import DayBook from './DayBook/DayBook'
 import Home from './Home/Home'
 import Products from './Product/Product'
 import React from 'react'
@@ -35,18 +34,15 @@ export const ContentContainer = props => (
       path={`${process.env.PUBLIC_URL}/accounts`}
       component={Account}
     />
-    <ProtectedRoute
-      path={`${process.env.PUBLIC_URL}/addcompany`}
-      component={CreateCompany}
-    />
+
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/companies`}
       component={Company}
     />
-    <ProtectedRoute
+    {/* <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/daybook`}
       component={DayBook}
-    />
+    /> */}
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/bills`}
       component={Bill}

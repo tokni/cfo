@@ -13,6 +13,9 @@ const StoreUser = () => {
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(Context)
   useEffect(() => {
+
+    console.log("data ", data.User);
+    
     async function storeData() {
       await dispatch({
         type: 'load_user',
