@@ -80,6 +80,7 @@ const Language = {
     expense: 'Expense',
     expensename: 'Expense name',
     expenses: 'Expenses',
+    failedtocreate: 'Failed to Create',
     fillformtoaddaccount: 'Fill this form to add an account',
     fillformtoaddbill: 'Fill this form to add a bill',
     fillformtoaddproduct: 'Fill this form to add a product',
@@ -233,6 +234,7 @@ const Language = {
     expensename: 'Kostnaðarslag',
     expenses: 'Utreiðslur',
     debit: 'Debit',
+    failedtoCceate: 'Eydnaðist ikki at leggja avtrar',
     fillformtoaddaccount: 'Fyll teigarnar fyri at leggja kontu avtrat',
     fillformtoaddbill: 'Fyll teigarnar fyri at leggja rokning avtrat',
     fillformtoaddtransaction:
@@ -389,6 +391,7 @@ const Language = {
     expense: 'Kostenaufwand',
     expensename: 'Kostenaufwand name',
     expenses: 'Kostenaufwande',
+    failedtocreate: 'Konnte nicht erstellt',
     fillformtoaddaccount:
       'Füllen Sie dieses Formular aus, um ein Konto hinzuzufügen',
     fillformtoaddbill:
