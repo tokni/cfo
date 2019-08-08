@@ -35,6 +35,8 @@ const styles = theme => ({
 })
 
 const TableHelper = props => {
+  
+  
   const header = props // load headers for tables
     ? props.array
       ? props.array[0]
@@ -56,10 +58,6 @@ const TableHelper = props => {
   const renderTableHeader = () => {
     if (header !== null) {
       return header.map((item, index) => {
-        // if (item === '__typename') console.log("__typename ", item);       
-        // if (item === '__typename') return null // skip __typename colummns
-        // skip __typename colummns
-        
         item = stringFormatter(item) //format the strings so that they comply with Languages
         // Translate the items according to language preference
         return hideID && item.match(filterId) ? (
@@ -118,9 +116,6 @@ const TableHelper = props => {
 
   const searchValue = value => {
     try {
-      // if (value['__typename']) delete value['__typename']
-      if (typeof value[searchCol] === 'object') return null
-
       if (searchCol.charAt(0) < searchCol.charAt(0).toLowerCase()) {
         return value[searchCol]['name'].match(new RegExp(filter, 'gi'))
       } else if (typeof value[searchCol] === 'number') {
