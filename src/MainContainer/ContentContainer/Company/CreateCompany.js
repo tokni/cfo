@@ -33,9 +33,6 @@ const CreateCompany = props => {
   }
 
   const onSubmit = e => {
-    
-    console.log("State ", state.user);
-    
     if (name !== '') {
       createCompanyMutation({
         variables: {
