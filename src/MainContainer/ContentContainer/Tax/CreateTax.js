@@ -112,7 +112,7 @@ const CreateTax = props => {
           />
         ) : (
           <SnackBar
-            message={Language[state.locals].fieldsarerequired}
+            message={Language[state.locals].tax + ' ' + Language[state.locals].failedtocreate}
             state={'error'}
           />
         )
