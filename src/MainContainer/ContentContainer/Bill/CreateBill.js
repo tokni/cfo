@@ -98,7 +98,7 @@ const CreateBill = props => {
             },
           })
         })
-          .then(async () => {
+        .then(async () => {
             billId = await createBilltMutation({
               variables: {
                 vendor_id,
