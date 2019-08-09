@@ -147,7 +147,6 @@ const TableHelper = props => {
 
     if (props.array !== undefined || props.array !== null) {
       return arr.map((row, index) => {
-        delete row['__typename'] // delete __typename properties from array
         return (
           <TableRow key={index}>
             {Object.values(row).map((item, itemIndex) => {

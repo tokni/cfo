@@ -1,11 +1,11 @@
 import CreateAccount from './CreateAccounts'
-import GetAccount from './GetAccounts'
+import GetAccounts from './GetAccounts'
 import React, { Fragment } from 'react'
 
 const Account = () => (
   <Fragment>
     <CreateAccount />
-    <GetAccount />
+    <GetAccounts />
   </Fragment>
 )
 
