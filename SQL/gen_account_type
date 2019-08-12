@@ -1,0 +1,65 @@
+DECLARE last_type_number INT := -1;
+DECLARE type_kind INT;
+DECLARE account_id UUID;
+DECLARE comp_id UUID;
+BEGIN
+    -- Get type of account from last generated account
+    SELECT a.type INTO type_kind FROM "Account" a 
+        order by time_created desc limit 1;
+    -- Get id of last generated account
+    SELECT a.id INTO account_id FROM "Account" a 
+        order by time_created desc limit 1;
+    -- Get company id 
+    SELECT a.company_id INTO comp_id FROM "Account" a 
+        order by time_created desc limit 1;
+    -- Generated a type number between parent spectrum
+    IF(type_kind = 1) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 1000 AND a.type <= 1999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 2) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 2000 AND a.type <= 2999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 3) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 3000 AND a.type <= 3999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 4) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 4000 AND a.type <= 4999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 5) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 5000 AND a.type <= 5999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 6) THEN
+        SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 6000 AND a.type <= 6999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 7) THEN
+       SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 7000 AND a.type <= 7999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 8) THEN
+       SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 8000 AND a.type <= 8999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind = 9) THEN
+       SELECT COALESCE((SELECT a.type INTO last_type_number FROM "Account" a 
+            WHERE a.type >= 9000 AND a.type <= 9999 AND company_id = comp_id
+            order by time_created desc limit 1), -1) AS last_type_number;
+    ELSIF(type_kind > 100) THEN
+        RETURN NEW;
+    END IF;    
+    
+    IF(last_type_number = 0 OR last_type_number = -1) THEN
+        last_type_number := type_kind * 1000;
+    END IF;
+    
+-- Update type on last generated account
+ UPDATE "Account" SET "type" = last_type_number + 1 WHERE id = account_id;  
+
+ RETURN NEW;
+
+END;
