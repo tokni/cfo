@@ -54,8 +54,6 @@ const GetTransactions = props => {
       {data ? (
         <TableHelper
           array={data.Transaction}
-          update={update}
-          delete={deleteTransaction}
           hideID={true}
         />
       ) : null}

@@ -18,7 +18,7 @@ const CreateAccount = props => {
   const createAccountMutation = useMutation(POST_ACCOUNT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
-  const [msgSuccess, setMsgSuccess] = useState(false)
+  const [msgSuccess, setMsgSuccess] = useState(true)
 
   const handleClose = () => {
     setName(null)
@@ -28,7 +28,7 @@ const CreateAccount = props => {
     if (state.company !== null) {
       setOpen(!open)
     }
-    setMsg(true)
+    setMsg(false)
   }
 
   const onSubmit = e => {
