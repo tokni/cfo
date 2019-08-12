@@ -81,7 +81,7 @@ const PayBill = props => {
           company_id: state.company.id,
           credit_id,
           debit_id,
-          payment: props.payment,
+          payment,
           type,
           bill_id: bill_id,
         },
