@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const POST_MVG = gql`
-  mutation createAccount(
+  mutation createMVG(
     $outgoing: Boolean!
     $rate: numeric!
     $amount: numeric!
