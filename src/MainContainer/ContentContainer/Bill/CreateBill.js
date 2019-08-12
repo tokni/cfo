@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Attachment from '../../../Helpers/Attachment'
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
@@ -10,7 +11,7 @@ import StoreVendor from '../../StoreContainer/StoreVendor'
 import StoreTax from '../../StoreContainer/StoreTax'
 import { Add } from '../../../Helpers/Constants'
 import { CREATE_BILL } from '../../../utils/Query/BillQuery'
-import { POST_MVG } from '../../../utils/Query/MVG'
+// import { POST_MVG } from '../../../utils/Query/MVG'
 
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
@@ -44,7 +45,7 @@ const CreateBill = props => {
   const [file, setFile] = useState(null)
 
   const createBilltMutation = useMutation(CREATE_BILL)
-  const createMvgMutation = useMutation(POST_MVG)
+  // const createMvgMutation = useMutation(POST_MVG)
   const postAttachment = useMutation(POST_ATTACHMENT)
   const [state] = useContext(Context)
   const [msg, setMsg] = useState(false)
@@ -109,22 +110,22 @@ const CreateBill = props => {
                 date_bill_received,
                 payment_due,
                 attachment_id:
-                  attachmentId.data.insert_Attachment.returning[0].id,
+                attachmentId.data.insert_Attachment.returning[0].id,
                 company_id: state.company.id,
               },
             })
           })
-          .then(() => {
-            createMvgMutation({
-              variables: {
-                outgoing: false,
-                rate: tax_id.tax_percentage,
-                amount: payment * 0.2,
-                fk_id: billId.data.insert_Bill.returning[0].id,
-                accounting_year_id: state.accounting_year.id,
-              },
-            })
-          })
+          // .then(() => {
+          //   createMvgMutation({
+          //     variables: {
+          //       outgoing: false,
+          //       rate: tax_id.tax_percentage,
+          //       amount: payment * 0.2,
+          //       fk_id: billId.data.insert_Bill.returning[0].id,
+          //       accounting_year_id: state.accounting_year.id,
+          //     },
+          //   })
+          // })
       } else if (
         process.env.NODE_ENV === 'test' ||
         process.env.NODE_ENV === 'development'
@@ -143,15 +144,15 @@ const CreateBill = props => {
             company_id: state.company.id,
           },
         })
-        await createMvgMutation({
-          variables: {
-            outgoing: false,
-            rate: tax_id.tax_percentage,
-            amount: payment * tax_id.tax_percentage,
-            fk_id: dev_billId.data.insert_Bill.returning[0].id,
-            accounting_year_id: state.accounting_year.id,
-          },
-        })
+        // await createMvgMutation({
+        //   variables: {
+        //     outgoing: false,
+        //     rate: tax_id.tax_percentage,
+        //     amount: payment * tax_id.tax_percentage,
+        //     fk_id: dev_billId.data.insert_Bill.returning[0].id,
+        //     accounting_year_id: state.accounting_year_index.id,
+        //   },
+        // })
       }
 
       setTimeout(() => {
