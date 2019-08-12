@@ -211,7 +211,7 @@ const TableHelper = props => {
                 : renderUpdate(row)
               : null}
             {/* {props.update ? renderUpdate(row) : null} */}
-            {props.delete ? renderDelete(row.id) : null}
+            {props.delete && !row.paid ? renderDelete(row.id) : null}
             {props.deleteInvoiceMutation
               ? renderDeleteInvoiceMutation(row.id)
               : null}
