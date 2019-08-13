@@ -45,7 +45,7 @@ const CreateVendor = props => {
     }
     setMsg(false)
   }
-
+//shouls change to company.id
   const onSubmit = e => {
     if (name !== '' && from !== null && to !== null) {
       createAccountingYearMutation({

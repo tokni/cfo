@@ -1,27 +1,15 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import Modal from '../../../Helpers/Modal'
-import PropTypes from 'prop-types'
-import React, { Fragment, useState, useContext, useRef } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import SnackBar from '../SnackBar/SnackBar'
 import { Add } from '../../../Helpers/Constants'
 import { POST_ACCOUNT } from '../../../utils/Query/AccountQuery'
 import { setTimeout } from 'timers'
 import { useMutation } from 'react-apollo-hooks'
-import { withStyles, TextField, MenuItem } from '@material-ui/core'
-
-const styles = theme => ({
-  fab: {
-    margin: theme.spacing.unit,
-    flexGrow: 1,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
-})
+import { TextField, MenuItem } from '@material-ui/core'
 
 const CreateAccount = props => {
-  const refType = useRef()
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [type, setType] = useState(0)
@@ -59,7 +47,6 @@ const CreateAccount = props => {
         setMsg(true)
       }, 1000)
     } else {
-      refType.current.focus()
       setTimeout(() => {
         setMsgSuccess(false)
         setMsg(true)
@@ -79,7 +66,6 @@ const CreateAccount = props => {
         close={handleClose}
       >
         <TextField
-          autoFocus
           margin="dense"
           id="name"
           name="name"
@@ -127,7 +113,6 @@ const CreateAccount = props => {
           </MenuItem>
         </TextField>
         <TextField
-          ref={refType}
           select
           variant="outlined"
           margin="dense"
@@ -180,9 +165,4 @@ const CreateAccount = props => {
     </Fragment>
   )
 }
-
-CreateAccount.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(CreateAccount)
+export default (CreateAccount)

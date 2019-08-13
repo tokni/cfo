@@ -4,7 +4,6 @@ import React, {
   useState,
   useEffect,
   useCallback,
-  useRef,
 } from 'react'
 import Context from '../../../Context/Context'
 import { GET_SUBSCRIP_ACCOUNTS } from '../../../utils/Query/AccountQuery'
@@ -21,9 +20,7 @@ import CreateBalanceSheets from './CreateBalanceSheet'
 const BalanceSheet = () => {
   const [open, setOpen] = useState(false)
   const [assets, setAssets] = useState(null)
-  const latestAssets = useRef(assets)
   const [liabilities, setLiabilities] = useState(null)
-  const latestLiabilities = useRef(liabilities)
   const [state] = useContext(Context)
   const [showCurrent, setShowCurrent] = useState(false)
 
@@ -42,10 +39,10 @@ const BalanceSheet = () => {
               total += currentValue.balance
             }
             return total
-          }, latestAssets.current)
+          }, 0)
         )
       : 'loading'
-  }, [data, latestAssets])
+  }, [data])
 
   const calculateTotalLiability = useCallback(() => {
     return data
@@ -55,15 +52,15 @@ const BalanceSheet = () => {
               total += currentValue.balance
             }
             return total
-          }, latestLiabilities.current)
+          }, 0)
         )
       : 'loading'
-  }, [data, latestLiabilities])
+  }, [data])
 
   useEffect(() => {
     calculateTotalAssets()
     calculateTotalLiability()
-  }, [calculateTotalAssets, assets, calculateTotalLiability, liabilities])
+  }, [calculateTotalAssets, calculateTotalLiability])
 
   const handleClose = props => {
     if (state.company) {

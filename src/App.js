@@ -7,6 +7,7 @@ import './App.css'
 
 const App = props => {
   const auth = new Auth()
+  
   const shouldAuthenticate = useCallback(() => {
     if (auth.isAuthenticated()) {
       auth.renewToken()

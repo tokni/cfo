@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import Context from '../../../Context/Context'
 import { Typography } from '@material-ui/core'
+import Language from '../../../utils/language'
 
 const Operations = () => {
   const [state] = useContext(Context)
@@ -36,7 +37,7 @@ const Operations = () => {
 
   const [contributionMargin, setContributionMargin] = useState(0)
 
-  const [operatingSurplus, setOperatingSurplus] = useState(0)
+  const [earningsContributions, setEarningsContributions] = useState(0)
 
   const inRange = useCallback((date, index) => {
     return (
@@ -147,7 +148,7 @@ const Operations = () => {
     }
   }
 
-  const calculateOperatingSurplus = useCallback(() => {
+  const calculateEarningsContributions = useCallback(() => {
     let tmpSurplus = contributionMargin
 
     try {
@@ -191,7 +192,7 @@ const Operations = () => {
   }, [resultAfterInterests, taxes])
 
   const calculateResultBeforeInterests = useCallback(() => {
-    let tmpResult = operatingSurplus
+    let tmpResult = earningsContributions
 
     try {
       depreciations.forEach(element => {
@@ -201,7 +202,7 @@ const Operations = () => {
       console.log(error)
     }
     return tmpResult
-  }, [depreciations, operatingSurplus])
+  }, [depreciations, earningsContributions])
 
   const calculateAfterInterests = useCallback(() => {
     let tmpAfterInterestsResult = resultBeforeInterests
@@ -233,7 +234,7 @@ const Operations = () => {
     setTaxes(getType(10000, 11000))
     setBruttoIncome(calculateBruttoIncome())
     setContributionMargin(calculateContributionMargin())
-    setOperatingSurplus(calculateOperatingSurplus())
+    setEarningsContributions(calculateEarningsContributions())
     setResultBeforeInterests(calculateResultBeforeInterests())
     setResultAfterInterests(calculateAfterInterests())
     setResultAfterTaxes(calculateResultAfterTaxes())
@@ -244,7 +245,7 @@ const Operations = () => {
     calculateSale,
     calculateBruttoIncome,
     calculateContributionMargin,
-    calculateOperatingSurplus,
+    calculateEarningsContributions,
     calculateResultBeforeInterests,
     calculateAfterInterests,
     calculateResultAfterTaxes,
@@ -253,33 +254,33 @@ const Operations = () => {
   return (
     <div align="left" width="50%">
       <Typography variant="h4" component="h1" data-cy="title">
-        Total Sale: {sale}
+        {Language[state.locals].sale}: {sale}
       </Typography>
       <PrintExpenses expenses={saleRelatedExpenses} />
 
       <Typography variant="h4" component="h1" data-cy="title">
-        Brutto Income: {bruttoIncome}
+        {Language[state.locals].bruttoincome}: {bruttoIncome}
       </Typography>
       <PrintExpenses expenses={variableExpenses} />
       <Typography variant="h4" component="h1" data-cy="title">
-        Contribution Margin: {contributionMargin}
+        {Language[state.locals].contributionmargin} : {contributionMargin}
       </Typography>
       <PrintExpenses expenses={steadyExpenses} />
       <Typography variant="h4" component="h1" data-cy="title">
-        Operating Surplus : {operatingSurplus}
+       {Language[state.locals].earningscontributions} : {earningsContributions}
       </Typography>
       <PrintExpenses expenses={depreciations} />
 
       <Typography variant="h4" component="h1" data-cy="title">
-        Result before interest: {resultBeforeInterests}
+       {Language[state.locals].resultbeforeinterests}{resultBeforeInterests}
       </Typography>
       <PrintExpenses expenses={interests} />
       <Typography variant="h4" component="h1" data-cy="title">
-        Result before taxes: {resultAfterInterests}
+      {Language[state.locals].resutlafterinterests} : {resultAfterInterests}
       </Typography>
       <PrintExpenses expenses={taxes} />
       <Typography variant="h4" component="h1" data-cy="title">
-        Result after taxes: {resultAfterTaxes}
+       {Language[state.locals].resultaftertaxes} {resultAfterTaxes}
       </Typography>
     </div>
   )

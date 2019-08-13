@@ -70,13 +70,14 @@ class Auth {
     localStorage.setItem('accessToken', authResult.accessToken)
     localStorage.setItem('sub', sub)
     localStorage.setItem('idToken', authResult.idToken)
+    this.renewToken()
   }
 
   handleAuthentication = () => {
     this.auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        window.location.reload()
+        // window.location.reload()
       } else if (err) {
         console.log('Handle Authentication error', err)
       }

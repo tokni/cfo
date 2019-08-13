@@ -43,7 +43,7 @@ const Header = props => {
               CFO
             </Typography>
             <SelectCompany />
-            {localStorage.getItem('sub') ? (
+            {auth.isAuthenticated() ? (
               <Button name="login" onClick={logout} color="inherit">
                 {Language[state.locals].logout}
               </Button>

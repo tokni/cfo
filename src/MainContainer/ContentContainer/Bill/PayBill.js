@@ -41,7 +41,7 @@ const PayBill = props => {
 
   const { classes } = props
   const postTransactionMutation = useMutation(POST_TRANSACTION)
-  const updateBilltMutation = useMutation(PUT_BILL_PAY)
+  const updateBillPaidMutation = useMutation(PUT_BILL_PAY)
   const updateAccountBalanceMutation = useMutation(PUT_ACCOUNT_BALANCE)
 
   const [state] = useContext(Context)
@@ -81,12 +81,12 @@ const PayBill = props => {
           company_id: state.company.id,
           credit_id,
           debit_id,
-          payment: props.payment,
+          payment,
           type,
-          bill_id: bill_id,
+          bill_id,
         },
       })
-      await updateBilltMutation({
+      await updateBillPaidMutation({
         variables: {
           id: bill_id,
           company_id: state.company.id,

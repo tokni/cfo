@@ -259,8 +259,6 @@ const Chart = props => {
                 default:
                   break
               }
-              console.log("type items", items);
-              
               setItems(items)
             } catch (e) {
               console.log('error chart', e)

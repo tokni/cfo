@@ -1,11 +1,10 @@
 import Account from './Account/Account'
 import Callback from '../../Callback'
 import Company from './Company/Company'
-import CreateCompany from './Company/CreateCompany'
 import Customers from './Customer/Customer'
-import DayBook from './DayBook/DayBook'
+// import DayBook from './DayBook/DayBook'
 import Home from './Home/Home'
-import Products from './Product/Products'
+import Products from './Product/Product'
 import React from 'react'
 import Bill from './Bill/Bill'
 import Vendor from './Vendor/Vendor'
@@ -16,13 +15,10 @@ import Transaction from './Transaction/Transaction'
 import Tax from './Tax/Tax'
 import BalanceSheet from './BalanceSheet/BalanceSheet'
 import Balance from './Balance/Balance'
-
-
-
 import { Switch, Route } from 'react-router-dom'
-import Operations from './Operations/Operations';
+import Operations from './Operations/Operations'
 
-export const ContentContainer = () => (
+export const ContentContainer = props => (
   <Switch>
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/overview`}
@@ -31,25 +27,26 @@ export const ContentContainer = () => (
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/invoice`}
       component={GetInvoice}
+      auth={props.auth}
     />
     <Route path={`${process.env.PUBLIC_URL}/callback`} component={Callback} />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/accounts`}
       component={Account}
     />
-    <ProtectedRoute
-      path={`${process.env.PUBLIC_URL}/addcompany`}
-      component={CreateCompany}
-    />
+
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/companies`}
       component={Company}
     />
-    <ProtectedRoute
+    {/* <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/daybook`}
       component={DayBook}
+    /> */}
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/bills`}
+      component={Bill}
     />
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/bills`} component={Bill} />
     <ProtectedRoute
       path={`${process.env.PUBLIC_URL}/products`}
       component={Products}
@@ -70,12 +67,23 @@ export const ContentContainer = () => (
       path={`${process.env.PUBLIC_URL}/transactions`}
       component={Transaction}
     />
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/tax`} component={Tax} />
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/tax`}
+      component={Tax}
+    />
 
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balancesheet`} component={BalanceSheet} />
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/balance`} component={Balance} />
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/balancesheet`}
+      component={BalanceSheet}
+    />
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/balance`}
+      component={Balance}
+    />
 
-    <ProtectedRoute path={`${process.env.PUBLIC_URL}/operations`} component={Operations} />
-
+    <ProtectedRoute
+      path={`${process.env.PUBLIC_URL}/operations`}
+      component={Operations}
+    />
   </Switch>
 )

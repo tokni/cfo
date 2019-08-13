@@ -7,7 +7,7 @@ import { Grid } from '@material-ui/core'
 
 export const MainContainer = props => (
   <Fragment>
-    <StoreContainer auth={props.auth} />
+    <StoreContainer auth={props.auth}/>
     <Grid item container lg={12}>
       <Grid item lg={12} sm={12}>
         <Header auth={props.auth} />
