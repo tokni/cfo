@@ -1,11 +1,9 @@
 import Context from '../../../Context/Context'
 import Language from '../../../utils/language'
 import React, { useContext, Fragment } from 'react'
-import UpdateTransaction from './UpdateTransaction'
-import { useSubscription, useMutation } from 'react-apollo-hooks'
+import { useSubscription } from 'react-apollo-hooks'
 import {
   GET_TRANSACTIONS_SUBSCRIPTION,
-  DELETE_TRANSACTION,
 } from '../../../utils/Query/TransactionQuery'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core'
@@ -24,8 +22,8 @@ const styles = theme => ({
 })
 
 const GetTransactions = props => {
-  const update = <UpdateTransaction />
-  const deleteTransaction = useMutation(DELETE_TRANSACTION)
+  // const update = <UpdateTransaction />
+  // const deleteTransaction = useMutation(DELETE_TRANSACTION)
   const [state] = useContext(Context)
   const { data, error, loading } = useSubscription(
     GET_TRANSACTIONS_SUBSCRIPTION,
