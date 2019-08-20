@@ -16,7 +16,7 @@ const MenuItems = () => {
   }
   return menu
 }
-const You = () => {
+const CompanyItems = () => {
   let menu = []
   menu.push(Language['en'].accounts)
   menu.push(Language['en'].companies)
@@ -44,4 +44,4 @@ const NestedItems = () => {
   return menu
 }
 
-export { MenuItems, NestedItems, TransactionsItems, You }
+export { MenuItems, NestedItems, TransactionsItems, CompanyItems }

@@ -2,7 +2,7 @@ import Context from '../../Context/Context'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Language from '../../utils/language'
 import MailIcon from '@material-ui/icons/Mail'
-import { MenuItems, NestedItems, TransactionsItems, You } from './MenuItems'
+import { MenuItems, NestedItems, TransactionsItems, CompanyItems } from './MenuItems'
 import PropTypes from 'prop-types'
 import React, { useContext, useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
@@ -178,7 +178,7 @@ const SideDrawer = props => {
         <Divider />
         {state.company ? (
           <List component="div" disablePadding>
-            {NestedMenu(Language[state.locals].company, You)}
+            {NestedMenu(Language[state.locals].company, CompanyItems)}
           </List>
         ) : null}
         {state.company ? (
